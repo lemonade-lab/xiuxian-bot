@@ -1,0 +1,204 @@
+import { type UserRingType, user_ring, literal } from '../../../db/index.js'
+import { searchAllThing } from '../../wrap/goods.js'
+
+/**
+ *
+ * @param UID
+ * @returns
+ */
+export async function getLength(UID: string) {
+  return await user_ring.count({
+    where: {
+      uid: UID
+    }
+  })
+}
+
+/**
+ * 删除背包所有东西
+ * @param UID
+ */
+export async function del(UID: string, type: number[] | undefined = undefined) {
+  if (type) {
+    await user_ring.destroy({
+      where: {
+        uid: UID,
+        type
+      }
+    })
+  } else {
+    await user_ring.destroy({
+      where: {
+        uid: UID
+      }
+    })
+  }
+}
+
+/**
+ * 检查戒指是否已满
+ * @param UID
+ * @returns
+ */
+export async function backpackFull(UID: string, grade = 1) {
+  const length = await getLength(UID)
+  // 等级一直是1
+  const size = grade * 10
+  const n = size - length
+  // 至少有空位置的时候返回n
+  return n >= 1 ? n : false
+}
+
+/**
+ * 给UID添加物品
+ * @param UID
+ * @param arr
+ * @returns
+ */
+export async function addRingThing(
+  UID: string,
+  arr: {
+    name: string
+    acount: number
+  }[],
+  grade = 1
+) {
+  for (const { name, acount } of arr) {
+    const THING = await searchAllThing(name)
+    if (!THING) continue
+    const length = await user_ring.count({
+      where: {
+        uid: UID,
+        name: name
+      }
+    })
+    // 当前储物袋格子已到极限
+    if (length >= grade * 10) break
+    // 查找物品
+    const existingItem: UserRingType = (await user_ring.findOne({
+      where: {
+        uid: UID,
+        name: name
+      },
+      raw: true
+    })) as any
+    // 存在则更新
+    if (existingItem) {
+      await user_ring.update(
+        {
+          acount: Number(existingItem.acount) + Number(acount)
+        },
+        {
+          where: {
+            uid: UID,
+            name: THING.name
+          }
+        }
+      )
+    } else {
+      // 如果物品不存在，则创建新数据条目
+      await user_ring.create({
+        uid: UID, //编号
+        tid: THING.id, // 物品编号
+        type: THING.type, //物品类型
+        name: THING.name, // 物品名
+        acount: acount // 物品数量
+      } as UserRingType)
+    }
+  }
+  return
+}
+
+/**
+ * 给UID减少物品
+ * @param UID
+ * @param arr
+ * @returns
+ */
+export async function reduceRingThing(
+  UID: string,
+  arr: {
+    name: string
+    acount: number
+  }[]
+) {
+  for (const { name, acount } of arr) {
+    const data = await searchRingByName(UID, name)
+    // 不存在该物品
+    if (!data) continue
+    // 计算
+    const ACCOUNT = Number(data.acount) - Number(acount)
+    // 有效数量
+    if (ACCOUNT >= 1) {
+      await user_ring.update(
+        {
+          acount: ACCOUNT
+        },
+        {
+          where: {
+            uid: UID,
+            name: name
+          }
+        }
+      )
+      continue
+    }
+    // 删除该物品
+    await user_ring.destroy({
+      where: {
+        uid: UID,
+        name: name
+      }
+    })
+  }
+  return true
+}
+
+/**
+ * 搜索UID的储物袋有没有物品名为NAME
+ * @param UID
+ * @param name
+ * @returns
+ */
+export async function searchRingByName(UID: string, name: string) {
+  const data: UserRingType | null = (await user_ring.findOne({
+    where: {
+      uid: UID,
+      name
+    },
+    raw: true
+  })) as any
+  if (data)
+    return {
+      ...(await searchAllThing(name)),
+      acount: data.acount
+    }
+  return false
+}
+
+/**
+ * 随机掉一个物品,
+ * 并把物品名返回,
+ * 如果没有则返回为空[]
+ * @param UID
+ * @returns
+ */
+export async function delThing(UID: string) {
+  const data: UserRingType | null = (await user_ring.findOne({
+    where: {
+      uid: UID
+    },
+    // 进行随机排序
+    order: literal('RAND()'),
+    raw: true
+  })) as any
+  if (!data) return []
+  // 击碎
+  reduceRingThing(UID, [
+    {
+      name: data.name,
+      acount: data.acount
+    }
+  ])
+  return [data]
+}
