@@ -48,15 +48,15 @@ export class Admins extends plugin {
       },
       raw: true
     })) as any
-    const user_ass: DB.UserAssType = (await DB.user_ass.findOne({
+    const user_ass: DB.UserAssType[] = (await DB.user_ass.findAll({
       where: { uid: switchuid },
       attributes: {
         exclude: ['id', 'uid'] // 指定要排除的列名
       },
       raw: true
     })) as any
-    const user_equipment: DB.UserEquipmentType =
-      (await DB.user_equipment.findOne({
+    const user_equipment: DB.UserEquipmentType[] =
+      (await DB.user_equipment.findAll({
         where: { uid: switchuid },
         attributes: {
           exclude: ['id', 'uid'] // 指定要排除的列名
@@ -71,14 +71,14 @@ export class Admins extends plugin {
         },
         raw: true
       })) as any
-    const user_fate: DB.UserFateType = (await DB.user_fate.findOne({
+    const user_fate: DB.UserFateType[] = (await DB.user_fate.findAll({
       where: { uid: switchuid },
       attributes: {
         exclude: ['id', 'uid'] // 指定要排除的列名
       },
       raw: true
     })) as any
-    const user_ring: DB.UserRingType = (await DB.user_ring.findOne({
+    const user_ring: DB.UserRingType[] = (await DB.user_ring.findAll({
       where: { uid: switchuid },
       attributes: {
         exclude: ['id', 'uid'] // 指定要排除的列名
@@ -88,7 +88,7 @@ export class Admins extends plugin {
     const user_level = (await DB.user_level.findAll({
       where: { uid: switchuid },
       attributes: {
-        exclude: ['id'] // 指定要排除的列名
+        exclude: ['id', 'uid'] // 指定要排除的列名
       },
       raw: true
     })) as any
@@ -114,12 +114,19 @@ export class Admins extends plugin {
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }
     )
-    await DB.user_ring.update(user_ring, { where: { uid: bindinguid } })
+    for (let index = 0; index < user_ring.length; index++) {
+      user_ring[index].uid = bindinguid
+      await DB.user_ring.create(user_ring[index])
+    }
     await DB.user_fate.update(
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }
     )
-    await DB.user_fate.update(user_fate, { where: { uid: bindinguid } })
+    for (let index = 0; index < user_fate.length; index++) {
+      user_fate[index].uid = bindinguid
+      await DB.user_fate.create(user_fate[index])
+    }
+
     await DB.user_compensate.update(
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }
@@ -131,23 +138,26 @@ export class Admins extends plugin {
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }
     )
-    await DB.user_equipment.update(user_equipment, {
-      where: { uid: bindinguid }
-    })
+    for (let index = 0; index < user_equipment.length; index++) {
+      user_equipment[index].uid = bindinguid
+      await DB.user_equipment.create(user_equipment[index])
+    }
     await DB.user_ass.update(
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }
     )
-    await DB.user_ass.update(user_ass, { where: { uid: bindinguid } })
+    for (let index = 0; index < user_ass.length; index++) {
+      user_ass[index].uid = bindinguid
+      await DB.user_ass.create(user_ass[index])
+    }
 
     await DB.user_bag.update(
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }
     )
     for (let index = 0; index < user_bag.length; index++) {
-      await DB.user_bag.update(user_bag[index], {
-        where: { uid: user_bag[index].uid }
-      })
+      user_bag[index].uid = bindinguid
+      await DB.user_bag.create(user_bag[index])
     }
 
     await DB.user_level.update(
@@ -156,7 +166,7 @@ export class Admins extends plugin {
     )
     for (let index = 0; index < user_level.length; index++) {
       await DB.user_level.update(user_level[index], {
-        where: { uid: user_level[index].uid }
+        where: { uid: bindinguid }
       })
     }
 
@@ -165,9 +175,8 @@ export class Admins extends plugin {
       { where: { uid: switchuid } }
     )
     for (let index = 0; index < user_skill.length; index++) {
-      await DB.user_skills.update(user_skill[index], {
-        where: { uid: user_skill[index].uid }
-      })
+      user_skill[index].uid = bindinguid
+      await DB.user_skills.create(user_skill[index])
     }
     e.reply(`已切换至${bindinguid}`)
     return
