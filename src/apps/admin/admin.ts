@@ -99,8 +99,6 @@ export class Admins extends plugin {
       },
       raw: true
     })) as any
-    console.log(user_level)
-
     //然后切换
     DB.user.update({ uid: switchuid + '-1' }, { where: { uid: switchuid } })
     DB.user.update(user, { where: { uid: bindinguid } })
