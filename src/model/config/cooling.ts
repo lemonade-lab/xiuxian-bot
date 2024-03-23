@@ -100,3 +100,14 @@ export const pageSize = 6
 export const AssLevel = 24
 
 export const AssNumer = 5000000
+
+/**
+ * 升级宗门及宝库所需开天令
+ */
+export const upgradeass = [4, 8, 16, 32, 64]
+/**
+ * 宗门灵石池上限
+ */
+export const MAXpropety = [
+  5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000
+]
