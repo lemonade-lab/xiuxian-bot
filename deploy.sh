@@ -19,5 +19,5 @@ cd ./dist
 git init
 git add -A
 git commit -m $variable
-git push -f git@github.com:ningmengchongshui/xiuxian-plugin.git master:build
+git push -f git@github.com:ningmengchongshui/xiuxian-bot.git master:build
 cd ..
