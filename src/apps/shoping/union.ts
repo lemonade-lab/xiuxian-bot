@@ -299,7 +299,6 @@ export class union extends plugin {
     }
     if (thing.price * Number(quantity) < 2000) {
       e.reply('[联盟]黄天霸\n物品价值不足2000')
-
       return
     }
     // 减少

@@ -226,12 +226,37 @@ export class AssManage extends plugin {
   async improreAss(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    /**
-     * 升级的前提是拥有开天令
-     * 占据一席之地
-     * 然后成为
-     */
-    e.reply('待更新')
+    const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
+      where: {
+        id: Number(UID)
+      },
+      include: [
+        {
+          model: DB.ass
+        }
+      ],
+      raw: true
+    })) as any
+    const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
+    if (v === false) return
+    if (v === '权能不足') {
+      e.reply(v)
+      return
+    }
+    const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
+    const num = GameApi.Cooling.upgradeass[UIDData['ass.grade']]
+    if (!goods) return e.reply('你没有开天令')
+    if (goods.acount < num) return e.reply('开天令不足')
+    GameApi.Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
+    await DB.ass.update(
+      { grade: UIDData['ass.grade'] },
+      {
+        where: {
+          id: Number(UID)
+        }
+      }
+    )
+
     return
   }
 
@@ -242,12 +267,47 @@ export class AssManage extends plugin {
   async improreAssTreasure(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    /**
-     * 升级的前提是拥有开天令
-     * 占据一席之地
-     * 然后成为
-     */
-    e.reply('待更新')
+    const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
+      where: {
+        id: Number(UID)
+      },
+      include: [
+        {
+          model: DB.ass
+        }
+      ],
+      raw: true
+    })) as any
+    const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
+    if (v === false) return
+    if (v === '权能不足') {
+      e.reply(v)
+      return
+    }
+    const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
+    const num = GameApi.Cooling.upgradeass[UIDData['ass.grade']]
+    if (!goods) return e.reply('你没有开天令')
+    if (goods.acount < num) return e.reply('开天令不足')
+    GameApi.Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
+    await DB.ass
+      .update(
+        { property: GameApi.Cooling.MAXpropety[UIDData['ass.bag_grade']] },
+        {
+          where: {
+            id: Number(UID)
+          }
+        }
+      )
+      .then(() => {
+        e.reply('升级完成', {
+          quote: e.msg_id
+        })
+      })
+      .catch(() => {
+        e.reply('升级失败', {
+          quote: e.msg_id
+        })
+      })
     return
   }
   /**
@@ -285,11 +345,23 @@ export class AssManage extends plugin {
       return
     }
     uData.authentication -= 1
-    await DB.user_ass.update(uData, {
-      where: {
-        id: Number(id)
-      }
-    })
+    await DB.user_ass
+      .update(uData, {
+        where: {
+          id: Number(id)
+        }
+      })
+      .then(() => {
+        e.reply('提拔成功', {
+          quote: e.msg_id
+        })
+      })
+      .catch(() => {
+        e.reply('提拔失败', {
+          quote: e.msg_id
+        })
+      })
+
     return
   }
   /**
@@ -327,11 +399,23 @@ export class AssManage extends plugin {
       return
     }
     uData.authentication += 1
-    await DB.user_ass.update(uData, {
-      where: {
-        id: Number(id)
-      }
-    })
+    await DB.user_ass
+      .update(uData, {
+        where: {
+          id: Number(id)
+        }
+      })
+      .then(() => {
+        e.reply('贬值成功', {
+          quote: e.msg_id
+        })
+      })
+      .catch(() => {
+        e.reply('贬值失败', {
+          quote: e.msg_id
+        })
+      })
+
     return
   }
 }

@@ -172,7 +172,6 @@ export class Monster extends plugin {
 
     if (p > 30) {
       const obj = {}
-
       if (p > 60) {
         const type = GameApi.Method.isProbability(mon.level)
         const thing = await GameApi.Goods.getRandomThing({
@@ -243,7 +242,13 @@ export class Monster extends plugin {
         acount: lingshi
       })
     }
-
+    const P1 = GameApi.Method.isProbability(95)
+    if (P1) {
+      ThingArr.push({
+        name: '开天令',
+        acount: 1
+      })
+    }
     // 添加物品
     await GameApi.Bag.addBagThing(UID, UserData.bag_grade, ThingArr)
 
