@@ -166,7 +166,7 @@ export class Admins extends plugin {
     )
     for (let index = 0; index < user_level.length; index++) {
       await DB.user_level.update(user_level[index], {
-        where: { uid: bindinguid }
+        where: { uid: bindinguid, type: user_level[index].type }
       })
     }
 

@@ -23,15 +23,15 @@ export class AssManage extends plugin {
         {
           reg: /^(#|\/)?扩建宝库$/,
           fnc: 'improreAssTreasure'
+        },
+        {
+          reg: /^(#|\/)?提拔\d+$/,
+          fnc: 'promoteAss'
+        },
+        {
+          reg: /^(#|\/)?贬职$/,
+          fnc: 'demotionAss'
         }
-        // {
-        //   reg: /^(#|\/)?提拔$/,
-        //   fnc: 'promoteAss'
-        // },
-        // {
-        //   reg: /^(#|\/)?贬职$/,
-        //   fnc: 'demotionAss'
-        // },
       ]
     })
   }
@@ -171,7 +171,6 @@ export class AssManage extends plugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const id = Number(e.msg.replace(/^(#|\/)?踢出/, ''))
     if (!id) return
-
     const uData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
         id: Number(id)
@@ -237,7 +236,7 @@ export class AssManage extends plugin {
   }
 
   /**
-   * 升级
+   * 升级宝库
    * @param e
    */
   async improreAssTreasure(e: AEvent) {
@@ -249,6 +248,90 @@ export class AssManage extends plugin {
      * 然后成为
      */
     e.reply('待更新')
+    return
+  }
+  /**
+   * 提拔
+   * @param e
+   */
+  async promoteAss(e: AEvent) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    const id = Number(e.msg.replace(/^(#|\/)?提拔/, ''))
+    if (!id) return
+    const uData: DB.UserAssType = (await DB.user_ass.findOne({
+      where: {
+        id: Number(id)
+      },
+      include: [
+        {
+          model: DB.ass
+        }
+      ],
+      raw: true
+    })) as any
+    // 不存在该玩家
+    if (!uData) return
+    if (!uData.authentication) return e.reply('权能已达最高')
+    const v = await GameApi.Ass.v(UID, uData['ass.name'])
+    if (v === false) return
+    if (v === '权能不足') {
+      e.reply(v)
+      return
+    }
+    const { UserAss } = v
+    if (uData.authentication <= UserAss.authentication) {
+      e.reply('权能过低')
+      return
+    }
+    uData.authentication -= 1
+    await DB.user_ass.update(uData, {
+      where: {
+        id: Number(id)
+      }
+    })
+    return
+  }
+  /**
+   * 贬职
+   * @param e
+   */
+  async demotionAss(e: AEvent) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    const id = Number(e.msg.replace(/^(#|\/)?提拔/, ''))
+    if (!id) return
+    const uData: DB.UserAssType = (await DB.user_ass.findOne({
+      where: {
+        id: Number(id)
+      },
+      include: [
+        {
+          model: DB.ass
+        }
+      ],
+      raw: true
+    })) as any
+    // 不存在该玩家
+    if (!uData) return
+    if (uData.authentication == 9) return e.reply('权能已达最低')
+    const v = await GameApi.Ass.v(UID, uData['ass.name'])
+    if (v === false) return
+    if (v === '权能不足') {
+      e.reply(v)
+      return
+    }
+    const { UserAss } = v
+    if (uData.authentication <= UserAss.authentication) {
+      e.reply('权能过低')
+      return
+    }
+    uData.authentication += 1
+    await DB.user_ass.update(uData, {
+      where: {
+        id: Number(id)
+      }
+    })
     return
   }
 }
