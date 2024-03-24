@@ -29,7 +29,7 @@ export class AssManage extends plugin {
           fnc: 'promoteAss'
         },
         {
-          reg: /^(#|\/)?贬职$/,
+          reg: /^(#|\/)?贬职\d+$/,
           fnc: 'demotionAss'
         }
       ]
@@ -228,7 +228,7 @@ export class AssManage extends plugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        id: Number(UID)
+        uid: Number(UID)
       },
       include: [
         {
@@ -237,6 +237,7 @@ export class AssManage extends plugin {
       ],
       raw: true
     })) as any
+
     const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
     if (v === false) return
     if (v === '权能不足') {
@@ -252,11 +253,11 @@ export class AssManage extends plugin {
       { grade: UIDData['ass.grade'] },
       {
         where: {
-          id: Number(UID)
+          id: Number(UIDData.aid)
         }
       }
     )
-
+    await e.reply('扩建成功')
     return
   }
 
@@ -269,7 +270,7 @@ export class AssManage extends plugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        id: Number(UID)
+        uid: Number(UID)
       },
       include: [
         {
@@ -294,7 +295,7 @@ export class AssManage extends plugin {
         { property: GameApi.Cooling.MAXpropety[UIDData['ass.bag_grade']] },
         {
           where: {
-            id: Number(UID)
+            id: Number(UIDData.aid)
           }
         }
       )
@@ -321,7 +322,7 @@ export class AssManage extends plugin {
     if (!id) return
     const uData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        id: Number(id)
+        uid: Number(id)
       },
       include: [
         {
@@ -332,7 +333,7 @@ export class AssManage extends plugin {
     })) as any
     // 不存在该玩家
     if (!uData) return
-    if (!uData.authentication) return e.reply('权能已达最高')
+    if (!(uData.authentication - 1)) return e.reply('权能已达最高')
     const v = await GameApi.Ass.v(UID, uData['ass.name'])
     if (v === false) return
     if (v === '权能不足') {
@@ -345,10 +346,11 @@ export class AssManage extends plugin {
       return
     }
     uData.authentication -= 1
+    uData.identity = GameApi.Config.ASS_IDENTITY_MAP[uData.authentication]
     await DB.user_ass
       .update(uData, {
         where: {
-          id: Number(id)
+          uid: Number(id)
         }
       })
       .then(() => {
@@ -371,11 +373,11 @@ export class AssManage extends plugin {
   async demotionAss(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const id = Number(e.msg.replace(/^(#|\/)?提拔/, ''))
+    const id = Number(e.msg.replace(/^(#|\/)?贬职/, ''))
     if (!id) return
     const uData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        id: Number(id)
+        uid: Number(id)
       },
       include: [
         {
@@ -402,16 +404,16 @@ export class AssManage extends plugin {
     await DB.user_ass
       .update(uData, {
         where: {
-          id: Number(id)
+          uid: Number(id)
         }
       })
       .then(() => {
-        e.reply('贬值成功', {
+        e.reply('贬职成功', {
           quote: e.msg_id
         })
       })
       .catch(() => {
-        e.reply('贬值失败', {
+        e.reply('贬职失败', {
           quote: e.msg_id
         })
       })
