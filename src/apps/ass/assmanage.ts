@@ -25,11 +25,11 @@ export class AssManage extends plugin {
           fnc: 'improreAssTreasure'
         },
         {
-          reg: /^(#|\/)?提拔\d+$/,
+          reg: /^(#|\/)?提拔.*$/,
           fnc: 'promoteAss'
         },
         {
-          reg: /^(#|\/)?贬职\d+$/,
+          reg: /^(#|\/)?贬职.*$/,
           fnc: 'demotionAss'
         }
       ]
