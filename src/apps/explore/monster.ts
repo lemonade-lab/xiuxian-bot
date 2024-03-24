@@ -242,7 +242,7 @@ export class Monster extends plugin {
         acount: lingshi
       })
     }
-    const P1 = GameApi.Method.isProbability(95)
+    const P1 = GameApi.Method.isProbability(5)
     if (P1) {
       ThingArr.push({
         name: '开天令',
