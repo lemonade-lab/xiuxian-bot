@@ -228,7 +228,7 @@ export class AssManage extends plugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        uid: Number(UID)
+        uid: UID
       },
       include: [
         {
@@ -244,6 +244,7 @@ export class AssManage extends plugin {
       e.reply(v)
       return
     }
+    if (UIDData['ass.grade'] > 4) return e.reply('宗门等级已达最高')
     const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
     const num = GameApi.Cooling.upgradeass[UIDData['ass.grade']]
     if (!goods) return e.reply('你没有开天令')
@@ -253,7 +254,7 @@ export class AssManage extends plugin {
       { grade: UIDData['ass.grade'] },
       {
         where: {
-          id: Number(UIDData.aid)
+          id: UIDData.aid
         }
       }
     )
@@ -270,7 +271,7 @@ export class AssManage extends plugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        uid: Number(UID)
+        uid: UID
       },
       include: [
         {
@@ -285,6 +286,8 @@ export class AssManage extends plugin {
       e.reply(v)
       return
     }
+    if (UIDData['ass.bag_grade'] > 4) return e.reply('宗门宝库等级已达最高')
+
     const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
     const num = GameApi.Cooling.upgradeass[UIDData['ass.grade']]
     if (!goods) return e.reply('你没有开天令')
@@ -295,7 +298,7 @@ export class AssManage extends plugin {
         { property: GameApi.Cooling.MAXpropety[UIDData['ass.bag_grade']] },
         {
           where: {
-            id: Number(UIDData.aid)
+            id: UIDData.aid
           }
         }
       )
@@ -318,11 +321,11 @@ export class AssManage extends plugin {
   async promoteAss(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const id = Number(e.msg.replace(/^(#|\/)?提拔/, ''))
+    const id = e.msg.replace(/^(#|\/)?提拔/, '')
     if (!id) return
     const uData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        uid: Number(id)
+        uid: id
       },
       include: [
         {
@@ -350,7 +353,7 @@ export class AssManage extends plugin {
     await DB.user_ass
       .update(uData, {
         where: {
-          uid: Number(id)
+          uid: id
         }
       })
       .then(() => {
@@ -373,11 +376,11 @@ export class AssManage extends plugin {
   async demotionAss(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const id = Number(e.msg.replace(/^(#|\/)?贬职/, ''))
+    const id = e.msg.replace(/^(#|\/)?贬职/, '')
     if (!id) return
     const uData: DB.UserAssType = (await DB.user_ass.findOne({
       where: {
-        uid: Number(id)
+        uid: id
       },
       include: [
         {
@@ -404,7 +407,7 @@ export class AssManage extends plugin {
     await DB.user_ass
       .update(uData, {
         where: {
-          uid: Number(id)
+          uid: id
         }
       })
       .then(() => {
