@@ -251,7 +251,7 @@ export class AssManage extends plugin {
     if (goods.acount < num) return e.reply('开天令不足')
     GameApi.Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
     await DB.ass.update(
-      { grade: UIDData['ass.grade'] },
+      { grade: UIDData['ass.grade'] + 1 },
       {
         where: {
           id: UIDData.aid
@@ -289,13 +289,15 @@ export class AssManage extends plugin {
     if (UIDData['ass.bag_grade'] > 4) return e.reply('宗门宝库等级已达最高')
 
     const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
-    const num = GameApi.Cooling.upgradeass[UIDData['ass.grade']]
+    const num = GameApi.Cooling.upgradeass[UIDData['ass.bag_grade']]
     if (!goods) return e.reply('你没有开天令')
     if (goods.acount < num) return e.reply('开天令不足')
     GameApi.Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
     await DB.ass
       .update(
-        { property: GameApi.Cooling.MAXpropety[UIDData['ass.bag_grade']] },
+        {
+          bag_grade: UIDData['ass.bag_grade'] + 1
+        },
         {
           where: {
             id: UIDData.aid
