@@ -113,7 +113,7 @@ body {
 }
 
 .use_data {
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .user_font {
@@ -151,8 +151,7 @@ body {
 
 .user_bottom1 {
   border-radius: 20px;
-  padding: 0px 25px;
-  margin: auto;
+  width: 100%;
 }
 
 .user_bottom2 {

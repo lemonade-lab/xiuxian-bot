@@ -1,9 +1,9 @@
 import { defineAfloat } from 'afloat'
 export default defineAfloat({
   target: {
-    directorys: ['sql', '.image', 'public']
+    directorys: ['sql', 'public']
   },
   nodemon: {
-    watch: ['a.*.{ts,js}', 'src', 'main.{ts,js}']
+    watch: ['a.*.{ts,js,tsx,jsx}', 'src', 'main.{ts,js,tsx,jsx}']
   }
 })

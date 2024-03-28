@@ -8,7 +8,7 @@ import {
   activityCooling,
   activityCoolingNot,
   Server,
-  getSkillsComponent
+  getSkyComponent
 } from '../../api/index.js'
 
 export class SkyTower extends plugin {
@@ -125,7 +125,7 @@ export class SkyTower extends plugin {
       })
       return
     }
-    const img = await getSkillsComponent(await Server.showSky(UID))
+    const img = await getSkyComponent(await Server.showSky(UID))
     if (typeof img != 'boolean') e.reply(img)
     return
   }

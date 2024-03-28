@@ -26,6 +26,12 @@ mkdirSync(dir, { recursive: true })
 // init
 const p = new Puppeteer()
 
+/**
+ * 储物袋
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getBagComponent(data, name = 'bag.html') {
   const html = renderToString(<BagComponent data={data} />)
   const address = join(dir, name)
@@ -33,6 +39,12 @@ export function getBagComponent(data, name = 'bag.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 修仙配置
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getDefsetComponent(data, name = 'defset.html') {
   const html = renderToString(<DefsetComponent data={data} />)
   const address = join(dir, name)
@@ -40,6 +52,12 @@ export function getDefsetComponent(data, name = 'defset.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 面板信息
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getEquipmentComponent(data, name = 'equipment.html') {
   const html = renderToString(<EquipmentComponent data={data} />)
   const address = join(dir, name)
@@ -47,6 +65,12 @@ export function getEquipmentComponent(data, name = 'equipment.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 修仙帮助
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getHelpComponent(data, name = 'help.html') {
   const html = renderToString(<HelpComponent data={data} />)
   const address = join(dir, name)
@@ -54,6 +78,12 @@ export function getHelpComponent(data, name = 'help.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 个人信息
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getInformationComponent(data, name = 'information.html') {
   const html = renderToString(<InformationComponent data={data} />)
   const address = join(dir, name)
@@ -61,6 +91,12 @@ export function getInformationComponent(data, name = 'information.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 杀神榜
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getKillComponent(data, name = 'kill.html') {
   const html = renderToString(<KillComponent data={data} />)
   const address = join(dir, name)
@@ -68,6 +104,12 @@ export function getKillComponent(data, name = 'kill.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 天命榜？？
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getListComponent(data, name = 'list.html') {
   const html = renderToString(<ListComponent data={data} />)
   const address = join(dir, name)
@@ -75,6 +117,12 @@ export function getListComponent(data, name = 'list.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 纳戒
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getRingComponent(data, name = 'ring.html') {
   const html = renderToString(<RingComponent data={data} />)
   const address = join(dir, name)
@@ -82,6 +130,12 @@ export function getRingComponent(data, name = 'ring.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 功法信息
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getSkillsComponent(data, name = 'skills.html') {
   const html = renderToString(<SkillsComponent data={data} />)
   const address = join(dir, name)
@@ -89,6 +143,12 @@ export function getSkillsComponent(data, name = 'skills.html') {
   return p.toFile(address, {})
 }
 
+/**
+ * 通天塔
+ * @param data
+ * @param name
+ * @returns
+ */
 export function getSkyComponent(data, name = 'sky.html') {
   const html = renderToString(<SkyComponent data={data} />)
   const address = join(dir, name)

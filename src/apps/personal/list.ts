@@ -1,7 +1,7 @@
 import { plugin, type AEvent } from 'alemonjs'
 import {
-  getKillComponent,
   getListComponent,
+  getKillComponent,
   isThereAUserPresent,
   Server
 } from '../../api/index.js'

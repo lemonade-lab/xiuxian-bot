@@ -11,17 +11,16 @@
 ### 本地调试
 
 ```sh
-|-- .image/  image配置
 |-- .vscode/ vs配置
 |-- public/  公共文件
     |-- defset/   配置
     |-- img/      图片
-    |-- pages/    页面
 |-- sql/     sql文件
 |-- src/
     |-- api/   应用接口
     |-- apps/  应用
-    |-- db /   数据层
+    |-- db/   数据层
+    |-- image/   图片
     |-- model  应用模型
     |-- server 服务端
     |-- utils  通用工具
@@ -35,7 +34,7 @@ deploy.sh        打包脚本
 - 安装
 
 ```sh
-git clone --depth=1  git@github.com:ningmengchongshui/xiuxian-plugin.git
+git clone --depth=1  git@github.com:ningmengchongshui/xiuxian-bot.git
 ```
 
 - 依赖加载
@@ -80,14 +79,14 @@ export default ALoginOptions({
 配置`alemon.env`文件
 
 ```env
-ALEMONJS_REDIS_HOST = ''
+ALEMONJS_REDIS_HOST = 'localhost'
 ALEMONJS_REDIS_PORT = '6379'
 ALEMONJS_REDIS_PASSWORD = ''
 ALEMONJS_REDIS_DB = '3'
 ALEMONJS_MYSQL_DATABASE = 'xiuxian'
 ALEMONJS_MYSQL_USER = 'root'
 ALEMONJS_MYSQL_PASSWORD = ''
-ALEMONJS_MYSQL_HOST = ''
+ALEMONJS_MYSQL_HOST = 'locahost'
 ALEMONJS_MYSQL_PROT = '3306'
 ```
 
@@ -126,7 +125,7 @@ npm i  bullmq ioredis mysql2 sequelize -W
 - 应用安装
 
 ```sh
-git clone --depth=1 -b build https://github.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
+git clone --depth=1 -b build https://github.com/ningmengchongshui/xiuxian-bot.git ./plugins/xiuxian-plugin
 ```
 
 > 先装依赖再装插件,防止依赖仅在插件内node_modules
@@ -138,11 +137,9 @@ git clone --depth=1 -b build https://github.com/ningmengchongshui/xiuxian-plugin
 - 结构
 
 ```sh
-|-- .image/  image配置
 |-- public/  公共文件
     |-- defset/   配置
     |-- img/      图片
-    |-- pages/    页面
 |-- sql/     sql文件
 export.json      导出说明
 main.js          应用入口
