@@ -1,11 +1,12 @@
 import { plugin, type AEvent } from 'alemonjs'
 import {
   DB,
-  obtainingImages,
   GameApi,
   showUserMsg,
   Server,
-  isUser
+  isUser,
+  getEquipmentComponent,
+  getSkillsComponent
 } from '../../api/index.js'
 export class Information extends plugin {
   constructor() {
@@ -67,8 +68,8 @@ export class Information extends plugin {
         GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now).then(
           () => {
             Server.equipmentInformation(UID, e.user_avatar).then(res => {
-              obtainingImages('/public/pages/equipment.vue', res).then(res => {
-                e.reply(res)
+              getEquipmentComponent(res).then(img => {
+                if (typeof img != 'boolean') e.reply(img)
               })
             })
           }
@@ -95,8 +96,8 @@ export class Information extends plugin {
         }
         GameApi.Skills.updataEfficiency(UID, UserData.talent).then(() => {
           Server.skillInformation(UID, e.user_avatar).then(res => {
-            obtainingImages('/public/pages/skills.vue', res).then(res => {
-              e.reply(res)
+            getSkillsComponent(res).then(img => {
+              if (typeof img != 'boolean') e.reply(img)
             })
           })
         })

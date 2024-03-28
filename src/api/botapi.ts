@@ -1,2 +1,2 @@
 export * from '../utils/cache.js'
-export * from '../utils/img.js'
+export * from '../image/index.js'

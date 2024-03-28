@@ -1,15 +1,15 @@
 import { ABuffer, importPath } from 'alemonjs'
-import { obtainingImages } from './img.js'
 import { readFileSync } from 'fs'
 import { join } from 'path'
+import { getHelpComponent } from '../image/index.js'
 
 const helpData = {}
-
 const app = importPath(import.meta.url)
+const dir = app.cwd()
 
 function getJson(name: string) {
   return JSON.parse(
-    readFileSync(join(app.cwd(), 'public', 'defset', `${name}.json`), 'utf-8')
+    readFileSync(join(dir, 'public', 'defset', `${name}.json`), 'utf-8')
   )
 }
 
@@ -22,10 +22,7 @@ export async function urlHelpCache(name: string) {
   // 缓存不存在
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
     // 得数据
-    helpData[name] = await obtainingImages(
-      '/public/pages/help.vue',
-      getJson(name)
-    ).catch((err: any) => {
+    helpData[name] = await getHelpComponent(getJson(name)).catch((err: any) => {
       // 发生错误
       console.error(err)
       return false
@@ -43,7 +40,7 @@ export async function urlHelpCache(name: string) {
 export function lcalCacheImage(name: string) {
   // 缓存不存在
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
-    const img = ABuffer.getPath(`${app.cwd()}${name}`)
+    const img = ABuffer.getPath(`${dir}${name}`)
     if (!img) return
     helpData[name] = img
   }

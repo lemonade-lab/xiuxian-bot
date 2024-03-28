@@ -1,7 +1,7 @@
 import { plugin, type AEvent } from 'alemonjs'
 import {
-  obtainingImages,
   GameApi,
+  getRingComponent,
   isThereAUserPresent,
   Server
 } from '../../api/index.js'
@@ -33,14 +33,10 @@ export class Ring extends plugin {
   async showRing(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-
-    await e.reply(
-      await obtainingImages(
-        '/public/pages/ring.vue',
-        await Server.ringInformation(UID, e.user_avatar)
-      )
+    const img = await getRingComponent(
+      await Server.ringInformation(UID, e.user_avatar)
     )
-
+    if (typeof img != 'boolean') e.reply(img)
     return
   }
 

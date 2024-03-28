@@ -16,7 +16,6 @@ import * as Equipment from '../model/users/additional/equipment.js'
 import * as Cooling from '../model/config/cooling.js'
 // 缓存
 import { urlHelpCache } from '../utils/cache.js'
-import { obtainingImages } from '../utils/img.js'
 import {
   user,
   activity,
@@ -25,6 +24,7 @@ import {
 } from '../db/index.js'
 // img
 import { personalInformation } from '../server/information.js'
+import { getInformationComponent } from '../image/index.js'
 
 /**
  * 显示个人信息
@@ -33,8 +33,8 @@ import { personalInformation } from '../server/information.js'
 export function showUserMsg(e: AEvent) {
   const UID = e.user_id
   personalInformation(UID, e.user_avatar).then(res => {
-    obtainingImages('/public/pages/information.vue', res).then(res => {
-      e.reply(res)
+    getInformationComponent(res).then(img => {
+      if (typeof img != 'boolean') e.reply(img)
     })
   })
 }

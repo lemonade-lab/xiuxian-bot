@@ -1,5 +1,5 @@
 import { plugin, type AEvent } from 'alemonjs'
-import { obtainingImages, lcalCacheImage } from '../../api/index.js'
+import { getDefsetComponent, lcalCacheImage } from '../../api/index.js'
 import { Cooling } from '../../api/gameapi.js'
 export class MapHelp extends plugin {
   constructor() {
@@ -29,7 +29,8 @@ export class MapHelp extends plugin {
    * @returns
    */
   async boxDefset(e: AEvent) {
-    e.reply(await obtainingImages('/public/pages/defset.vue', Cooling))
+    const img = await getDefsetComponent(Cooling)
+    if (typeof img != 'boolean') e.reply(img)
     return
   }
 }

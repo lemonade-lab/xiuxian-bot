@@ -3,12 +3,12 @@ import {
   DB,
   GameApi,
   isThereAUserPresent,
-  obtainingImages,
   sendReply,
   victoryCooling,
   activityCooling,
   activityCoolingNot,
-  Server
+  Server,
+  getSkillsComponent
 } from '../../api/index.js'
 
 export class SkyTower extends plugin {
@@ -125,11 +125,8 @@ export class SkyTower extends plugin {
       })
       return
     }
-
-    await e.reply(
-      await obtainingImages('/public/pages/sky.vue', await Server.showSky(UID))
-    )
-
+    const img = await getSkillsComponent(await Server.showSky(UID))
+    if (typeof img != 'boolean') e.reply(img)
     return
   }
 

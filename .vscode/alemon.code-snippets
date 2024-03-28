@@ -25,24 +25,5 @@
       "}\n"
     ],
     "description": "plugin文件模板"
-  },
-  {
-    "isUser TypeScript": {
-      "scope": "typescript",
-      "prefix": "isuser",
-      "body": [
-        "isUser(UID)",
-        "  .then(res => {",
-        "    if (!res) {",
-        "      e.reply('请先[/踏入仙途]')",
-        "      return",
-        "    }",
-        "  })",
-        "  .catch(() => {",
-        "    e.reply('数据查询错误')",
-        "  })"
-      ],
-      "description": "isUser(UID)"
-    }
   }
 }

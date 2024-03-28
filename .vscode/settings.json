@@ -8,8 +8,5 @@
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
   }
 }

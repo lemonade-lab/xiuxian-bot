@@ -1,6 +1,7 @@
 import { plugin, type AEvent } from 'alemonjs'
 import {
-  obtainingImages,
+  getKillComponent,
+  getListComponent,
   isThereAUserPresent,
   Server
 } from '../../api/index.js'
@@ -22,9 +23,8 @@ export class List extends plugin {
   async showList(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    await e.reply(
-      await obtainingImages('/public/pages/list.vue', await Server.getList())
-    )
+    const img = await getListComponent(await Server.getList())
+    if (typeof img != 'boolean') e.reply(img)
   }
 
   /**
@@ -35,11 +35,8 @@ export class List extends plugin {
   async killGodChart(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    await e.reply(
-      await obtainingImages(
-        '/public/pages/kill.vue',
-        await Server.getKillList()
-      )
-    )
+    const img = await getKillComponent(await Server.getKillList())
+
+    if (typeof img != 'boolean') e.reply(img)
   }
 }

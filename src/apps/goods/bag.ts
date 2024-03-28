@@ -1,8 +1,8 @@
 import { plugin, type AEvent } from 'alemonjs'
 import {
   DB,
-  obtainingImages,
   GameApi,
+  getInformationComponent,
   isThereAUserPresent,
   Server
 } from '../../api/index.js'
@@ -32,16 +32,14 @@ export class Bag extends plugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const type = e.msg.replace(/^(#|\/)?(储物袋|儲物袋|背包)/, '')
-    await e.reply(
-      await obtainingImages(
-        '/public/pages/bag.vue',
-        await Server.backpackInformation(
-          e.user_id,
-          e.user_avatar,
-          GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
-        )
+    const img = await getInformationComponent(
+      await Server.backpackInformation(
+        e.user_id,
+        e.user_avatar,
+        GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
       )
     )
+    if (typeof img != 'boolean') e.reply(img)
     return
   }
 
