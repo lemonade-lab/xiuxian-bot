@@ -13,26 +13,31 @@
     "image": "afloat image",
     "build": "afloat build",
     "build-bot": "afloat build-bot",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "axios": "^1.6.5",
     "bullmq": "^4.12.7",
     "ioredis": "^5.3.2",
     "mysql2": "^3.6.2",
-    "sequelize": "^6.33.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "@types/react-dom": "^18.2.22",
     "@types/node": "^20.3.1",
     "@types/qs": "^6.9.9",
+    "@types/react-dom": "^18.2.22",
     "@types/ws": "^8.5.5",
     "afloat": "^1.2.0-rc.10",
     "alemonjs": "^1.2.0-rc.28",
+    "husky": "^9.0.11",
+    "koa": "^2.15.2",
     "pre-commit": "^1.2.2",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "react-router-dom": "^6.22.3",
+    "rollup-plugin-serve": "^1.1.1"
   },
   "engines": {
     "node": ">=16.14.0"
