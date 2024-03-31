@@ -1,5 +1,7 @@
 import { plugin, type AEvent } from 'alemonjs'
 import { DB, isThereAUserPresent, GameApi } from '../../api/index.js'
+import { levelUp } from './level.js'
+
 export class fairyland extends plugin {
   constructor() {
     super({
@@ -26,7 +28,7 @@ export class fairyland extends plugin {
     /**
      * 灵根
      */
-    if (UserData.talent.length < 5) {
+    if (UserData.talent.length < 3) {
       setTimeout(async () => {
         e.reply(['灵根不全,无成仙之资'], {
           quote: e.msg_id
@@ -34,6 +36,8 @@ export class fairyland extends plugin {
       }, 6000)
       return
     }
+    //雷劫次数
+    let num = 0
     // 计算变异灵根数
     let size = 0
     for await (const item of UserData.talent) {
@@ -65,12 +69,23 @@ export class fairyland extends plugin {
     /**
      * 进入渡劫模式
      */
-    setTimeout(async () => {
-      e.reply(['此方世界未能成仙,后续的境界以后再来探索吧'], {
-        quote: e.msg_id
-      })
-    }, 6000)
-    return
+    let time = setInterval(async function () {
+      num++
+      let variable: number = Math.random() * (22000 - 19000) + 19000
+      if (UserData.battle_blood_now > 0) {
+        if (num != UserData.talent.length) {
+          e.reply(
+            `本次雷伤${variable}\n${UserData.name}成功渡过${num}道雷劫\n下一道雷劫在一分钟后落下！`
+          )
+        } else {
+          e.reply(`本次雷伤${variable}\n${UserData.name}成功渡过最后一道雷劫`)
+          await levelUp(e, 6, 1, 90)
+          clearInterval(time)
+        }
+      } else {
+        punishLevel(e, UID, UserData)
+      }
+    }, 60000) // 假设你想要每分钟执行一次
   }
 }
 
@@ -114,7 +129,6 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
         GameApi.Levels.write(UID, 3, {
           experience: 0
         } as DB.UserLevelType)
-
         /**
          * 陨落
          */
@@ -233,7 +247,6 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
 
         // 击碎标记
         await GameApi.Treasure.add(data[0].name, data[0].type, data[0].acount)
-
         e.reply(
           [
             '[灭世之雷]击碎了',
