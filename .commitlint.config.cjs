@@ -10,7 +10,6 @@
  */
 // git commit -m "feat: Add new feature"
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
   rules: {
     // 提交类型（type）必须使用小写字母
     'type-case': [2, 'always', 'lower-case'],
