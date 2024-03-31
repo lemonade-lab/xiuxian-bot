@@ -54,7 +54,7 @@ export class Level extends plugin {
  * @param p
  * @returns
  */
-async function levelUp(
+export async function levelUp(
   e: AEvent,
   CDID: GameApi.Burial.CDType,
   ID: 1 | 2 | 3,

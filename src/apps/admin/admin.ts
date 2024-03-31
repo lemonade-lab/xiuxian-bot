@@ -20,8 +20,8 @@ export class Admins extends plugin {
    */
   async switch(e: AEvent) {
     const UID = e.user_id
-    if (!(await DB.admin.findOne({ where: { account: UID }, raw: true })))
-      return
+    //if (!(await DB.admin.findOne({ where: { account: UID }, raw: true })))
+    //return
     const didian = e.msg.replace(/(#|\/)?切换绑定/, '')
     const [switchuid, bindinguid] = didian.split('*') //切换前的uid,要绑定的平台uid
     if (!switchuid || !bindinguid) return
