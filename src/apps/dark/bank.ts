@@ -1,5 +1,10 @@
 import { plugin, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, GameApi, controlByName } from '../../api/index.js'
+import {
+  isThereAUserPresent,
+  GameApi,
+  controlByName,
+  DB
+} from '../../api/index.js'
 export class Bank extends plugin {
   constructor() {
     super({
@@ -7,6 +12,10 @@ export class Bank extends plugin {
         {
           reg: /^(#|\/)?(金银置换|金銀置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/,
           fnc: 'substitution'
+        },
+        {
+          reg: /^(#|\/)?治炼\d+$/,
+          fnc: 'treatrefining'
         }
       ]
     })
@@ -81,6 +90,53 @@ export class Bank extends plugin {
     e.reply([`[${LeftName}]*${account}\n置换成\n[${RightName}]*${quantity}`])
 
     return
+  }
+  async treatrefining(e: AEvent) {
+    const UID = e.user_id
+    let msg: string[]
+    if (!(await isThereAUserPresent(e, UID))) return
+    const UserData = await GameApi.Users.read(UID)
+    const account = e.msg.replace(/^(#|\/)?治炼/, '') || 1
+    const Userleve: DB.UserLevelType = (await DB.user_level.findOne({
+      where: { uid: UID, type: 1 },
+      raw: true
+    })) as any
+    if (Userleve.realm < 42) return e.reply('境界不足')
+    let lingshi = await GameApi.Bag.searchBagByName(UID, '极品灵石')
+    if (!lingshi || lingshi.acount < Number(account) * 10000) {
+      e.reply(`请确保您有足够的极品灵石再试一次呢~`)
+      return
+    }
+
+    const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+    // 背包未位置了直接返回了
+    if (!BagSize) {
+      e.reply(['储物袋空间不足'], {
+        quote: e.msg_id
+      })
+      return
+    }
+    for (let i = 0; i < Number(account); i++) {
+      const P1 = GameApi.Method.isProbability(50)
+      if (P1) {
+        msg.push('炼制成功获得仙石*1\n')
+        await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+          {
+            name: '仙石',
+            acount: 1
+          }
+        ])
+      } else {
+        msg.push('炼制失败\n')
+      }
+      await GameApi.Bag.reduceBagThing(UID, [
+        {
+          name: '极品灵石',
+          acount: 10000
+        }
+      ])
+    }
+    e.reply(msg)
   }
 }
 

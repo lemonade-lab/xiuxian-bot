@@ -62,6 +62,7 @@ export class Auction extends plugin {
       .replace(/^(#|\/)?拍卖/, '')
       .split('*')
     const bagThing = await GameApi.Bag.searchBagByName(UID, thingName)
+    if (bagThing && bagThing.type == 8) return e.reply('无法出售')
     if (!bagThing) {
       e.reply([`没有[${thingName}]`], {
         quote: e.msg_id

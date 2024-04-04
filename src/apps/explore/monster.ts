@@ -13,7 +13,8 @@ export class Monster extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+$/, fnc: 'userKill' },
-        { reg: /^(#|\/)?探索怪物$/, fnc: 'userExploremonsters' }
+        { reg: /^(#|\/)?探索怪物$/, fnc: 'userExploremonsters' },
+        { reg: /^(#|\/)?进入妖塔$/, fnc: 'demontower' }
       ]
     })
   }
@@ -349,6 +350,18 @@ export class Monster extends plugin {
         panel: ClientVILLA.buttonAutomaticArrangement(bt)
       }
     ])
+    return
+  }
+  /**
+   * 妖塔
+   * @param e
+   * @returns
+   */
+  async demontower(e: AEvent) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    const UserData = await GameApi.Users.read(UID)
+    if (!(await ControlByBlood(e, UserData))) return
     return
   }
 }

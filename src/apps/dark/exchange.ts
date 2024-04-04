@@ -47,6 +47,7 @@ export class Exchange extends plugin {
       .replace(/^(#|\/)?上架/, '')
       .split('*')
     const bagThing = await GameApi.Bag.searchBagByName(UID, thingName)
+
     if (Number(money) < 1000) {
       e.reply(['价格不低于1000'], {
         quote: e.msg_id
@@ -54,6 +55,7 @@ export class Exchange extends plugin {
 
       return
     }
+    if (bagThing && bagThing.type == 8) e.reply('无法交易')
     if (!bagThing) {
       e.reply([`没有[${thingName}]`], {
         quote: e.msg_id

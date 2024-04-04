@@ -24,29 +24,12 @@ export class fairyland extends plugin {
       })
       return
     }
+    
+    // 获取用户信息
     const UserData = await GameApi.Users.read(UID)
-    /**
-     * 灵根
-     */
-    if (UserData.talent.length < 3) {
-      setTimeout(async () => {
-        e.reply(['灵根不全,无成仙之资'], {
-          quote: e.msg_id
-        })
-      }, 6000)
-      return
-    }
     //雷劫次数
     let num = 0
-    // 计算变异灵根数
-    let size = 0
-    for await (const item of UserData.talent) {
-      if (item > 5) {
-        size++
-      }
-    }
     // 概率
-    const p = 20 * UserData.talent.length - 5 * size
     /**
      * 开始触发
      */
@@ -60,13 +43,6 @@ export class fairyland extends plugin {
       e.reply('[天道]裁决者:\nbig胆,竟敢在此逆天行道,妄想打破天地浩劫')
     }, 4500)
     /**
-     * 概率触发
-     */
-    if (!GameApi.Method.isTrueInRange(1, 100, p)) {
-      await punishLevel(e, UID, UserData)
-      return
-    }
-    /**
      * 进入渡劫模式
      */
     let time = setInterval(async function () {
@@ -75,7 +51,7 @@ export class fairyland extends plugin {
       if (UserData.battle_blood_now > 0) {
         if (num != UserData.talent.length) {
           e.reply(
-            `本次雷伤${variable}\n${UserData.name}成功渡过${num}道雷劫\n下一道雷劫在一分钟后落下！`
+            `本次雷伤${Math.floor(variable)}\n${UserData.name}成功渡过${num}道雷劫\n下一道雷劫在一分钟后落下！`
           )
         } else {
           e.reply(`本次雷伤${variable}\n${UserData.name}成功渡过最后一道雷劫`)
@@ -83,9 +59,10 @@ export class fairyland extends plugin {
           clearInterval(time)
         }
       } else {
+        await punishLevel(e, UID, UserData)
         punishLevel(e, UID, UserData)
       }
-    }, 60000) // 假设你想要每分钟执行一次
+    }, 60000) // 每分钟执行一次
   }
 }
 
@@ -109,7 +86,9 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
    */
 
   // 得到用户数据
-
+  const Userexp: DB.UserLevelType = await GameApi.Levels.read(UID, 1)
+  const Userbool: DB.UserLevelType = await GameApi.Levels.read(UID, 2)
+  const Usershen: DB.UserLevelType = await GameApi.Levels.read(UID, 2)
   await GameApi.Users.update(UID, {
     battle_blood_now: 0
   } as DB.UserType)
@@ -129,13 +108,7 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
         GameApi.Levels.write(UID, 3, {
           experience: 0
         } as DB.UserLevelType)
-        /**
-         * 陨落
-         */
-        GameApi.Users.update(UID, {
-          age_state: 0
-        } as DB.UserType)
-        e.reply(['[灭世之雷]击中了你的道韵,直接陨落,化作尘埃'], {
+        e.reply(['[灭世之雷]击中了你的道韵,修为清空,化作尘埃'], {
           quote: e.msg_id
         })
       }, 6000)
@@ -147,21 +120,15 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
          * 经验清空
          */
         GameApi.Levels.write(UID, 1, {
-          experience: 0
+          experience: Math.floor(Userexp.experience * 0.75)
         } as DB.UserLevelType)
         GameApi.Levels.write(UID, 2, {
-          experience: 0
+          experience: Math.floor(Userbool.experience * 0.75)
         } as DB.UserLevelType)
         GameApi.Levels.write(UID, 3, {
-          experience: 0
+          experience: Math.floor(Usershen.experience * 0.75)
         } as DB.UserLevelType)
-        /**
-         * 掉境界
-         */
-        GameApi.Levels.fallingRealm(UID, 1, 3)
-        GameApi.Levels.fallingRealm(UID, 2, 3)
-        GameApi.Levels.fallingRealm(UID, 3, 3)
-        e.reply(['[灭世之雷]击中了你的命魂,境界跌落'], {
+        e.reply(['[灭世之雷]击中了你的命魂,损失大量修为'], {
           quote: e.msg_id
         })
       }, 6000)
@@ -173,21 +140,15 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
          * 经验清空
          */
         GameApi.Levels.write(UID, 1, {
-          experience: 0
+          experience: Math.floor(Usershen.experience * 0.5)
         } as DB.UserLevelType)
         GameApi.Levels.write(UID, 2, {
-          experience: 0
+          experience: Math.floor(Usershen.experience * 0.5)
         } as DB.UserLevelType)
         GameApi.Levels.write(UID, 3, {
-          experience: 0
+          experience: Math.floor(Usershen.experience * 0.5)
         } as DB.UserLevelType)
-        /**
-         * 掉境界
-         */
-        GameApi.Levels.fallingRealm(UID, 1)
-        GameApi.Levels.fallingRealm(UID, 2)
-        GameApi.Levels.fallingRealm(UID, 3)
-        e.reply(['[灭世之雷]击中了你的命魂,境界跌落'], {
+        e.reply(['[灭世之雷]击中了你的命魂,损失一半修为'], {
           quote: e.msg_id
         })
       }, 6000)
@@ -195,17 +156,17 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
     }
     case 4: {
       setTimeout(async () => {
-        /**
-         * 经验清空
-         */
         GameApi.Levels.write(UID, 1, {
-          experience: 0
+          experience: Math.floor(Usershen.experience * 0.25)
         } as DB.UserLevelType)
-        /**
-         * 掉境界
-         */
+        GameApi.Levels.write(UID, 2, {
+          experience: Math.floor(Usershen.experience * 0.25)
+        } as DB.UserLevelType)
+        GameApi.Levels.write(UID, 3, {
+          experience: Math.floor(Usershen.experience * 0.25)
+        } as DB.UserLevelType)
         GameApi.Levels.fallingRealm(UID, 1)
-        e.reply([`[灭世之雷]击中了你的命魂,境界跌落~`], {
+        e.reply([`[灭世之雷]击中了你的命魂,损失部分修为`], {
           quote: e.msg_id
         })
       }, 6000)
@@ -213,52 +174,19 @@ async function punishLevel(e: AEvent, UID: string, UserData: DB.UserType) {
     }
     case 5: {
       setTimeout(async () => {
-        /**
-         * 经验清空
-         */
         GameApi.Levels.write(UID, 1, {
-          experience: 0
+          experience: Math.floor(Usershen.experience * 0.15)
         } as DB.UserLevelType)
-
-        if (
-          !(await GameApi.Method.isTrueInRange(
-            1,
-            100,
-            Math.floor(UserData.special_prestige + 10)
-          ))
-        ) {
-          e.reply([`你重伤倒地,险些魂飞魄散`], {
-            quote: e.msg_id
-          })
-
-          return
-        }
-
-        // 随机掉落物品
-        const data = await GameApi.Bag.delThing(UID)
-
-        if (!data) {
-          e.reply([`你重伤倒地,险些魂飞魄散`], {
-            quote: e.msg_id
-          })
-
-          return
-        }
-
-        // 击碎标记
-        await GameApi.Treasure.add(data[0].name, data[0].type, data[0].acount)
-        e.reply(
-          [
-            '[灭世之雷]击碎了',
-            `你的[${data[0].name}]`,
-            `\n你重伤倒地,奄奄一息~`
-          ],
-          {
-            quote: e.msg_id
-          }
-        )
-
-        return
+        GameApi.Levels.write(UID, 2, {
+          experience: Math.floor(Usershen.experience * 0.15)
+        } as DB.UserLevelType)
+        GameApi.Levels.write(UID, 3, {
+          experience: Math.floor(Usershen.experience * 0.15)
+        } as DB.UserLevelType)
+        GameApi.Levels.fallingRealm(UID, 1)
+        e.reply([`[灭世之雷]击中了你的命魂,损失修为`], {
+          quote: e.msg_id
+        })
       }, 6000)
       break
     }

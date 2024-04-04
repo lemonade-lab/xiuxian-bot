@@ -59,6 +59,7 @@ export class Board extends plugin {
     const [thingName, acount, money] = e.msg
       .replace(/^(#|\/)?收购/, '')
       .split('*')
+    if (thingName == '仙石') return e.reply('无法交易')
     if (Number(money) < 1000) {
       e.reply(['价格不低于1000'], {
         quote: e.msg_id
