@@ -6,7 +6,8 @@ import {
   ControlByBlood,
   sendReply,
   killNPC,
-  victoryCooling
+  victoryCooling,
+  controlByName
 } from '../../api/index.js'
 export class Monster extends APlugin {
   constructor() {
@@ -329,6 +330,7 @@ export class Monster extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
+    if (!(await controlByName(e, UserData, '星海'))) return
     if (!(await ControlByBlood(e, UserData))) return
     // 判断储物袋大小,不够的就不推送
     const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
