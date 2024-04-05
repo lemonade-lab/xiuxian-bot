@@ -4,6 +4,7 @@ export default function App({ data }) {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href="../css/root.css"></link>
         <link rel="stylesheet" href="../css/sky.css" />
       </head>
       <body>

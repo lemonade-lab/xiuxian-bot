@@ -66,12 +66,7 @@ export class Treasure extends APlugin {
     for await (const item of da) {
       msg.push(`\n🔹标记:${item.id} 物品:${item.name} 数量:${item.acount}`)
     }
-
-    if (e.platform != 'villa') {
-      e.reply(msg)
-      return
-    }
-
+    e.reply(msg)
     return
   }
 

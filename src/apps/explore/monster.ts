@@ -1,4 +1,4 @@
-import { APlugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -309,9 +309,7 @@ export class Monster extends APlugin {
       })
       return
     }
-
     const msg: string[] = [`[${name}]的妖怪`]
-
     for (const item of sortedMonsters) {
       msg.push(
         `\n${item}(${MonsterData[monster[item].level]?.name})*${
@@ -319,37 +317,7 @@ export class Monster extends APlugin {
         }`
       )
     }
-
-    if (e.platform != 'villa') {
-      e.reply(msg)
-      return
-    }
-
-    let x = 1
-    let y = 99
-
-    const bt = sortedMonsters.map(item => {
-      x++
-      y--
-      return {
-        id: `${x}`,
-        text: `${item}`,
-        type: 1,
-        c_type: 2,
-        input: `/击杀${item}`,
-        need_callback: false,
-        extra: 'jisha'
-      }
-    })
-
-    Controllers(e).Message.card([
-      {
-        content: {
-          text: msg.join('')
-        },
-        panel: ClientVILLA.buttonAutomaticArrangement(bt)
-      }
-    ])
+    e.reply(msg)
     return
   }
   /**

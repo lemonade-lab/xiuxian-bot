@@ -1,4 +1,4 @@
-import { APlugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -443,35 +443,7 @@ export class SneakAttack extends APlugin {
         `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
       )
     }
-    if (e.platform != 'villa') {
-      e.reply(msg)
-      return
-    }
-
-    let x = 1
-    let y = 99
-    const bt = AllUser.filter(item => item?.name).map(item => {
-      x++
-      y--
-      return {
-        id: `${x}${y}`,
-        text: `${item?.name}`,
-        type: 1,
-        c_type: 2,
-        input: `/偷袭${item.id}`,
-        need_callback: false,
-        extra: 'caiji'
-      }
-    })
-
-    Controllers(e).Message.card([
-      {
-        content: {
-          text: msg.join('')
-        },
-        panel: ClientVILLA.buttonAutomaticArrangement(bt)
-      }
-    ])
+    e.reply(msg)
     return
   }
 }

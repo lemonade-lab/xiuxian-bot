@@ -166,10 +166,7 @@ export class Ore extends APlugin {
         }`
       )
     }
-    if (e.platform != 'villa') {
-      e.reply(msg)
-      return
-    }
+    e.reply(msg)
   }
 }
 

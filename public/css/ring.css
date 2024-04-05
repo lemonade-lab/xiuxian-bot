@@ -1,10 +1,5 @@
-html,
-body {
-  margin: 0;
-}
-
 .user {
-  background-image: url('../img/user/bag/bag.jpg');
+  background-image: url('../img/bag.jpg');
 }
 
 .user {

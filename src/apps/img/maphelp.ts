@@ -18,7 +18,7 @@ export class MapHelp extends APlugin {
    */
   async showMap(e: AEvent) {
     // 不变的图片做缓存处理
-    const img = lcalCacheImage(`/public/img/map/map.jpg`)
+    const img = lcalCacheImage(`/public/img/map.jpg`)
     if (img) e.reply(img)
     return
   }

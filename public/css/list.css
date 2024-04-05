@@ -1,18 +1,13 @@
-html,
-body {
-  margin: 0;
-}
-
 .user {
-  background-image: url('../img/user/information/information.jpg');
+  background-image: url('../img/information.jpg');
 }
 
 .user_top {
-  background-image: url('../img/user/information/left.jpg');
+  background-image: url('../img/left.jpg');
 }
 
 .user_top_img_bottom {
-  background-image: url('../img/user/information/right.jpg');
+  background-image: url('../img/right.jpg');
 }
 
 .user {

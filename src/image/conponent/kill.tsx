@@ -4,6 +4,7 @@ export default function App({ data }) {
   return (
     <head>
       <head>
+        <link rel="stylesheet" href="../css/root.css"></link>
         <link rel="stylesheet" href="../css/kill.css" />
       </head>
       <body>

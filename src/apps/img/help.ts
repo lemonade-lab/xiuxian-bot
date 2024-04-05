@@ -1,4 +1,4 @@
-import { APlugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { postHelp } from '../../api/index.js'
 export class Help extends APlugin {
   constructor() {
@@ -24,43 +24,6 @@ export class Help extends APlugin {
    * @returns
    */
   async getBaseHelp(e: AEvent) {
-    if (e.platform == 'villa') {
-      let x = 1
-      let y = 99
-
-      const bt = [
-        '黑市',
-        '地图',
-        '天机',
-        '联盟',
-        '战斗',
-        '修炼',
-        '虚空',
-        '势力',
-        '职业'
-      ].map(item => {
-        x++
-        y--
-        return {
-          id: `${x}${y}`,
-          text: item,
-          type: 1,
-          c_type: 2,
-          input: `/${item}帮助`,
-          need_callback: false,
-          extra: 'help'
-        }
-      })
-
-      Controllers(e).Message.card([
-        {
-          content: {
-            text: '修仙帮助'
-          },
-          panel: ClientVILLA.buttonAutomaticArrangement(bt)
-        }
-      ])
-    }
     postHelp(e, 'base_help')
     return
   }
