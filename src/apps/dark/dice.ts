@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -6,7 +6,7 @@ import {
   controlByName,
   sendReply
 } from '../../api/index.js'
-export class Dice extends plugin {
+export class Dice extends APlugin {
   constructor() {
     super({
       rule: [

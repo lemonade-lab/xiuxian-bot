@@ -1,9 +1,9 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { DB, GameApi, isThereAUserPresent } from '../../api/index.js'
 
 const reGiveup = {}
 
-export class Destiny extends plugin {
+export class Destiny extends APlugin {
   constructor() {
     super({
       rule: [

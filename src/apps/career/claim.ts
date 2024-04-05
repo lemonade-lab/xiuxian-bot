@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   ControlByBlood,
@@ -21,7 +21,7 @@ import {
  * 灵根多，加成的下降
  */
 
-export class ClaimCareer extends plugin {
+export class ClaimCareer extends APlugin {
   constructor() {
     super({
       rule: [

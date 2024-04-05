@@ -1,11 +1,11 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
   ControlByBlood,
   isThereAUserPresent
 } from '../../api/index.js'
-export class Move extends plugin {
+export class Move extends APlugin {
   constructor() {
     super({
       rule: [

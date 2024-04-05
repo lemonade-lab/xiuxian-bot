@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -6,7 +6,7 @@ import {
   victoryCooling,
   isUser
 } from '../../api/index.js'
-export class Start extends plugin {
+export class Start extends APlugin {
   constructor() {
     super({
       rule: [

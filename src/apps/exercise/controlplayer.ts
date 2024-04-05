@@ -1,6 +1,6 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { isThereAUserPresent, GameApi, endAllWord } from '../../api/index.js'
-export class ControlPlayer extends plugin {
+export class ControlPlayer extends APlugin {
   constructor() {
     super({
       rule: [

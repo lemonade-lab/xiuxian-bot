@@ -1,11 +1,11 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
   GameApi,
   controlByName
 } from '../../api/index.js'
-export class Tianjigate extends plugin {
+export class Tianjigate extends APlugin {
   constructor() {
     super({
       rule: [

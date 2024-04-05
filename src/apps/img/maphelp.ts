@@ -1,7 +1,7 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { getDefsetComponent, lcalCacheImage } from '../../api/index.js'
 import { Cooling } from '../../api/gameapi.js'
-export class MapHelp extends plugin {
+export class MapHelp extends APlugin {
   constructor() {
     super({
       rule: [

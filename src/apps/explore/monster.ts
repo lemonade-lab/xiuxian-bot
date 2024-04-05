@@ -1,4 +1,4 @@
-import { plugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -8,7 +8,7 @@ import {
   killNPC,
   victoryCooling
 } from '../../api/index.js'
-export class Monster extends plugin {
+export class Monster extends APlugin {
   constructor() {
     super({
       rule: [

@@ -1,10 +1,10 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   GameApi,
   victoryCooling
 } from '../../api/index.js'
-export class Level extends plugin {
+export class Level extends APlugin {
   constructor() {
     super({
       rule: [

@@ -1,11 +1,11 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   GameApi,
   getRingComponent,
   isThereAUserPresent,
   Server
 } from '../../api/index.js'
-export class Ring extends plugin {
+export class Ring extends APlugin {
   constructor() {
     super({
       rule: [

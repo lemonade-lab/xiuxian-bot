@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -9,7 +9,7 @@ import {
   isThereAUserPresentB,
   victoryCooling
 } from '../../api/index.js'
-export class Battle extends plugin {
+export class Battle extends APlugin {
   constructor() {
     super({
       rule: [

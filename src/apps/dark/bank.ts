@@ -1,11 +1,11 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   GameApi,
   controlByName,
   DB
 } from '../../api/index.js'
-export class Bank extends plugin {
+export class Bank extends APlugin {
   constructor() {
     super({
       rule: [

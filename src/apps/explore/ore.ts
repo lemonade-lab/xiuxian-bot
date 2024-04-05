@@ -1,4 +1,4 @@
-import { plugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent, Controllers } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -8,7 +8,7 @@ import {
   victoryCooling
 } from '../../api/index.js'
 
-export class Ore extends plugin {
+export class Ore extends APlugin {
   constructor() {
     super({
       rule: [
@@ -170,32 +170,6 @@ export class Ore extends plugin {
       e.reply(msg)
       return
     }
-    let x = 1
-    let y = 99
-    const arr: any[] = []
-    for (const item in explore) {
-      x++
-      y--
-      arr.push({
-        id: `${x}${y}`,
-        text: `${getMoneyGrade(explore[item].grade)}灵矿`,
-        type: 1,
-        c_type: 2,
-        input: `/采集${item}`,
-        need_callback: false,
-        extra: 'caiji'
-      })
-    }
-
-    Controllers(e).Message.card([
-      {
-        content: {
-          text: msg.join('')
-        },
-        panel: ClientVILLA.buttonAutomaticArrangement(arr)
-      }
-    ])
-    return
   }
 }
 

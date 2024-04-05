@@ -33,7 +33,7 @@
     "@types/qs": "^6.9.9",
     "@types/react-dom": "^18.2.22",
     "@types/ws": "^8.5.5",
-    "afloat": "^1.2.0-rc.13",
+    "afloat": "^1.2.0-rc.14",
     "alemonjs": "^1.2.0-rc.34",
     "husky": "^9.0.11",
     "koa": "^2.15.2",

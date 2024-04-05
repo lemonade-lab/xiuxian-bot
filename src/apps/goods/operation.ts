@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   GameApi,
   dualVerification,
@@ -7,7 +7,7 @@ import {
   isThereAUserPresent,
   isThereAUserPresentB
 } from '../../api/index.js'
-export class MoneyOperation extends plugin {
+export class MoneyOperation extends APlugin {
   constructor() {
     super({
       rule: [

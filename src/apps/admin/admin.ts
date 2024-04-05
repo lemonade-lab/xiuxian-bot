@@ -1,7 +1,7 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { DB } from '../../api/index.js'
 
-export class Admins extends plugin {
+export class Admins extends APlugin {
   constructor() {
     super({
       rule: [

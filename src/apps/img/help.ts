@@ -1,6 +1,6 @@
-import { plugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
 import { postHelp } from '../../api/index.js'
-export class Help extends plugin {
+export class Help extends APlugin {
   constructor() {
     super({
       rule: [

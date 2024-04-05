@@ -48,3 +48,5 @@ logs
 public/html
 
 yarn.lock
+
+main.js

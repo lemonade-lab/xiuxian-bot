@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -8,7 +8,7 @@ import {
   getEquipmentComponent,
   getSkillsComponent
 } from '../../api/index.js'
-export class Information extends plugin {
+export class Information extends APlugin {
   constructor() {
     super({
       rule: [

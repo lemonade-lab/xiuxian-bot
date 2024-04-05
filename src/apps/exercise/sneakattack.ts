@@ -1,4 +1,4 @@
-import { plugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -10,7 +10,7 @@ import {
   ControlByBlood,
   victoryCooling
 } from '../../api/index.js'
-export class SneakAttack extends plugin {
+export class SneakAttack extends APlugin {
   constructor() {
     super({
       rule: [

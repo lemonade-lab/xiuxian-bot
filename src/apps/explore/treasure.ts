@@ -1,11 +1,11 @@
-import { plugin, type AEvent, ClientVILLA, Controllers } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
   ControlByBlood,
   GameApi
 } from '../../api/index.js'
-export class Treasure extends plugin {
+export class Treasure extends APlugin {
   constructor() {
     super({
       rule: [
@@ -71,33 +71,6 @@ export class Treasure extends plugin {
       e.reply(msg)
       return
     }
-
-    let x = 1
-    let y = 99
-    const bt = da
-      .filter(item => item?.name)
-      .map(item => {
-        x++
-        y--
-        return {
-          id: `${x}${y}`,
-          text: `${item.name}`,
-          type: 1,
-          c_type: 2,
-          input: `/拾取${item.id}`,
-          need_callback: false,
-          extra: 'shiqu'
-        }
-      })
-
-    Controllers(e).Message.card([
-      {
-        content: {
-          text: msg.join('')
-        },
-        panel: ClientVILLA.buttonAutomaticArrangement(bt)
-      }
-    ])
 
     return
   }

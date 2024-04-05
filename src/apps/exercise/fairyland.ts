@@ -1,8 +1,8 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { DB, isThereAUserPresent, GameApi } from '../../api/index.js'
 import { levelUp } from './level.js'
 
-export class fairyland extends plugin {
+export class fairyland extends APlugin {
   constructor() {
     super({
       rule: [{ reg: /^(#|\/)?渡劫$/, fnc: 'breakLevel' }]
@@ -24,7 +24,7 @@ export class fairyland extends plugin {
       })
       return
     }
-    
+
     // 获取用户信息
     const UserData = await GameApi.Users.read(UID)
     //雷劫次数

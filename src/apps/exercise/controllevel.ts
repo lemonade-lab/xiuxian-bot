@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -8,7 +8,7 @@ import {
   dualVerificationAction,
   victoryCooling
 } from '../../api/index.js'
-export class ControllLevel extends plugin {
+export class ControllLevel extends APlugin {
   constructor() {
     super({
       rule: [

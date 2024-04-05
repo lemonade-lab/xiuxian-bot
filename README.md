@@ -12,8 +12,6 @@
 
 - 数据库
 
-> ? 什么，mysql和redis都不会装
-
 [点击下载redis5.0](https://github.com/tporadowski/redis/releases)
 
 [点击下载mysql8.0](https://www.mysql.com/)
@@ -26,8 +24,6 @@
 
 执行`sql/xiuxian.sql` 结构文件
 
-> 数据内容和数值请自定设计
-
 - 源码安装
 
 ```sh
@@ -37,7 +33,8 @@ git clone --depth=1  git@github.com:ningmengchongshui/xiuxian-bot.git
 - 依赖加载
 
 ```sh
-npm install
+npm install yarn -g
+yarn
 ```
 
 - 登录
@@ -46,11 +43,7 @@ npm install
 
 ```ts
 import { ALoginOptions } from 'alemonjs'
-export default ALoginOptions({
-  test: {
-    qq: {}
-  }
-})
+export default ALoginOptions({})
 ```
 
 - 配置环境

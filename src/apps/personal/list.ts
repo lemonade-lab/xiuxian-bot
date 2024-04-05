@@ -1,11 +1,11 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   getListComponent,
   getKillComponent,
   isThereAUserPresent,
   Server
 } from '../../api/index.js'
-export class List extends plugin {
+export class List extends APlugin {
   constructor() {
     super({
       rule: [

@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -11,7 +11,7 @@ import {
   getSkyComponent
 } from '../../api/index.js'
 
-export class SkyTower extends plugin {
+export class SkyTower extends APlugin {
   constructor() {
     super({
       rule: [

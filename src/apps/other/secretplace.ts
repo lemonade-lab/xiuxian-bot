@@ -1,4 +1,4 @@
-import { plugin, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -7,7 +7,7 @@ import {
   ControlByBlood,
   endAllWord
 } from '../../api/index.js'
-export class Secretplace extends plugin {
+export class Secretplace extends APlugin {
   constructor() {
     super({
       rule: [
