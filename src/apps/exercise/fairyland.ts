@@ -24,6 +24,26 @@ export class fairyland extends APlugin {
       })
       return
     }
+    const name = ['长生泉', '灵烛果', '金焰石', '养魂木', '息壤之土']
+    for (let i = 0; i < name.length; i++) {
+      const thing: DB.UserBagType = (await DB.user_bag.findOne({
+        where: { uid: UID, name: name[i] },
+        raw: true
+      })) as any
+      if (!thing && thing.acount <= 5) {
+        return e.reply(`${name[i]}不足`)
+      }
+    }
+    for (let i = 0; i < name.length; i++) {
+      const thing: DB.UserBagType = (await DB.user_bag.findOne({
+        where: { uid: UID, name: name[i] },
+        raw: true
+      })) as any
+
+      if (thing && thing.acount >= 5) {
+        GameApi.Bag.reduceBagThing(UID, [{ name: thing.name, acount: 5 }])
+      }
+    }
 
     // 获取用户信息
     const UserData = await GameApi.Users.read(UID)

@@ -17,7 +17,8 @@ export class union extends APlugin {
         { reg: /^(#|\/)?(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/, fnc: 'contribute' },
         { reg: /^(#|\/)?(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/, fnc: 'unionBuy' },
         { reg: /^(#|\/)?(联盟|聯盟)(报|報)(到|道)$/, fnc: 'userCheckin' },
-        { reg: /^(#|\/)?(联盟|聯盟)(签|簽)到$/, fnc: 'userSignIn' }
+        { reg: /^(#|\/)?(联盟|聯盟)(签|簽)到$/, fnc: 'userSignIn' },
+        { reg: /^(#|\/)?仙石兑换.*$/, fnc: 'exchange' }
       ]
     })
   }
@@ -373,6 +374,67 @@ export class union extends APlugin {
     ])
     e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧`)
 
+    return
+  }
+  /**
+   * 兑换天道剑
+   * @param e
+   * @returns
+   */
+  async exchange(e: AEvent) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    //检查是不是在时间内
+    if (
+      !(
+        Date.now() >= new Date('2024-04-05').getTime() &&
+        Date.now() <= new Date('2024-04-06').getTime()
+      )
+    ) {
+      return e.reply('未开放')
+    }
+    const UserData = await GameApi.Users.read(UID)
+    if (!(await controlByName(e, UserData, '东湖宫'))) return
+    const thingName = e.msg.replace(/^(#|\/)?仙石兑换/, '')
+    // 检查背包
+    const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+    // 背包未位置了直接返回了
+    if (!BagSize) {
+      e.reply(['储物袋空间不足'], {
+        quote: e.msg_id
+      })
+    }
+    if (thingName == '天道剑') {
+      const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
+      if (!bag || bag.acount < 100) {
+        return e.reply('仙石不足')
+      }
+      const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
+      if (!bagdata || bagdata.acount < 100) {
+        return e.reply('沉香不足')
+      }
+      GameApi.Bag.reduceBagThing(UID, [
+        { name: '仙石', acount: 100 },
+        { name: '沉香', acount: 100 }
+      ])
+      GameApi.Bag.addBagThing(UID, 99, [{ name: '天道剑', acount: 1 }])
+    } else if (thingName == '天罡神盾袍') {
+      const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
+      if (!bag || bag.acount < 50) {
+        return e.reply('仙石不足')
+      }
+      const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
+      if (!bagdata || bagdata.acount < 80) {
+        return e.reply('沉香不足')
+      }
+      GameApi.Bag.reduceBagThing(UID, [
+        { name: '仙石', acount: 50 },
+        { name: '沉香', acount: 80 }
+      ])
+      GameApi.Bag.addBagThing(UID, 50, [{ name: '天罡神盾袍', acount: 1 }])
+    } else {
+      e.reply(`哪来的${thingName}`)
+    }
     return
   }
 }
