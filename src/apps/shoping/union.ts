@@ -405,30 +405,30 @@ export class union extends APlugin {
     }
     if (thingName == '天道剑') {
       const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
-      if (!bag || bag.acount < 100) {
+      if (!bag || bag.acount < 4) {
         return e.reply('仙石不足')
       }
       const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
-      if (!bagdata || bagdata.acount < 100) {
+      if (!bagdata || bagdata.acount < 50) {
         return e.reply('沉香不足')
       }
       GameApi.Bag.reduceBagThing(UID, [
-        { name: '仙石', acount: 100 },
-        { name: '沉香', acount: 100 }
+        { name: '仙石', acount: 4 },
+        { name: '沉香', acount: 50 }
       ])
       GameApi.Bag.addBagThing(UID, 99, [{ name: '天道剑', acount: 1 }])
     } else if (thingName == '天罡神盾袍') {
       const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
-      if (!bag || bag.acount < 50) {
+      if (!bag || bag.acount < 4) {
         return e.reply('仙石不足')
       }
       const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
-      if (!bagdata || bagdata.acount < 80) {
+      if (!bagdata || bagdata.acount < 40) {
         return e.reply('沉香不足')
       }
       GameApi.Bag.reduceBagThing(UID, [
-        { name: '仙石', acount: 50 },
-        { name: '沉香', acount: 80 }
+        { name: '仙石', acount: 4 },
+        { name: '沉香', acount: 40 }
       ])
       GameApi.Bag.addBagThing(UID, 50, [{ name: '天罡神盾袍', acount: 1 }])
     } else {
