@@ -18,7 +18,7 @@ export class union extends APlugin {
         { reg: /^(#|\/)?(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/, fnc: 'unionBuy' },
         { reg: /^(#|\/)?(联盟|聯盟)(报|報)(到|道)$/, fnc: 'userCheckin' },
         { reg: /^(#|\/)?(联盟|聯盟)(签|簽)到$/, fnc: 'userSignIn' },
-        { reg: /^(#|\/)?仙石兑换.*$/, fnc: 'exchange' }
+        { reg: /^(#|\/)?兑换.*$/, fnc: 'exchange' }
       ]
     })
   }
@@ -388,7 +388,7 @@ export class union extends APlugin {
     if (
       !(
         Date.now() >= new Date('2024-04-08').getTime() &&
-        Date.now() <= new Date('2024-04-10').getTime()
+        Date.now() <= new Date('2024-04-11').getTime()
       )
     ) {
       return e.reply('未开放')
