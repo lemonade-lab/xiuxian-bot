@@ -49,7 +49,7 @@ export class fairyland extends APlugin {
         startTime: 7,
         endTime: 6
       })
-      let variable: number = Math.random() * (300000 - 240000) + 240000
+      let variable: number = Math.random() * (400000 - 340000) + 340000
       if (UserData.battle_blood_now > 0) {
         if (num) {
           num++
