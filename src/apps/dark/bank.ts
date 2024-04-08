@@ -96,7 +96,8 @@ export class Bank extends APlugin {
     let msg = []
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const account = e.msg.replace(/^(#|\/)?治炼仙石/, '') || 1
+    let account = Number(e.msg.replace(/^(#|\/)?治炼仙石/, '')) || 1
+    if (account > 10) account = 10
     const Userleve: DB.UserLevelType = (await DB.user_level.findOne({
       where: { uid: UID, type: 1 },
       raw: true
