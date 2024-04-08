@@ -93,7 +93,7 @@ export class Bank extends APlugin {
   }
   async treatrefining(e: AEvent) {
     const UID = e.user_id
-    let msg: string[]
+    let msg = []
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     const account = e.msg.replace(/^(#|\/)?治炼仙石/, '') || 1
