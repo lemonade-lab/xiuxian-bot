@@ -118,7 +118,7 @@ export class Bank extends APlugin {
       return
     }
     for (let i = 0; i < Number(account); i++) {
-      const P1 = GameApi.Method.isProbability(50)
+      const P1 = GameApi.Method.isProbability(60)
       if (P1) {
         msg.push('炼制成功获得仙石*1\n')
         await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
