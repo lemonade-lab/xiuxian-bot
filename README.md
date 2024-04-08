@@ -34,7 +34,7 @@ git clone --depth=1  git@github.com:ningmengchongshui/xiuxian-bot.git
 
 ```sh
 npm install yarn -g
-yarn
+yarn --ignore-engines
 ```
 
 - 登录
@@ -65,7 +65,7 @@ ALEMONJS_MYSQL_PROT = '3306'
 - 应用调试
 
 ```sh
-npm run dev
+yarn run dev
 ```
 
 ### 简单说明
