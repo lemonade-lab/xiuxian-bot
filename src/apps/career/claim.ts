@@ -78,7 +78,7 @@ export class ClaimCareer extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     if (!(await controlByName(e, UserData, '协会'))) return
-    e.reply(['[协会执事]😳叶子凡\n', '待开放'])
+    e.reply(['[协会执事]😳叶子凡\n', '目前职业炼丹师\n'])
     return
   }
 

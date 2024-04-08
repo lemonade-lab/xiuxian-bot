@@ -1,6 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import { DB, isThereAUserPresent, GameApi } from '../../api/index.js'
-import { levelUp } from './level.js'
 
 export class fairyland extends APlugin {
   constructor() {
@@ -30,7 +29,7 @@ export class fairyland extends APlugin {
         where: { uid: UID, name: name[i] },
         raw: true
       })) as any
-      if (!thing && thing.acount <= 5) {
+      if (thing && thing.acount <= 5) {
         return e.reply(`${name[i]}不足`)
       }
     }
@@ -48,34 +47,40 @@ export class fairyland extends APlugin {
     // 获取用户信息
     const UserData = await GameApi.Users.read(UID)
     //雷劫次数
-    let num = 0
+    let num = 5 - UserData.talent.length + 1
     // 概率
     /**
      * 开始触发
      */
     setTimeout(() => {
-      e.reply('此处灵气聚集中....')
+      e.reply('“云聚霞散露真形，天雷滚滚预兆生....')
     }, 1500)
     setTimeout(() => {
       e.reply('忽然间风云变幻,乌云密布,竟然是九九灭世之雷悬于苍穹之上！')
     }, 3000)
     setTimeout(() => {
-      e.reply('[天道]裁决者:\nbig胆,竟敢在此逆天行道,妄想打破天地浩劫')
+      e.reply(`${UserData.name}屹立于此，眼含决意。灵气凝聚，雷霆万钧`)
     }, 4500)
     /**
      * 进入渡劫模式
      */
     let time = setInterval(async function () {
       num++
-      let variable: number = Math.random() * (22000 - 19000) + 19000
+      let variable: number = Math.random() * (222000 - 190000) + 190000
       if (UserData.battle_blood_now > 0) {
         if (num != UserData.talent.length) {
           e.reply(
-            `本次雷伤${Math.floor(variable)}\n${UserData.name}成功渡过${num}道雷劫\n下一道雷劫在一分钟后落下！`
+            `本次雷劫造成的伤害为 ${Math.floor(variable)}.
+            恭喜 ${UserData.name} 成功挺过了第 ${num} 道雷劫.\n
+            请做好准备，下一道雷劫将在一分钟后降临！
+            `
           )
         } else {
-          e.reply(`本次雷伤${variable}\n${UserData.name}成功渡过最后一道雷劫`)
-          await levelUp(e, 6, 1, 90)
+          e.reply(`${UserData.name}成功渡过最后一道雷劫,渡劫成仙`)
+          await DB.user_level.update(
+            { realm: 42 },
+            { where: { uid: UID, type: 1 } }
+          )
           clearInterval(time)
         }
       } else {

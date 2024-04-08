@@ -29,7 +29,7 @@ export class MoneyOperation extends APlugin {
       return
     const [name, acount] = e.msg.replace(/^(#|\/)?(赠送|贈送)/, '').split('*')
     const thing = await GameApi.Bag.searchBagByName(UID, name)
-    if (thing && thing.type == 8) return e.reply('无法赠送')
+    if (thing && thing.grade >= 40) return e.reply('无法赠送')
     if (!thing || thing.acount < Number(acount)) {
       e.reply([`似乎没有[${name}]*${acount}`], {
         quote: e.msg_id

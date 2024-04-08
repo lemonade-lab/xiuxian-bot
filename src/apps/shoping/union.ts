@@ -387,14 +387,13 @@ export class union extends APlugin {
     //检查是不是在时间内
     if (
       !(
-        Date.now() >= new Date('2024-04-05').getTime() &&
-        Date.now() <= new Date('2024-04-06').getTime()
+        Date.now() >= new Date('2024-04-08').getTime() &&
+        Date.now() <= new Date('2024-04-10').getTime()
       )
     ) {
       return e.reply('未开放')
     }
     const UserData = await GameApi.Users.read(UID)
-    if (!(await controlByName(e, UserData, '东湖宫'))) return
     const thingName = e.msg.replace(/^(#|\/)?仙石兑换/, '')
     // 检查背包
     const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)

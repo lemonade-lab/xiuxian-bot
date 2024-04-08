@@ -55,7 +55,7 @@ export class Exchange extends APlugin {
 
       return
     }
-    if (bagThing && bagThing.type == 8) e.reply('无法交易')
+    if (bagThing && bagThing.grade >= 40) e.reply('无法交易')
     if (!bagThing) {
       e.reply([`没有[${thingName}]`], {
         quote: e.msg_id

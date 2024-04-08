@@ -14,7 +14,7 @@ export class Bank extends APlugin {
           fnc: 'substitution'
         },
         {
-          reg: /^(#|\/)?治炼\d+$/,
+          reg: /^(#|\/)?治炼仙石\d+$/,
           fnc: 'treatrefining'
         }
       ]
@@ -96,7 +96,7 @@ export class Bank extends APlugin {
     let msg: string[]
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const account = e.msg.replace(/^(#|\/)?治炼/, '') || 1
+    const account = e.msg.replace(/^(#|\/)?治炼仙石/, '') || 1
     const Userleve: DB.UserLevelType = (await DB.user_level.findOne({
       where: { uid: UID, type: 1 },
       raw: true
