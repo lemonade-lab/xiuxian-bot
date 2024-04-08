@@ -29,7 +29,7 @@ export class fairyland extends APlugin {
         where: { uid: UID, name: name[i] },
         raw: true
       })) as any
-      if (thing && thing.acount <= 5) {
+      if (thing && thing.acount >= 5) {
         return e.reply(`${name[i]}不足`)
       }
     }
@@ -65,6 +65,11 @@ export class fairyland extends APlugin {
      * 进入渡劫模式
      */
     let time = setInterval(async function () {
+      GameApi.State.set(UID, {
+        actionID: 5,
+        startTime: 7,
+        endTime: 6
+      })
       num++
       let variable: number = Math.random() * (300000 - 240000) + 240000
       if (UserData.battle_blood_now > 0) {
@@ -76,6 +81,7 @@ export class fairyland extends APlugin {
             `
           )
         } else {
+          GameApi.State.del(UID)
           e.reply(`${UserData.name}成功渡过最后一道雷劫,渡劫成仙`)
           await DB.user_level.update(
             { realm: 42 },
@@ -84,6 +90,7 @@ export class fairyland extends APlugin {
           clearInterval(time)
         }
       } else {
+        GameApi.State.del(UID)
         await punishLevel(e, UID, UserData)
         punishLevel(e, UID, UserData)
       }
