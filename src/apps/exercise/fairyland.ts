@@ -54,8 +54,7 @@ export class fairyland extends APlugin {
         if (num) {
           num++
           e.reply(
-            `本次雷劫造成的伤害为 ${Math.floor(variable)}.
-            恭喜 ${UserData.name} 成功挺过了第1道雷劫.\n
+            `本次雷劫造成的伤害为 ${Math.floor(variable)},恭喜 ${UserData.name} 成功挺过了雷劫.\n
             请做好准备，下一道雷劫将在一分钟后降临！
             `
           )
