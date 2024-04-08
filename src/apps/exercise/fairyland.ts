@@ -26,7 +26,7 @@ export class fairyland extends APlugin {
     // 获取用户信息
     const UserData = await GameApi.Users.read(UID)
     //雷劫次数
-    let num = 5 - UserData.talent.length + 1
+    let num = 0
     // 概率
     /**
      * 开始触发
@@ -49,13 +49,13 @@ export class fairyland extends APlugin {
         startTime: 7,
         endTime: 6
       })
-      num++
       let variable: number = Math.random() * (300000 - 240000) + 240000
       if (UserData.battle_blood_now > 0) {
-        if (num != UserData.talent.length) {
+        if (num) {
+          num++
           e.reply(
             `本次雷劫造成的伤害为 ${Math.floor(variable)}.
-            恭喜 ${UserData.name} 成功挺过了第 ${num} 道雷劫.\n
+            恭喜 ${UserData.name} 成功挺过了第1道雷劫.\n
             请做好准备，下一道雷劫将在一分钟后降临！
             `
           )
