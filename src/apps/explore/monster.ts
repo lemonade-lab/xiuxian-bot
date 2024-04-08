@@ -9,6 +9,7 @@ import {
   victoryCooling,
   controlByName
 } from '../../api/index.js'
+const reStart = {}
 export class Monster extends APlugin {
   constructor() {
     super({
@@ -330,6 +331,14 @@ export class Monster extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
+    if (!reStart[UID] || reStart[UID] + 60000 < new Date().getTime()) {
+      reStart[UID] = new Date().getTime()
+      e.reply([e.segment.at(e.user_id), `CD中`]).catch((err: any) => {
+        console.error(err)
+        return
+      })
+      return
+    }
     if (!(await controlByName(e, UserData, '星海'))) return
     if (!(await ControlByBlood(e, UserData))) return
     // 判断储物袋大小,不够的就不推送
