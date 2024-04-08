@@ -66,7 +66,7 @@ export class fairyland extends APlugin {
      */
     let time = setInterval(async function () {
       num++
-      let variable: number = Math.random() * (222000 - 190000) + 190000
+      let variable: number = Math.random() * (300000 - 240000) + 240000
       if (UserData.battle_blood_now > 0) {
         if (num != UserData.talent.length) {
           e.reply(
