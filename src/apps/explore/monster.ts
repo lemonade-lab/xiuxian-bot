@@ -15,7 +15,7 @@ export class Monster extends APlugin {
       rule: [
         { reg: /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+$/, fnc: 'userKill' },
         { reg: /^(#|\/)?探索怪物$/, fnc: 'userExploremonsters' },
-        { reg: /^(#|\/)?进入妖塔$/, fnc: 'demontower' }
+        { reg: /^(#|\/)?挑战妖塔$/, fnc: 'demontower' }
       ]
     })
   }
@@ -361,11 +361,11 @@ export class Monster extends APlugin {
       uid: '1',
       name: '守塔人',
       battle_show: 0,
-      battle_blood_now: Math.floor(10000 + addpower),
-      battle_attack: Math.floor(42114 + addpower),
+      battle_blood_now: Math.floor(366791 + addpower),
+      battle_attack: Math.floor(52114 + addpower),
       battle_defense: Math.floor(25525 + addpower),
-      battle_blood_limit: Math.floor(166791 + addpower),
-      battle_critical_hit: 5 + 30,
+      battle_blood_limit: Math.floor(366791 + addpower),
+      battle_critical_hit: 10 + 30,
       battle_critical_damage: Math.floor(50 + addpower),
       battle_speed: Math.floor(41 + addpower),
       battle_power: 0
