@@ -1,10 +1,10 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { postHelp } from '../../api/index.js'
 export class Help extends APlugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)?修仙(帮|幫)助$/, fnc: 'getBaseHelp' },
+        { reg: /^(#|\/)?(修仙(帮|幫)助|帮助)$/, fnc: 'getBaseHelp' },
         { reg: /^(#|\/)?黑市(帮|幫)助$/, fnc: 'getDarkHelp' },
         { reg: /^(#|\/)?地图(帮|幫)助$/, fnc: 'getMapHelp' },
         { reg: /^(#|\/)?天机(帮|幫)助$/, fnc: 'getHeavenlyHelp' },
@@ -24,8 +24,42 @@ export class Help extends APlugin {
    * @returns
    */
   async getBaseHelp(e: AEvent) {
-    postHelp(e, 'base_help')
-    return true
+    // 是ntqq就不再需要帮助图了
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '按钮',
+        [
+          { label: '战斗帮助', value: '/战斗帮助' },
+          { label: '地图帮助', value: '/地图帮助' },
+          { label: '职业帮助', value: '/职业帮助' }
+        ],
+        [
+          { label: '天机帮助', value: '/天机帮助' },
+          { label: '黑市帮助', value: '/黑市帮助' },
+          { label: '联盟帮助', value: '/联盟帮助' }
+        ],
+        [
+          { label: '修炼帮助', value: '/修炼帮助' },
+          { label: '虚空帮助', value: '/虚空帮助' },
+          { label: '势力帮助', value: '/势力帮助' }
+        ],
+        [
+          {
+            label: '加入官群',
+            value: '/加入官群',
+            link: 'https://qm.qq.com/q/BUXl2xKabe'
+          },
+          {
+            label: '修仙地图',
+            value: '/修仙地图'
+          },
+          { label: '控制板', value: '/控制板' }
+        ]
+      )
+    } else {
+      postHelp(e, 'base_help')
+    }
+    return
   }
 
   /**
