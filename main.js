@@ -4013,7 +4013,14 @@ async function postHelp(e, name) {
       { label: '虚空帮助', value: '/虚空帮助' },
       { label: '势力帮助', value: '/势力帮助' }
     ],
-    [{ label: '控制板', value: '/控制板' }]
+    [
+      {
+        label: '加入官群',
+        value: '/加入官群',
+        link: 'https://qm.qq.com/q/BUXl2xKabe'
+      },
+      { label: '控制板', value: '/控制板' }
+    ]
   )
   e.reply(img)
   return false
@@ -10414,11 +10421,6 @@ class Information extends APlugin {
         { label: '前往', value: '/前往联盟', enter: false }
       ],
       [
-        { label: '探索怪物', value: '/探索怪物' },
-        { label: '探索零矿', value: '/探索零矿' },
-        { label: '释放神识', value: '/释放神识' }
-      ],
-      [
         { label: '虚空镜', value: '/储物袋' },
         { label: '虚空板', value: '/虚空板' },
         { label: '虚空灯', value: '/虚空灯' }
@@ -10427,6 +10429,15 @@ class Information extends APlugin {
         { label: '突破', value: '/突破' },
         { label: '储物袋', value: '/储物袋' },
         { label: '纳戒', value: '/纳戒' }
+      ],
+      [
+        { label: '探索怪物', value: '/探索怪物' },
+        { label: '释放神识', value: '/释放神识' },
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
       ]
     )
     return true

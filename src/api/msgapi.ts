@@ -204,7 +204,14 @@ export async function postHelp(e: AEvent, name: string) {
       { label: '虚空帮助', value: '/虚空帮助' },
       { label: '势力帮助', value: '/势力帮助' }
     ],
-    [{ label: '控制板', value: '/控制板' }]
+    [
+      {
+        label: '加入官群',
+        value: '/加入官群',
+        link: 'https://qm.qq.com/q/BUXl2xKabe'
+      },
+      { label: '控制板', value: '/控制板' }
+    ]
   )
   e.reply(img)
   return false
