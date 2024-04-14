@@ -83,7 +83,7 @@ class Component {
   }
 }
 
-export default new Component(join(cwd, 'resources', 'cache'))
+export default new Component(join(cwd, 'public', 'cache'))
 
 /**
  * 修仙配置

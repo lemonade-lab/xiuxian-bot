@@ -1866,7 +1866,7 @@ class Component {
     )
   }
 }
-var ImageComponent = new Component(join(cwd, 'resources', 'cache'))
+var ImageComponent = new Component(join(cwd, 'public', 'cache'))
 function getDefsetComponent(data) {
   return p.toFile(
     create$4(React.createElement(App$a, { data: data }), 'defset', 'defset')
