@@ -34,7 +34,8 @@ export class Ring extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const img = await getRingComponent(
-      await Server.ringInformation(UID, e.user_avatar)
+      await Server.ringInformation(UID, e.user_avatar),
+      UID
     )
     if (typeof img != 'boolean') e.reply(img)
     return

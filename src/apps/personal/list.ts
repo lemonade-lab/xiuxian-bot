@@ -23,7 +23,7 @@ export class List extends APlugin {
   async showList(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const img = await getListComponent(await Server.getList())
+    const img = await getListComponent(await Server.getList(), UID)
     if (typeof img != 'boolean') e.reply(img)
   }
 
@@ -35,7 +35,7 @@ export class List extends APlugin {
   async killGodChart(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const img = await getKillComponent(await Server.getKillList())
+    const img = await getKillComponent(await Server.getKillList(), UID)
 
     if (typeof img != 'boolean') e.reply(img)
   }

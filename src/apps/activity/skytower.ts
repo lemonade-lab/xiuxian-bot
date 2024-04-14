@@ -125,7 +125,7 @@ export class SkyTower extends APlugin {
       })
       return
     }
-    const img = await getSkyComponent(await Server.showSky(UID))
+    const img = await getSkyComponent(await Server.showSky(UID), UID)
     if (typeof img != 'boolean') e.reply(img)
     return
   }

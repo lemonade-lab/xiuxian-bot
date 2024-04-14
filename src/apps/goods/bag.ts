@@ -37,7 +37,8 @@ export class Bag extends APlugin {
         e.user_id,
         e.user_avatar,
         GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
-      )
+      ),
+      UID
     )
     if (typeof img != 'boolean') e.reply(img)
     return

@@ -120,7 +120,7 @@ export class Information extends APlugin {
         GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now).then(
           () => {
             Server.equipmentInformation(UID, e.user_avatar).then(res => {
-              getEquipmentComponent(res).then(img => {
+              getEquipmentComponent(res, UID).then(img => {
                 if (typeof img != 'boolean') {
                   e.reply(img)
                 }
@@ -150,7 +150,7 @@ export class Information extends APlugin {
         }
         GameApi.Skills.updataEfficiency(UID, UserData.talent).then(() => {
           Server.skillInformation(UID, e.user_avatar).then(res => {
-            getSkillsComponent(res).then(img => {
+            getSkillsComponent(res, UID).then(img => {
               if (typeof img != 'boolean') {
                 e.reply(img)
               }

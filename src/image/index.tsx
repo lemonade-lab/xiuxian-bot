@@ -21,22 +21,23 @@ const app = importPath(import.meta.url)
 const cwd = app.cwd()
 // dir
 const dir = join(cwd, 'public/html')
-mkdirSync(dir, { recursive: true })
-
 // init
 const p = new Puppeteer()
 
 /**
- * 储物袋
- * @param data
- * @param name
+ *
+ * @param dom
+ * @param key
+ * @param uid
  * @returns
  */
-export function getBagComponent(data, name = 'bag.html') {
-  const html = renderToString(<BagComponent data={data} />)
-  const address = join(dir, name)
+function create(dom, key, uid) {
+  const html = renderToString(dom)
+  const add = join(dir, key)
+  mkdirSync(add, { recursive: true })
+  const address = join(dir, `${uid}.html`)
   writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+  return address
 }
 
 /**
@@ -45,24 +46,8 @@ export function getBagComponent(data, name = 'bag.html') {
  * @param name
  * @returns
  */
-export function getDefsetComponent(data, name = 'defset.html') {
-  const html = renderToString(<DefsetComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
-}
-
-/**
- * 面板信息
- * @param data
- * @param name
- * @returns
- */
-export function getEquipmentComponent(data, name = 'equipment.html') {
-  const html = renderToString(<EquipmentComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getDefsetComponent(data) {
+  return p.toFile(create(<DefsetComponent data={data} />, 'defset', 'defset'))
 }
 
 /**
@@ -71,24 +56,8 @@ export function getEquipmentComponent(data, name = 'equipment.html') {
  * @param name
  * @returns
  */
-export function getHelpComponent(data, name = 'help.html') {
-  const html = renderToString(<HelpComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
-}
-
-/**
- * 个人信息
- * @param data
- * @param name
- * @returns
- */
-export function getInformationComponent(data, name = 'information.html') {
-  const html = renderToString(<InformationComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getHelpComponent(data) {
+  return p.toFile(create(<HelpComponent data={data} />, 'help', 'help'))
 }
 
 /**
@@ -97,11 +66,8 @@ export function getInformationComponent(data, name = 'information.html') {
  * @param name
  * @returns
  */
-export function getKillComponent(data, name = 'kill.html') {
-  const html = renderToString(<KillComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getKillComponent(data, uid) {
+  return p.toFile(create(<KillComponent data={data} />, 'kill', uid))
 }
 
 /**
@@ -110,11 +76,40 @@ export function getKillComponent(data, name = 'kill.html') {
  * @param name
  * @returns
  */
-export function getListComponent(data, name = 'list.html') {
-  const html = renderToString(<ListComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getListComponent(data, uid) {
+  return p.toFile(create(<ListComponent data={data} />, 'list', uid))
+}
+
+/**
+ * 储物袋
+ * @param data
+ * @param name
+ * @returns
+ */
+export function getBagComponent(data, uid) {
+  return p.toFile(create(<BagComponent data={data} />, 'bag', uid))
+}
+
+/**
+ * 面板信息
+ * @param data
+ * @param uid
+ * @returns
+ */
+export function getEquipmentComponent(data, uid) {
+  return p.toFile(create(<EquipmentComponent data={data} />, 'equipment', uid))
+}
+
+/**
+ * 个人信息
+ * @param data
+ * @param name
+ * @returns
+ */
+export function getInformationComponent(data, uid) {
+  return p.toFile(
+    create(<InformationComponent data={data} />, 'information', uid)
+  )
 }
 
 /**
@@ -123,11 +118,8 @@ export function getListComponent(data, name = 'list.html') {
  * @param name
  * @returns
  */
-export function getRingComponent(data, name = 'ring.html') {
-  const html = renderToString(<RingComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getRingComponent(data, uid) {
+  return p.toFile(create(<RingComponent data={data} />, 'ring', uid))
 }
 
 /**
@@ -136,11 +128,8 @@ export function getRingComponent(data, name = 'ring.html') {
  * @param name
  * @returns
  */
-export function getSkillsComponent(data, name = 'skills.html') {
-  const html = renderToString(<SkillsComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getSkillsComponent(data, uid) {
+  return p.toFile(create(<SkillsComponent data={data} />, 'skills', uid))
 }
 
 /**
@@ -149,9 +138,6 @@ export function getSkillsComponent(data, name = 'skills.html') {
  * @param name
  * @returns
  */
-export function getSkyComponent(data, name = 'sky.html') {
-  const html = renderToString(<SkyComponent data={data} />)
-  const address = join(dir, name)
-  writeFileSync(address, `<!DOCTYPE html>${html}`)
-  return p.toFile(address, {})
+export function getSkyComponent(data, uid) {
+  return p.toFile(create(<SkyComponent data={data} />, 'sky', uid))
 }
