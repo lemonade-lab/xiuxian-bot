@@ -116,6 +116,8 @@
 .nav-box-item {
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-box-item-img {

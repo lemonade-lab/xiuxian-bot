@@ -3,6 +3,7 @@ import HeaderComponent from './header.js'
 import _ from './url.js'
 import { PersonalInformationType } from '../server/information.js'
 import { ThemesColor } from './color.js'
+import { hash } from 'alemonjs'
 
 export default function App({ data }: { data: PersonalInformationType }) {
   // 现在的血量   血量总量
@@ -20,7 +21,7 @@ export default function App({ data }: { data: PersonalInformationType }) {
       return 'grayscale(100%)'
     }
   }
-
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
     <div className="nav">
       <HeaderComponent />
@@ -96,7 +97,7 @@ export default function App({ data }: { data: PersonalInformationType }) {
               background: color
             }}
           >
-            {data.UID}
+            {UID}
           </div>
           <span className="nav-box-blool">{`${data.battle_blood_now}/${data.battle_blood_limit}-${pro}%`}</span>
         </div>

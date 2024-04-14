@@ -1493,6 +1493,7 @@ function App$1({ data }) {
       return 'grayscale(100%)'
     }
   }
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'div',
     { className: 'nav' },
@@ -1608,7 +1609,7 @@ function App$1({ data }) {
               background: color
             }
           },
-          data.UID
+          UID
         ),
         React.createElement(
           'span',
