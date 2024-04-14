@@ -35,9 +35,9 @@ export class Information extends APlugin {
         { label: '功法信息', value: '/功法信息' }
       ],
       [
-        { label: '闭关', value: '/闭关' },
-        { label: '出关', value: '/出关' },
-        { label: '突破', value: '/突破' }
+        { label: '探索灵矿', value: '/探索灵矿' },
+        { label: '探索怪物', value: '/探索怪物' },
+        { label: '释放神识', value: '/释放神识' }
       ],
       [
         { label: '虚空镜', value: '/储物袋' },
@@ -45,12 +45,13 @@ export class Information extends APlugin {
         { label: '虚空灯', value: '/虚空灯' }
       ],
       [
-        { label: '探索怪物', value: '/探索怪物' },
-        { label: '储物袋', value: '/储物袋' },
-        { label: '纳戒', value: '/纳戒' }
+        { label: '纳戒', value: '/纳戒' },
+        { label: '闭关', value: '/闭关' },
+        { label: '出关', value: '/出关' },
+        { label: '突破', value: '/突破' }
       ],
       [
-        { label: '释放神识', value: '/释放神识' },
+        { label: '储物袋', value: '/储物袋' },
         { label: '修仙地图', value: '/修仙地图' },
         { label: '修仙帮助', value: '/修仙帮助' }
       ]

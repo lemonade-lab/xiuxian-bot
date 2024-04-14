@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -58,6 +58,16 @@ export class Battle extends APlugin {
    */
   async combat(e: AEvent) {
     const UID = e.user_id
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply('buttons', [
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
+      ])
+      return
+    }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     const UIDB = e?.at_user?.id
@@ -155,6 +165,18 @@ export class Battle extends APlugin {
    */
   async duel(e: AEvent) {
     const UID = e.user_id
+    if (e.platform == 'ntqq') {
+      e.reply('NTQQ不支持此功能')
+      Controllers(e).Message.reply('buttons', [
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
+      ])
+      return
+    }
+
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     const UIDB = e?.at_user?.id

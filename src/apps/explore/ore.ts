@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -166,7 +166,22 @@ export class Ore extends APlugin {
         }`
       )
     }
-    e.reply(msg)
+    const m = Controllers(e).Message
+    // 采集
+    e.reply(msg).then(() => {
+      // 分开发送。
+      let arr = []
+      for (const item of explore) {
+        arr.push({ label: item, value: `/采集${item}` })
+        if (arr.length >= 3) {
+          m.reply('按钮', arr)
+          arr = []
+        }
+      }
+      if (arr.length >= 1) {
+        m.reply('按钮', arr)
+      }
+    })
   }
 }
 

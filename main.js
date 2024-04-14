@@ -7286,6 +7286,16 @@ class Battle extends APlugin {
   }
   async combat(e) {
     const UID = e.user_id
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply('buttons', [
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
+      ])
+      return
+    }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await read$7(UID)
     const UIDB = e?.at_user?.id
@@ -7359,6 +7369,17 @@ class Battle extends APlugin {
   }
   async duel(e) {
     const UID = e.user_id
+    if (e.platform == 'ntqq') {
+      e.reply('NTQQ不支持此功能')
+      Controllers(e).Message.reply('buttons', [
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
+      ])
+      return
+    }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await read$7(UID)
     const UIDB = e?.at_user?.id
@@ -7566,6 +7587,16 @@ class ControllLevel extends APlugin {
   }
   async ambiguous(e) {
     const UID = e.user_id
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply('buttons', [
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
+      ])
+      return
+    }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await read$7(UID)
     const UIDB = e?.at_user?.id
@@ -8808,7 +8839,20 @@ class Ore extends APlugin {
         `\n🔹标记:${item}(${getMoneyGrade(explore[item].grade)}灵矿)*${explore[item].acount}`
       )
     }
-    e.reply(msg)
+    const m = Controllers(e).Message
+    e.reply(msg).then(() => {
+      let arr = []
+      for (const item of explore) {
+        arr.push({ label: item, value: `/采集${item}` })
+        if (arr.length >= 3) {
+          m.reply('按钮', arr)
+          arr = []
+        }
+      }
+      if (arr.length >= 1) {
+        m.reply('按钮', arr)
+      }
+    })
   }
 }
 function getMoneyGrade(grade) {
@@ -10608,9 +10652,9 @@ class Information extends APlugin {
         { label: '功法信息', value: '/功法信息' }
       ],
       [
-        { label: '闭关', value: '/闭关' },
-        { label: '出关', value: '/出关' },
-        { label: '突破', value: '/突破' }
+        { label: '探索灵矿', value: '/探索灵矿' },
+        { label: '探索怪物', value: '/探索怪物' },
+        { label: '释放神识', value: '/释放神识' }
       ],
       [
         { label: '虚空镜', value: '/储物袋' },
@@ -10618,12 +10662,13 @@ class Information extends APlugin {
         { label: '虚空灯', value: '/虚空灯' }
       ],
       [
-        { label: '探索怪物', value: '/探索怪物' },
-        { label: '储物袋', value: '/储物袋' },
-        { label: '纳戒', value: '/纳戒' }
+        { label: '纳戒', value: '/纳戒' },
+        { label: '闭关', value: '/闭关' },
+        { label: '出关', value: '/出关' },
+        { label: '突破', value: '/突破' }
       ],
       [
-        { label: '释放神识', value: '/释放神识' },
+        { label: '储物袋', value: '/储物袋' },
         { label: '修仙地图', value: '/修仙地图' },
         { label: '修仙帮助', value: '/修仙帮助' }
       ]
