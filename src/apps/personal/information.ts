@@ -32,12 +32,12 @@ export class Information extends APlugin {
       [
         { label: '个人信息', value: '/个人信息' },
         { label: '面板信息', value: '/面板信息' },
-        { label: '装备信息', value: '/装备信息' }
+        { label: '功法信息', value: '/功法信息' }
       ],
       [
         { label: '闭关', value: '/闭关' },
         { label: '出关', value: '/出关' },
-        { label: '前往', value: '/前往联盟', enter: false }
+        { label: '前往', value: '/前往', enter: false }
       ],
       [
         { label: '虚空镜', value: '/储物袋' },
