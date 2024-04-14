@@ -24,7 +24,7 @@ import {
 } from '../db/index.js'
 // img
 import { personalInformation } from '../server/information.js'
-import ImageComponent, { getInformationComponent } from '../image/index.js'
+import ImageComponent from '../image/index.js'
 
 /**
  * 显示个人信息
@@ -32,7 +32,6 @@ import ImageComponent, { getInformationComponent } from '../image/index.js'
  */
 export function showUserMsg(e: AEvent) {
   const UID = e.user_id
-
   personalInformation(UID, e.user_avatar).then(res => {
     ImageComponent.message(res, UID).then(img => {
       if (typeof img != 'boolean') {
@@ -191,39 +190,7 @@ export async function postHelp(e: AEvent, name: string) {
     console.error(err)
     return '图片缓存错误'
   })
-
-  e.reply(img).then(() => {
-    Controllers(e).Message.reply(
-      '按钮',
-      [
-        { label: '战斗帮助', value: '/战斗帮助' },
-        { label: '地图帮助', value: '/地图帮助' },
-        { label: '职业帮助', value: '/职业帮助' }
-      ],
-      [
-        { label: '天机帮助', value: '/天机帮助' },
-        { label: '黑市帮助', value: '/黑市帮助' },
-        { label: '联盟帮助', value: '/联盟帮助' }
-      ],
-      [
-        { label: '修炼帮助', value: '/修炼帮助' },
-        { label: '虚空帮助', value: '/虚空帮助' },
-        { label: '势力帮助', value: '/势力帮助' }
-      ],
-      [
-        {
-          label: '加入官群',
-          value: '/加入官群',
-          link: 'https://qm.qq.com/q/BUXl2xKabe'
-        },
-        {
-          label: '修仙地图',
-          value: '/修仙地图'
-        },
-        { label: '控制板', value: '/控制板' }
-      ]
-    )
-  })
+  e.reply(img)
   return false
 }
 

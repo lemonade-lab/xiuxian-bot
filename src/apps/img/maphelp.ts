@@ -47,9 +47,8 @@ export class MapHelp extends APlugin {
             { label: '星海', value: '/前往星海' },
             { label: '联盟', value: '/前往联盟' },
             {
-              label: '加入官群',
-              value: '/加入官群',
-              link: 'https://qm.qq.com/q/BUXl2xKabe'
+              label: '返回',
+              value: '/返回'
             }
           ]
         )

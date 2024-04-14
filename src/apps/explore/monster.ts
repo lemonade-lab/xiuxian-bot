@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -319,7 +319,21 @@ export class Monster extends APlugin {
         }`
       )
     }
-    e.reply(msg)
+    const m = Controllers(e).Message
+    e.reply(msg).then(() => {
+      // 分开发送。
+      let arr = []
+      for (const item of sortedMonsters) {
+        arr.push({ label: item, value: `/击杀${item}` })
+        if (arr.length >= 3) {
+          m.reply('按钮', arr)
+          arr = []
+        }
+      }
+      if (arr.length >= 1) {
+        m.reply('按钮', arr)
+      }
+    })
     return
   }
   /**

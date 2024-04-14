@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -12,8 +12,8 @@ export class Start extends APlugin {
       rule: [
         { reg: /^(#|\/)?踏入仙途$/, fnc: 'createMsg' },
         { reg: /^(#|\/)?再入仙途$/, fnc: 'reCreateMsg' },
-        { reg: /^(#|\/)?绑定企鹅\d+$/, fnc: 'binding' },
-        { reg: /^(#|\/)?解绑企鹅$/, fnc: 'delBinding' }
+        { reg: /^(#|\/)?绑定(头像|企鹅)\d+$/, fnc: 'binding' },
+        { reg: /^(#|\/)?解绑(头像|企鹅)$/, fnc: 'delBinding' }
       ]
     })
   }
@@ -43,26 +43,31 @@ export class Start extends APlugin {
               // 设置冷却
               GameApi.Burial.set(UID, 8, GameApi.Cooling.CD_Reborn)
 
-              e.reply(
-                [
-                  `修仙大陆第${res.id}位萌新`,
-                  '\n记得去联盟报到开宝箱噢',
-                  '\n签到还有特殊奖励'
-                ],
-                {
-                  quote: e.msg_id
-                }
-              )
-
               if (e.platform == 'ntqq') {
-                e.reply(['可使用[/绑定企鹅+QQ]切换头像'], {
-                  quote: e.msg_id
-                })
+                Controllers(e).Message.reply(
+                  '按钮',
+                  [
+                    { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
+                    { label: '修仙帮助', value: '/修仙帮助' }
+                  ],
+                  [
+                    { label: '修仙联盟', value: '/前往联盟' },
+                    { label: '联盟报到', value: '/联盟报到' }
+                  ]
+                )
+              } else {
+                e.reply(
+                  [
+                    `修仙大陆第${res.id}位萌新`,
+                    '\n记得去联盟报到开宝箱噢',
+                    '\n签到还有特殊奖励',
+                    '\n发送[/修仙帮助]了解更多'
+                  ],
+                  {
+                    quote: e.msg_id
+                  }
+                )
               }
-
-              e.reply(['发送[/修仙帮助]了解更多'], {
-                quote: e.msg_id
-              })
 
               // 显示资料
               showUserMsg(e)
@@ -138,28 +143,45 @@ export class Start extends APlugin {
               // 重新查询用户
               isUser(UID)
                 .then(UserData => {
-                  // 新手提示
-                  e.reply(
-                    [
-                      `修仙大陆第${UserData.id}位萌新`,
-                      '\n记得去联盟报到开宝箱噢',
-                      '\n签到还有特殊奖励'
-                    ],
-                    {
-                      quote: e.msg_id
-                    }
-                  )
-
                   if (e.platform == 'ntqq') {
-                    e.reply(['可使用[/绑定企鹅+QQ]切换头像'], {
-                      quote: e.msg_id
-                    })
+                    Controllers(e).Message.reply(
+                      '按钮',
+                      [
+                        {
+                          label: '绑定头像',
+                          value: '/绑定头像+QQ',
+                          enter: false
+                        },
+                        {
+                          label: '修仙帮助',
+                          value: '/修仙帮助'
+                        }
+                      ],
+                      [
+                        {
+                          label: '修仙联盟',
+                          value: '/前往联盟'
+                        },
+                        {
+                          label: '联盟报到',
+                          value: '/联盟报到'
+                        }
+                      ]
+                    )
+                  } else {
+                    // 新手提示
+                    e.reply(
+                      [
+                        `修仙大陆第${UserData.id}位萌新`,
+                        '\n记得去联盟报到开宝箱噢',
+                        '\n签到还有特殊奖励',
+                        '\n发送[/修仙帮助]了解更多'
+                      ],
+                      {
+                        quote: e.msg_id
+                      }
+                    )
                   }
-
-                  e.reply(['发送[/修仙帮助]了解更多'], {
-                    quote: e.msg_id
-                  })
-
                   /**
                    * 并发
                    */
@@ -202,7 +224,6 @@ export class Start extends APlugin {
    */
   async delBinding(e: AEvent) {
     const UID = e.user_id
-
     isUser(UID)
       .then(res => {
         if (!res) {
@@ -213,7 +234,7 @@ export class Start extends APlugin {
           phone: null
         } as DB.UserType)
           .then(() => {
-            e.reply([`绑定成功`], {
+            e.reply([`解绑成功`], {
               quote: e.msg_id
             })
           })
@@ -229,7 +250,7 @@ export class Start extends APlugin {
   }
 
   /**
-   * 绑定企鹅
+   * (头像|企鹅)
    * @param e
    * @returns
    */
@@ -242,7 +263,7 @@ export class Start extends APlugin {
           e.reply('请先[/踏入仙途]')
           return
         }
-        const qq = e.msg.replace(/^(#|\/)?绑定企鹅/, '').split('*')
+        const qq = e.msg.replace(/^(#|\/)?绑定(头像|企鹅)/, '').split('*')
         if (qq.length >= 20) {
           e.reply('错误长度', {
             quote: e.msg_id

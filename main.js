@@ -4132,38 +4132,7 @@ async function postHelp(e, name) {
     console.error(err)
     return '图片缓存错误'
   })
-  e.reply(img).then(() => {
-    Controllers(e).Message.reply(
-      '按钮',
-      [
-        { label: '战斗帮助', value: '/战斗帮助' },
-        { label: '地图帮助', value: '/地图帮助' },
-        { label: '职业帮助', value: '/职业帮助' }
-      ],
-      [
-        { label: '天机帮助', value: '/天机帮助' },
-        { label: '黑市帮助', value: '/黑市帮助' },
-        { label: '联盟帮助', value: '/联盟帮助' }
-      ],
-      [
-        { label: '修炼帮助', value: '/修炼帮助' },
-        { label: '虚空帮助', value: '/虚空帮助' },
-        { label: '势力帮助', value: '/势力帮助' }
-      ],
-      [
-        {
-          label: '加入官群',
-          value: '/加入官群',
-          link: 'https://qm.qq.com/q/BUXl2xKabe'
-        },
-        {
-          label: '修仙地图',
-          value: '/修仙地图'
-        },
-        { label: '控制板', value: '/控制板' }
-      ]
-    )
-  })
+  e.reply(img)
   return false
 }
 const npcName = [
@@ -8621,7 +8590,20 @@ class Monster extends APlugin {
         `\n${item}(${MonsterData[monster[item].level]?.name})*${monster[item].acount}`
       )
     }
-    e.reply(msg)
+    const m = Controllers(e).Message
+    e.reply(msg).then(() => {
+      let arr = []
+      for (const item of sortedMonsters) {
+        arr.push({ label: item, value: `/击杀${item}` })
+        if (arr.length >= 3) {
+          m.reply('按钮', arr)
+          arr = []
+        }
+      }
+      if (arr.length >= 1) {
+        m.reply('按钮', arr)
+      }
+    })
     return
   }
   async demontower(e) {
@@ -9358,9 +9340,8 @@ class MapHelp extends APlugin {
             { label: '星海', value: '/前往星海' },
             { label: '联盟', value: '/前往联盟' },
             {
-              label: '加入官群',
-              value: '/加入官群',
-              link: 'https://qm.qq.com/q/BUXl2xKabe'
+              label: '返回',
+              value: '/返回'
             }
           ]
         )
@@ -10818,8 +10799,8 @@ class Start extends APlugin {
       rule: [
         { reg: /^(#|\/)?踏入仙途$/, fnc: 'createMsg' },
         { reg: /^(#|\/)?再入仙途$/, fnc: 'reCreateMsg' },
-        { reg: /^(#|\/)?绑定企鹅\d+$/, fnc: 'binding' },
-        { reg: /^(#|\/)?解绑企鹅$/, fnc: 'delBinding' }
+        { reg: /^(#|\/)?绑定(头像|企鹅)\d+$/, fnc: 'binding' },
+        { reg: /^(#|\/)?解绑(头像|企鹅)$/, fnc: 'delBinding' }
       ]
     })
   }
@@ -10839,24 +10820,31 @@ class Start extends APlugin {
           updatePlayer(UID, e.user_avatar)
             .then(() => {
               set$3(UID, 8, CD_Reborn)
-              e.reply(
-                [
-                  `修仙大陆第${res.id}位萌新`,
-                  '\n记得去联盟报到开宝箱噢',
-                  '\n签到还有特殊奖励'
-                ],
-                {
-                  quote: e.msg_id
-                }
-              )
               if (e.platform == 'ntqq') {
-                e.reply(['可使用[/绑定企鹅+QQ]切换头像'], {
-                  quote: e.msg_id
-                })
+                Controllers(e).Message.reply(
+                  '按钮',
+                  [
+                    { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
+                    { label: '修仙帮助', value: '/修仙帮助' }
+                  ],
+                  [
+                    { label: '修仙联盟', value: '/前往联盟' },
+                    { label: '联盟报到', value: '/联盟报到' }
+                  ]
+                )
+              } else {
+                e.reply(
+                  [
+                    `修仙大陆第${res.id}位萌新`,
+                    '\n记得去联盟报到开宝箱噢',
+                    '\n签到还有特殊奖励',
+                    '\n发送[/修仙帮助]了解更多'
+                  ],
+                  {
+                    quote: e.msg_id
+                  }
+                )
               }
-              e.reply(['发送[/修仙帮助]了解更多'], {
-                quote: e.msg_id
-              })
               showUserMsg(e)
             })
             .catch(err => {
@@ -10900,24 +10888,44 @@ class Start extends APlugin {
               set$3(UID, CDID, CDTime)
               isUser(UID)
                 .then(UserData => {
-                  e.reply(
-                    [
-                      `修仙大陆第${UserData.id}位萌新`,
-                      '\n记得去联盟报到开宝箱噢',
-                      '\n签到还有特殊奖励'
-                    ],
-                    {
-                      quote: e.msg_id
-                    }
-                  )
                   if (e.platform == 'ntqq') {
-                    e.reply(['可使用[/绑定企鹅+QQ]切换头像'], {
-                      quote: e.msg_id
-                    })
+                    Controllers(e).Message.reply(
+                      '按钮',
+                      [
+                        {
+                          label: '绑定头像',
+                          value: '/绑定头像+QQ',
+                          enter: false
+                        },
+                        {
+                          label: '修仙帮助',
+                          value: '/修仙帮助'
+                        }
+                      ],
+                      [
+                        {
+                          label: '修仙联盟',
+                          value: '/前往联盟'
+                        },
+                        {
+                          label: '联盟报到',
+                          value: '/联盟报到'
+                        }
+                      ]
+                    )
+                  } else {
+                    e.reply(
+                      [
+                        `修仙大陆第${UserData.id}位萌新`,
+                        '\n记得去联盟报到开宝箱噢',
+                        '\n签到还有特殊奖励',
+                        '\n发送[/修仙帮助]了解更多'
+                      ],
+                      {
+                        quote: e.msg_id
+                      }
+                    )
                   }
-                  e.reply(['发送[/修仙帮助]了解更多'], {
-                    quote: e.msg_id
-                  })
                   Promise.all([
                     updatePanel(UID, UserData.battle_blood_now),
                     updataEfficiency(UID, UserData.talent),
@@ -10951,7 +10959,7 @@ class Start extends APlugin {
           phone: null
         })
           .then(() => {
-            e.reply([`绑定成功`], {
+            e.reply([`解绑成功`], {
               quote: e.msg_id
             })
           })
@@ -10972,7 +10980,7 @@ class Start extends APlugin {
           e.reply('请先[/踏入仙途]')
           return
         }
-        const qq = e.msg.replace(/^(#|\/)?绑定企鹅/, '').split('*')
+        const qq = e.msg.replace(/^(#|\/)?绑定(头像|企鹅)/, '').split('*')
         if (qq.length >= 20) {
           e.reply('错误长度', {
             quote: e.msg_id
