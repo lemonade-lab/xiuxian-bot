@@ -167,6 +167,13 @@ export class Ore extends APlugin {
       )
     }
     e.reply(msg)
+    Controllers(e).Message.reply('', [
+      {
+        label: '/采集',
+        enter: false
+      }
+    ])
+    Controllers(e).Message.reply(msg)
   }
 }
 

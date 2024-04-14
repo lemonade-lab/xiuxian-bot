@@ -35,11 +35,12 @@ export function showUserMsg(e: AEvent) {
   personalInformation(UID, e.user_avatar).then(res => {
     getInformationComponent(res).then(img => {
       if (typeof img != 'boolean') {
-        Controllers(e).Message.reply(img, [
+        Controllers(e).Message.reply('', [
           { label: '闭关', value: '/闭关' },
           { label: '出关', value: '/出关' },
           { label: '前往', value: '/前往联盟', enter: false }
         ])
+        Controllers(e).Message.reply(img)
       }
     })
   })
@@ -178,11 +179,12 @@ export async function postHelp(e: AEvent, name: string) {
     console.error(err)
     return '图片缓存错误'
   })
-  Controllers(e).Message.reply(img, [
+  Controllers(e).Message.reply('', [
     { label: '个人信息', value: '/个人信息' },
     { label: '闭关', value: '/闭关' },
     { label: '出关', value: '/出关' }
   ])
+  Controllers(e).Message.reply(img)
   return false
 }
 
