@@ -3,8 +3,8 @@ import {
   importPath,
   Puppeteer,
   ABuffer,
-  Controllers,
   APlugin,
+  Controllers,
   createApp
 } from 'alemonjs'
 import { mkdirSync, writeFileSync, readFileSync } from 'fs'
@@ -3915,12 +3915,7 @@ function showUserMsg(e) {
   personalInformation(UID, e.user_avatar).then(res => {
     getInformationComponent(res).then(img => {
       if (typeof img != 'boolean') {
-        Controllers(e).Message.reply(img)
-        Controllers(e).Message.reply('', [
-          { label: '闭关', value: '/闭关' },
-          { label: '出关', value: '/出关' },
-          { label: '前往', value: '/前往联盟', enter: false }
-        ])
+        e.reply(img)
       }
     })
   })
@@ -3988,12 +3983,7 @@ async function postHelp(e, name) {
     console.error(err)
     return '图片缓存错误'
   })
-  Controllers(e).Message.reply(img)
-  Controllers(e).Message.reply('', [
-    { label: '个人信息', value: '/个人信息' },
-    { label: '闭关', value: '/闭关' },
-    { label: '出关', value: '/出关' }
-  ])
+  e.reply(img)
   return false
 }
 const npcName = [
@@ -8656,7 +8646,7 @@ class Ore extends APlugin {
         `\n🔹标记:${item}(${getMoneyGrade(explore[item].grade)}灵矿)*${explore[item].acount}`
       )
     }
-    Controllers(e).Message.reply(msg)
+    e.reply(msg)
   }
 }
 function getMoneyGrade(grade) {
@@ -9074,7 +9064,7 @@ class Help extends APlugin {
   }
   async getBaseHelp(e) {
     postHelp(e, 'base_help')
-    return
+    return true
   }
   async getCareerHelp(e) {
     postHelp(e, 'career_help')
@@ -10373,9 +10363,21 @@ class Information extends APlugin {
         { reg: /^(#|\/)?(个人|個人)信息$/, fnc: 'personalInformation' },
         { reg: /^(#|\/)?面板信息$/, fnc: 'equipmentInformation' },
         { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' },
-        { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' }
+        { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' },
+        { reg: /^(#|\/)?(帮助|操作面板|面板)$/, fnc: 'controllers' }
       ]
     })
+  }
+  async controllers(e) {
+    Controllers(e).Message.reply('', [
+      { label: '个人信息', value: '/个人信息' },
+      { label: '面板信息', value: '/面板信息' },
+      { label: '出关', value: '/出关' },
+      { label: '闭关', value: '/闭关' },
+      { label: '出关', value: '/出关' },
+      { label: '前往', value: '/前往联盟', enter: false }
+    ])
+    return true
   }
   async myUserID(e) {
     e.reply(e.user_id)
@@ -10418,7 +10420,7 @@ class Information extends APlugin {
           equipmentInformation(UID, e.user_avatar).then(res => {
             getEquipmentComponent(res).then(img => {
               if (typeof img != 'boolean') {
-                Controllers(e).Message.reply(img)
+                e.reply(img)
               }
             })
           })
@@ -10441,7 +10443,7 @@ class Information extends APlugin {
           skillInformation(UID, e.user_avatar).then(res => {
             getSkillsComponent(res).then(img => {
               if (typeof img != 'boolean') {
-                Controllers(e).Message.reply(img)
+                e.reply(img)
               }
             })
           })

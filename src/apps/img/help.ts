@@ -25,7 +25,7 @@ export class Help extends APlugin {
    */
   async getBaseHelp(e: AEvent) {
     postHelp(e, 'base_help')
-    return
+    return true
   }
 
   /**

@@ -1,4 +1,4 @@
-import { APlugin, type AEvent, Controllers } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -166,13 +166,7 @@ export class Ore extends APlugin {
         }`
       )
     }
-    Controllers(e).Message.reply(msg)
-    // Controllers(e).Message.reply('', [
-    //   {
-    //     label: '/采集',
-    //     enter: false
-    //   }
-    // ])
+    e.reply(msg)
   }
 }
 

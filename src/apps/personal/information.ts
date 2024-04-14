@@ -15,9 +15,27 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?(个人|個人)信息$/, fnc: 'personalInformation' },
         { reg: /^(#|\/)?面板信息$/, fnc: 'equipmentInformation' },
         { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' },
-        { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' }
+        { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' },
+        { reg: /^(#|\/)?(帮助|操作面板|面板)$/, fnc: 'controllers' }
       ]
     })
+  }
+
+  /**
+   *
+   * @param e
+   * @returns
+   */
+  async controllers(e: AEvent) {
+    Controllers(e).Message.reply('', [
+      { label: '个人信息', value: '/个人信息' },
+      { label: '面板信息', value: '/面板信息' },
+      { label: '出关', value: '/出关' },
+      { label: '闭关', value: '/闭关' },
+      { label: '出关', value: '/出关' },
+      { label: '前往', value: '/前往联盟', enter: false }
+    ])
+    return true
   }
 
   /**
@@ -81,11 +99,7 @@ export class Information extends APlugin {
             Server.equipmentInformation(UID, e.user_avatar).then(res => {
               getEquipmentComponent(res).then(img => {
                 if (typeof img != 'boolean') {
-                  Controllers(e).Message.reply(img)
-                  // Controllers(e).Message.reply('', [
-                  //   { label: '装备', value: '/装备', enter: false },
-                  //   { label: '卸下', value: '/卸下', enter: false }
-                  // ])
+                  e.reply(img)
                 }
               })
             })
@@ -115,11 +129,7 @@ export class Information extends APlugin {
           Server.skillInformation(UID, e.user_avatar).then(res => {
             getSkillsComponent(res).then(img => {
               if (typeof img != 'boolean') {
-                Controllers(e).Message.reply(img)
-                // Controllers(e).Message.reply('', [
-                //   { label: '学习', value: '/学习', enter: false },
-                //   { label: '忘掉', value: '/忘掉', enter: false }
-                // ])
+                e.reply(img)
               }
             })
           })
