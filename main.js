@@ -10610,7 +10610,7 @@ class Information extends APlugin {
       ],
       [
         { label: '释放神识', value: '/释放神识' },
-        { label: '地图帮助', value: '/地图帮助' },
+        { label: '修仙地图', value: '/修仙地图' },
         { label: '修仙帮助', value: '/修仙帮助' }
       ]
     )
