@@ -82,10 +82,10 @@ export class Information extends APlugin {
               getEquipmentComponent(res).then(img => {
                 if (typeof img != 'boolean') {
                   Controllers(e).Message.reply(img)
-                  Controllers(e).Message.reply('', [
-                    { label: '装备', value: '/装备', enter: false },
-                    { label: '卸下', value: '/卸下', enter: false }
-                  ])
+                  // Controllers(e).Message.reply('', [
+                  //   { label: '装备', value: '/装备', enter: false },
+                  //   { label: '卸下', value: '/卸下', enter: false }
+                  // ])
                 }
               })
             })
@@ -116,10 +116,10 @@ export class Information extends APlugin {
             getSkillsComponent(res).then(img => {
               if (typeof img != 'boolean') {
                 Controllers(e).Message.reply(img)
-                Controllers(e).Message.reply('', [
-                  { label: '学习', value: '/学习', enter: false },
-                  { label: '忘掉', value: '/忘掉', enter: false }
-                ])
+                // Controllers(e).Message.reply('', [
+                //   { label: '学习', value: '/学习', enter: false },
+                //   { label: '忘掉', value: '/忘掉', enter: false }
+                // ])
               }
             })
           })
