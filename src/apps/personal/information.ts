@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -22,9 +22,12 @@ export class Information extends APlugin {
 
   /**
    *
+   * @param e
+   * @returns
    */
-  async myUserID() {
-    this.e.reply(this.e.user_id)
+  async myUserID(e: AEvent) {
+    e.reply(e.user_id)
+    return
   }
 
   /**
@@ -77,7 +80,12 @@ export class Information extends APlugin {
           () => {
             Server.equipmentInformation(UID, e.user_avatar).then(res => {
               getEquipmentComponent(res).then(img => {
-                if (typeof img != 'boolean') e.reply(img)
+                if (typeof img != 'boolean') {
+                  Controllers(e).Message.reply(img, [
+                    { label: '装备', value: '/装备', enter: false },
+                    { label: '下载', value: '/下载', enter: false }
+                  ])
+                }
               })
             })
           }
@@ -105,7 +113,12 @@ export class Information extends APlugin {
         GameApi.Skills.updataEfficiency(UID, UserData.talent).then(() => {
           Server.skillInformation(UID, e.user_avatar).then(res => {
             getSkillsComponent(res).then(img => {
-              if (typeof img != 'boolean') e.reply(img)
+              if (typeof img != 'boolean') {
+                Controllers(e).Message.reply(img, [
+                  { label: '学习', value: '/学习', enter: false },
+                  { label: '忘掉', value: '/忘掉', enter: false }
+                ])
+              }
             })
           })
         })
