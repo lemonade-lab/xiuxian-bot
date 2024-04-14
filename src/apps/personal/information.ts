@@ -16,7 +16,7 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?面板信息$/, fnc: 'equipmentInformation' },
         { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' },
         { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' },
-        { reg: /^(#|\/)?(帮助|操作板)$/, fnc: 'controllers' }
+        { reg: /^(#|\/)?(帮助|控制板)$/, fnc: 'controllers' }
       ]
     })
   }
