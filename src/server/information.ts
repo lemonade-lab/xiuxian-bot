@@ -107,6 +107,8 @@ export async function personalInformation(UID: string, user_avatar: string) {
     // 天赋
     linggenName: name,
     talentsize: size,
+    talent_show: UserData.talent_show,
+    talent: UserData.talent,
     special_reputation: UserData.special_reputation,
     battle_power: UserData.battle_power,
     // UserData
@@ -138,10 +140,13 @@ export async function personalInformation(UID: string, user_avatar: string) {
       }
     },
     equipment: equipment,
-    skills: skills
+    skills: skills,
+    theme: 'dark'
   }
-  //''
 }
+
+export type PersonalInformationType =
+  ReturnType<typeof personalInformation> extends Promise<infer T> ? T : never
 
 /**
  * 装备信息
@@ -221,6 +226,9 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
   }
 }
 
+export type EquipmentInformationType =
+  ReturnType<typeof equipmentInformation> extends Promise<infer T> ? T : never
+
 /**
  * 功法信息
  * @param UID
@@ -264,6 +272,9 @@ export async function skillInformation(UID: string, user_avatar: string) {
     avatar: avatar
   }
 }
+
+export type KkillInformationType =
+  ReturnType<typeof skillInformation> extends Promise<infer T> ? T : never
 
 /**
  * 储物袋
@@ -309,6 +320,9 @@ export async function backpackInformation(
   }
 }
 
+export type BackpackInformationType =
+  ReturnType<typeof backpackInformation> extends Promise<infer T> ? T : never
+
 /**
  * 呐戒
  * @param UID
@@ -344,6 +358,9 @@ export async function ringInformation(UID: string, user_avatar: string) {
     avatar: avatar
   }
 }
+
+export type RingInformationType =
+  ReturnType<typeof ringInformation> extends Promise<infer T> ? T : never
 
 /**
  * 显示通天塔
@@ -423,3 +440,6 @@ export async function showSky(UID: string) {
   // 发送
   return await reply()
 }
+
+export type ShowSkyType =
+  ReturnType<typeof showSky> extends Promise<infer T> ? T : never

@@ -24,7 +24,7 @@ import {
 } from '../db/index.js'
 // img
 import { personalInformation } from '../server/information.js'
-import { getInformationComponent } from '../image/index.js'
+import ImageComponent, { getInformationComponent } from '../image/index.js'
 
 /**
  * 显示个人信息
@@ -32,23 +32,27 @@ import { getInformationComponent } from '../image/index.js'
  */
 export function showUserMsg(e: AEvent) {
   const UID = e.user_id
+
   personalInformation(UID, e.user_avatar).then(res => {
-    getInformationComponent(res, UID).then(img => {
+    ImageComponent.message(res, UID).then(img => {
       if (typeof img != 'boolean') {
-        e.reply(img)
-        Controllers(e).Message.reply(
-          '按钮',
-          [
-            { label: '闭关', value: '/闭关' },
-            { label: '出关', value: '/出关' },
-            { label: '前往', value: '/前往联盟', enter: false }
-          ],
-          [
-            { label: '突破', value: '/突破' },
-            { label: '储物袋', value: '/储物袋' },
-            { label: '纳戒', value: '/纳戒' }
-          ]
-        )
+        // 图片发送
+        e.reply(img).then(() => {
+          // buttons
+          Controllers(e).Message.reply(
+            'buttons',
+            [
+              { label: '闭关', value: '/闭关' },
+              { label: '出关', value: '/出关' },
+              { label: '前往', value: '/前往联盟', enter: false }
+            ],
+            [
+              { label: '突破', value: '/突破' },
+              { label: '储物袋', value: '/储物袋' },
+              { label: '纳戒', value: '/纳戒' }
+            ]
+          )
+        })
       }
     })
   })

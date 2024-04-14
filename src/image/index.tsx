@@ -15,6 +15,9 @@ import RingComponent from './conponent/ring.tsx'
 import SkillsComponent from './conponent/skills.tsx'
 import SkyComponent from './conponent/sky.tsx'
 
+import MessageComponent from '../component/message.tsx'
+import { PersonalInformationType } from '../server/information.ts'
+
 // getPath
 const app = importPath(import.meta.url)
 // cwd
@@ -39,6 +42,48 @@ function create(dom, key, uid) {
   writeFileSync(address, `<!DOCTYPE html>${html}`)
   return address
 }
+
+class Component {
+  puppeteer: typeof Puppeteer.prototype
+  #dir = ''
+  constructor(dir: string) {
+    this.puppeteer = new Puppeteer()
+    this.#dir = dir
+    mkdirSync(this.#dir, {
+      recursive: true
+    })
+  }
+  /**
+   * 渲染字符串
+   * @param element
+   * @param name
+   * @returns
+   */
+  create(element: React.ReactNode, dirs: string, name: string) {
+    const html = renderToString(element)
+    const dir = join(this.#dir, dirs)
+    mkdirSync(dir, {
+      recursive: true
+    })
+    const address = join(dir, name)
+    writeFileSync(address, `<!DOCTYPE html>${html}`)
+    return address
+  }
+
+  /**
+   * 用户消息
+   * @param data
+   * @param name
+   * @returns
+   */
+  async message(data: PersonalInformationType, uid: number | string) {
+    return this.puppeteer.toFile(
+      this.create(<MessageComponent data={data} />, 'message', `${uid}.html`)
+    )
+  }
+}
+
+export default new Component(join(cwd, 'resources', 'cache'))
 
 /**
  * 修仙配置

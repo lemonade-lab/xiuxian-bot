@@ -1,6 +1,7 @@
 import React from 'react'
 import { hash } from 'alemonjs'
-export default function App({ data }) {
+import { PersonalInformationType } from '../../server/information'
+export default function App({ data }: { data: PersonalInformationType }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
     <html>
@@ -66,61 +67,53 @@ export default function App({ data }) {
                 {'[个人信息]'}
               </div>
               <div className="user_top_msg">
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   灵力: {data.special_spiritual}/{data.special_spiritual_limit}
                 </div>
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   煞气: {data.special_prestige}/100
                 </div>
               </div>
               <div className="user_top_msg">
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   法境: {data.level?.gaspractice?.Name}
                 </div>
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   修为: {data.level?.gaspractice?.Experience}/
                   {data.level?.gaspractice?.ExperienceLimit}
                 </div>
               </div>
               <div className="user_top_msg">
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   体境: {data.level?.bodypractice?.Name}
                 </div>
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   气血: {data.level?.bodypractice?.Experience}/
                   {data.level?.bodypractice?.ExperienceLimit}
                 </div>
               </div>
               <div className="user_top_msg">
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   魂境: {data.level?.soul?.Name}
                 </div>
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   神念: {data.level?.soul?.Experience}/
                   {data.level?.soul?.ExperienceLimit}
                 </div>
               </div>
               <div className="user_top_msg">
-                <div className="user_font_msg" style={{ color: data.color }}>
+                <div className="user_font_msg">
                   声望: {data.special_reputation}
                 </div>
-                <div className="user_font_msg" style={{ color: data.color }}>
-                  战力: {data.battle_power}
-                </div>
+                <div className="user_font_msg">战力: {data.battle_power}</div>
               </div>
               <div className="user_top_msg">
-                <div className="user_font_msg" style={{ color: data.color }}>
-                  灵根: {data.linggenName}
-                </div>
-                <div className="user_font_msg" style={{ color: data.color }}>
-                  天赋: {data.talentsize}
-                </div>
+                <div className="user_font_msg">灵根: {data.linggenName}</div>
+                <div className="user_font_msg">天赋: {data.talentsize}</div>
               </div>
               <div className="user_top_right_font2 font_control Horizontal_grid grid-4">
                 {data.equipment.map(item => (
-                  <div key={item['good.name']} style={{ color: data.color }}>
-                    {item['good.name']}
-                  </div>
+                  <div key={item['good.name']}>{item['good.name']}</div>
                 ))}
               </div>
             </div>
@@ -129,17 +122,12 @@ export default function App({ data }) {
           {/* 功法*/}
           <div className="user_bottom1">
             <div className="use_data">
-              <div
-                className="user_top_right_font0 font_control Horizontal_grid"
-                style={{ color: data.color }}
-              >
+              <div className="user_top_right_font0 font_control Horizontal_grid">
                 {'[已学功法]'}
               </div>
               <div className="user_top_right_font2 font_control Horizontal_grid grid-4">
                 {data.skills.map(item => (
-                  <div key={item['good.name']} style={{ color: data.color }}>
-                    《{item['good.name']}》
-                  </div>
+                  <div key={item['good.name']}>《{item['good.name']}》</div>
                 ))}
               </div>
             </div>

@@ -23,7 +23,7 @@ const nameMap = {
   exp_soul: '魂念'
 }
 
-function App$9({ data }) {
+function App$b({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -220,7 +220,7 @@ function App$9({ data }) {
   )
 }
 
-function App$8({ data }) {
+function App$a({ data }) {
   return React.createElement(
     'html',
     null,
@@ -387,7 +387,7 @@ function App$8({ data }) {
   )
 }
 
-function App$7({ data }) {
+function App$9({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -679,7 +679,7 @@ function App$7({ data }) {
   )
 }
 
-function App$6({ data }) {
+function App$8({ data }) {
   return React.createElement(
     'html',
     null,
@@ -755,290 +755,7 @@ function App$6({ data }) {
   )
 }
 
-function App$5({ data }) {
-  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
-  return React.createElement(
-    'html',
-    null,
-    React.createElement(
-      'head',
-      null,
-      React.createElement('link', {
-        rel: 'stylesheet',
-        href: '../css/root.css'
-      }),
-      React.createElement('link', {
-        rel: 'stylesheet',
-        href: '../css/information.css'
-      })
-    ),
-    React.createElement(
-      'body',
-      null,
-      React.createElement(
-        'div',
-        { id: 'app', className: 'user' },
-        React.createElement(
-          'div',
-          { style: { display: 'grid' } },
-          React.createElement(
-            'div',
-            { className: 'user_top' },
-            React.createElement(
-              'div',
-              { className: 'user_top_left' },
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'user_top_right_font0 font_control Horizontal_grid',
-                  style: { padding: '5px' }
-                },
-                UID
-              ),
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'user_top_right_font1 font_control Horizontal_grid',
-                  style: { padding: '5px' }
-                },
-                '\u9053\u53F7: ',
-                data.name
-              ),
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'user_top_right_font1 font_control Horizontal_grid',
-                  style: { padding: '5px' }
-                },
-                '\u8840\u91CF: ',
-                data.battle_blood_now,
-                '/',
-                data.battle_blood_limit
-              ),
-              React.createElement(
-                'div',
-                {
-                  className:
-                    'user_top_right_font2 font_control Horizontal_grid',
-                  style: { padding: '5px' }
-                },
-                '\u5BFF\u9F84: ',
-                data.age,
-                '/',
-                data.age_limit
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_right' },
-              React.createElement(
-                'div',
-                { className: 'user_top_img_bottom' },
-                React.createElement('img', {
-                  className: 'user_top_img',
-                  src: data.avatar
-                })
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'user_bottom1' },
-          React.createElement(
-            'div',
-            { className: 'use_data' },
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font0 font_control Horizontal_grid'
-              },
-              '[修心道宣]'
-            ),
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font2 font_control Horizontal_grid'
-              },
-              data.autograph
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'user_bottom1' },
-          React.createElement(
-            'div',
-            { className: 'use_data' },
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font0 font_control Horizontal_grid'
-              },
-              '[个人信息]'
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_msg' },
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u7075\u529B: ',
-                data.special_spiritual,
-                '/',
-                data.special_spiritual_limit
-              ),
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u715E\u6C14: ',
-                data.special_prestige,
-                '/100'
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_msg' },
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u6CD5\u5883: ',
-                data.level?.gaspractice?.Name
-              ),
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u4FEE\u4E3A: ',
-                data.level?.gaspractice?.Experience,
-                '/',
-                data.level?.gaspractice?.ExperienceLimit
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_msg' },
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u4F53\u5883: ',
-                data.level?.bodypractice?.Name
-              ),
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u6C14\u8840: ',
-                data.level?.bodypractice?.Experience,
-                '/',
-                data.level?.bodypractice?.ExperienceLimit
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_msg' },
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u9B42\u5883: ',
-                data.level?.soul?.Name
-              ),
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u795E\u5FF5: ',
-                data.level?.soul?.Experience,
-                '/',
-                data.level?.soul?.ExperienceLimit
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_msg' },
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u58F0\u671B: ',
-                data.special_reputation
-              ),
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u6218\u529B: ',
-                data.battle_power
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_msg' },
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u7075\u6839: ',
-                data.linggenName
-              ),
-              React.createElement(
-                'div',
-                { className: 'user_font_msg', style: { color: data.color } },
-                '\u5929\u8D4B: ',
-                data.talentsize
-              )
-            ),
-            React.createElement(
-              'div',
-              {
-                className:
-                  'user_top_right_font2 font_control Horizontal_grid grid-4'
-              },
-              data.equipment.map(item =>
-                React.createElement(
-                  'div',
-                  { key: item['good.name'], style: { color: data.color } },
-                  item['good.name']
-                )
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'user_bottom1' },
-          React.createElement(
-            'div',
-            { className: 'use_data' },
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font0 font_control Horizontal_grid',
-                style: { color: data.color }
-              },
-              '[已学功法]'
-            ),
-            React.createElement(
-              'div',
-              {
-                className:
-                  'user_top_right_font2 font_control Horizontal_grid grid-4'
-              },
-              data.skills.map(item =>
-                React.createElement(
-                  'div',
-                  { key: item['good.name'], style: { color: data.color } },
-                  '\u300A',
-                  item['good.name'],
-                  '\u300B'
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
-}
-
-function App$4({ data }) {
+function App$7({ data }) {
   return React.createElement(
     'head',
     null,
@@ -1154,7 +871,7 @@ function App$4({ data }) {
   )
 }
 
-function App$3({ data }) {
+function App$6({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1271,7 +988,7 @@ function App$3({ data }) {
   )
 }
 
-function App$2({ data }) {
+function App$5({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -1470,7 +1187,7 @@ function App$2({ data }) {
   )
 }
 
-function App$1({ data }) {
+function App$4({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -1597,7 +1314,7 @@ function App$1({ data }) {
   )
 }
 
-function App({ data }) {
+function App$3({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1715,6 +1432,398 @@ function App({ data }) {
   )
 }
 
+function App$2() {
+  return React.createElement(
+    'div',
+    { className: 'nav-menu' },
+    React.createElement(
+      'span',
+      { className: 'nav-menu-title' },
+      '\u51E1\u4EBA\u4FEE\u4ED9'
+    ),
+    React.createElement(
+      'span',
+      { className: 'menu-button' },
+      '#\u518D\u5165\u4ED9\u9014'
+    ),
+    React.createElement(
+      'span',
+      { className: 'menu-button' },
+      '#\u66F4\u6362\u4E3B\u9898'
+    ),
+    React.createElement(
+      'span',
+      { className: 'menu-button' },
+      '#\u66F4\u6539\u9053\u53F7+\u5B57\u7B26'
+    )
+  )
+}
+
+var _ = src => `../../${src}`
+
+const ThemesColor = {
+  dark: {
+    left: '#f3d109a6',
+    right: '#ff0000ba'
+  },
+  red: {
+    left: '#f7da2fa6',
+    right: '#ff6800ba'
+  },
+  purple: {
+    left: '#83e139ba',
+    right: '#f72020cc'
+  },
+  blue: {
+    left: '#aadb03ba',
+    right: '#f72020ba'
+  }
+}
+
+function App$1({ data }) {
+  const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
+  const color = `linear-gradient(to right, ${ThemesColor[data.theme].left} ${pro}%,${ThemesColor[data.theme].right}  ${pro}%)`
+  const show = (a, b) => {
+    if (
+      data.talent_show &&
+      (data.talent.includes(a) || data.talent.includes(b))
+    ) {
+      return 'initial'
+    } else {
+      return 'grayscale(100%)'
+    }
+  }
+  return React.createElement(
+    'div',
+    { className: 'nav' },
+    React.createElement(App$2, null),
+    React.createElement(
+      'div',
+      { className: 'nav-box' },
+      React.createElement(
+        'span',
+        { className: 'menu-button-flat' },
+        '#\u4E2A\u4EBA\u4FE1\u606F'
+      ),
+      React.createElement(
+        'span',
+        {
+          className: 'nav-talent',
+          style: {
+            filter: data.talent_show ? 'initial' : 'grayscale(100%)'
+          }
+        },
+        React.createElement(
+          'span',
+          {
+            className: 'nav-talent-item nav-talent-item-1',
+            style: {
+              filter: show(1, 6)
+            }
+          },
+          '\u91D1'
+        ),
+        React.createElement(
+          'span',
+          {
+            className: 'nav-talent-item nav-talent-item-2',
+            style: {
+              filter: show(2, 7)
+            }
+          },
+          '\u6728'
+        ),
+        React.createElement(
+          'span',
+          {
+            className: 'nav-talent-item nav-talent-item-3',
+            style: {
+              filter: show(3, 8)
+            }
+          },
+          '\u6C34'
+        ),
+        React.createElement(
+          'span',
+          {
+            className: 'nav-talent-item nav-talent-item-4',
+            style: {
+              filter: show(4, 9)
+            }
+          },
+          '\u706B'
+        ),
+        React.createElement(
+          'span',
+          {
+            className: 'nav-talent-item nav-talent-item-5',
+            style: {
+              filter: show(5, 10)
+            }
+          },
+          '\u571F'
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'nav-box-flex' },
+        React.createElement(
+          'div',
+          { className: 'nav-box-item' },
+          React.createElement('img', {
+            className: 'nav-box-item-img',
+            src: _('svg/name.svg')
+          }),
+          React.createElement('span', null, data.name)
+        ),
+        React.createElement(
+          'div',
+          { className: 'nav-box-item' },
+          React.createElement('img', {
+            className: 'nav-box-item-img',
+            src: _('svg/level.svg')
+          }),
+          React.createElement('span', null, data.level?.gaspractice?.Name)
+        ),
+        React.createElement(
+          'div',
+          { className: 'nav-box-item' },
+          data.level?.gaspractice?.Experience,
+          '/',
+          data.level?.gaspractice?.ExperienceLimit
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'nav-box-flex nav-box-avatar' },
+        React.createElement('img', {
+          className: 'nav-box-img',
+          src: data.avatar
+        }),
+        React.createElement(
+          'div',
+          {
+            className: 'nav-box-uid',
+            style: {
+              background: color
+            }
+          },
+          data.UID
+        ),
+        React.createElement(
+          'span',
+          { className: 'nav-box-blool' },
+          `${data.battle_blood_now}/${data.battle_blood_limit}-${pro}%`
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'nav-box-flex' },
+        React.createElement(
+          'div',
+          { className: 'nav-box-item' },
+          React.createElement('img', {
+            className: 'nav-box-item-img',
+            src: _('svg/power.svg')
+          }),
+          React.createElement('span', null, data.battle_power)
+        ),
+        React.createElement(
+          'div',
+          { className: 'nav-box-item' },
+          React.createElement('img', {
+            className: 'nav-box-item-img',
+            src: _('svg/efficiency.svg')
+          }),
+          React.createElement('span', null, data.talentsize),
+          ' '
+        ),
+        React.createElement(
+          'div',
+          { className: 'nav-box-item' },
+          data.special_spiritual,
+          '/',
+          data.special_spiritual_limit
+        )
+      )
+    )
+  )
+}
+
+function App({ data }) {
+  return React.createElement(
+    'html',
+    null,
+    React.createElement(
+      'head',
+      null,
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _('css/new-root.css')
+      }),
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _(`css/root-${data.theme}.css`)
+      }),
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _(`css/new-nav.css`)
+      }),
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _(`css/new-message.css`)
+      })
+    ),
+    React.createElement(
+      'body',
+      null,
+      React.createElement(
+        'div',
+        { id: 'root' },
+        React.createElement(App$1, { data: data }),
+        React.createElement(
+          'div',
+          { className: 'autograph' },
+          React.createElement(
+            'div',
+            { className: 'autograph-box' },
+            React.createElement('span', null, data.autograph),
+            React.createElement(
+              'span',
+              { className: 'menu-button-flat' },
+              '#\u66F4\u6539\u9053\u5BA3+\u5B57\u7B26'
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'level' },
+          React.createElement(
+            'div',
+            { className: 'level-box' },
+            React.createElement(
+              'span',
+              { className: 'menu-button-flat' },
+              '#\u88C5\u5907\u4FE1\u606F'
+            ),
+            React.createElement(
+              'div',
+              { className: 'level-box-item' },
+              '\u58F0\u671B: ',
+              data.special_reputation
+            ),
+            React.createElement(
+              'div',
+              { className: 'level-box-item' },
+              '\u715E\u6C14: ',
+              data.special_prestige,
+              '/100'
+            ),
+            React.createElement(
+              'div',
+              { className: 'level-box-item' },
+              React.createElement(
+                'span',
+                null,
+                '\u4F53\u5883: ',
+                data.level?.bodypractice?.Name
+              )
+            ),
+            React.createElement(
+              'div',
+              { className: 'level-box-item' },
+              '\u6C14\u8840: ',
+              data.level?.bodypractice?.Experience,
+              '/',
+              data.level?.bodypractice?.ExperienceLimit
+            ),
+            React.createElement(
+              'div',
+              { className: 'level-box-item' },
+              '\u9B42\u5883: ',
+              data.level?.soul?.Name
+            ),
+            React.createElement(
+              'div',
+              { className: 'level-box-item' },
+              '\u795E\u5FF5: ',
+              data.level?.soul?.Experience,
+              '/',
+              data.level?.soul?.ExperienceLimit
+            )
+          )
+        ),
+        data.skills.length > 0 &&
+          React.createElement(
+            'div',
+            { className: 'kills' },
+            React.createElement(
+              'div',
+              { className: 'kills-box' },
+              data.skills.map((item, index) =>
+                React.createElement(
+                  'span',
+                  { key: item['good.name'] },
+                  '\u300A',
+                  item['good.name'],
+                  '\u300B '
+                )
+              ),
+              React.createElement(
+                'span',
+                { className: 'menu-button-flat' },
+                '#\u529F\u6CD5\u4FE1\u606F'
+              )
+            )
+          ),
+        React.createElement(
+          'div',
+          { className: 'box-help' },
+          React.createElement(
+            'div',
+            { className: 'box-help-box' },
+            React.createElement(
+              'span',
+              { className: 'menu-button-flat' },
+              '#\u4FEE\u4ED9\u5E2E\u52A9'
+            ),
+            React.createElement(
+              'span',
+              { className: 'menu-button' },
+              '#\u7A81\u7834'
+            ),
+            React.createElement(
+              'span',
+              { className: 'menu-button' },
+              '#\u95ED\u5173'
+            ),
+            React.createElement(
+              'span',
+              { className: 'menu-button' },
+              '#\u51FA\u5173'
+            ),
+            React.createElement(
+              'span',
+              { className: 'menu-button' },
+              '#\u50A8\u7269\u888B'
+            ),
+            React.createElement(
+              'span',
+              { className: 'menu-button' },
+              '#\u4E07\u5B9D\u697C'
+            ),
+            React.createElement(
+              'span',
+              { className: 'menu-button' },
+              '#\u6253\u52AB@\u9053\u53CB'
+            )
+          )
+        )
+      )
+    )
+  )
+}
+
 const app$1 = importPath(import.meta.url)
 const cwd = app$1.cwd()
 const dir$1 = join(cwd, 'public/html')
@@ -1727,54 +1836,80 @@ function create$4(dom, key, uid) {
   writeFileSync(address, `<!DOCTYPE html>${html}`)
   return address
 }
+class Component {
+  puppeteer
+  #dir = ''
+  constructor(dir) {
+    this.puppeteer = new Puppeteer()
+    this.#dir = dir
+    mkdirSync(this.#dir, {
+      recursive: true
+    })
+  }
+  create(element, dirs, name) {
+    const html = renderToString(element)
+    const dir = join(this.#dir, dirs)
+    mkdirSync(dir, {
+      recursive: true
+    })
+    const address = join(dir, name)
+    writeFileSync(address, `<!DOCTYPE html>${html}`)
+    return address
+  }
+  async message(data, uid) {
+    return this.puppeteer.toFile(
+      this.create(
+        React.createElement(App, { data: data }),
+        'message',
+        `${uid}.html`
+      )
+    )
+  }
+}
+var ImageComponent = new Component(join(cwd, 'resources', 'cache'))
 function getDefsetComponent(data) {
   return p.toFile(
-    create$4(React.createElement(App$8, { data: data }), 'defset', 'defset')
+    create$4(React.createElement(App$a, { data: data }), 'defset', 'defset')
   )
 }
 function getHelpComponent(data) {
   return p.toFile(
-    create$4(React.createElement(App$6, { data: data }), 'help', 'help')
+    create$4(React.createElement(App$8, { data: data }), 'help', 'help')
   )
 }
 function getKillComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$4, { data: data }), 'kill', uid)
+    create$4(React.createElement(App$7, { data: data }), 'kill', uid)
   )
 }
 function getListComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$3, { data: data }), 'list', uid)
+    create$4(React.createElement(App$6, { data: data }), 'list', uid)
   )
 }
 function getBagComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$9, { data: data }), 'bag', uid)
+    create$4(React.createElement(App$b, { data: data }), 'bag', uid)
   )
 }
 function getEquipmentComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$7, { data: data }), 'equipment', uid)
-  )
-}
-function getInformationComponent(data, uid) {
-  return p.toFile(
-    create$4(React.createElement(App$5, { data: data }), 'information', uid)
+    create$4(React.createElement(App$9, { data: data }), 'equipment', uid)
   )
 }
 function getRingComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$2, { data: data }), 'ring', uid)
+    create$4(React.createElement(App$5, { data: data }), 'ring', uid)
   )
 }
 function getSkillsComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$1, { data: data }), 'skills', uid)
+    create$4(React.createElement(App$4, { data: data }), 'skills', uid)
   )
 }
 function getSkyComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App, { data: data }), 'sky', uid)
+    create$4(React.createElement(App$3, { data: data }), 'sky', uid)
   )
 }
 
@@ -3680,6 +3815,8 @@ async function personalInformation(UID, user_avatar) {
     avatar: avatar,
     linggenName: name,
     talentsize: size,
+    talent_show: UserData.talent_show,
+    talent: UserData.talent,
     special_reputation: UserData.special_reputation,
     battle_power: UserData.battle_power,
     name: UserData.name,
@@ -3709,7 +3846,8 @@ async function personalInformation(UID, user_avatar) {
       }
     },
     equipment: equipment,
-    skills: skills
+    skills: skills,
+    theme: 'dark'
   }
 }
 async function equipmentInformation(UID, user_avatar) {
@@ -3909,22 +4047,23 @@ async function showSky(UID) {
 function showUserMsg(e) {
   const UID = e.user_id
   personalInformation(UID, e.user_avatar).then(res => {
-    getInformationComponent(res, UID).then(img => {
+    ImageComponent.message(res, UID).then(img => {
       if (typeof img != 'boolean') {
-        e.reply(img)
-        Controllers(e).Message.reply(
-          '按钮',
-          [
-            { label: '闭关', value: '/闭关' },
-            { label: '出关', value: '/出关' },
-            { label: '前往', value: '/前往联盟', enter: false }
-          ],
-          [
-            { label: '突破', value: '/突破' },
-            { label: '储物袋', value: '/储物袋' },
-            { label: '纳戒', value: '/纳戒' }
-          ]
-        )
+        e.reply(img).then(() => {
+          Controllers(e).Message.reply(
+            'buttons',
+            [
+              { label: '闭关', value: '/闭关' },
+              { label: '出关', value: '/出关' },
+              { label: '前往', value: '/前往联盟', enter: false }
+            ],
+            [
+              { label: '突破', value: '/突破' },
+              { label: '储物袋', value: '/储物袋' },
+              { label: '纳戒', value: '/纳戒' }
+            ]
+          )
+        })
       }
     })
   })
