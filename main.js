@@ -10596,7 +10596,7 @@ class Information extends APlugin {
       [
         { label: '闭关', value: '/闭关' },
         { label: '出关', value: '/出关' },
-        { label: '前往', value: '/前往', enter: false }
+        { label: '突破', value: '/突破' }
       ],
       [
         { label: '虚空镜', value: '/储物袋' },
@@ -10604,14 +10604,14 @@ class Information extends APlugin {
         { label: '虚空灯', value: '/虚空灯' }
       ],
       [
-        { label: '突破', value: '/突破' },
+        { label: '探索怪物', value: '/探索怪物' },
         { label: '储物袋', value: '/储物袋' },
         { label: '纳戒', value: '/纳戒' }
       ],
       [
-        { label: '探索怪物', value: '/探索怪物' },
         { label: '释放神识', value: '/释放神识' },
-        { label: '控制板', value: '/控制板' }
+        { label: '地图帮助', value: '/地图帮助' },
+        { label: '修仙帮助', value: '/修仙帮助' }
       ]
     )
     return true
