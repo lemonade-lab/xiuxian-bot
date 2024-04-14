@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -28,7 +28,7 @@ export class Information extends APlugin {
    */
   async controllers(e: AEvent) {
     Controllers(e).Message.reply(
-      '',
+      '按钮',
       [
         { label: '个人信息', value: '/个人信息' },
         { label: '面板信息', value: '/面板信息' },
@@ -38,6 +38,21 @@ export class Information extends APlugin {
         { label: '闭关', value: '/闭关' },
         { label: '出关', value: '/出关' },
         { label: '前往', value: '/前往联盟', enter: false }
+      ],
+      [
+        { label: '探索怪物', value: '/探索怪物' },
+        { label: '探索零矿', value: '/探索零矿' },
+        { label: '释放神识', value: '/释放神识' }
+      ],
+      [
+        { label: '虚空镜', value: '/储物袋' },
+        { label: '虚空板', value: '/虚空板' },
+        { label: '虚空灯', value: '/虚空灯' }
+      ],
+      [
+        { label: '突破', value: '/突破' },
+        { label: '储物袋', value: '/储物袋' },
+        { label: '纳戒', value: '/纳戒' }
       ]
     )
     return true
@@ -66,7 +81,6 @@ export class Information extends APlugin {
           e.reply('请先踏入仙途')
           return
         }
-
         GameApi.Users.update(UID, {
           avatar: e.user_avatar
         } as DB.UserType).then(() => {

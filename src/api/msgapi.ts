@@ -1,4 +1,4 @@
-import { type AEvent } from 'alemonjs'
+import { Controllers, type AEvent } from 'alemonjs'
 // 用户模型
 import * as State from '../model/users/base/state.js'
 // 附加模型
@@ -36,6 +36,19 @@ export function showUserMsg(e: AEvent) {
     getInformationComponent(res).then(img => {
       if (typeof img != 'boolean') {
         e.reply(img)
+        Controllers(e).Message.reply(
+          '按钮',
+          [
+            { label: '闭关', value: '/闭关' },
+            { label: '出关', value: '/出关' },
+            { label: '前往', value: '/前往联盟', enter: false }
+          ],
+          [
+            { label: '突破', value: '/突破' },
+            { label: '储物袋', value: '/储物袋' },
+            { label: '纳戒', value: '/纳戒' }
+          ]
+        )
       }
     })
   })
@@ -174,6 +187,25 @@ export async function postHelp(e: AEvent, name: string) {
     console.error(err)
     return '图片缓存错误'
   })
+  Controllers(e).Message.reply(
+    '按钮',
+    [
+      { label: '战斗帮助', value: '/战斗帮助' },
+      { label: '地图帮助', value: '/地图帮助' },
+      { label: '职业帮助', value: '/职业帮助' }
+    ],
+    [
+      { label: '天机帮助', value: '/天机帮助' },
+      { label: '黑市帮助', value: '/黑市帮助' },
+      { label: '联盟帮助', value: '/联盟帮助' }
+    ],
+    [
+      { label: '修炼帮助', value: '/修炼帮助' },
+      { label: '虚空帮助', value: '/虚空帮助' },
+      { label: '势力帮助', value: '/势力帮助' }
+    ],
+    [{ label: '控制板', value: '/控制板' }]
+  )
   e.reply(img)
   return false
 }
