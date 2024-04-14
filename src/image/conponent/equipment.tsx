@@ -1,6 +1,8 @@
+import { hash } from 'alemonjs'
 import React from 'react'
 
 export default function App({ data }) {
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
     <html>
       <head>
@@ -16,7 +18,7 @@ export default function App({ data }) {
                 className="user_top_right_font0 font_control Horizontal_grid"
                 style={{ borderTopRightRadius: '0px' }}
               >
-                {data.UID}
+                {UID}
               </div>
               <div
                 className="user_top_right_font font_control Horizontal_grid"

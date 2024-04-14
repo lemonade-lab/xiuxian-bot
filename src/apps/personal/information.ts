@@ -14,9 +14,17 @@ export class Information extends APlugin {
       rule: [
         { reg: /^(#|\/)?(个人|個人)信息$/, fnc: 'personalInformation' },
         { reg: /^(#|\/)?面板信息$/, fnc: 'equipmentInformation' },
-        { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' }
+        { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' },
+        { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' }
       ]
     })
+  }
+
+  /**
+   *
+   */
+  async myUserID() {
+    this.e.reply(this.e.user_id)
   }
 
   /**

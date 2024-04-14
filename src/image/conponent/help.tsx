@@ -29,15 +29,9 @@ export default function App({ data }) {
             </div>
           ))}
           <div className="copyright">
-            <span>Xiuxian-Plugin @2.2.0 | 柠檬冲水</span>
+            <span className="version">{'https://alemonjs.com/'}</span>
           </div>
           <div className="copyright">
-            <span>基于</span>
-            <span className="version">{'[https://alemonjs.com/]'}</span>
-            <span>开发</span>
-          </div>
-          <div className="copyright">
-            <span>反馈</span>
             <span className="version">806943302</span>
           </div>
         </div>

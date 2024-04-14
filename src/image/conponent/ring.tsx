@@ -1,6 +1,8 @@
 import React from 'react'
 import { nameMap } from '../core/public'
+import { hash } from 'alemonjs'
 export default function App({ data }) {
+  const UID = isNaN(Number(data.uid)) ? hash(data.uid) : data.uid
   return (
     <html>
       <head>
@@ -13,7 +15,7 @@ export default function App({ data }) {
           <div className="user_top">
             <div className="user_top_left">
               <div className="user_top_right_font0 font_control Horizontal_grid">
-                {data.UID}
+                {UID}
               </div>
               <div className="user_top_right_font1 font_control Horizontal_grid">
                 道号: {data.name}

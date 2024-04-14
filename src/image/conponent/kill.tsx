@@ -1,3 +1,4 @@
+import { hash } from 'alemonjs'
 import React from 'react'
 
 export default function App({ data }) {
@@ -17,7 +18,7 @@ export default function App({ data }) {
                     className="user_top_right_font0 font_control Horizontal_grid"
                     style={{ padding: '5px' }}
                   >
-                    {item.UID}
+                    {isNaN(Number(item.UID)) ? hash(item.UID) : item.UID}
                   </div>
                   <div
                     className="user_top_right_font1 font_control Horizontal_grid"
