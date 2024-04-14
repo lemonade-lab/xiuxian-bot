@@ -1,6 +1,8 @@
+import { hash } from 'alemonjs'
 import React from 'react'
 
 export default function App({ data }) {
+  const UID = Number(data.UID) ?? hash(data.UID)
   return (
     <html>
       <head>
@@ -18,7 +20,7 @@ export default function App({ data }) {
                       className="user_top_right_font0 font_control Horizontal_grid"
                       style={{ padding: '5px' }}
                     >
-                      {item.uid}
+                      {UID}
                     </div>
                     <div
                       className="user_top_right_font1 font_control Horizontal_grid"
