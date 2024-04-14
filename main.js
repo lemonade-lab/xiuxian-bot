@@ -9353,9 +9353,32 @@ class MapHelp extends APlugin {
     super({
       rule: [
         { reg: /^(#|\/)?(修仙地图|修仙地圖)$/, fnc: 'showMap' },
+        { reg: /^(#|\/)?赶路$/, fnc: 'goAddress' },
         { reg: /^(#|\/)?修仙配置$/, fnc: 'boxDefset' }
       ]
     })
+  }
+  async goAddress(e) {
+    Controllers(e).Message.reply(
+      'buttons',
+      [
+        { label: '万宝楼', value: '/前往万宝楼' },
+        { label: '联盟', value: '/前往联盟' },
+        { label: '荒峰', value: '/前往荒峰' }
+      ],
+      [
+        { label: '联盟商会', value: '/前往联盟商会' },
+        { label: '天机资料', value: '/天机资料' }
+      ],
+      [
+        { label: '修仙地图', value: '/修仙地图' },
+        { label: '控制板', value: '/控制板' },
+        {
+          label: '返回',
+          value: '/返回'
+        }
+      ]
+    )
   }
   async showMap(e) {
     const img = lcalCacheImage(`/public/img/map.jpg`)
@@ -9385,11 +9408,8 @@ class MapHelp extends APlugin {
           ],
           [
             { label: '星海', value: '/前往星海' },
-            { label: '联盟', value: '/前往联盟' },
-            {
-              label: '返回',
-              value: '/返回'
-            }
+            { label: '赶路', value: '/赶路' },
+            { label: '返回', value: '/返回' }
           ]
         )
       })
