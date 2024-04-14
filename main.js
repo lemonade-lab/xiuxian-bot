@@ -4056,12 +4056,12 @@ function showUserMsg(e) {
             [
               { label: '闭关', value: '/闭关' },
               { label: '出关', value: '/出关' },
-              { label: '前往', value: '/前往联盟', enter: false }
+              { label: '突破', value: '/突破' }
             ],
             [
-              { label: '突破', value: '/突破' },
               { label: '储物袋', value: '/储物袋' },
-              { label: '纳戒', value: '/纳戒' }
+              { label: '纳戒', value: '/纳戒' },
+              { label: '控制板', value: '/控制板' }
             ]
           )
         })
@@ -4132,33 +4132,38 @@ async function postHelp(e, name) {
     console.error(err)
     return '图片缓存错误'
   })
-  Controllers(e).Message.reply(
-    '按钮',
-    [
-      { label: '战斗帮助', value: '/战斗帮助' },
-      { label: '地图帮助', value: '/地图帮助' },
-      { label: '职业帮助', value: '/职业帮助' }
-    ],
-    [
-      { label: '天机帮助', value: '/天机帮助' },
-      { label: '黑市帮助', value: '/黑市帮助' },
-      { label: '联盟帮助', value: '/联盟帮助' }
-    ],
-    [
-      { label: '修炼帮助', value: '/修炼帮助' },
-      { label: '虚空帮助', value: '/虚空帮助' },
-      { label: '势力帮助', value: '/势力帮助' }
-    ],
-    [
-      {
-        label: '加入官群',
-        value: '/加入官群',
-        link: 'https://qm.qq.com/q/BUXl2xKabe'
-      },
-      { label: '控制板', value: '/控制板' }
-    ]
-  )
-  e.reply(img)
+  e.reply(img).then(() => {
+    Controllers(e).Message.reply(
+      '按钮',
+      [
+        { label: '战斗帮助', value: '/战斗帮助' },
+        { label: '地图帮助', value: '/地图帮助' },
+        { label: '职业帮助', value: '/职业帮助' }
+      ],
+      [
+        { label: '天机帮助', value: '/天机帮助' },
+        { label: '黑市帮助', value: '/黑市帮助' },
+        { label: '联盟帮助', value: '/联盟帮助' }
+      ],
+      [
+        { label: '修炼帮助', value: '/修炼帮助' },
+        { label: '虚空帮助', value: '/虚空帮助' },
+        { label: '势力帮助', value: '/势力帮助' }
+      ],
+      [
+        {
+          label: '加入官群',
+          value: '/加入官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        },
+        {
+          label: '修仙地图',
+          value: '/修仙地图'
+        },
+        { label: '控制板', value: '/控制板' }
+      ]
+    )
+  })
   return false
 }
 const npcName = [
@@ -9292,7 +9297,42 @@ class MapHelp extends APlugin {
   }
   async showMap(e) {
     const img = lcalCacheImage(`/public/img/map.jpg`)
-    if (img) e.reply(img)
+    if (img) {
+      e.reply(img).then(() => {
+        Controllers(e).Message.reply(
+          'buttons',
+          [
+            { label: '天山', value: '/前往天山' },
+            { label: '极西', value: '/前往极西' },
+            { label: '荒峰', value: '/前往荒峰' }
+          ],
+          [
+            { label: '灭仙', value: '/前往灭仙' },
+            { label: '乱坟', value: '/前往乱坟' },
+            { label: '平川', value: '/前往平川' }
+          ],
+          [
+            { label: '照阳', value: '/前往照阳' },
+            { label: '中东', value: '/前往中东' },
+            { label: '蛮狐', value: '/前往蛮狐' }
+          ],
+          [
+            { label: '南海', value: '/前往南海' },
+            { label: '北海', value: '/前往北海' },
+            { label: '东海', value: '/前往东海' }
+          ],
+          [
+            { label: '星海', value: '/前往星海' },
+            { label: '联盟', value: '/前往联盟' },
+            {
+              label: '加入官群',
+              value: '/加入官群',
+              link: 'https://qm.qq.com/q/BUXl2xKabe'
+            }
+          ]
+        )
+      })
+    }
     return
   }
   async boxDefset(e) {
@@ -10571,11 +10611,7 @@ class Information extends APlugin {
       [
         { label: '探索怪物', value: '/探索怪物' },
         { label: '释放神识', value: '/释放神识' },
-        {
-          label: '加入官群',
-          value: '/加入官群',
-          link: 'https://qm.qq.com/q/BUXl2xKabe'
-        }
+        { label: '控制板', value: '/控制板' }
       ]
     )
     return true

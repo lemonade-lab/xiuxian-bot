@@ -52,11 +52,7 @@ export class Information extends APlugin {
       [
         { label: '探索怪物', value: '/探索怪物' },
         { label: '释放神识', value: '/释放神识' },
-        {
-          label: '加入官群',
-          value: '/加入官群',
-          link: 'https://qm.qq.com/q/BUXl2xKabe'
-        }
+        { label: '控制板', value: '/控制板' }
       ]
     )
     return true
