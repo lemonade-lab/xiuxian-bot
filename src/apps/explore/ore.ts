@@ -171,7 +171,7 @@ export class Ore extends APlugin {
     e.reply(msg).then(() => {
       // 分开发送。
       let arr = []
-      for (const item of explore) {
+      for (const item in explore) {
         arr.push({ label: item, value: `/采集${item}` })
         if (arr.length >= 3) {
           m.reply('按钮', arr)
