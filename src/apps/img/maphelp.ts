@@ -26,7 +26,13 @@ export class MapHelp extends APlugin {
       ],
       [
         { label: '联盟商会', value: '/前往联盟商会' },
+        { label: '天机门', value: '/前往天机门' },
         { label: '天机资料', value: '/天机资料' }
+      ],
+      [
+        { label: '天下', value: '/天下' },
+        { label: '前往', value: '/前往', enter: false },
+        { label: '传送', value: '/传送', enter: false }
       ],
       [
         { label: '修仙地图', value: '/修仙地图' },
