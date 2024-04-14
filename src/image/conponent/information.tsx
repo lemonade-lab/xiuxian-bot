@@ -1,7 +1,7 @@
 import React from 'react'
 import { hash } from 'alemonjs'
 export default function App({ data }) {
-  const UID = isNaN(Number(data.uid)) ? hash(data.uid) : data.uid
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
     <html>
       <head>

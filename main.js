@@ -756,7 +756,7 @@ function App$6({ data }) {
 }
 
 function App$5({ data }) {
-  const UID = isNaN(Number(data.uid)) ? hash(data.uid) : data.uid
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
     null,
@@ -1272,7 +1272,7 @@ function App$3({ data }) {
 }
 
 function App$2({ data }) {
-  const UID = isNaN(Number(data.uid)) ? hash(data.uid) : data.uid
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
     null,
@@ -1471,7 +1471,7 @@ function App$2({ data }) {
 }
 
 function App$1({ data }) {
-  const UID = isNaN(Number(data.uid)) ? hash(data.uid) : data.uid
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
     null,
@@ -1598,7 +1598,6 @@ function App$1({ data }) {
 }
 
 function App({ data }) {
-  const UID = isNaN(Number(data.uid)) ? hash(data.uid) : data.uid
   return React.createElement(
     'html',
     null,
@@ -1637,7 +1636,7 @@ function App({ data }) {
                         'user_top_right_font0 font_control Horizontal_grid',
                       style: { padding: '5px' }
                     },
-                    UID
+                    isNaN(Number(item.UID)) ? hash(item.UID) : item.UID
                   ),
                   React.createElement(
                     'div',
@@ -3680,7 +3679,7 @@ async function personalInformation(UID, user_avatar) {
   }
   return {
     vip,
-    uid: UID,
+    UID: UID,
     avatar: avatar,
     linggenName: name,
     talentsize: size,
@@ -3883,7 +3882,7 @@ async function showSky(UID) {
       })
       msg.push({
         id: item.id,
-        uid: UserData.uid,
+        UID: UserData.uid,
         name: UserData.name,
         power: UserData.battle_power,
         autograph: UserData.autograph,

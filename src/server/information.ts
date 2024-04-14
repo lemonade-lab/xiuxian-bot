@@ -102,7 +102,7 @@ export async function personalInformation(UID: string, user_avatar: string) {
 
   return {
     vip,
-    uid: UID,
+    UID: UID,
     avatar: avatar,
     // 天赋
     linggenName: name,
@@ -374,7 +374,7 @@ export async function showSky(UID: string) {
   const reply = async () => {
     const msg: {
       id: number
-      uid: string
+      UID: string
       name: string
       power: number
       autograph: string
@@ -390,7 +390,7 @@ export async function showSky(UID: string) {
       })) as any
       msg.push({
         id: item.id,
-        uid: UserData.uid,
+        UID: UserData.uid,
         name: UserData.name,
         power: UserData.battle_power,
         autograph: UserData.autograph,
