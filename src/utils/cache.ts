@@ -1,7 +1,8 @@
 import { ABuffer, importPath } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { getHelpComponent } from '../image/index.js'
+
+import ImageComponent from '../image/index.js'
 
 const helpData = {}
 const app = importPath(import.meta.url)
@@ -22,11 +23,13 @@ export async function urlHelpCache(name: string) {
   // 缓存不存在
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
     // 得数据
-    helpData[name] = await getHelpComponent(getJson(name)).catch((err: any) => {
-      // 发生错误
-      console.error(err)
-      return false
-    })
+    helpData[name] = await ImageComponent.help(getJson(name)).catch(
+      (err: any) => {
+        // 发生错误
+        console.error(err)
+        return false
+      }
+    )
   }
   // 返回
   return helpData[name]

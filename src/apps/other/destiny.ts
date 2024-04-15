@@ -276,7 +276,7 @@ export class Destiny extends APlugin {
     // 不存在 或者过期了
     if (!reGiveup[UID] || reGiveup[UID] + 30000 < new Date().getTime()) {
       reGiveup[UID] = new Date().getTime()
-      e.reply(['[重要提示]\n请30s内再次发送[(#|/)命解]', '\n以确认命解'], {
+      e.reply(['[重要提示]\n请30s内再次发送[/命解]', '\n以确认命解'], {
         quote: e.msg_id
       })
       return

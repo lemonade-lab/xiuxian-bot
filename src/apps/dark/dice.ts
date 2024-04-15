@@ -30,7 +30,7 @@ export class Dice extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await controlByName(e, UserData, '万花坊'))) return
     const start_msg = []
-    start_msg.push('\n[(#|/)命运转盘+物品名*数量]')
+    start_msg.push('\n[/命运转盘+物品名*数量]')
     const commoditiesList: DB.GoodsType[] = (await DB.goods.findAll({
       where: {
         wheeldisc: 1

@@ -110,12 +110,9 @@ export class Start extends APlugin {
          */
         if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
           reStart[UID] = new Date().getTime()
-          e.reply(
-            ['[重要提示]\n请30s内再次发送[(#|/)再入仙途]', '\n以确认转世'],
-            {
-              quote: e.msg_id
-            }
-          )
+          e.reply(['[重要提示]\n请30s内再次发送[/再入仙途]', '\n以确认转世'], {
+            quote: e.msg_id
+          })
           return
         }
 

@@ -16,6 +16,7 @@ import SkillsComponent from './conponent/skills.tsx'
 import SkyComponent from './conponent/sky.tsx'
 
 import MessageComponent from '../component/message.tsx'
+import HelpComponents from '../component/help.tsx'
 import { PersonalInformationType } from '../server/information.ts'
 
 // getPath
@@ -81,6 +82,12 @@ class Component {
       this.create(<MessageComponent data={data} />, 'message', `${uid}.html`)
     )
   }
+
+  async help(data) {
+    return this.puppeteer.toFile(
+      this.create(<HelpComponents data={data} />, 'help', `help.html`)
+    )
+  }
 }
 
 export default new Component(join(cwd, 'public', 'cache'))
@@ -93,16 +100,6 @@ export default new Component(join(cwd, 'public', 'cache'))
  */
 export function getDefsetComponent(data) {
   return p.toFile(create(<DefsetComponent data={data} />, 'defset', 'defset'))
-}
-
-/**
- * 修仙帮助
- * @param data
- * @param name
- * @returns
- */
-export function getHelpComponent(data) {
-  return p.toFile(create(<HelpComponent data={data} />, 'help', 'help'))
 }
 
 /**
@@ -143,18 +140,6 @@ export function getBagComponent(data, uid) {
  */
 export function getEquipmentComponent(data, uid) {
   return p.toFile(create(<EquipmentComponent data={data} />, 'equipment', uid))
-}
-
-/**
- * 个人信息
- * @param data
- * @param name
- * @returns
- */
-export function getInformationComponent(data, uid) {
-  return p.toFile(
-    create(<InformationComponent data={data} />, 'information', uid)
-  )
 }
 
 /**

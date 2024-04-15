@@ -173,7 +173,7 @@ export async function controlByName(
 ) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
-    e.reply([`需[(#|/)前往${addressName}]`])
+    e.reply([`需[/前往${addressName}]`])
     return false
   }
   return true

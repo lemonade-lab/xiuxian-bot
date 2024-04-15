@@ -681,82 +681,6 @@ function App$9({ data }) {
 
 function App$8({ data }) {
   return React.createElement(
-    'html',
-    null,
-    React.createElement(
-      'head',
-      null,
-      React.createElement('link', {
-        rel: 'stylesheet',
-        href: '../css/root.css'
-      }),
-      React.createElement('link', {
-        rel: 'stylesheet',
-        href: '../css/help.css'
-      })
-    ),
-    React.createElement(
-      'body',
-      null,
-      React.createElement(
-        'div',
-        { id: 'app', className: 'help' },
-        React.createElement('div', { style: { height: '350px' } }),
-        data.map(val =>
-          React.createElement(
-            'div',
-            { key: val.group, className: 'cont-box' },
-            React.createElement('div', { className: 'help-group' }, val.group),
-            React.createElement(
-              'div',
-              { className: 'help-table' },
-              React.createElement(
-                'div',
-                { className: 'tr' },
-                val.list.map(item =>
-                  React.createElement(
-                    'div',
-                    { key: item.title, className: 'td' },
-                    React.createElement('span', {
-                      className: `help-icon help-icon-${item.icon}`
-                    }),
-                    React.createElement(
-                      'strong',
-                      { className: 'help-title' },
-                      item.title
-                    ),
-                    React.createElement(
-                      'span',
-                      { className: 'help-desc' },
-                      item.desc
-                    )
-                  )
-                )
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'copyright' },
-          React.createElement(
-            'span',
-            { className: 'version' },
-            'https://alemonjs.com/'
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'copyright' },
-          React.createElement('span', { className: 'version' }, '806943302')
-        )
-      )
-    )
-  )
-}
-
-function App$7({ data }) {
-  return React.createElement(
     'head',
     null,
     React.createElement(
@@ -871,7 +795,7 @@ function App$7({ data }) {
   )
 }
 
-function App$6({ data }) {
+function App$7({ data }) {
   return React.createElement(
     'html',
     null,
@@ -988,7 +912,7 @@ function App$6({ data }) {
   )
 }
 
-function App$5({ data }) {
+function App$6({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -1187,7 +1111,7 @@ function App$5({ data }) {
   )
 }
 
-function App$4({ data }) {
+function App$5({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -1314,7 +1238,7 @@ function App$4({ data }) {
   )
 }
 
-function App$3({ data }) {
+function App$4({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1432,7 +1356,7 @@ function App$3({ data }) {
   )
 }
 
-function App$2() {
+function App$3() {
   return React.createElement(
     'div',
     { className: 'nav-menu' },
@@ -1480,7 +1404,7 @@ const ThemesColor = {
   }
 }
 
-function App$1({ data }) {
+function App$2({ data }) {
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
   const color = `linear-gradient(to right, ${ThemesColor[data.theme].left} ${pro}%,${ThemesColor[data.theme].right}  ${pro}%)`
   const show = (a, b) => {
@@ -1497,7 +1421,7 @@ function App$1({ data }) {
   return React.createElement(
     'div',
     { className: 'nav' },
-    React.createElement(App$2, null),
+    React.createElement(App$3, null),
     React.createElement(
       'div',
       { className: 'nav-box' },
@@ -1651,7 +1575,7 @@ function App$1({ data }) {
   )
 }
 
-function App({ data }) {
+function App$1({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1681,7 +1605,7 @@ function App({ data }) {
       React.createElement(
         'div',
         { id: 'root' },
-        React.createElement(App$1, { data: data }),
+        React.createElement(App$2, { data: data }),
         React.createElement(
           'div',
           { className: 'autograph' },
@@ -1825,6 +1749,76 @@ function App({ data }) {
   )
 }
 
+function App({ data }) {
+  return React.createElement(
+    'html',
+    null,
+    React.createElement(
+      'head',
+      null,
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _('css/new-root.css')
+      }),
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _('css/new-help.css')
+      })
+    ),
+    React.createElement(
+      'body',
+      null,
+      React.createElement(
+        'div',
+        { id: 'app', className: 'help' },
+        data.map(val =>
+          React.createElement(
+            'div',
+            { key: val.group, className: 'cont-box' },
+            React.createElement('div', { className: 'help-group' }, val.group),
+            React.createElement(
+              'div',
+              { className: 'help-table' },
+              React.createElement(
+                'div',
+                { className: 'tr' },
+                val.list.map(item =>
+                  React.createElement(
+                    'div',
+                    { key: item.title, className: 'td' },
+                    React.createElement('span', {
+                      className: `help-icon help-icon-${item.icon}`
+                    }),
+                    React.createElement(
+                      'strong',
+                      { className: 'help-title' },
+                      item.title
+                    ),
+                    React.createElement(
+                      'span',
+                      { className: 'help-desc' },
+                      item.desc
+                    )
+                  )
+                )
+              )
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'copyright' },
+          React.createElement(
+            'span',
+            { className: 'version' },
+            'https://alemonjs.com/'
+          )
+        )
+      )
+    )
+  )
+}
+
 const app$1 = importPath(import.meta.url)
 const cwd = app$1.cwd()
 const dir$1 = join(cwd, 'public/html')
@@ -1860,10 +1854,15 @@ class Component {
   async message(data, uid) {
     return this.puppeteer.toFile(
       this.create(
-        React.createElement(App, { data: data }),
+        React.createElement(App$1, { data: data }),
         'message',
         `${uid}.html`
       )
+    )
+  }
+  async help(data) {
+    return this.puppeteer.toFile(
+      this.create(React.createElement(App, { data: data }), 'help', `help.html`)
     )
   }
 }
@@ -1873,19 +1872,14 @@ function getDefsetComponent(data) {
     create$4(React.createElement(App$a, { data: data }), 'defset', 'defset')
   )
 }
-function getHelpComponent(data) {
-  return p.toFile(
-    create$4(React.createElement(App$8, { data: data }), 'help', 'help')
-  )
-}
 function getKillComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$7, { data: data }), 'kill', uid)
+    create$4(React.createElement(App$8, { data: data }), 'kill', uid)
   )
 }
 function getListComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$6, { data: data }), 'list', uid)
+    create$4(React.createElement(App$7, { data: data }), 'list', uid)
   )
 }
 function getBagComponent(data, uid) {
@@ -1900,17 +1894,17 @@ function getEquipmentComponent(data, uid) {
 }
 function getRingComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$5, { data: data }), 'ring', uid)
+    create$4(React.createElement(App$6, { data: data }), 'ring', uid)
   )
 }
 function getSkillsComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$4, { data: data }), 'skills', uid)
+    create$4(React.createElement(App$5, { data: data }), 'skills', uid)
   )
 }
 function getSkyComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$3, { data: data }), 'sky', uid)
+    create$4(React.createElement(App$4, { data: data }), 'sky', uid)
   )
 }
 
@@ -1924,7 +1918,7 @@ function getJson(name) {
 }
 async function urlHelpCache(name) {
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
-    helpData[name] = await getHelpComponent(getJson(name)).catch(err => {
+    helpData[name] = await ImageComponent.help(getJson(name)).catch(err => {
       console.error(err)
       return false
     })
@@ -4122,7 +4116,7 @@ async function ControlByBlood(e, UserData) {
 async function controlByName(e, UserData, addressName) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
-    e.reply([`需[(#|/)前往${addressName}]`])
+    e.reply([`需[/前往${addressName}]`])
     return false
   }
   return true
@@ -5894,7 +5888,7 @@ class AssStart extends APlugin {
           '[重要提示]',
           '\n解散将清除所有数据且不可恢复',
           '\n请30s内再次发送',
-          '\n[(#|/)解散]',
+          '\n[/解散]',
           '\n以确认解散'
         ],
         {
@@ -6950,7 +6944,7 @@ class Dice extends APlugin {
     const UserData = await read$7(UID)
     if (!(await controlByName(e, UserData, '万花坊'))) return
     const start_msg = []
-    start_msg.push('\n[(#|/)命运转盘+物品名*数量]')
+    start_msg.push('\n[/命运转盘+物品名*数量]')
     const commoditiesList = await goods.findAll({
       where: {
         wheeldisc: 1
@@ -10097,7 +10091,7 @@ class Destiny extends APlugin {
     }
     if (!reGiveup[UID] || reGiveup[UID] + 30000 < new Date().getTime()) {
       reGiveup[UID] = new Date().getTime()
-      e.reply(['[重要提示]\n请30s内再次发送[(#|/)命解]', '\n以确认命解'], {
+      e.reply(['[重要提示]\n请30s内再次发送[/命解]', '\n以确认命解'], {
         quote: e.msg_id
       })
       return
@@ -10945,12 +10939,9 @@ class Start extends APlugin {
         }
         if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
           reStart[UID] = new Date().getTime()
-          e.reply(
-            ['[重要提示]\n请30s内再次发送[(#|/)再入仙途]', '\n以确认转世'],
-            {
-              quote: e.msg_id
-            }
-          )
+          e.reply(['[重要提示]\n请30s内再次发送[/再入仙途]', '\n以确认转世'], {
+            quote: e.msg_id
+          })
           return
         }
         const CDID = 8
@@ -11549,7 +11540,7 @@ class union extends APlugin {
     const UserData = await read$7(UID)
     if (!(await controlByName(e, UserData, '联盟'))) return
     const start_msg = []
-    start_msg.push('\n[(#|/)兑换+物品名*数量]')
+    start_msg.push('\n[/兑换+物品名*数量]')
     const type = e.msg.replace(/^(#|\/)?(联盟商会|聯盟商會)/, '')
     const commoditiesList = await goods.findAll({
       where: {

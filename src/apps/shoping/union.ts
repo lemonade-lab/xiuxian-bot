@@ -34,7 +34,7 @@ export class union extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await controlByName(e, UserData, '联盟'))) return
     const start_msg = []
-    start_msg.push('\n[(#|/)兑换+物品名*数量]')
+    start_msg.push('\n[/兑换+物品名*数量]')
     const type = e.msg.replace(/^(#|\/)?(联盟商会|聯盟商會)/, '')
     const commoditiesList: DB.GoodsType[] = (await DB.goods.findAll({
       where: {
