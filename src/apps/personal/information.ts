@@ -6,7 +6,8 @@ import {
   Server,
   isUser,
   getEquipmentComponent,
-  getSkillsComponent
+  getSkillsComponent,
+  createUser
 } from '../../api/index.js'
 export class Information extends APlugin {
   constructor() {
@@ -35,20 +36,20 @@ export class Information extends APlugin {
         { label: '功法信息', value: '/功法信息' }
       ],
       [
-        { label: '动作', value: '/纳戒' },
-        { label: '闭关', value: '/闭关' },
-        { label: '出关', value: '/出关' },
-        { label: '突破', value: '/突破' }
-      ],
-      [
         { label: '探索灵矿', value: '/探索灵矿' },
         { label: '探索怪物', value: '/探索怪物' },
         { label: '释放神识', value: '/释放神识' }
       ],
       [
-        { label: '踏入仙途', value: '/踏入仙途' },
         { label: '虚空镜', value: '/虚空镜' },
-        { label: '打坐', value: '/打坐' }
+        { label: '打坐', value: '/打坐' },
+        { label: '闭关', value: '/闭关' },
+        { label: '出关', value: '/出关' }
+      ],
+      [
+        { label: '纳戒', value: '/纳戒' },
+        { label: '突破', value: '/突破' },
+        { label: '破境', value: '/破境' }
       ],
       [
         { label: '储物袋', value: '/储物袋' },
@@ -79,7 +80,7 @@ export class Information extends APlugin {
     isUser(UID)
       .then(UserData => {
         if (!UserData) {
-          e.reply('请先踏入仙途')
+          createUser(e)
           return
         }
         GameApi.Users.update(UID, {
@@ -111,7 +112,7 @@ export class Information extends APlugin {
     isUser(UID)
       .then(UserData => {
         if (!UserData) {
-          e.reply('请先踏入仙途')
+          createUser(e)
           return
         }
         GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now).then(
@@ -142,7 +143,7 @@ export class Information extends APlugin {
     isUser(UID)
       .then(UserData => {
         if (!UserData) {
-          e.reply('请先踏入仙途')
+          createUser(e)
           return
         }
         GameApi.Skills.updataEfficiency(UID, UserData.talent).then(() => {

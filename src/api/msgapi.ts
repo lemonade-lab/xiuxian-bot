@@ -25,6 +25,73 @@ import {
 // img
 import { personalInformation } from '../server/information.js'
 import ImageComponent from '../image/index.js'
+import { updatePlayer } from '../model/system/player.js'
+
+/**
+ * 踏入仙途
+ */
+export function createUser(e: AEvent) {
+  const UID = e.user_id
+  user
+    .findOne({
+      attributes: ['uid'],
+      where: {
+        uid: e.user_id
+      },
+      raw: true
+    })
+    .then((res: any) => res as UserType)
+    .then(async res => {
+      if (!res) {
+        // 刷新用户信息
+        updatePlayer(UID, e.user_avatar)
+          .then(() => {
+            // 设置冷却
+            Burial.set(UID, 8, Cooling.CD_Reborn)
+
+            if (e.platform == 'ntqq') {
+              Controllers(e).Message.reply(
+                '',
+                [
+                  { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
+                  { label: '修仙帮助', value: '/修仙帮助' }
+                ],
+                [
+                  { label: '修仙联盟', value: '/前往联盟' },
+                  { label: '联盟报到', value: '/联盟报到' }
+                ]
+              )
+            } else {
+              e.reply(
+                [
+                  `修仙大陆第${res.id}位萌新`,
+                  '\n记得去联盟报到开宝箱噢',
+                  '\n签到还有特殊奖励',
+                  '\n发送[/修仙帮助]了解更多'
+                ],
+                {
+                  quote: e.msg_id
+                }
+              )
+            }
+
+            // 显示资料
+            showUserMsg(e)
+          })
+          .catch(err => {
+            e.reply(['未寻得仙缘'], {
+              quote: e.msg_id
+            })
+          })
+      } else {
+        // 显示资料
+        showUserMsg(e)
+      }
+    })
+    .catch(err => {
+      e.reply('数据查询错误')
+    })
+}
 
 /**
  * 显示个人信息
@@ -284,7 +351,7 @@ export async function isThereAUserPresent(e: AEvent, UID: string) {
     raw: true
   })) as any
   if (UserData) return true
-  e.reply('请先[/踏入仙途]')
+  createUser(e)
   return false
 }
 

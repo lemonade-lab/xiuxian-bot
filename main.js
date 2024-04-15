@@ -4039,6 +4039,192 @@ async function showSky(UID) {
   return await reply()
 }
 
+async function setPlayer(UID, user_avatar) {
+  return levels
+    .findAll({
+      attributes: ['blood'],
+      where: {
+        grade: 0,
+        type: [1, 2]
+      },
+      order: [['type', 'DESC']],
+      raw: true
+    })
+    .then(async res => {
+      const levelist = res
+      if (!levelist || levelist.length == 0) return false
+      const [gaspractice, bodypractice] = levelist
+      return map_point
+        .findOne({
+          where: {
+            name: '极西传送阵'
+          },
+          raw: true
+        })
+        .then(async res => {
+          const point = res
+          if (!point || !point?.type) return false
+          return Promise.all([
+            user.create({
+              uid: UID,
+              name: Anyarray([
+                '甲',
+                '乙',
+                '丙',
+                '丁',
+                '戊',
+                '己',
+                '庚',
+                '辛',
+                '壬',
+                '癸'
+              ]),
+              avatar: user_avatar,
+              state: 0,
+              state_start_time: 9999999999,
+              state_end_time: 9999999999,
+              age: 1,
+              age_limit: 100,
+              point_type: point.type,
+              pont_attribute: point.attribute,
+              pont_x: point.x,
+              pont_y: point.y,
+              pont_z: point.z,
+              battle_blood_now: gaspractice.blood + bodypractice.blood,
+              battle_blood_limit: gaspractice.blood + bodypractice.blood,
+              battle_attack: 0,
+              battle_defense: 0,
+              battle_speed: 0,
+              battle_power: 0,
+              talent: getTalent(),
+              create_time: new Date().getTime()
+            }),
+            user_level.create({
+              uid: UID,
+              type: 1,
+              addition: 0,
+              realm: 0,
+              experience: 0
+            }),
+            user_level.create({
+              uid: UID,
+              type: 2,
+              addition: 0,
+              realm: 0,
+              experience: 0
+            }),
+            user_level.create({
+              uid: UID,
+              type: 3,
+              addition: 0,
+              realm: 0,
+              experience: 0
+            })
+          ])
+        })
+    })
+}
+async function updatePlayer(UID, user_avatar) {
+  return Promise.all([
+    user.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_level.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_equipment.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_skills.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_bag.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_log.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_fate.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    user_ring.destroy({
+      where: {
+        uid: UID
+      }
+    })
+  ]).then(() => setPlayer(UID, user_avatar))
+}
+
+function createUser(e) {
+  const UID = e.user_id
+  user
+    .findOne({
+      attributes: ['uid'],
+      where: {
+        uid: e.user_id
+      },
+      raw: true
+    })
+    .then(res => res)
+    .then(async res => {
+      if (!res) {
+        updatePlayer(UID, e.user_avatar)
+          .then(() => {
+            set$3(UID, 8, CD_Reborn)
+            if (e.platform == 'ntqq') {
+              Controllers(e).Message.reply(
+                '',
+                [
+                  { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
+                  { label: '修仙帮助', value: '/修仙帮助' }
+                ],
+                [
+                  { label: '修仙联盟', value: '/前往联盟' },
+                  { label: '联盟报到', value: '/联盟报到' }
+                ]
+              )
+            } else {
+              e.reply(
+                [
+                  `修仙大陆第${res.id}位萌新`,
+                  '\n记得去联盟报到开宝箱噢',
+                  '\n签到还有特殊奖励',
+                  '\n发送[/修仙帮助]了解更多'
+                ],
+                {
+                  quote: e.msg_id
+                }
+              )
+            }
+            showUserMsg(e)
+          })
+          .catch(err => {
+            e.reply(['未寻得仙缘'], {
+              quote: e.msg_id
+            })
+          })
+      } else {
+        showUserMsg(e)
+      }
+    })
+    .catch(err => {
+      e.reply('数据查询错误')
+    })
+}
 function showUserMsg(e) {
   const UID = e.user_id
   personalInformation(UID, e.user_avatar).then(res => {
@@ -4183,7 +4369,7 @@ async function isThereAUserPresent(e, UID) {
     raw: true
   })
   if (UserData) return true
-  e.reply('请先[/踏入仙途]')
+  createUser(e)
   return false
 }
 async function isThereAUserPresentB(e, UID) {
@@ -4512,136 +4698,6 @@ async function del(ID) {
 }
 async function create(val) {
   await board.create(val)
-}
-
-async function setPlayer(UID, user_avatar) {
-  return levels
-    .findAll({
-      attributes: ['blood'],
-      where: {
-        grade: 0,
-        type: [1, 2]
-      },
-      order: [['type', 'DESC']],
-      raw: true
-    })
-    .then(async res => {
-      const levelist = res
-      if (!levelist || levelist.length == 0) return false
-      const [gaspractice, bodypractice] = levelist
-      return map_point
-        .findOne({
-          where: {
-            name: '极西传送阵'
-          },
-          raw: true
-        })
-        .then(async res => {
-          const point = res
-          if (!point || !point?.type) return false
-          return Promise.all([
-            user.create({
-              uid: UID,
-              name: Anyarray([
-                '甲',
-                '乙',
-                '丙',
-                '丁',
-                '戊',
-                '己',
-                '庚',
-                '辛',
-                '壬',
-                '癸'
-              ]),
-              avatar: user_avatar,
-              state: 0,
-              state_start_time: 9999999999,
-              state_end_time: 9999999999,
-              age: 1,
-              age_limit: 100,
-              point_type: point.type,
-              pont_attribute: point.attribute,
-              pont_x: point.x,
-              pont_y: point.y,
-              pont_z: point.z,
-              battle_blood_now: gaspractice.blood + bodypractice.blood,
-              battle_blood_limit: gaspractice.blood + bodypractice.blood,
-              battle_attack: 0,
-              battle_defense: 0,
-              battle_speed: 0,
-              battle_power: 0,
-              talent: getTalent(),
-              create_time: new Date().getTime()
-            }),
-            user_level.create({
-              uid: UID,
-              type: 1,
-              addition: 0,
-              realm: 0,
-              experience: 0
-            }),
-            user_level.create({
-              uid: UID,
-              type: 2,
-              addition: 0,
-              realm: 0,
-              experience: 0
-            }),
-            user_level.create({
-              uid: UID,
-              type: 3,
-              addition: 0,
-              realm: 0,
-              experience: 0
-            })
-          ])
-        })
-    })
-}
-async function updatePlayer(UID, user_avatar) {
-  return Promise.all([
-    user.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_level.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_equipment.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_skills.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_bag.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_log.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_fate.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    user_ring.destroy({
-      where: {
-        uid: UID
-      }
-    })
-  ]).then(() => setPlayer(UID, user_avatar))
 }
 
 const Sneakattack = [
@@ -10675,20 +10731,20 @@ class Information extends APlugin {
         { label: '功法信息', value: '/功法信息' }
       ],
       [
-        { label: '动作', value: '/纳戒' },
-        { label: '闭关', value: '/闭关' },
-        { label: '出关', value: '/出关' },
-        { label: '突破', value: '/突破' }
-      ],
-      [
         { label: '探索灵矿', value: '/探索灵矿' },
         { label: '探索怪物', value: '/探索怪物' },
         { label: '释放神识', value: '/释放神识' }
       ],
       [
-        { label: '踏入仙途', value: '/踏入仙途' },
         { label: '虚空镜', value: '/虚空镜' },
-        { label: '打坐', value: '/打坐' }
+        { label: '打坐', value: '/打坐' },
+        { label: '闭关', value: '/闭关' },
+        { label: '出关', value: '/出关' }
+      ],
+      [
+        { label: '纳戒', value: '/纳戒' },
+        { label: '突破', value: '/突破' },
+        { label: '破境', value: '/破境' }
       ],
       [
         { label: '储物袋', value: '/储物袋' },
@@ -10707,7 +10763,7 @@ class Information extends APlugin {
     isUser(UID)
       .then(UserData => {
         if (!UserData) {
-          e.reply('请先踏入仙途')
+          createUser(e)
           return
         }
         update$1(UID, {
@@ -10732,7 +10788,7 @@ class Information extends APlugin {
     isUser(UID)
       .then(UserData => {
         if (!UserData) {
-          e.reply('请先踏入仙途')
+          createUser(e)
           return
         }
         updatePanel(UID, UserData.battle_blood_now).then(() => {
@@ -10755,7 +10811,7 @@ class Information extends APlugin {
     isUser(UID)
       .then(UserData => {
         if (!UserData) {
-          e.reply('请先踏入仙途')
+          createUser(e)
           return
         }
         updataEfficiency(UID, UserData.talent).then(() => {
@@ -10934,7 +10990,7 @@ class Start extends APlugin {
     isUser(UID)
       .then(res => {
         if (!res) {
-          e.reply('请先[/踏入仙途]')
+          createUser(e)
           return
         }
         if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
@@ -11017,7 +11073,7 @@ class Start extends APlugin {
     isUser(UID)
       .then(res => {
         if (!res) {
-          e.reply('请先[/踏入仙途]')
+          createUser(e)
           return
         }
         update$1(UID, {
@@ -11042,7 +11098,7 @@ class Start extends APlugin {
     isUser(UID)
       .then(res => {
         if (!res) {
-          e.reply('请先[/踏入仙途]')
+          createUser(e)
           return
         }
         const qq = e.msg.replace(/^(#|\/)?绑定(头像|企鹅)/, '').split('*')

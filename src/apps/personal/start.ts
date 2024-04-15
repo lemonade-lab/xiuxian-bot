@@ -4,7 +4,8 @@ import {
   GameApi,
   showUserMsg,
   victoryCooling,
-  isUser
+  isUser,
+  createUser
 } from '../../api/index.js'
 export class Start extends APlugin {
   constructor() {
@@ -101,7 +102,7 @@ export class Start extends APlugin {
     isUser(UID)
       .then(res => {
         if (!res) {
-          e.reply('请先[/踏入仙途]')
+          createUser(e)
           return
         }
 
@@ -224,7 +225,7 @@ export class Start extends APlugin {
     isUser(UID)
       .then(res => {
         if (!res) {
-          e.reply('请先[/踏入仙途]')
+          createUser(e)
           return
         }
         GameApi.Users.update(UID, {
@@ -257,7 +258,7 @@ export class Start extends APlugin {
     isUser(UID)
       .then(res => {
         if (!res) {
-          e.reply('请先[/踏入仙途]')
+          createUser(e)
           return
         }
         const qq = e.msg.replace(/^(#|\/)?绑定(头像|企鹅)/, '').split('*')
