@@ -39,7 +39,7 @@ export function showUserMsg(e: AEvent) {
         e.reply(img).then(() => {
           // buttons
           Controllers(e).Message.reply(
-            'buttons',
+            '',
             [
               { label: '闭关', value: '/闭关' },
               { label: '出关', value: '/出关' },

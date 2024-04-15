@@ -18,13 +18,13 @@ export default function App({ data }: { data: PersonalInformationType }) {
           <div className="autograph">
             <div className="autograph-box">
               <span>{data.autograph}</span>
-              <span className="menu-button-flat">#更改道宣+字符</span>
+              <span className="menu-button-flat">#签名+字符</span>
             </div>
           </div>
 
           <div className="level">
             <div className="level-box">
-              <span className="menu-button-flat">#装备信息</span>
+              <span className="menu-button-flat">#面板信息</span>
               <div className="level-box-item">
                 {/* <img className="nav-box-item-img" src={_('svg/attack.svg')} /> */}
                 声望: {data.special_reputation}

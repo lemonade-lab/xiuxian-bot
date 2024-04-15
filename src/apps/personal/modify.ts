@@ -12,16 +12,16 @@ export class Modify extends APlugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)?(更改道号|更改道號)[\u4e00-\u9fa5]+$/,
+          reg: /^(#|\/)?(改名|更改道號)[\u4e00-\u9fa5]+$/,
           fnc: 'changeName'
         },
-        { reg: /^(#|\/)?更改道宣[\u4e00-\u9fa5]+$/, fnc: 'changeAutograph' }
+        { reg: /^(#|\/)?签名[\u4e00-\u9fa5]+$/, fnc: 'changeAutograph' }
       ]
     })
   }
 
   /**
-   * 更改道号
+   * 改名
    * @param e
    * @returns
    */
@@ -30,7 +30,7 @@ export class Modify extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     if (!(await Control(e, UserData))) return
-    const name = e.msg.replace(/^(#|\/)?(更改道号|更改道號)/, '')
+    const name = e.msg.replace(/^(#|\/)?(改名|更改道號)/, '')
     if (name.length == 0) return
     if (name.length > 8) {
       e.reply(['你这名字\n可真是稀奇'], {
@@ -56,7 +56,7 @@ export class Modify extends APlugin {
   }
 
   /**
-   *更改道宣
+   *签名
    * @param e
    * @returns
    */
@@ -65,7 +65,7 @@ export class Modify extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     if (!(await Control(e, UserData))) return
-    const autograph = e.msg.replace(/^(#|\/)?更改道宣/, '')
+    const autograph = e.msg.replace(/^(#|\/)?签名/, '')
     if (autograph.length == 0 || autograph.length > 50) {
       e.reply(['请正确设置\n且道宣最多50字符'], {
         quote: e.msg_id

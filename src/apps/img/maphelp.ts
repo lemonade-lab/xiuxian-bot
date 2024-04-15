@@ -18,7 +18,7 @@ export class MapHelp extends APlugin {
    */
   async goAddress(e: AEvent) {
     Controllers(e).Message.reply(
-      'buttons',
+      '',
       [
         { label: '联盟', value: '/前往联盟' },
         { label: '联盟商会', value: '/前往联盟商会' },
@@ -56,7 +56,7 @@ export class MapHelp extends APlugin {
     if (img) {
       e.reply(img).then(() => {
         Controllers(e).Message.reply(
-          'buttons',
+          '',
           [
             { label: '天山', value: '/前往天山' },
             { label: '极西', value: '/前往极西' },

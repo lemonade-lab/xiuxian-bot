@@ -28,7 +28,7 @@ export class Information extends APlugin {
    */
   async controllers(e: AEvent) {
     Controllers(e).Message.reply(
-      '按钮',
+      '',
       [
         { label: '个人信息', value: '/个人信息' },
         { label: '面板信息', value: '/面板信息' },

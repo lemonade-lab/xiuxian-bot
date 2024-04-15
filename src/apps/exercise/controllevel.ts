@@ -26,7 +26,7 @@ export class ControllLevel extends APlugin {
   async ambiguous(e: AEvent) {
     const UID = e.user_id
     if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('buttons', [
+      Controllers(e).Message.reply('', [
         {
           label: '加入官群',
           value: '/加入官群',

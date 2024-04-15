@@ -27,7 +27,7 @@ export class Help extends APlugin {
     // 是ntqq就不再需要帮助图了
     if (e.platform == 'ntqq') {
       Controllers(e).Message.reply(
-        '按钮',
+        '',
         [
           { label: '战斗帮助', value: '/战斗帮助' },
           { label: '地图帮助', value: '/地图帮助' },

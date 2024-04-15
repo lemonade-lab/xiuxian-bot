@@ -326,12 +326,12 @@ export class Monster extends APlugin {
       for (const item of sortedMonsters) {
         arr.push({ label: item, value: `/击杀${item}` })
         if (arr.length >= 3) {
-          m.reply('按钮', arr)
+          m.reply('', arr)
           arr = []
         }
       }
       if (arr.length >= 1) {
-        m.reply('按钮', arr)
+        m.reply('', arr)
       }
     })
     return

@@ -1378,7 +1378,7 @@ function App$3() {
     React.createElement(
       'span',
       { className: 'menu-button' },
-      '#\u66F4\u6539\u9053\u53F7+\u5B57\u7B26'
+      '#\u6539\u540D+\u5B57\u7B26'
     )
   )
 }
@@ -1616,7 +1616,7 @@ function App$1({ data }) {
             React.createElement(
               'span',
               { className: 'menu-button-flat' },
-              '#\u66F4\u6539\u9053\u5BA3+\u5B57\u7B26'
+              '#\u7B7E\u540D+\u5B57\u7B26'
             )
           )
         ),
@@ -1629,7 +1629,7 @@ function App$1({ data }) {
             React.createElement(
               'span',
               { className: 'menu-button-flat' },
-              '#\u88C5\u5907\u4FE1\u606F'
+              '#\u9762\u677F\u4FE1\u606F'
             ),
             React.createElement(
               'div',
@@ -4046,7 +4046,7 @@ function showUserMsg(e) {
       if (typeof img != 'boolean') {
         e.reply(img).then(() => {
           Controllers(e).Message.reply(
-            'buttons',
+            '',
             [
               { label: '闭关', value: '/闭关' },
               { label: '出关', value: '/出关' },
@@ -7281,7 +7281,7 @@ class Battle extends APlugin {
   async combat(e) {
     const UID = e.user_id
     if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('buttons', [
+      Controllers(e).Message.reply('', [
         {
           label: '加入官群',
           value: '/加入官群',
@@ -7365,7 +7365,7 @@ class Battle extends APlugin {
     const UID = e.user_id
     if (e.platform == 'ntqq') {
       e.reply('NTQQ不支持此功能')
-      Controllers(e).Message.reply('buttons', [
+      Controllers(e).Message.reply('', [
         {
           label: '加入官群',
           value: '/加入官群',
@@ -7582,7 +7582,7 @@ class ControllLevel extends APlugin {
   async ambiguous(e) {
     const UID = e.user_id
     if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('buttons', [
+      Controllers(e).Message.reply('', [
         {
           label: '加入官群',
           value: '/加入官群',
@@ -8621,12 +8621,12 @@ class Monster extends APlugin {
       for (const item of sortedMonsters) {
         arr.push({ label: item, value: `/击杀${item}` })
         if (arr.length >= 3) {
-          m.reply('按钮', arr)
+          m.reply('', arr)
           arr = []
         }
       }
       if (arr.length >= 1) {
-        m.reply('按钮', arr)
+        m.reply('', arr)
       }
     })
     return
@@ -8842,12 +8842,12 @@ class Ore extends APlugin {
           value: `/采集${item}`
         })
         if (arr.length >= 3) {
-          m.reply('按钮', arr)
+          m.reply('', arr)
           arr = []
         }
       }
       if (arr.length >= 1) {
-        m.reply('按钮', arr)
+        m.reply('', arr)
       }
     })
   }
@@ -9270,7 +9270,7 @@ class Help extends APlugin {
   async getBaseHelp(e) {
     if (e.platform == 'ntqq') {
       Controllers(e).Message.reply(
-        '按钮',
+        '',
         [
           { label: '战斗帮助', value: '/战斗帮助' },
           { label: '地图帮助', value: '/地图帮助' },
@@ -9354,7 +9354,7 @@ class MapHelp extends APlugin {
   }
   async goAddress(e) {
     Controllers(e).Message.reply(
-      'buttons',
+      '',
       [
         { label: '联盟', value: '/前往联盟' },
         { label: '联盟商会', value: '/前往联盟商会' },
@@ -9385,7 +9385,7 @@ class MapHelp extends APlugin {
     if (img) {
       e.reply(img).then(() => {
         Controllers(e).Message.reply(
-          'buttons',
+          '',
           [
             { label: '天山', value: '/前往天山' },
             { label: '极西', value: '/前往极西' },
@@ -10668,7 +10668,7 @@ class Information extends APlugin {
   }
   async controllers(e) {
     Controllers(e).Message.reply(
-      '按钮',
+      '',
       [
         { label: '个人信息', value: '/个人信息' },
         { label: '面板信息', value: '/面板信息' },
@@ -10803,10 +10803,10 @@ class Modify extends APlugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)?(更改道号|更改道號)[\u4e00-\u9fa5]+$/,
+          reg: /^(#|\/)?(改名|更改道號)[\u4e00-\u9fa5]+$/,
           fnc: 'changeName'
         },
-        { reg: /^(#|\/)?更改道宣[\u4e00-\u9fa5]+$/, fnc: 'changeAutograph' }
+        { reg: /^(#|\/)?签名[\u4e00-\u9fa5]+$/, fnc: 'changeAutograph' }
       ]
     })
   }
@@ -10815,7 +10815,7 @@ class Modify extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await read$7(UID)
     if (!(await Control(e, UserData))) return
-    const name = e.msg.replace(/^(#|\/)?(更改道号|更改道號)/, '')
+    const name = e.msg.replace(/^(#|\/)?(改名|更改道號)/, '')
     if (name.length == 0) return
     if (name.length > 8) {
       e.reply(['你这名字\n可真是稀奇'], {
@@ -10840,7 +10840,7 @@ class Modify extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await read$7(UID)
     if (!(await Control(e, UserData))) return
-    const autograph = e.msg.replace(/^(#|\/)?更改道宣/, '')
+    const autograph = e.msg.replace(/^(#|\/)?签名/, '')
     if (autograph.length == 0 || autograph.length > 50) {
       e.reply(['请正确设置\n且道宣最多50字符'], {
         quote: e.msg_id
@@ -10890,7 +10890,7 @@ class Start extends APlugin {
               set$3(UID, 8, CD_Reborn)
               if (e.platform == 'ntqq') {
                 Controllers(e).Message.reply(
-                  '按钮',
+                  '',
                   [
                     { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
                     { label: '修仙帮助', value: '/修仙帮助' }
@@ -10955,7 +10955,7 @@ class Start extends APlugin {
                 .then(UserData => {
                   if (e.platform == 'ntqq') {
                     Controllers(e).Message.reply(
-                      '按钮',
+                      '',
                       [
                         {
                           label: '绑定头像',

@@ -59,7 +59,7 @@ export class Battle extends APlugin {
   async combat(e: AEvent) {
     const UID = e.user_id
     if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('buttons', [
+      Controllers(e).Message.reply('', [
         {
           label: '加入官群',
           value: '/加入官群',
@@ -167,7 +167,7 @@ export class Battle extends APlugin {
     const UID = e.user_id
     if (e.platform == 'ntqq') {
       e.reply('NTQQ不支持此功能')
-      Controllers(e).Message.reply('buttons', [
+      Controllers(e).Message.reply('', [
         {
           label: '加入官群',
           value: '/加入官群',

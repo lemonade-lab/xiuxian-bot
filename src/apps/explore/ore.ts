@@ -177,12 +177,12 @@ export class Ore extends APlugin {
           value: `/采集${item}`
         })
         if (arr.length >= 3) {
-          m.reply('按钮', arr)
+          m.reply('', arr)
           arr = []
         }
       }
       if (arr.length >= 1) {
-        m.reply('按钮', arr)
+        m.reply('', arr)
       }
     })
   }
