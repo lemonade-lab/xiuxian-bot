@@ -44,18 +44,20 @@ export class Information extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
+        { label: '更换主题', value: '/更换主题' },
         { label: '绑定头像', value: '/绑定头像+输入QQ号', enter: false },
         { label: '再入仙途', value: '/再入仙途' }
-      ],
-      [
-        { label: '修仙联盟', value: '/前往联盟' },
-        { label: '联盟报到', value: '/联盟报到' }
       ],
       [
         { label: '协会', value: '/协会' },
         { label: '赶路', value: '/赶路' },
         { label: '签名', value: '/签名', enter: false },
         { label: '改名', value: '/改名', enter: false }
+      ],
+      [
+        { label: '修仙联盟', value: '/前往联盟' },
+        { label: '联盟报到', value: '/联盟报到' },
+        { label: '控制板', value: '/控制板' }
       ]
     )
   }
