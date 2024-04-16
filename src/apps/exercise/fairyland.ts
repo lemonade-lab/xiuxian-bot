@@ -71,6 +71,7 @@ export class fairyland extends APlugin {
         GameApi.State.del(UID)
         await punishLevel(e, UID, UserData)
         punishLevel(e, UID, UserData)
+        clearInterval(time)
       }
     }, 60000) // 每分钟执行一次
   }
