@@ -38,7 +38,6 @@ export class ControlPlayer extends APlugin {
     const { state, msg } = await GameApi.State.Go(UserData)
     if (state == 4001) {
       e.reply(msg)
-
       return
     }
     // 切换为打坐

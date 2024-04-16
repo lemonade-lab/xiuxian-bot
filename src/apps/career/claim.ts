@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   ControlByBlood,
@@ -65,6 +65,31 @@ export class ClaimCareer extends APlugin {
       '化神境之后,可交付灵石获得学徒身份\n',
       '当前可领取[/炼器师学徒]'
     ])
+
+    Controllers(e).Message.reply(
+      '',
+      [
+        {
+          label: '炼器师学徒',
+          value: '/炼器师学徒'
+        },
+        {
+          label: '炼丹师学徒',
+          value: '/炼丹师学徒'
+        },
+        {
+          label: '阵法师学徒',
+          value: '/阵法师学徒'
+        }
+      ],
+      [
+        {
+          label: '徽章信息',
+          value: '/徽章信息'
+        }
+      ]
+    )
+
     return
   }
 

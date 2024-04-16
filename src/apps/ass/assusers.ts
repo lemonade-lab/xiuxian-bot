@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { isThereAUserPresent, DB, GameApi, sendReply } from '../../api/index.js'
 export class AssSsers extends APlugin {
   constructor() {
@@ -50,6 +50,33 @@ export class AssSsers extends APlugin {
       )
     }
     sendReply(e, `___[天下]___(${page}/${totalPages})`, msg)
+
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '势力', value: '/势力信息' },
+        {
+          label: '建立',
+          value: '/建立+名称',
+          enter: false
+        }
+      ],
+      [
+        {
+          label: '解散',
+          value: '/解散'
+        },
+        {
+          label: '加入',
+          value: '/加入'
+        },
+        {
+          label: '退出',
+          value: '/退出'
+        }
+      ]
+    )
+
     return
   }
 

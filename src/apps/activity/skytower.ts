@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -89,6 +89,9 @@ export class SkyTower extends APlugin {
       e.reply(['进入[通天塔]'], {
         quote: e.msg_id
       })
+      Controllers(e).Message.reply('', [
+        { label: '挑战', value: '/挑战', enter: false }
+      ])
     }
 
     await DB.sky.create({
@@ -126,7 +129,12 @@ export class SkyTower extends APlugin {
       return
     }
     const img = await getSkyComponent(await Server.showSky(UID), UID)
-    if (typeof img != 'boolean') e.reply(img)
+    if (typeof img != 'boolean') {
+      e.reply(img)
+      Controllers(e).Message.reply('', [
+        { label: '挑战', value: '/挑战', enter: false }
+      ])
+    }
     return
   }
 

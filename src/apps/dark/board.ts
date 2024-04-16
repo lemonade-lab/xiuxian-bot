@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { DB, isThereAUserPresent, GameApi, sendReply } from '../../api/index.js'
 export class Board extends APlugin {
   constructor() {
@@ -44,6 +44,24 @@ export class Board extends APlugin {
       )
     }
     sendReply(e, `___[虚空板]___(${page}/${totalPages})`, msg, 6)
+
+    Controllers(e).Message.reply('', [
+      {
+        label: '收回留言',
+        value: '/收回留言'
+      },
+      {
+        label: '收购',
+        value: '/收购',
+        enter: false
+      },
+      {
+        label: '交付',
+        value: '/交付',
+        enter: false
+      }
+    ])
+
     return
   }
 

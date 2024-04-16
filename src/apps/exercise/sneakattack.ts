@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -444,6 +444,23 @@ export class SneakAttack extends APlugin {
       )
     }
     e.reply(msg)
+
+    Controllers(e).Message.reply('', [
+      {
+        label: '状态记录',
+        value: '/状态记录'
+      },
+      {
+        label: '删除记录',
+        value: '/删除记录'
+      },
+      {
+        label: '偷袭',
+        value: '/偷袭',
+        enter: false
+      }
+    ])
+
     return
   }
 }

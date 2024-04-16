@@ -1,4 +1,4 @@
-import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -19,7 +19,9 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' },
         { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' },
         { reg: /^(#|\/)?控制板$/, fnc: 'controllers' },
-        { reg: /^(#|\/)?更换主题$/, fnc: 'updateTheme' }
+        { reg: /^(#|\/)?修炼$/, fnc: 'cultivation' },
+        { reg: /^(#|\/)?更换主题$/, fnc: 'updateTheme' },
+        { reg: /^(#|\/)?新人助手$/, fnc: 'newUsers' }
       ]
     })
   }
@@ -37,6 +39,52 @@ export class Information extends APlugin {
   /**
    *
    * @param e
+   */
+  async newUsers(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '绑定头像', value: '/绑定头像+输入QQ号', enter: false },
+        { label: '再入仙途', value: '/再入仙途' }
+      ],
+      [
+        { label: '修仙联盟', value: '/前往联盟' },
+        { label: '联盟报到', value: '/联盟报到' }
+      ],
+      [
+        { label: '协会', value: '/协会' },
+        { label: '赶路', value: '/赶路' },
+        { label: '签名', value: '/签名', enter: false },
+        { label: '改名', value: '/改名', enter: false }
+      ]
+    )
+  }
+
+  async cultivation(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '锻体', value: '/锻体' },
+        { label: '打坐', value: '/打坐' },
+        { label: '闭关', value: '/闭关' },
+        { label: '出关', value: '/出关' }
+      ],
+      [
+        { label: '顿悟', value: '/顿悟' },
+        { label: '突破', value: '/突破' },
+        { label: '破境', value: '/破境' }
+      ],
+      [
+        { label: '探索灵矿', value: '/探索灵矿' },
+        { label: '探索怪物', value: '/探索怪物' },
+        { label: '释放神识', value: '/释放神识' }
+      ]
+    )
+  }
+
+  /**
+   *
+   * @param e
    * @returns
    */
   async controllers(e: AEvent) {
@@ -48,20 +96,19 @@ export class Information extends APlugin {
         { label: '功法信息', value: '/功法信息' }
       ],
       [
-        { label: '探索灵矿', value: '/探索灵矿' },
-        { label: '探索怪物', value: '/探索怪物' },
-        { label: '释放神识', value: '/释放神识' }
-      ],
-      [
         { label: '虚空镜', value: '/虚空镜' },
-        { label: '打坐', value: '/打坐' },
-        { label: '闭关', value: '/闭关' },
-        { label: '出关', value: '/出关' }
+        { label: '虚空灯', value: '/虚空灯' },
+        { label: '虚空板', value: '/虚空板' }
       ],
       [
-        { label: '纳戒', value: '/纳戒' },
-        { label: '突破', value: '/突破' },
-        { label: '破境', value: '/破境' }
+        { label: '通天塔', value: '/通天塔' },
+        { label: '协会', value: '/协会' },
+        { label: '天下', value: '/天下' }
+      ],
+      [
+        { label: '至尊榜', value: '/至尊榜' },
+        { label: '杀神榜', value: '/杀神榜' },
+        { label: '新人助手', value: '/新人助手' }
       ],
       [
         { label: '储物袋', value: '/储物袋' },

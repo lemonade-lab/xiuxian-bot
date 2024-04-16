@@ -69,6 +69,7 @@ export async function setPlayer(UID: string, user_avatar: string) {
               state_start_time: 9999999999, // 状态开始时间
               state_end_time: 9999999999, // 状态结束时间
               age: 1, // 寿龄_默认1
+              theme: 'dark', // 主题
               age_limit: 100, // 最高寿龄_默认100
               point_type: point.type, // 地点类型_默认0
               pont_attribute: point.attribute, // 地点属性_默认0

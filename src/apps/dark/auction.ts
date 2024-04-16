@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { DB, isThereAUserPresent, GameApi, sendReply } from '../../api/index.js'
 export class Auction extends APlugin {
   constructor() {
@@ -46,6 +46,37 @@ export class Auction extends APlugin {
       )
     }
     sendReply(e, `___[虚空灯]___(${page}/${totalPages})`, msg, 6)
+
+    Controllers(e).Message.reply(
+      '',
+      [
+        {
+          label: '收回物品',
+          value: '/收回物品'
+        },
+        {
+          label: '拍走物品',
+          value: '/拍走物品'
+        },
+        {
+          label: '结算拍卖',
+          value: '/结算拍卖'
+        }
+      ],
+      [
+        {
+          label: '拍卖',
+          value: '/拍卖+物品',
+          enter: false
+        },
+        {
+          label: '竞价',
+          value: '/竞价+编号',
+          enter: false
+        }
+      ]
+    )
+
     return
   }
 

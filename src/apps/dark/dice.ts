@@ -40,6 +40,7 @@ export class Dice extends APlugin {
     const end_msg = GameApi.Goods.getListMsg(commoditiesList)
     const msg: string[] = [...start_msg, ...end_msg]
     sendReply(e, '___[万花坊]___', msg)
+
     return
   }
 
