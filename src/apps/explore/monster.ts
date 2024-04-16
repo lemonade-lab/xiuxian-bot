@@ -352,7 +352,7 @@ export class Monster extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    if (!reStart[UID] || reStart[UID] + 60000 < new Date().getTime()) {
+    if (!reStart[UID] || reStart[UID] + 120000 < new Date().getTime()) {
       reStart[UID] = new Date().getTime()
       e.reply([`CD中`]).catch((err: any) => {
         console.error(err)
