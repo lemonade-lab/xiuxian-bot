@@ -9,8 +9,8 @@ export default function App({ data }: { data: PersonalInformationType }) {
   // 现在的血量   血量总量
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
   const color = `linear-gradient(to right, ${
-    ThemesColor[data.theme].left
-  } ${pro}%,${ThemesColor[data.theme].right}  ${pro}%)`
+    ThemesColor[data?.theme ?? 'dark'].left
+  } ${pro}%,${ThemesColor[data?.theme ?? 'dark'].right}  ${pro}%)`
   const show = (a, b) => {
     if (
       data.talent_show &&

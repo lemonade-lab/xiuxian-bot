@@ -8,7 +8,10 @@ export default function App({ data }: { data: PersonalInformationType }) {
     <html>
       <head>
         <link rel="stylesheet" href={_('css/new-root.css')}></link>
-        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
+        <link
+          rel="stylesheet"
+          href={_(`css/root-${data?.theme ?? 'dark'}.css`)}
+        ></link>
         <link rel="stylesheet" href={_(`css/new-nav.css`)}></link>
         <link rel="stylesheet" href={_(`css/new-message.css`)}></link>
       </head>
