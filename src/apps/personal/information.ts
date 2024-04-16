@@ -157,10 +157,10 @@ export class Information extends APlugin {
         { label: '势力', value: '/势力' }
       ],
       [
+        { label: '储物', value: '/储物袋' },
         { label: '纳戒', value: '/纳戒' },
         { label: '地图', value: '/地图' },
-        { label: '新人', value: '/新人' },
-        { label: '储物', value: '/储物袋' }
+        { label: '新人', value: '/新人' }
       ]
     )
     return true

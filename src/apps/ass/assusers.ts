@@ -13,7 +13,7 @@ export class AssSsers extends APlugin {
           fnc: 'mAss'
         },
         {
-          reg: /^(#|\/)?所有势力\d*$/,
+          reg: /^(#|\/)?势力\d*$/,
           fnc: 'world'
         }
       ]
@@ -21,13 +21,13 @@ export class AssSsers extends APlugin {
   }
 
   /**
-   * 所有势力
+   * 势力
    * @param e
    */
   async world(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const p = e.msg.replace(/^(#|\/)?所有势力/, '')
+    const p = e.msg.replace(/^(#|\/)?势力/, '')
     const page = p == '' ? 1 : Number(p)
     const pageSize = GameApi.Cooling.pageSize
     const totalCount = await DB.ass.count()
