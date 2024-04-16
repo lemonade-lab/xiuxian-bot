@@ -21,7 +21,9 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?控制板$/, fnc: 'controllers' },
         { reg: /^(#|\/)?修炼$/, fnc: 'cultivation' },
         { reg: /^(#|\/)?更换主题$/, fnc: 'updateTheme' },
-        { reg: /^(#|\/)?新人助手$/, fnc: 'newUsers' }
+        { reg: /^(#|\/)?榜单列表$/, fnc: 'list' },
+        { reg: /^(#|\/)?新人助手$/, fnc: 'newUsers' },
+        { reg: /^(#|\/)?交易$/, fnc: 'shop' }
       ]
     })
   }
@@ -36,11 +38,19 @@ export class Information extends APlugin {
     return
   }
 
-  /**
-   *
-   * @param e
-   */
-  async newUsers(e: AEvent) {
+  async shop(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '虚空镜', value: '/虚空镜' },
+        { label: '虚空灯', value: '/虚空灯' },
+        { label: '虚空板', value: '/虚空板' }
+      ],
+      [{ label: '控制板', value: '/控制板' }]
+    )
+  }
+
+  async list(e: AEvent) {
     Controllers(e).Message.reply(
       '',
       [
@@ -49,7 +59,7 @@ export class Information extends APlugin {
         { label: '再入仙途', value: '/再入仙途' }
       ],
       [
-        { label: '协会', value: '/协会' },
+        { label: '纳戒', value: '/纳戒' },
         { label: '赶路', value: '/赶路' },
         { label: '签名', value: '/签名', enter: false },
         { label: '改名', value: '/改名', enter: false }
@@ -59,6 +69,22 @@ export class Information extends APlugin {
         { label: '联盟报到', value: '/联盟报到' },
         { label: '控制板', value: '/控制板' }
       ]
+    )
+  }
+
+  /**
+   *
+   * @param e
+   */
+  async newUsers(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '通天塔', value: '/通天塔' },
+        { label: '至尊榜', value: '/至尊榜' },
+        { label: '杀神榜', value: '/杀神榜' }
+      ],
+      [{ label: '控制板', value: '/控制板' }]
     )
   }
 
@@ -98,24 +124,15 @@ export class Information extends APlugin {
         { label: '功法信息', value: '/功法信息' }
       ],
       [
-        { label: '虚空镜', value: '/虚空镜' },
-        { label: '虚空灯', value: '/虚空灯' },
-        { label: '虚空板', value: '/虚空板' }
-      ],
-      [
-        { label: '通天塔', value: '/通天塔' },
+        { label: '交易', value: '/交易' },
+        { label: '修炼', value: '/修炼' },
         { label: '协会', value: '/协会' },
         { label: '天下', value: '/天下' }
       ],
       [
-        { label: '至尊榜', value: '/至尊榜' },
-        { label: '杀神榜', value: '/杀神榜' },
-        { label: '新人助手', value: '/新人助手' }
-      ],
-      [
         { label: '储物袋', value: '/储物袋' },
-        { label: '修仙地图', value: '/修仙地图' },
-        { label: '修仙帮助', value: '/修仙帮助' }
+        { label: '新人助手', value: '/新人助手' },
+        { label: '修仙地图', value: '/修仙地图' }
       ]
     )
     return true
