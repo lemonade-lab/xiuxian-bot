@@ -272,6 +272,13 @@ export class Monster extends APlugin {
     await GameApi.Monster.reduce(UserData.point_type, Mname)
     // 发送下下哦i
     await e.reply(msgRight)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply('', [
+        { label: '储物袋', value: '/储物袋' },
+        { label: '突破', value: '/突破' },
+        { label: '破境', value: '/破境' }
+      ])
+    }
     return
   }
 
