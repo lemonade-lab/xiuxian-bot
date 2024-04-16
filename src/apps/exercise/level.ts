@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   GameApi,
@@ -22,6 +22,19 @@ export class Level extends APlugin {
    */
   async breakThrough(e: AEvent) {
     levelUp(e, 6, 1, 90)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '储物袋', value: '/储物袋' },
+          { label: '破境', value: '/破境' }
+        ],
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '/修仙地图' }
+        ]
+      )
+    }
     return
   }
 
@@ -32,6 +45,19 @@ export class Level extends APlugin {
    */
   async breakingTheBoundary(e: AEvent) {
     levelUp(e, 7, 2, 80)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '储物袋', value: '/储物袋' },
+          { label: '破境', value: '/破境' }
+        ],
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '/修仙地图' }
+        ]
+      )
+    }
     return
   }
 
@@ -42,6 +68,19 @@ export class Level extends APlugin {
    */
   async insight(e: AEvent) {
     levelUp(e, 19, 3, 80)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '储物袋', value: '/储物袋' },
+          { label: '破境', value: '/破境' }
+        ],
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '/修仙地图' }
+        ]
+      )
+    }
     return
   }
 }

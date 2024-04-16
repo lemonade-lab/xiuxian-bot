@@ -354,7 +354,7 @@ export class Monster extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!reStart[UID] || reStart[UID] + 60000 < new Date().getTime()) {
       reStart[UID] = new Date().getTime()
-      e.reply([e.segment.at(e.user_id), `CD中`]).catch((err: any) => {
+      e.reply([`CD中`]).catch((err: any) => {
         console.error(err)
         return
       })

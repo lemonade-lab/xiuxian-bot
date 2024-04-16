@@ -144,12 +144,17 @@ export class ControlPlayer extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     await endAllWord(e, UID, UserData)
     if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('', [
-        { label: '探索怪物', value: '/探索怪物' },
-        { label: '修仙地图', value: '修仙地图' },
-        { label: '突破', value: '/突破' },
-        { label: '破境', value: '/破境' }
-      ])
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '修仙地图' }
+        ],
+        [
+          { label: '突破', value: '/突破' },
+          { label: '破境', value: '/破境' }
+        ]
+      )
     }
     return
   }
