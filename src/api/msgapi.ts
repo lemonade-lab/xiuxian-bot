@@ -28,6 +28,71 @@ import ImageComponent from '../image/index.js'
 import { updatePlayer } from '../model/system/player.js'
 
 /**
+ *
+ * @param e
+ * @param CDID
+ * @param ID
+ * @param p
+ * @returns
+ */
+export async function levelUp(
+  e: AEvent,
+  CDID: Burial.CDType,
+  ID: 1 | 2 | 3,
+  p: number
+) {
+  const UID = e.user_id
+
+  if (!(await isThereAUserPresent(e, UID))) return
+
+  if (!(await victoryCooling(e, UID, CDID))) return
+
+  const LevelMsg = await Levels.read(UID, ID)
+  if (LevelMsg.experience <= 100) {
+    e.reply(['毫无自知之明'], {
+      quote: e.msg_id
+    })
+    return
+  }
+  // 取值范围 [1 100 ] 突破概率为 (68-realm)/100
+
+  const number = LevelMsg.realm ?? 0
+
+  if (!Method.isTrueInRange(1, 100, p - LevelMsg.realm + number)) {
+    // 设置突破冷却
+    Burial.set(UID, CDID, Cooling.CD_Level_up)
+    /** 随机顺序损失经验  */
+    const randomKey = Levels.getRandomKey()
+    const size = Math.floor(LevelMsg.experience / (randomKey + 1))
+    await Levels.reduceExperience(UID, ID, size)
+    const msg = await Levels.getCopywriting(
+      ID,
+      randomKey,
+      size > 999999 ? 999999 : size
+    )
+    e.reply([msg], {
+      quote: e.msg_id
+    })
+
+    return
+  }
+
+  const { msg } = await Levels.enhanceRealm(UID, ID)
+  e.reply([msg], {
+    quote: e.msg_id
+  })
+
+  // 设置
+  Burial.set(UID, CDID, Cooling.CD_Level_up)
+  setTimeout(async () => {
+    const UserData = await Users.read(UID)
+    // 更新面板
+    Equipment.updatePanel(UID, UserData.battle_blood_now)
+  }, 1500)
+  return
+}
+
+/**
  * 踏入仙途
  */
 export function createUser(e: AEvent) {

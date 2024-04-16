@@ -384,11 +384,19 @@ export async function showSky(UID: string) {
 
   const arr: DB.SkyType[] = []
 
-  for await (const item of list) {
+  for (const item of list) {
     arr.push(item)
   }
 
   const reply = async () => {
+    const uids = arr.map(item => item.id)
+    const uDatas = (await DB.user.findOne({
+      attributes: ['uid', 'name', 'battle_power', 'autograph', 'avatar'],
+      where: {
+        uid: uids
+      },
+      raw: true
+    })) as any
     const msg: {
       id: number
       UID: string
@@ -396,24 +404,14 @@ export async function showSky(UID: string) {
       power: number
       autograph: string
       avatar: string
-    }[] = []
-    for await (const item of arr) {
-      const UserData: DB.UserType = (await DB.user.findOne({
-        attributes: ['uid', 'name', 'battle_power', 'autograph', 'avatar'],
-        where: {
-          uid: item.uid
-        },
-        raw: true
-      })) as any
-      msg.push({
-        id: item.id,
-        UID: UserData.uid,
-        name: UserData.name,
-        power: UserData.battle_power,
-        autograph: UserData.autograph,
-        avatar: UserData.avatar
-      })
-    }
+    }[] = uDatas.map(item => ({
+      id: item.id,
+      UID: item.uid,
+      name: item.name,
+      power: item.battle_power,
+      autograph: item.autograph,
+      avatar: item.avatar
+    }))
     return msg
   }
 

@@ -36,7 +36,6 @@ export class List extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const img = await getKillComponent(await Server.getKillList(), UID)
-
     if (typeof img != 'boolean') e.reply(img)
   }
 }

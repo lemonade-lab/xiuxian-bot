@@ -1,12 +1,12 @@
 import * as DB from '../db/index.js'
 import { type LevelListType, type KillListType } from './types.js'
 import { Redis } from '../db/redis/index.js'
-import axios from 'axios'
+import { isUser } from '../api/msgapi.js'
+import { Equipment, Skills } from '../api/gameapi.js'
 
 // 启动刷新时间   // 一小时刷新一次  // 响应控制
 const start_time = 30000
 const continue_time = 3600000
-const timeout_time = 6000
 
 /**
  * 得到
@@ -29,29 +29,12 @@ export function set(i: string, val: any) {
 }
 
 /**
- * 测试请求
- * @param url
- * @returns
- */
-export async function testAvatar(url: string) {
-  try {
-    const response = await axios.head(url, { timeout: timeout_time })
-    if (response.status === 200) {
-      return url
-    } else {
-      return 'https://upload-bbs.miyoushe.com/upload/2023/07/17/304751611/71e31dcc65d3cd80f6a987a6cd476d83_6373327733590661180.jpg'
-    }
-  } catch (error) {
-    return 'https://upload-bbs.miyoushe.com/upload/2023/07/17/304751611/71e31dcc65d3cd80f6a987a6cd476d83_6373327733590661180.jpg'
-  }
-}
-
-/**
  * 得到排行榜数据
  * @returns
  */
 export async function getList() {
   const UserData: LevelListType[] = []
+
   //  得到玩家数据
   const ALLData: DB.UserType[] = (await DB.user.findAll({
     attributes: ['uid', 'battle_power', 'autograph', 'name', 'avatar'],
@@ -61,12 +44,12 @@ export async function getList() {
     limit: 5,
     raw: true
   })) as any
-  for await (const iten of ALLData) {
-    const UID = iten?.uid
+
+  for (const iten of ALLData) {
     const LData: DB.UserLevelType[] = (await DB.user_level.findAll({
       attributes: ['type', 'realm'],
       where: {
-        uid: UID
+        uid: iten?.uid
       },
       order: [
         ['type', 'ASC'] // 按类型排序
@@ -74,7 +57,7 @@ export async function getList() {
       raw: true
     })) as any
     let levelName = ''
-    for await (const it of LData) {
+    for (const it of LData) {
       // 得到 境界类型
       const type = it?.type
       const realm = it?.realm
@@ -94,9 +77,23 @@ export async function getList() {
       lifeName: iten?.name, // 道号
       levelName: levelName, // 境界名
       power: iten?.battle_power, // 战力
-      user_avatar: await testAvatar(iten?.avatar) // 头像
+      user_avatar: iten?.avatar // 头像
     })
   }
+
+  /**
+   * 给前五名增加 数据刷新操作
+   */
+  for await (const item of ALLData) {
+    isUser(item.uid).then(UserData => {
+      if (!UserData) return
+      Promise.all([
+        Skills.updataEfficiency(UserData.uid, UserData.talent),
+        Equipment.updatePanel(UserData.uid, UserData.battle_blood_now)
+      ])
+    })
+  }
+
   return UserData
 }
 
@@ -105,7 +102,6 @@ export async function getList() {
  * @returns
  */
 export async function getKillList() {
-  const UserData: KillListType[] = []
   //  得到玩家数据
   const ALLData: DB.UserType[] = (await DB.user.findAll({
     attributes: [
@@ -123,16 +119,16 @@ export async function getKillList() {
     limit: 5,
     raw: true
   })) as any
-  for await (const iten of ALLData) {
-    UserData.push({
-      UID: iten?.uid, // 编号
-      autograph: iten?.autograph, // 道宣
-      lifeName: iten?.name, // 道号
-      prestige: iten?.special_prestige, // 煞气
-      power: iten?.battle_power, // 战力
-      user_avatar: await testAvatar(iten?.avatar) // 头像
-    })
-  }
+  const UserData: KillListType[] = ALLData.map(item => {
+    return {
+      UID: item?.uid, // 编号
+      autograph: item?.autograph, // 道宣
+      lifeName: item?.name, // 道号
+      prestige: item?.special_prestige, // 煞气
+      power: item?.battle_power, // 战力
+      user_avatar: item?.avatar // 头像
+    }
+  })
   return UserData
 }
 
