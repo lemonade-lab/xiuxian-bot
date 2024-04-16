@@ -1,10 +1,16 @@
 import React from 'react'
-import { personalInformation } from '../src/server/information.ts'
-import MessageComponent from '../src/component/message.tsx'
-import HelpComponent from '../src/component/help.tsx'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { importPath } from 'alemonjs'
+import { mapType } from '../src/model/wrap/goods.ts'
+import {
+  backpackInformation,
+  personalInformation
+} from '../src/server/information.ts'
+import MessageComponent from '../src/component/message.tsx'
+import HelpComponent from '../src/component/help.tsx'
+import BagComponent from '../src/component/bag.tsx'
+
 const uid = '13348342918169126729'
 const data = await personalInformation(uid, '')
 const app = importPath(import.meta.url)
@@ -17,6 +23,8 @@ function getJson(name: string) {
 }
 const helpDAta = getJson('base_help')
 
+const bagDAta = await backpackInformation(uid, '', mapType['道具'])
+
 export const routes = [
   {
     url: '/message',
@@ -25,5 +33,9 @@ export const routes = [
   {
     url: '/help',
     element: <HelpComponent data={helpDAta} />
+  },
+  {
+    url: '/bag',
+    element: <BagComponent data={bagDAta} />
   }
 ]

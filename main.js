@@ -16,211 +16,7 @@ import redisClient from 'ioredis'
 import { Queue, Worker } from 'bullmq'
 import axios from 'axios'
 
-const nameMap = {
-  boolere_covery: '回血',
-  exp_gaspractice: '修为',
-  exp_bodypractice: '气血',
-  exp_soul: '魂念'
-}
-
 function App$b({ data }) {
-  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
-  return React.createElement(
-    'html',
-    null,
-    React.createElement(
-      'head',
-      null,
-      React.createElement('link', {
-        rel: 'stylesheet',
-        href: '../css/root.css'
-      }),
-      React.createElement('link', { rel: 'stylesheet', href: '../css/bag.css' })
-    ),
-    React.createElement(
-      'body',
-      null,
-      React.createElement(
-        'div',
-        { id: 'app', className: 'user' },
-        React.createElement('div', { style: { height: '30px' } }),
-        React.createElement(
-          'div',
-          { className: 'user_top' },
-          React.createElement(
-            'div',
-            { className: 'user_top_left' },
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font0 font_control Horizontal_grid'
-              },
-              UID
-            ),
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font1 font_control Horizontal_grid'
-              },
-              '\u9053\u53F7: ',
-              data.name
-            ),
-            React.createElement(
-              'div',
-              { className: 'user_top_right_font font_control Horizontal_grid' },
-              '\u7B49\u7EA7: ',
-              data.bag_grade
-            ),
-            React.createElement(
-              'div',
-              {
-                className: 'user_top_right_font2 font_control Horizontal_grid',
-                style: { borderBottomRightRadius: '0px' }
-              },
-              '\u683C\u5B50: ',
-              data.length,
-              '/',
-              data.bag_grade * 10
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'user_top_right' },
-            React.createElement(
-              'div',
-              { className: 'user_top_img_bottom' },
-              React.createElement('img', {
-                className: 'user_top_img',
-                src: data.avatar,
-                alt: 'User Avatar'
-              })
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'user_bottom1' },
-          React.createElement(
-            'div',
-            { className: 'use_data' },
-            data.bag.map((item, index) =>
-              React.createElement(
-                'div',
-                { key: index },
-                React.createElement(
-                  'div',
-                  {
-                    className:
-                      'user_top_right_font0 font_control Horizontal_grid'
-                  },
-                  item['good.name']
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'user_top_right_font1 font_control lattice' },
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u653B\u51FB: ',
-                    item['good.attack'],
-                    '%'
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u9632\u5FA1: ',
-                    item['good.defense'],
-                    '%'
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u8840\u91CF: ',
-                    item['good.blood'],
-                    '%'
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'user_top_right_font font_control lattice' },
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u5929\u8D4B: ',
-                    item['good.size'],
-                    '%'
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u66B4\u51FB: ',
-                    item['good.critical_hit'],
-                    '%'
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u66B4\u4F24: ',
-                    item['good.critical_damage'],
-                    '%'
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'user_top_right_font1 font_control lattice' },
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u654F\u6377: ',
-                    item['good.speed']
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    nameMap[item['good.addition']],
-                    ':',
-                    ' ',
-                    item[`good.${item['good.addition']}`],
-                    item['good.addition'] === 'boolere_covery' &&
-                      React.createElement('span', null, ' % ')
-                  ),
-                  React.createElement('div', null, '\u4E94\u884C: ???')
-                ),
-                React.createElement(
-                  'div',
-                  {
-                    className: 'user_top_right_font2 font_control lattice',
-                    style: { marginBottom: '5px' }
-                  },
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u7B49\u7EA7: ',
-                    item['good.grade']
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u6570\u91CF: ',
-                    item['acount']
-                  ),
-                  React.createElement(
-                    'div',
-                    null,
-                    '\u4EF7\u683C: ',
-                    item['good.price']
-                  )
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
-}
-
-function App$a({ data }) {
   return React.createElement(
     'html',
     null,
@@ -387,7 +183,7 @@ function App$a({ data }) {
   )
 }
 
-function App$9({ data }) {
+function App$a({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -679,7 +475,7 @@ function App$9({ data }) {
   )
 }
 
-function App$8({ data }) {
+function App$9({ data }) {
   return React.createElement(
     'head',
     null,
@@ -795,7 +591,7 @@ function App$8({ data }) {
   )
 }
 
-function App$7({ data }) {
+function App$8({ data }) {
   return React.createElement(
     'html',
     null,
@@ -912,7 +708,14 @@ function App$7({ data }) {
   )
 }
 
-function App$6({ data }) {
+const nameMap$1 = {
+  boolere_covery: '回血',
+  exp_gaspractice: '修为',
+  exp_bodypractice: '气血',
+  exp_soul: '魂念'
+}
+
+function App$7({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -1069,7 +872,7 @@ function App$6({ data }) {
                   React.createElement(
                     'div',
                     null,
-                    nameMap[item['good.addition']],
+                    nameMap$1[item['good.addition']],
                     ':',
                     ' ',
                     item[`good.${item['good.addition']}`],
@@ -1111,7 +914,7 @@ function App$6({ data }) {
   )
 }
 
-function App$5({ data }) {
+function App$6({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return React.createElement(
     'html',
@@ -1238,7 +1041,7 @@ function App$5({ data }) {
   )
 }
 
-function App$4({ data }) {
+function App$5({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1356,7 +1159,7 @@ function App$4({ data }) {
   )
 }
 
-function App$3() {
+function App$4() {
   return React.createElement(
     'div',
     { className: 'nav-menu' },
@@ -1404,7 +1207,7 @@ const ThemesColor = {
   }
 }
 
-function App$2({ data }) {
+function App$3({ data }) {
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
   const color = `linear-gradient(to right, ${ThemesColor[data.theme].left} ${pro}%,${ThemesColor[data.theme].right}  ${pro}%)`
   const show = (a, b) => {
@@ -1421,7 +1224,7 @@ function App$2({ data }) {
   return React.createElement(
     'div',
     { className: 'nav' },
-    React.createElement(App$3, null),
+    React.createElement(App$4, null),
     React.createElement(
       'div',
       { className: 'nav-box' },
@@ -1575,7 +1378,7 @@ function App$2({ data }) {
   )
 }
 
-function App$1({ data }) {
+function App$2({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1605,7 +1408,7 @@ function App$1({ data }) {
       React.createElement(
         'div',
         { id: 'root' },
-        React.createElement(App$2, { data: data }),
+        React.createElement(App$3, { data: data }),
         React.createElement(
           'div',
           { className: 'autograph' },
@@ -1749,7 +1552,7 @@ function App$1({ data }) {
   )
 }
 
-function App({ data }) {
+function App$1({ data }) {
   return React.createElement(
     'html',
     null,
@@ -1819,6 +1622,208 @@ function App({ data }) {
   )
 }
 
+const nameMap = {
+  boolere_covery: '回血',
+  exp_gaspractice: '修为',
+  exp_bodypractice: '气血',
+  exp_soul: '魂念'
+}
+
+function App({ data }) {
+  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
+  return React.createElement(
+    'html',
+    null,
+    React.createElement(
+      'head',
+      null,
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _('css/root.css')
+      }),
+      React.createElement('link', {
+        rel: 'stylesheet',
+        href: _('css/root-dark.css')
+      }),
+      React.createElement('link', { rel: 'stylesheet', href: _('css/bag.css') })
+    ),
+    React.createElement(
+      'body',
+      null,
+      React.createElement(
+        'div',
+        { id: 'root' },
+        React.createElement(
+          'nav',
+          { className: 'nav' },
+          React.createElement(
+            'div',
+            { className: 'nav-left' },
+            React.createElement(
+              'div',
+              {
+                className: 'user_top_right_font0 font_control Horizontal_grid'
+              },
+              UID
+            ),
+            React.createElement(
+              'div',
+              {
+                className: 'user_top_right_font1 font_control Horizontal_grid'
+              },
+              '\u9053\u53F7: ',
+              data.name
+            ),
+            React.createElement(
+              'div',
+              { className: 'user_top_right_font font_control Horizontal_grid' },
+              '\u7B49\u7EA7: ',
+              data.bag_grade
+            ),
+            React.createElement(
+              'div',
+              {
+                className: 'user_top_right_font2 font_control Horizontal_grid',
+                style: { borderBottomRightRadius: '0px' }
+              },
+              '\u683C\u5B50: ',
+              data.length,
+              '/',
+              data.bag_grade * 10
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'nav-right' },
+            React.createElement(
+              'div',
+              { className: 'user_top_img_bottom' },
+              React.createElement('img', {
+                className: 'user_top_img',
+                src: data.avatar,
+                alt: 'User Avatar'
+              })
+            )
+          )
+        ),
+        React.createElement(
+          'main',
+          { className: 'main' },
+          data.bag.map((item, index) =>
+            React.createElement(
+              'div',
+              { key: index, className: 'main-item' },
+              React.createElement(
+                'div',
+                {
+                  className: 'user_top_right_font0 font_control Horizontal_grid'
+                },
+                item['good.name']
+              ),
+              React.createElement(
+                'div',
+                { className: 'user_top_right_font1 font_control lattice' },
+                React.createElement(
+                  'div',
+                  null,
+                  '\u653B\u51FB: ',
+                  item['good.attack'],
+                  '%'
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  '\u9632\u5FA1: ',
+                  item['good.defense'],
+                  '%'
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  '\u8840\u91CF: ',
+                  item['good.blood'],
+                  '%'
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'user_top_right_font font_control lattice' },
+                React.createElement(
+                  'div',
+                  null,
+                  '\u5929\u8D4B: ',
+                  item['good.size'],
+                  '%'
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  '\u66B4\u51FB: ',
+                  item['good.critical_hit'],
+                  '%'
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  '\u66B4\u4F24: ',
+                  item['good.critical_damage'],
+                  '%'
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'user_top_right_font1 font_control lattice' },
+                React.createElement(
+                  'div',
+                  null,
+                  '\u654F\u6377: ',
+                  item['good.speed']
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  nameMap[item['good.addition']],
+                  ':',
+                  ' ',
+                  item[`good.${item['good.addition']}`],
+                  item['good.addition'] === 'boolere_covery' &&
+                    React.createElement('span', null, ' % ')
+                ),
+                React.createElement('div', null, '\u4E94\u884C: ???')
+              ),
+              React.createElement(
+                'div',
+                {
+                  className: 'user_top_right_font2 font_control lattice',
+                  style: { marginBottom: '5px' }
+                },
+                React.createElement(
+                  'div',
+                  null,
+                  '\u7B49\u7EA7: ',
+                  item['good.grade']
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  '\u6570\u91CF: ',
+                  item['acount']
+                ),
+                React.createElement(
+                  'div',
+                  null,
+                  '\u4EF7\u683C: ',
+                  item['good.price']
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+}
+
 const app$1 = importPath(import.meta.url)
 const cwd = app$1.cwd()
 const dir$1 = join(cwd, 'public/html')
@@ -1851,60 +1856,68 @@ class Component {
     writeFileSync(address, `<!DOCTYPE html>${html}`)
     return address
   }
-  async message(data, uid) {
+  async help(data) {
     return this.puppeteer.toFile(
       this.create(
         React.createElement(App$1, { data: data }),
+        'help',
+        `help.html`
+      )
+    )
+  }
+  async message(data, uid) {
+    return this.puppeteer.toFile(
+      this.create(
+        React.createElement(App$2, { data: data }),
         'message',
         `${uid}.html`
       )
     )
   }
-  async help(data) {
+  async bag(data, uid) {
     return this.puppeteer.toFile(
-      this.create(React.createElement(App, { data: data }), 'help', `help.html`)
+      this.create(
+        React.createElement(App, { data: data }),
+        'bag',
+        `${uid}.html`
+      )
     )
   }
 }
 var ImageComponent = new Component(join(cwd, 'public', 'cache'))
 function getDefsetComponent(data) {
   return p.toFile(
-    create$4(React.createElement(App$a, { data: data }), 'defset', 'defset')
+    create$4(React.createElement(App$b, { data: data }), 'defset', 'defset')
   )
 }
 function getKillComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$8, { data: data }), 'kill', uid)
+    create$4(React.createElement(App$9, { data: data }), 'kill', uid)
   )
 }
 function getListComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$7, { data: data }), 'list', uid)
-  )
-}
-function getBagComponent(data, uid) {
-  return p.toFile(
-    create$4(React.createElement(App$b, { data: data }), 'bag', uid)
+    create$4(React.createElement(App$8, { data: data }), 'list', uid)
   )
 }
 function getEquipmentComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$9, { data: data }), 'equipment', uid)
+    create$4(React.createElement(App$a, { data: data }), 'equipment', uid)
   )
 }
 function getRingComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$6, { data: data }), 'ring', uid)
+    create$4(React.createElement(App$7, { data: data }), 'ring', uid)
   )
 }
 function getSkillsComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$5, { data: data }), 'skills', uid)
+    create$4(React.createElement(App$6, { data: data }), 'skills', uid)
   )
 }
 function getSkyComponent(data, uid) {
   return p.toFile(
-    create$4(React.createElement(App$4, { data: data }), 'sky', uid)
+    create$4(React.createElement(App$5, { data: data }), 'sky', uid)
   )
 }
 
@@ -7881,6 +7894,19 @@ class ControlPlayer extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await read$7(UID)
     await endAllWord(e, UID, UserData)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '修仙地图' }
+        ],
+        [
+          { label: '突破', value: '/突破' },
+          { label: '破境', value: '/破境' }
+        ]
+      )
+    }
     return
   }
 }
@@ -7930,6 +7956,7 @@ class fairyland extends APlugin {
         del$7(UID)
         await punishLevel(e, UID, UserData)
         punishLevel(e, UID, UserData)
+        clearInterval(time)
       }
     }, 60000)
   }
@@ -8044,14 +8071,53 @@ class Level extends APlugin {
   }
   async breakThrough(e) {
     levelUp(e, 6, 1, 90)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '储物袋', value: '/储物袋' },
+          { label: '破境', value: '/破境' }
+        ],
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '/修仙地图' }
+        ]
+      )
+    }
     return
   }
   async breakingTheBoundary(e) {
     levelUp(e, 7, 2, 80)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '储物袋', value: '/储物袋' },
+          { label: '破境', value: '/破境' }
+        ],
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '/修仙地图' }
+        ]
+      )
+    }
     return
   }
   async insight(e) {
     levelUp(e, 19, 3, 80)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply(
+        '',
+        [
+          { label: '储物袋', value: '/储物袋' },
+          { label: '破境', value: '/破境' }
+        ],
+        [
+          { label: '探索怪物', value: '/探索怪物' },
+          { label: '修仙地图', value: '/修仙地图' }
+        ]
+      )
+    }
     return
   }
 }
@@ -8633,6 +8699,13 @@ class Monster extends APlugin {
     set$3(UID, CDID, CD_Kill)
     await reduce$1(UserData.point_type, Mname)
     await e.reply(msgRight)
+    if (e.platform == 'ntqq') {
+      Controllers(e).Message.reply('', [
+        { label: '储物袋', value: '/储物袋' },
+        { label: '突破', value: '/突破' },
+        { label: '破境', value: '/破境' }
+      ])
+    }
     return
   }
   async userExploremonsters(e) {
@@ -8693,7 +8766,7 @@ class Monster extends APlugin {
     const UserData = await read$7(UID)
     if (!reStart$1[UID] || reStart$1[UID] + 60000 < new Date().getTime()) {
       reStart$1[UID] = new Date().getTime()
-      e.reply([e.segment.at(e.user_id), `CD中`]).catch(err => {
+      e.reply([`CD中`]).catch(err => {
         console.error(err)
         return
       })
@@ -9057,7 +9130,7 @@ class Bag extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const type = e.msg.replace(/^(#|\/)?(储物袋|儲物袋|背包)/, '')
-    const img = await getBagComponent(
+    const img = await ImageComponent.bag(
       await backpackInformation(
         e.user_id,
         e.user_avatar,

@@ -4,11 +4,8 @@ import { Puppeteer, importPath } from 'alemonjs'
 import { mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 // component
-import BagComponent from './conponent/bag.tsx'
 import DefsetComponent from './conponent/defset.tsx'
 import EquipmentComponent from './conponent/equipment.tsx'
-import HelpComponent from './conponent/help.tsx'
-import InformationComponent from './conponent/information.tsx'
 import KillComponent from './conponent/kill.tsx'
 import ListComponent from './conponent/list.tsx'
 import RingComponent from './conponent/ring.tsx'
@@ -17,6 +14,7 @@ import SkyComponent from './conponent/sky.tsx'
 
 import MessageComponent from '../component/message.tsx'
 import HelpComponents from '../component/help.tsx'
+import BagComponents from '../component/bag.tsx'
 import { PersonalInformationType } from '../server/information.ts'
 
 // getPath
@@ -71,6 +69,12 @@ class Component {
     return address
   }
 
+  async help(data) {
+    return this.puppeteer.toFile(
+      this.create(<HelpComponents data={data} />, 'help', `help.html`)
+    )
+  }
+
   /**
    * 用户消息
    * @param data
@@ -83,9 +87,15 @@ class Component {
     )
   }
 
-  async help(data) {
+  /**
+   * 储物袋
+   * @param data
+   * @param name
+   * @returns
+   */
+  async bag(data, uid: number | string) {
     return this.puppeteer.toFile(
-      this.create(<HelpComponents data={data} />, 'help', `help.html`)
+      this.create(<BagComponents data={data} />, 'bag', `${uid}.html`)
     )
   }
 }
@@ -120,16 +130,6 @@ export function getKillComponent(data, uid) {
  */
 export function getListComponent(data, uid) {
   return p.toFile(create(<ListComponent data={data} />, 'list', uid))
-}
-
-/**
- * 储物袋
- * @param data
- * @param name
- * @returns
- */
-export function getBagComponent(data, uid) {
-  return p.toFile(create(<BagComponent data={data} />, 'bag', uid))
 }
 
 /**
