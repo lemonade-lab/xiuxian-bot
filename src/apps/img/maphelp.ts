@@ -5,7 +5,7 @@ export class MapHelp extends APlugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)?(修仙地图|修仙地圖)$/, fnc: 'showMap' },
+        { reg: /^(#|\/)?(地图|修仙地圖)$/, fnc: 'showMap' },
         { reg: /^(#|\/)?赶路$/, fnc: 'goAddress' },
         { reg: /^(#|\/)?修仙配置$/, fnc: 'boxDefset' }
       ]
@@ -31,11 +31,12 @@ export class MapHelp extends APlugin {
       ],
       [
         { label: '天下', value: '/天下' },
+        { label: '协会', value: '/协会' },
         { label: '前往', value: '/前往', enter: false },
         { label: '传送', value: '/传送', enter: false }
       ],
       [
-        { label: '修仙地图', value: '/修仙地图' },
+        { label: '地图', value: '/地图' },
         { label: '控制板', value: '/控制板' },
         {
           label: '返回',
@@ -46,7 +47,7 @@ export class MapHelp extends APlugin {
   }
 
   /**
-   * 修仙地图
+   * 地图
    * @param e
    * @returns
    */

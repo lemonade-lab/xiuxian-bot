@@ -50,8 +50,8 @@ export class Help extends APlugin {
             link: 'https://qm.qq.com/q/BUXl2xKabe'
           },
           {
-            label: '修仙地图',
-            value: '/修仙地图'
+            label: '地图',
+            value: '/地图'
           },
           { label: '控制板', value: '/控制板' }
         ]

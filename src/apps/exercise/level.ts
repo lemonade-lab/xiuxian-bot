@@ -25,7 +25,7 @@ export class Level extends APlugin {
   async buttons(e: AEvent) {
     if (e.platform == 'ntqq') {
       Controllers(e).Message.reply('', [
-        { label: '修仙地图', value: '/控制板' },
+        { label: '地图', value: '/控制板' },
         { label: '修仙帮助', value: '/修仙帮助' },
         { label: '控制板', value: '/控制板' }
       ])

@@ -21,8 +21,8 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?控制板$/, fnc: 'controllers' },
         { reg: /^(#|\/)?修炼$/, fnc: 'cultivation' },
         { reg: /^(#|\/)?更换主题$/, fnc: 'updateTheme' },
-        { reg: /^(#|\/)?榜单列表$/, fnc: 'list' },
-        { reg: /^(#|\/)?新人助手$/, fnc: 'newUsers' },
+        { reg: /^(#|\/)?榜单$/, fnc: 'list' },
+        { reg: /^(#|\/)?新人$/, fnc: 'newUsers' },
         { reg: /^(#|\/)?交易$/, fnc: 'shop' }
       ]
     })
@@ -50,7 +50,7 @@ export class Information extends APlugin {
     )
   }
 
-  async list(e: AEvent) {
+  async newUsers(e: AEvent) {
     Controllers(e).Message.reply(
       '',
       [
@@ -59,8 +59,6 @@ export class Information extends APlugin {
         { label: '再入仙途', value: '/再入仙途' }
       ],
       [
-        { label: '纳戒', value: '/纳戒' },
-        { label: '赶路', value: '/赶路' },
         { label: '签名', value: '/签名', enter: false },
         { label: '改名', value: '/改名', enter: false }
       ],
@@ -76,7 +74,7 @@ export class Information extends APlugin {
    *
    * @param e
    */
-  async newUsers(e: AEvent) {
+  async list(e: AEvent) {
     Controllers(e).Message.reply(
       '',
       [
@@ -119,20 +117,21 @@ export class Information extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
-        { label: '个人信息', value: '/个人信息' },
-        { label: '面板信息', value: '/面板信息' },
-        { label: '功法信息', value: '/功法信息' }
+        { label: '资料', value: '/个人信息' },
+        { label: '面板', value: '/面板信息' },
+        { label: '功法', value: '/功法信息' }
       ],
       [
         { label: '交易', value: '/交易' },
         { label: '修炼', value: '/修炼' },
-        { label: '协会', value: '/协会' },
-        { label: '天下', value: '/天下' }
+        { label: '榜单', value: '/榜单' },
+        { label: '赶路', value: '/赶路' }
       ],
       [
-        { label: '储物袋', value: '/储物袋' },
-        { label: '新人助手', value: '/新人助手' },
-        { label: '修仙地图', value: '/修仙地图' }
+        { label: '纳戒', value: '/纳戒' },
+        { label: '地图', value: '/地图' },
+        { label: '新人', value: '/新人' },
+        { label: '储物', value: '/储物袋' }
       ]
     )
     return true

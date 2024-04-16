@@ -147,7 +147,7 @@ export class ControlPlayer extends APlugin {
         '',
         [
           { label: '探索怪物', value: '/探索怪物' },
-          { label: '修仙地图', value: '修仙地图' }
+          { label: '地图', value: '地图' }
         ],
         [
           { label: '突破', value: '/突破' },
