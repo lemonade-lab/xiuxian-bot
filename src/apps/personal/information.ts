@@ -9,6 +9,7 @@ import {
   getSkillsComponent,
   createUser
 } from '../../api/index.js'
+import { Themes } from '../../component/core/color.js'
 export class Information extends APlugin {
   constructor() {
     super({
@@ -17,9 +18,20 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?面板信息$/, fnc: 'equipmentInformation' },
         { reg: /^(#|\/)?功法信息$/, fnc: 'skillInformation' },
         { reg: /^(#|\/)?我的编号$/, fnc: 'myUserID' },
-        { reg: /^(#|\/)?控制板$/, fnc: 'controllers' }
+        { reg: /^(#|\/)?控制板$/, fnc: 'controllers' },
+        { reg: /^(#|\/)?更换主题$/, fnc: 'updateTheme' }
       ]
     })
+  }
+
+  /**
+   *
+   * @param e
+   * @returns
+   */
+  async myUserID(e: AEvent) {
+    e.reply(e.user_id)
+    return
   }
 
   /**
@@ -63,11 +75,43 @@ export class Information extends APlugin {
   /**
    *
    * @param e
-   * @returns
    */
-  async myUserID(e: AEvent) {
-    e.reply(e.user_id)
-    return
+  async updateTheme(e: AEvent) {
+    const UID = e.user_id
+    isUser(UID)
+      .then(UserData => {
+        if (!UserData) {
+          createUser(e)
+          return
+        }
+        // 得到配置
+        const index = Themes.indexOf(UserData.theme)
+        // 如果存在
+        if (Themes[index + 1]) {
+          // 切换
+          UserData.theme = Themes[index + 1]
+          // 保存
+        } else {
+          // 不存在。返回第一个
+          UserData.theme = Themes[0]
+        }
+        // 更新主题后。
+        GameApi.Users.update(UID, {
+          avatar: e.user_avatar,
+          theme: UserData.theme
+        } as DB.UserType).then(() => {
+          Promise.all([
+            GameApi.Skills.updataEfficiency(UID, UserData.talent),
+            GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
+            showUserMsg(e)
+          ]).catch(() => {
+            e.reply('数据处理错误')
+          })
+        })
+      })
+      .catch(() => {
+        e.reply('数据查询错误')
+      })
   }
 
   /**

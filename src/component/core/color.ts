@@ -17,3 +17,5 @@ export const ThemesColor = {
     right: '#f72020ba'
   }
 }
+
+export const Themes = ['dark', 'red', 'blue', 'purple']

@@ -141,7 +141,7 @@ export async function personalInformation(UID: string, user_avatar: string) {
     },
     equipment: equipment,
     skills: skills,
-    theme: 'dark'
+    theme: UserData.theme
   }
 }
 

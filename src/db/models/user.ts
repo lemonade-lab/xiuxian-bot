@@ -18,6 +18,8 @@ export const user = <ModelStatic<Model<UserType>>>sequelize.define(
     state_start_time: DataTypes.INTEGER, // 状态开始时间
     state_end_time: DataTypes.INTEGER, // 状态结束时间
 
+    theme: DataTypes.STRING, //主题
+
     age: DataTypes.INTEGER, // 寿龄_默认1
     age_limit: DataTypes.INTEGER, // 最高寿龄_默认100
     age_state: DataTypes.INTEGER, // 是否死亡_默认1
@@ -79,6 +81,8 @@ export interface UserType {
   state: number // 用户状态_默认0
   state_start_time: number // 状态开始时间
   state_end_time: number // 状态结束时间
+
+  theme: string
 
   age: number // 寿龄_默认1
   age_limit: number // 最高寿龄_默认100
