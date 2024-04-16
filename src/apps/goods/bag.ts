@@ -1,11 +1,8 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import {
-  DB,
-  GameApi,
-  getBagComponent,
-  isThereAUserPresent,
-  Server
-} from '../../api/index.js'
+import { DB, GameApi, isThereAUserPresent, Server } from '../../api/index.js'
+
+import ImageComponent from '../../image/index.js'
+
 export class Bag extends APlugin {
   constructor() {
     super({
@@ -32,7 +29,7 @@ export class Bag extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const type = e.msg.replace(/^(#|\/)?(储物袋|儲物袋|背包)/, '')
-    const img = await getBagComponent(
+    const img = await ImageComponent.bag(
       await Server.backpackInformation(
         e.user_id,
         e.user_avatar,

@@ -1,8 +1,8 @@
 import React from 'react'
 import HeaderComponent from './header.js'
-import _ from './url.js'
+import _ from './core/url.js'
 import { PersonalInformationType } from '../server/information.js'
-import { ThemesColor } from './color.js'
+import { ThemesColor } from './core/color.js'
 import { hash } from 'alemonjs'
 
 export default function App({ data }: { data: PersonalInformationType }) {
