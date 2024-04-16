@@ -170,19 +170,11 @@ export function showUserMsg(e: AEvent) {
         // 图片发送
         e.reply(img).then(() => {
           // buttons
-          Controllers(e).Message.reply(
-            '',
-            [
-              { label: '闭关', value: '/闭关' },
-              { label: '出关', value: '/出关' },
-              { label: '突破', value: '/突破' }
-            ],
-            [
-              { label: '储物袋', value: '/储物袋' },
-              { label: '纳戒', value: '/纳戒' },
-              { label: '控制板', value: '/控制板' }
-            ]
-          )
+          Controllers(e).Message.reply('', [
+            { label: '面板信息', value: '/面板信息' },
+            { label: '功法信息', value: '/功法信息' },
+            { label: '控制板', value: '/控制板' }
+          ])
         })
       }
     })

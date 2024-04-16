@@ -214,6 +214,11 @@ export class Information extends APlugin {
               getEquipmentComponent(res, UID).then(img => {
                 if (typeof img != 'boolean') {
                   e.reply(img)
+                  Controllers(e).Message.reply('', [
+                    { label: '个人信息', value: '/个人信息' },
+                    { label: '功法信息', value: '/功法信息' },
+                    { label: '控制板', value: '/控制板' }
+                  ])
                 }
               })
             })
@@ -244,6 +249,11 @@ export class Information extends APlugin {
             getSkillsComponent(res, UID).then(img => {
               if (typeof img != 'boolean') {
                 e.reply(img)
+                Controllers(e).Message.reply('', [
+                  { label: '个人信息', value: '/个人信息' },
+                  { label: '面板信息', value: '/面板信息' },
+                  { label: '控制板', value: '/控制板' }
+                ])
               }
             })
           })
