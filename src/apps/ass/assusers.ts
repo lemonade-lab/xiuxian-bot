@@ -13,7 +13,7 @@ export class AssSsers extends APlugin {
           fnc: 'mAss'
         },
         {
-          reg: /^(#|\/)?天下\d*$/,
+          reg: /^(#|\/)?所有势力\d*$/,
           fnc: 'world'
         }
       ]
@@ -21,13 +21,13 @@ export class AssSsers extends APlugin {
   }
 
   /**
-   * 天下
+   * 所有势力
    * @param e
    */
   async world(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const p = e.msg.replace(/^(#|\/)?天下/, '')
+    const p = e.msg.replace(/^(#|\/)?所有势力/, '')
     const page = p == '' ? 1 : Number(p)
     const pageSize = GameApi.Cooling.pageSize
     const totalCount = await DB.ass.count()
@@ -49,12 +49,14 @@ export class AssSsers extends APlugin {
         }🗡名气:${item.fame}`
       )
     }
-    sendReply(e, `___[天下]___(${page}/${totalPages})`, msg)
+
+    sendReply(e, `___[势力]___(${page}/${totalPages})`, msg)
 
     Controllers(e).Message.reply(
       '',
       [
-        { label: '势力', value: '/势力信息' },
+        { label: '信息', value: '/势力信息' },
+        { label: '管理', value: '/势力管理' },
         {
           label: '建立',
           value: '/建立+名称',

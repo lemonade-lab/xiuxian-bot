@@ -5,7 +5,7 @@ export class MapHelp extends APlugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)?(地图|修仙地圖)$/, fnc: 'showMap' },
+        { reg: /^(#|\/)?(修仙)?(地图|地圖)$/, fnc: 'showMap' },
         { reg: /^(#|\/)?赶路$/, fnc: 'goAddress' },
         { reg: /^(#|\/)?修仙配置$/, fnc: 'boxDefset' }
       ]
@@ -21,27 +21,27 @@ export class MapHelp extends APlugin {
       '',
       [
         { label: '联盟', value: '/前往联盟' },
-        { label: '联盟商会', value: '/前往联盟商会' },
-        { label: '万宝楼', value: '/前往万宝楼' }
+        { label: '万宝楼', value: '/前往万宝楼' },
+        { label: '联盟商会', value: '/前往联盟商会' }
       ],
       [
         { label: '金银坊', value: '/前往金银坊' },
-        { label: '传送阵', value: '/前往传送阵' },
-        { label: '天机门', value: '/前往天机门' }
+        { label: '天机门', value: '/前往天机门' },
+        { label: '万花坊', value: '/前往万花坊' }
       ],
       [
-        { label: '天下', value: '/天下' },
-        { label: '协会', value: '/协会' },
+        { label: '协会', value: '/前往协会' },
+        { label: '传送阵', value: '/前往传送阵' },
         { label: '前往', value: '/前往', enter: false },
         { label: '传送', value: '/传送', enter: false }
       ],
       [
-        { label: '地图', value: '/地图' },
-        { label: '控制板', value: '/控制板' },
         {
           label: '返回',
           value: '/返回'
-        }
+        },
+        { label: '地图', value: '/地图' },
+        { label: '控制板', value: '/控制板' }
       ]
     )
   }

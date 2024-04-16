@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -9,6 +9,7 @@ export class Tianjigate extends APlugin {
   constructor() {
     super({
       rule: [
+        { reg: /^(#|\/)?天机门$/, fnc: 'tianjiment' },
         { reg: /^(#|\/)?洗手$/, fnc: 'handWashing' },
         { reg: /^(#|\/)?天道祝福$/, fnc: 'blessing' },
         { reg: /^(#|\/)?天道降临$/, fnc: 'heavenlyWayComes' },
@@ -16,6 +17,34 @@ export class Tianjigate extends APlugin {
         { reg: /^(#|\/)?天机资料$/, fnc: 'serchIf' }
       ]
     })
+  }
+
+  async tianjiment(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        {
+          label: '天机资料',
+          value: '/天机资料'
+        },
+        {
+          label: '查阅',
+          value: '/查阅',
+          enter: false
+        },
+        {
+          label: '洗手',
+          value: '/洗手'
+        }
+      ],
+      [
+        {
+          label: '控制板',
+          value: '/控制板',
+          enter: false
+        }
+      ]
+    )
   }
 
   async serchIf(e: AEvent) {

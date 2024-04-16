@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -40,7 +40,16 @@ export class Dice extends APlugin {
     const end_msg = GameApi.Goods.getListMsg(commoditiesList)
     const msg: string[] = [...start_msg, ...end_msg]
     sendReply(e, '___[万花坊]___', msg)
-
+    Controllers(e).Message.reply('', [
+      {
+        label: '转盘',
+        value: '/命运转盘'
+      },
+      {
+        label: '控制板',
+        value: '/控制板'
+      }
+    ])
     return
   }
 

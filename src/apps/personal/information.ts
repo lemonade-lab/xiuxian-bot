@@ -23,7 +23,8 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?更换主题$/, fnc: 'updateTheme' },
         { reg: /^(#|\/)?榜单$/, fnc: 'list' },
         { reg: /^(#|\/)?新人$/, fnc: 'newUsers' },
-        { reg: /^(#|\/)?交易$/, fnc: 'shop' }
+        { reg: /^(#|\/)?交易$/, fnc: 'shop' },
+        { reg: /^(#|\/)?天下$/, fnc: 'word' }
       ]
     })
   }
@@ -36,6 +37,26 @@ export class Information extends APlugin {
   async myUserID(e: AEvent) {
     e.reply(e.user_id)
     return
+  }
+
+  /**
+   *
+   * @param e
+   */
+  async word(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '天机门', value: '/天机门' },
+        { label: '联盟', value: '/联盟' },
+        { label: '协会', value: '/协会' }
+      ],
+      [
+        { label: '金银坊', value: '/金银坊' },
+        { label: '万花坊', value: '/万花坊' },
+        { label: '万宝楼', value: '/万宝楼' }
+      ]
+    )
   }
 
   async shop(e: AEvent) {
@@ -130,6 +151,10 @@ export class Information extends APlugin {
         { label: '修炼', value: '/修炼' },
         { label: '榜单', value: '/榜单' },
         { label: '赶路', value: '/赶路' }
+      ],
+      [
+        { label: '天下', value: '/天下' },
+        { label: '势力', value: '/势力' }
       ],
       [
         { label: '纳戒', value: '/纳戒' },

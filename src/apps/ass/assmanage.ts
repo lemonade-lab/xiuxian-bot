@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { isThereAUserPresent, DB, GameApi, sendReply } from '../../api/index.js'
 export class AssManage extends APlugin {
   constructor() {
@@ -31,9 +31,58 @@ export class AssManage extends APlugin {
         {
           reg: /^(#|\/)?贬职.*$/,
           fnc: 'demotionAss'
+        },
+        {
+          reg: /^(#|\/)?势力管理$/,
+          fnc: 'admini'
         }
       ]
     })
+  }
+
+  async admini(e: AEvent) {
+    Controllers(e).Message.reply(
+      '',
+      [
+        { label: '审核', value: '/审核', enter: false },
+        {
+          label: '通过',
+          value: '/通过',
+          enter: false
+        },
+        {
+          label: '踢出',
+          value: '/踢出',
+          enter: false
+        }
+      ],
+      [
+        {
+          label: '扩建',
+          value: '/扩建'
+        },
+        {
+          label: '建库',
+          value: '/扩建宝库'
+        },
+        {
+          label: '提拔',
+          value: '/提拔',
+          enter: false
+        },
+        {
+          label: '贬职',
+          value: '/贬职',
+          enter: false
+        }
+      ],
+      [
+        {
+          label: '控制板',
+          value: '/控制板'
+        }
+      ]
+    )
   }
 
   /**
