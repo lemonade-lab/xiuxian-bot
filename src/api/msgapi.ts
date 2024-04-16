@@ -298,6 +298,13 @@ export async function controlByName(
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     e.reply([`需[/前往${addressName}]`])
+    Controllers(e).Message.reply('', [
+      { label: `前往${addressName}`, value: `/前往${addressName}` },
+      {
+        label: '控制板',
+        value: '/控制板'
+      }
+    ])
     return false
   }
   return true
