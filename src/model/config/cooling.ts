@@ -84,7 +84,7 @@ export const Price = [
 ]
 /**
  * ******
- * 万宝楼价格差
+ * 万宝楼灵石差
  * ******
  */
 export const ExchangeStart = 1.2

@@ -50,7 +50,7 @@ export default function App({ data }) {
                   >
                     <div>天赋: {item['good.size']}%</div>
                     <div>修为: +{item['good.exp_gaspractice']}</div>
-                    <div>价格: {item['good.price']}</div>
+                    <div>灵石: {item['good.price']}</div>
                   </div>
                 </div>
               ))}

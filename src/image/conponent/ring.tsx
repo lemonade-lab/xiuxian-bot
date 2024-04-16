@@ -72,7 +72,7 @@ export default function App({ data }) {
                   >
                     <div>等级: {item['good.grade']}</div>
                     <div>数量: {item['acount']}</div>
-                    <div>价格: {item['good.price']}</div>
+                    <div>灵石: {item['good.price']}</div>
                   </div>
                 </div>
               ))}

@@ -107,7 +107,7 @@ export class Auction extends APlugin {
       return
     }
     if (Number(money) < 1000) {
-      e.reply('价格不低于1000', {
+      e.reply('灵石不低于1000', {
         quote: e.msg_id
       })
       return
@@ -245,7 +245,7 @@ export class Auction extends APlugin {
       })
       return
     }
-    // 价格控制
+    // 灵石控制
     if (Number(size) < AuctionThing.price + 100) {
       e.reply(['需要价高100才可加价'], {
         quote: e.msg_id
@@ -262,7 +262,7 @@ export class Auction extends APlugin {
         price: 0
       }
     }
-    // 价格差计算
+    // 灵石差计算
     const number = Number(size) - party_all[UserData.create_time].price
     // 查看储物袋
     const lingshi = await GameApi.Bag.searchBagByName(UID, '下品灵石')

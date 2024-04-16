@@ -66,7 +66,7 @@ export class Exchange extends APlugin {
     const bagThing = await GameApi.Bag.searchBagByName(UID, thingName)
 
     if (Number(money) < 1000) {
-      e.reply(['价格不低于1000'], {
+      e.reply(['灵石不低于1000'], {
         quote: e.msg_id
       })
 

@@ -46,7 +46,11 @@ export class Information extends APlugin {
         { label: '虚空灯', value: '/虚空灯' },
         { label: '虚空板', value: '/虚空板' }
       ],
-      [{ label: '控制板', value: '/控制板' }]
+      [
+        { label: '万宝楼', value: '/万宝楼' },
+        { label: '商会', value: '/联盟商会' },
+        { label: '控制板', value: '/控制板' }
+      ]
     )
   }
 

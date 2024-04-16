@@ -58,7 +58,7 @@ export const mapType = {
  * @param param1
  * @returns
  */
-export function getListMsg(list: GoodsType[], name = '价格', size = 1) {
+export function getListMsg(list: GoodsType[], name = '灵石', size = 1) {
   // 存储转换
   const msg: string[] = []
   // 循环转换

@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -53,10 +53,15 @@ export class Transaction extends APlugin {
     })) as any
     const end_msg = GameApi.Goods.getListMsg(
       commoditiesList,
-      '价格',
+      '灵石',
       GameApi.Cooling.ExchangeStart
     )
     sendReply(e, '___[万宝楼]___', [...start_msg, ...end_msg])
+    Controllers(e).Message.reply('', [
+      { label: '购买', value: '/购买', enter: false },
+      { label: '出售', value: '/出售', enter: false },
+      { label: '售出所有', value: '/售出所有材料', enter: false }
+    ])
     return
   }
 

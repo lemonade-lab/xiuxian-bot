@@ -87,7 +87,7 @@ export class Board extends APlugin {
     )
       return e.reply('无法交易')
     if (Number(money) < 1000) {
-      e.reply(['价格不低于1000'], {
+      e.reply(['灵石不低于1000'], {
         quote: e.msg_id
       })
 

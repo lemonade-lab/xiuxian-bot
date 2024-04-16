@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -46,6 +46,12 @@ export class union extends APlugin {
     const end_msg = GameApi.Goods.getListMsg(commoditiesList, '声望')
     const msg = [...start_msg, ...end_msg]
     sendReply(e, '___[联盟商会]___', msg)
+
+    Controllers(e).Message.reply('', [
+      { label: '贡献', value: '/贡献', enter: false },
+      { label: '兑换', value: '/兑换', enter: false }
+    ])
+
     return
   }
 
