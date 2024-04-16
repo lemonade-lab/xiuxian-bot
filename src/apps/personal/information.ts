@@ -48,7 +48,7 @@ export class Information extends APlugin {
       '',
       [
         { label: '天机门', value: '/天机门' },
-        { label: '联盟', value: '/联盟' },
+        { label: '联盟', value: '/联盟商会' },
         { label: '协会', value: '/协会' }
       ],
       [
