@@ -1,7 +1,7 @@
 import { createApp } from 'alemonjs'
 import * as apps from './src/apps.js'
 import * as test from './src/app-test.js'
-if ((process.env.APP_TEXT = '0')) {
+if (process.env.APP_TEXT == '0') {
   createApp(import.meta.url)
     .use(test)
     .mount()
