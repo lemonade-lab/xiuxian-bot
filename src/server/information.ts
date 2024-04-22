@@ -390,7 +390,7 @@ export async function showSky(UID: string) {
 
   const reply = async () => {
     const uids = arr.map(item => item.id)
-    const uDatas = (await DB.user.findOne({
+    const uDatas = (await DB.user.findAll({
       attributes: ['uid', 'name', 'battle_power', 'autograph', 'avatar'],
       where: {
         uid: uids
