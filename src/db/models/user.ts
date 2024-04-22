@@ -62,6 +62,8 @@ export const user = <ModelStatic<Model<UserType>>>sequelize.define(
     update_time: DataTypes.DATEONLY, // 刷新时间
     create_time: DataTypes.INTEGER, // 创建时间搓
 
+    delete: DataTypes.INTEGER,
+
     man_size: DataTypes.INTEGER,
     dong_size: DataTypes.INTEGER,
     dong_minit: DataTypes.INTEGER,
@@ -125,6 +127,8 @@ export interface UserType {
 
   update_time: string // 刷新时间
   create_time: number // 创建时间搓
+
+  delete: number
 
   man_size: number
   dong_size: number

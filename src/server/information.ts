@@ -5,6 +5,7 @@ import * as Talent from '../model/users/base/talent.js'
 import * as Bag from '../model/users/additional/bag.js'
 import * as Users from '../model/users/index.js'
 import * as Equipment from '../model/users/additional/equipment.js'
+import { UserInformationType, UserType } from 'alemonjs/types/index.js'
 
 /**
  * 个人信息
@@ -368,35 +369,13 @@ export type RingInformationType =
  * @returns
  */
 export async function showSky(UID: string) {
-  const data: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
-
   const list: DB.SkyType[] = (await DB.sky.findAll({
+    order: [['id', 'ASC']], // 根据 id 升序排序
     limit: 3,
     raw: true
   })) as any
-
-  const T = list.find(item => item.id == data.id)
-
-  const arr: DB.SkyType[] = []
-
-  for (const item of list) {
-    arr.push(item)
-  }
-
-  const reply = async () => {
-    const uids = arr.map(item => item.id)
-    const uDatas = (await DB.user.findAll({
-      attributes: ['uid', 'name', 'battle_power', 'autograph', 'avatar'],
-      where: {
-        uid: uids
-      },
-      raw: true
-    })) as any
+  const T = list.find(item => item.uid == UID)
+  const post = async () => {
     const msg: {
       id: number
       UID: string
@@ -404,39 +383,64 @@ export async function showSky(UID: string) {
       power: number
       autograph: string
       avatar: string
-    }[] = uDatas.map(item => ({
-      id: item.id,
-      UID: item.uid,
-      name: item.name,
-      power: item.battle_power,
-      autograph: item.autograph,
-      avatar: item.avatar
-    }))
+    }[] = []
+    for (const item of list) {
+      const data: DB.UserType = (await DB.user.findOne({
+        attributes: [
+          'id',
+          'uid',
+          'name',
+          'battle_power',
+          'autograph',
+          'avatar'
+        ],
+        where: {
+          uid: item.uid
+        },
+        raw: true
+      })) as any
+      if (!data) {
+        // 不存在 uid
+        DB.sky.destroy({
+          where: {
+            uid: item.uid
+          }
+        })
+        continue
+      }
+      msg.push({
+        id: data.id,
+        UID: data.uid,
+        name: data.name,
+        power: data.battle_power,
+        autograph: data.autograph,
+        avatar: data.avatar
+      })
+    }
+    console.log('msg', msg)
     return msg
   }
-
   if (T) {
-    // 发送
-    return await reply()
+    return await post()
   }
-
+  const data: DB.SkyType = (await DB.sky.findOne({
+    where: {
+      uid: UID
+    },
+    raw: true
+  })) as any
   const data_S: DB.SkyType = (await DB.sky.findOne({
     where: {
       id: data.id - 1
     },
     raw: true
   })) as any
-
-  if (!data_S || data_S.id == data.id) {
-    arr.push(data)
-    return await reply()
+  if (data_S?.uid !== data.uid) {
+    list.push(data_S)
   }
-
-  arr.push(data_S)
-
-  arr.push(data)
+  list.push(data)
   // 发送
-  return await reply()
+  return await post()
 }
 
 export type ShowSkyType =

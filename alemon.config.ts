@@ -6,5 +6,5 @@ export default defineConfig({
   },
   plugin: {
     init: false
-  }
+  } as any
 })

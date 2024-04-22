@@ -38,6 +38,9 @@ export async function getList() {
   //  得到玩家数据
   const ALLData: DB.UserType[] = (await DB.user.findAll({
     attributes: ['uid', 'battle_power', 'autograph', 'name', 'avatar'],
+    where: {
+      delete: 1
+    },
     order: [
       ['battle_power', 'DESC'] // 按照战力降序排列
     ],
@@ -112,6 +115,9 @@ export async function getKillList() {
       'name',
       'avatar'
     ],
+    where: {
+      delete: 1
+    },
     order: [
       // 按照煞气降序排列
       ['special_prestige', 'DESC']

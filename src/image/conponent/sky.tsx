@@ -9,8 +9,8 @@ export default function App({ data }) {
       </head>
       <body>
         <div id="app" className="user">
-          {data.map(item => (
-            <div key={item.id}>
+          {data.map((item, index) => (
+            <div key={index}>
               <div style={{ display: 'grid' }}>
                 <div className="user_top">
                   <div className="user_top_left">
