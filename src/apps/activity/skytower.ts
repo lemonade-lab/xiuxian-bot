@@ -186,7 +186,6 @@ export class SkyTower extends APlugin {
       },
       raw: true
     })) as any
-
     const udata = list.find(item => item.id == id)
     if (!udata) {
       e.reply('😃该位置无法发起挑战', {

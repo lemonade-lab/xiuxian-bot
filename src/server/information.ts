@@ -5,7 +5,6 @@ import * as Talent from '../model/users/base/talent.js'
 import * as Bag from '../model/users/additional/bag.js'
 import * as Users from '../model/users/index.js'
 import * as Equipment from '../model/users/additional/equipment.js'
-import { UserInformationType, UserType } from 'alemonjs/types/index.js'
 
 /**
  * 个人信息
@@ -409,8 +408,8 @@ export async function showSky(UID: string) {
         continue
       }
       msg.push({
-        id: data.id,
-        UID: data.uid,
+        id: item.id,
+        UID: item.uid,
         name: data.name,
         power: data.battle_power,
         autograph: data.autograph,

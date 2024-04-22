@@ -1,4 +1,4 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -209,6 +209,14 @@ export class Secretplace extends APlugin {
       e.reply(['请前往传送阵'], {
         quote: e.msg_id
       })
+
+      Controllers(e).Message.reply('', [
+        {
+          label: '传送阵',
+          value: '/前往传送阵'
+        }
+      ])
+
       return
     }
     if (LevelData.realm > 12) {
