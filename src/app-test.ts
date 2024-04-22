@@ -31,7 +31,11 @@ export class Information extends APlugin {
       ],
       [
         { label: '天下', value: '/天下' },
-        { label: '势力', value: '/势力' }
+        { label: '势力', value: '/势力' },
+        {
+          label: '官群',
+          link: 'https://qm.qq.com/q/BUXl2xKabe'
+        }
       ],
       [
         { label: '储物', value: '/储物袋' },
