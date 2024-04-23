@@ -108,6 +108,7 @@ export async function getKillList() {
   //  得到玩家数据
   const ALLData: DB.UserType[] = (await DB.user.findAll({
     attributes: [
+      'id',
       'uid',
       'battle_power',
       'autograph',
@@ -127,6 +128,7 @@ export async function getKillList() {
   })) as any
   const UserData: KillListType[] = ALLData.map(item => {
     return {
+      id: item.id,
       UID: item?.uid, // 编号
       autograph: item?.autograph, // 道宣
       lifeName: item?.name, // 道号

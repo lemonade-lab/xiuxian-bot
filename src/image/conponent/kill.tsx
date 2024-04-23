@@ -10,14 +10,15 @@ export default function App({ data }) {
       </head>
       <body>
         <div id="app" className="user">
-          {data.map(item => (
-            <div key={item.UID} style={{ display: 'grid' }}>
+          {data.map((item, index) => (
+            <div key={index} style={{ display: 'grid' }}>
               <div className="user_top">
                 <div className="user_top_left">
                   <div
                     className="user_top_right_font0 font_control Horizontal_grid"
                     style={{ padding: '5px' }}
                   >
+                    {item.id} --
                     {isNaN(Number(item.UID)) ? hash(item.UID) : item.UID}
                   </div>
                   <div
