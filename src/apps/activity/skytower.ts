@@ -170,7 +170,7 @@ export class SkyTower extends APlugin {
     }
 
     const id = Number(e.msg.replace(/^(#|\/)?挑战/, ''))
-    if (id == data.id) {
+    if (id <= data.id) {
       e.reply('😅你干嘛', {
         quote: e.msg_id
       })
@@ -180,36 +180,31 @@ export class SkyTower extends APlugin {
     // 设置redis
     GameApi.Burial.set(UID, CDID, CDTime)
 
-    const list: DB.SkyType[] = (await DB.sky.findAll({
+    const UserDataB: DB.UserType = (await DB.user.findOne({
       where: {
-        id: [1, 2, 3, data.id - 1]
-      },
-      raw: true
+        id: id
+      }
     })) as any
-    const udata = list.find(item => item.id == id)
-    if (!udata) {
-      e.reply('😃该位置无法发起挑战', {
-        quote: e.msg_id
-      })
+
+    // 如果发现找不到。就说明位置是空的，占领位置。
+    if (!UserDataB) {
+      await DB.sky.update(
+        {
+          uid: data.uid
+        },
+        {
+          where: {
+            id: id
+          }
+        }
+      )
+      e.reply('位置占领成功')
       return
     }
-
-    /**
-     * 调用战斗系统
-     *
-     * 通天塔战斗只是虚空投影，然后替换uid位置
-     *
-     */
 
     const UserData: DB.UserType = (await DB.user.findOne({
       where: {
         uid: UID
-      }
-    })) as any
-
-    const UserDataB: DB.UserType = (await DB.user.findOne({
-      where: {
-        uid: udata.uid
       }
     })) as any
 
@@ -241,24 +236,20 @@ export class SkyTower extends APlugin {
       return
     }
 
-    // 挑战成功,交换
-
-    // 当前玩家替换对方位置
-
     await DB.sky.update(
       {
         uid: data.uid
       },
       {
         where: {
-          id: udata.id
+          id: id
         }
       }
     )
 
     await DB.sky.update(
       {
-        uid: udata.uid
+        uid: UserDataB.uid
       },
       {
         where: {
@@ -267,7 +258,7 @@ export class SkyTower extends APlugin {
       }
     )
 
-    e.reply(`😶挑战成功,当前排名${udata.id}`, {
+    e.reply(`😶挑战成功,当前排名${id}`, {
       quote: e.msg_id
     })
     return

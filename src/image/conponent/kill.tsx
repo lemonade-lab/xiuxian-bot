@@ -18,7 +18,7 @@ export default function App({ data }) {
                     className="user_top_right_font0 font_control Horizontal_grid"
                     style={{ padding: '5px' }}
                   >
-                    {item.id} --
+                    {item.id}#
                     {isNaN(Number(item.UID)) ? hash(item.UID) : item.UID}
                   </div>
                   <div

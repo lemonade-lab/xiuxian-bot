@@ -368,78 +368,57 @@ export type RingInformationType =
  * @returns
  */
 export async function showSky(UID: string) {
-  const list: DB.SkyType[] = (await DB.sky.findAll({
-    order: [['id', 'ASC']], // 根据 id 升序排序
-    limit: 3,
-    raw: true
-  })) as any
-  const T = list.find(item => item.uid == UID)
-  const post = async () => {
-    const msg: {
-      id: number
-      UID: string
-      name: string
-      power: number
-      autograph: string
-      avatar: string
-    }[] = []
-    for (const item of list) {
-      const data: DB.UserType = (await DB.user.findOne({
-        attributes: [
-          'id',
-          'uid',
-          'name',
-          'battle_power',
-          'autograph',
-          'avatar'
-        ],
-        where: {
-          uid: item.uid
-        },
-        raw: true
-      })) as any
-      if (!data) {
-        // 不存在 uid
-        DB.sky.destroy({
-          where: {
-            uid: item.uid
-          }
-        })
-        continue
-      }
-      msg.push({
-        id: item.id,
-        UID: item.uid,
-        name: data.name,
-        power: data.battle_power,
-        autograph: data.autograph,
-        avatar: data.avatar
-      })
-    }
-    console.log('msg', msg)
-    return msg
-  }
-  if (T) {
-    return await post()
-  }
+  // 找到比自己id大  xxx的 4条数据。
   const data: DB.SkyType = (await DB.sky.findOne({
     where: {
       uid: UID
     },
     raw: true
   })) as any
-  const data_S: DB.SkyType = (await DB.sky.findOne({
+  const list: DB.SkyType[] = (await DB.sky.findAll({
     where: {
-      id: data.id - 1
+      id: { [DB.Op.lte]: data.id } // 获取ID小于给定ID的记录
     },
+    order: [['id', 'DESC']], // 根据 id 升序排序
+    //
+    limit: 5,
     raw: true
   })) as any
-  if (data_S?.uid !== data.uid) {
-    list.push(data_S)
+  const msg: {
+    id: number
+    UID: string
+    name: string
+    power: number
+    autograph: string
+    avatar: string
+  }[] = []
+  for (const item of list) {
+    const data: DB.UserType = (await DB.user.findOne({
+      attributes: ['id', 'uid', 'name', 'battle_power', 'autograph', 'avatar'],
+      where: {
+        uid: item.uid
+      },
+      raw: true
+    })) as any
+    if (!data) {
+      // 不存在 uid
+      DB.sky.destroy({
+        where: {
+          uid: item.uid
+        }
+      })
+      continue
+    }
+    msg.unshift({
+      id: item.id,
+      UID: item.uid,
+      name: data.name,
+      power: data.battle_power,
+      autograph: data.autograph,
+      avatar: data.avatar
+    })
   }
-  list.push(data)
-  // 发送
-  return await post()
+  return msg
 }
 
 export type ShowSkyType =
