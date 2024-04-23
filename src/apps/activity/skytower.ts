@@ -191,11 +191,11 @@ export class SkyTower extends APlugin {
     if (!dataB) {
       await DB.sky.update(
         {
-          uid: data.uid
+          id
         },
         {
           where: {
-            id: id
+            uid: data.uid
           }
         }
       )
