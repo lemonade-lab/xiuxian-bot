@@ -180,14 +180,15 @@ export class SkyTower extends APlugin {
     // 设置redis
     GameApi.Burial.set(UID, CDID, CDTime)
 
-    const UserDataB: DB.UserType = (await DB.user.findOne({
+    const dataB: DB.SkyType = (await DB.sky.findOne({
       where: {
         id: id
-      }
+      },
+      raw: true
     })) as any
 
     // 如果发现找不到。就说明位置是空的，占领位置。
-    if (!UserDataB) {
+    if (!dataB) {
       await DB.sky.update(
         {
           uid: data.uid
@@ -201,6 +202,12 @@ export class SkyTower extends APlugin {
       e.reply('位置占领成功')
       return
     }
+
+    const UserDataB: DB.UserType = (await DB.user.findOne({
+      where: {
+        id: id
+      }
+    })) as any
 
     const UserData: DB.UserType = (await DB.user.findOne({
       where: {
@@ -236,23 +243,35 @@ export class SkyTower extends APlugin {
       return
     }
 
+    /**
+     * 如何交换位置？
+     *
+     * 对方的  uid
+     * 和自身的uid 交换即可
+     *
+     */
+
     await DB.sky.update(
       {
+        // 自身的 uid
         uid: data.uid
       },
       {
         where: {
-          id: id
+          // 目标 id
+          id: dataB.id
         }
       }
     )
 
     await DB.sky.update(
       {
-        uid: UserDataB.uid
+        // 对方的
+        uid: dataB.uid
       },
       {
         where: {
+          // 自身的 id
           id: data.id
         }
       }
