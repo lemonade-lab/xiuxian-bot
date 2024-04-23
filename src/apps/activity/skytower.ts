@@ -205,9 +205,25 @@ export class SkyTower extends APlugin {
 
     const UserDataB: DB.UserType = (await DB.user.findOne({
       where: {
-        id: id
+        uid: dataB.uid
       }
     })) as any
+
+    if (!UserDataB) {
+      // 不存在该用户了
+      await DB.sky.update(
+        {
+          id
+        },
+        {
+          where: {
+            uid: data.uid
+          }
+        }
+      )
+      e.reply('位置占领成功')
+      return
+    }
 
     const UserData: DB.UserType = (await DB.user.findOne({
       where: {
