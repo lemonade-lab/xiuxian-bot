@@ -170,7 +170,7 @@ export class SkyTower extends APlugin {
     }
 
     const id = Number(e.msg.replace(/^(#|\/)?挑战/, ''))
-    if (id <= data.id) {
+    if (id <= data.id || id < 1) {
       e.reply('😅你干嘛', {
         quote: e.msg_id
       })
