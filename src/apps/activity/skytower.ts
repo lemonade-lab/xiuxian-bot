@@ -6,7 +6,6 @@ import {
   sendReply,
   victoryCooling,
   activityCooling,
-  activityCoolingNot,
   Server,
   getSkyComponent
 } from '../../api/index.js'
@@ -60,39 +59,12 @@ export class SkyTower extends APlugin {
     }
 
     // 查看奖励
-    if (await activityCoolingNot(UID, '通天塔奖励')) {
-      const UserData: DB.UserType = (await DB.user.findOne({
-        where: {
-          uid: UID
-        },
-        raw: true
-      })) as any
-
-      const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
-      if (!BagSize) {
-        e.reply(['储物袋空间不足'], {
-          quote: e.msg_id
-        })
-        return
-      }
-
-      await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
-        {
-          name: '月中剑',
-          acount: 1
-        }
-      ])
-      e.reply(['进入[通天塔]\n获得[月中剑]*1'], {
-        quote: e.msg_id
-      })
-    } else {
-      e.reply(['进入[通天塔]'], {
-        quote: e.msg_id
-      })
-      Controllers(e).Message.reply('', [
-        { label: '挑战', value: '/挑战', enter: false }
-      ])
-    }
+    e.reply(['进入[通天塔]'], {
+      quote: e.msg_id
+    })
+    Controllers(e).Message.reply('', [
+      { label: '挑战', value: '/挑战', enter: false }
+    ])
 
     await DB.sky.create({
       uid: UID

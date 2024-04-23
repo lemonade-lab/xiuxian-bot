@@ -11,7 +11,6 @@ export class Help extends APlugin {
         { reg: /^(#|\/)?联盟(帮|幫)助$/, fnc: 'getUnionHelp' },
         { reg: /^(#|\/)?战斗(帮|幫)助$/, fnc: 'getFightHelp' },
         { reg: /^(#|\/)?修炼(帮|幫)助$/, fnc: 'getPracticeHelp' },
-        { reg: /^(#|\/)?虚空(帮|幫)助$/, fnc: 'getImitateHelp' },
         { reg: /^(#|\/)?势力(帮|幫)助$/, fnc: 'getAssHelp' },
         { reg: /^(#|\/)?职业(帮|幫)助$/, fnc: 'getCareerHelp' }
       ]
@@ -40,7 +39,6 @@ export class Help extends APlugin {
         ],
         [
           { label: '修炼帮助', value: '/修炼帮助' },
-          { label: '虚空帮助', value: '/虚空帮助' },
           { label: '势力帮助', value: '/势力帮助' }
         ],
         [
@@ -79,16 +77,6 @@ export class Help extends APlugin {
    */
   async getAssHelp(e: AEvent) {
     postHelp(e, 'ass_help')
-    return
-  }
-
-  /**
-   *
-   * @param e
-   * @returns
-   */
-  async getImitateHelp(e: AEvent) {
-    postHelp(e, 'imitate_help')
     return
   }
 

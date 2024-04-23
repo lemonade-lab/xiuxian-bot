@@ -480,34 +480,6 @@ export async function activityCooling(e: AEvent, UID: string, name: string) {
   return true
 }
 
-export async function activityCoolingNot(UID: string, name: string) {
-  // 读取活动条件
-  const at: ActivityType = (await activity.findOne({
-    where: {
-      name: name
-    },
-    raw: true
-  })) as any
-  // 现在的时间戳
-  const time = new Date().getTime()
-  // 不在时间之内
-  if (time <= at.start_time || time >= at.end_time) {
-    return false
-  }
-  // 境界条件不满足
-  const gaspractice = await Levels.read(UID, 1).then(item => item.realm)
-  const bodypractice = await Levels.read(UID, 2).then(item => item.realm)
-  const soul = await Levels.read(UID, 3).then(item => item.realm)
-  if (
-    gaspractice < at.gaspractice ||
-    bodypractice < at.bodypractice ||
-    soul < at.soul
-  ) {
-    return false
-  }
-  return true
-}
-
 export async function endAllWord(e: AEvent, UID: string, UserData: UserType) {
   const mapText = {
     1: '只是呆了一会儿',
