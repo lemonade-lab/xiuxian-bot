@@ -12,7 +12,7 @@ const password = '123456'
  * 用户注册
  * x-wwww-from-urlencoded
  */
-router.post('/logon', async (ctx) => {
+router.post('/logon', async ctx => {
   // 获取 POST 请求的 body 数据
   const body = ctx.request.body as {
     username: string
@@ -52,7 +52,7 @@ router.post('/logon', async (ctx) => {
  * 用户登录
  * x-wwww-from-urlencoded
  */
-router.post('/login', async (ctx) => {
+router.post('/login', async ctx => {
   const body = ctx.request.body as {
     username: string
     password: string
@@ -95,7 +95,7 @@ router.post('/login', async (ctx) => {
  * 重置密码
  * x-wwww-from-urlencoded
  */
-router.put('/password', async (ctx) => {
+router.put('/password', async ctx => {
   /**
    * tudo
    * 不知道是保留邮箱还是手机验证模式
