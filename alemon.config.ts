@@ -1,4 +1,3 @@
-import 'afloat/utils/logs'
 import { defineConfig } from 'alemonjs'
 export default defineConfig({
   app: {
@@ -6,5 +5,5 @@ export default defineConfig({
   },
   plugin: {
     init: false
-  } as any
+  }
 })
