@@ -33,10 +33,10 @@ export class ControllLevel extends APlugin {
           link: 'https://qm.qq.com/q/BUXl2xKabe'
         }
       ])
-      return
     }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
+    console.log(e.msg.replace(/^(#|\/)?(雙修|双修)*/, ''))
     const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(雙修|双修)*/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
