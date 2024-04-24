@@ -12,8 +12,8 @@ export class ControllLevel extends APlugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)?(传功|傳功)$/, fnc: 'transmissionPower' },
-        { reg: /^(#|\/)?(雙修|双修)$/, fnc: 'ambiguous' }
+        { reg: /^(#|\/)?(传功|傳功).*$/, fnc: 'transmissionPower' },
+        { reg: /^(#|\/)?(雙修|双修).*$/, fnc: 'ambiguous' }
       ]
     })
   }
@@ -37,7 +37,7 @@ export class ControllLevel extends APlugin {
     }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const UIDB = e?.at_user?.id
+    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(雙修|双修)*/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
     const UserDataB = await GameApi.Users.read(UIDB)
@@ -115,7 +115,7 @@ export class ControllLevel extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const UIDB = e?.at_user?.id
+    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(传功|傳功)*/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
     const UserDataB = await GameApi.Users.read(UIDB)
