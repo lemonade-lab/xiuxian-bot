@@ -187,6 +187,9 @@ export class Ore extends APlugin {
           arr = []
         }
       }
+      if (arr.length >= 1) {
+        arrs.push(arr)
+      }
       m.reply('', ...arrs)
     })
   }
