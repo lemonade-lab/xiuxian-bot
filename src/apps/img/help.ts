@@ -44,7 +44,6 @@ export class Help extends APlugin {
         [
           {
             label: '加入官群',
-            value: '/加入官群',
             link: 'https://qm.qq.com/q/BUXl2xKabe'
           },
           {

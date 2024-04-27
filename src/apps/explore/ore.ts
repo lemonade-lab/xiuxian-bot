@@ -1,4 +1,9 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import {
+  APlugin,
+  Controllers,
+  type MessageButtonType,
+  type AEvent
+} from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -170,20 +175,19 @@ export class Ore extends APlugin {
     // 采集
     e.reply(msg).then(() => {
       // 分开发送。
-      let arr = []
+      const arrs: MessageButtonType[][] = []
+      let arr: MessageButtonType[] = []
       for (const item in explore) {
         arr.push({
           label: `${getMoneyGrade(explore[item].grade)}灵矿`,
           value: `/采集${item}`
         })
         if (arr.length >= 3) {
-          m.reply('', arr)
+          arrs.push(arr)
           arr = []
         }
       }
-      if (arr.length >= 1) {
-        m.reply('', arr)
-      }
+      m.reply('', ...arrs)
     })
   }
 }

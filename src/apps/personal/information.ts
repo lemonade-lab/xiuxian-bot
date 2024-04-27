@@ -63,9 +63,9 @@ export class Information extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
-        { label: '虚空镜', value: '/虚空镜' },
-        { label: '虚空灯', value: '/虚空灯' },
-        { label: '虚空板', value: '/虚空板' }
+        { label: '设置密码', value: '/设置密码' },
+        { label: '交易网', link: 'http://43.143.217.7/' },
+        { label: '官群', link: 'https://qm.qq.com/q/BUXl2xKabe' }
       ],
       [
         { label: '万宝楼', value: '/万宝楼' },

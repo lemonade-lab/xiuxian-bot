@@ -29,7 +29,6 @@ export class ControllLevel extends APlugin {
       Controllers(e).Message.reply('', [
         {
           label: '加入官群',
-          value: '/加入官群',
           link: 'https://qm.qq.com/q/BUXl2xKabe'
         }
       ])
