@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'xiuxian-app',
+      name: 'xiuxian-server',
       script: 'server/index.js',
       instances: 1,
       autorestart: true,

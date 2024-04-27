@@ -21,6 +21,11 @@ router.get('/jwt', async ctx => {
 router.get('/geteway', async ctx => {
   try {
     const token = ctx.headers.authorization
+    if (typeof token != 'string') {
+      ctx.status = 401
+      ctx.body = { error: 'Invalid token' }
+      return
+    }
     ctx.state.user = verifyToken(token)
   } catch (err) {
     console.log('ctx.status', '400')
