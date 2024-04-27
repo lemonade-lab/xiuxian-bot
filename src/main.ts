@@ -1,6 +1,6 @@
 import { createApp } from 'alemonjs'
-import * as apps from './src/apps.js'
-import * as test from './src/app-test.js'
+import * as apps from './apps.js'
+import * as test from './app-test.js'
 if (process.env.APP_TEXT == '0') {
   createApp(import.meta.url)
     .use(test)

@@ -9,8 +9,6 @@
     "preserveConstEnums": true,
     "ignoreDeprecations": "5.0",
     "jsx": "react",
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
     "allowJs": false,
     "suppressImplicitAnyIndexErrors": true,
     "typeRoots": ["node_modules/@types"]
@@ -20,21 +18,6 @@
     "transpileOnly": true,
     "experimentalSpecifierResolution": "node"
   },
-  "include": [
-    "plugins",
-    "alemon.*.{ts,js}",
-    "afloat.*.{ts,js}",
-    "src",
-    "main.{ts,js}"
-  ],
-  "exclude": [
-    "node_modules",
-    ".vscode",
-    ".apps",
-    "dist",
-    "config",
-    "data",
-    "logs",
-    "help"
-  ]
+  "include": ["plugins", "src", "alemon.*.{ts,tsx,js,jsx}"],
+  "exclude": ["node_modules"]
 }

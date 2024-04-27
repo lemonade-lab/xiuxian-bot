@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -37,6 +37,23 @@ export class SkyTower extends APlugin {
    */
   async join(e: AEvent) {
     const UID = e.user_id
+
+    // const c = Controllers(e)
+    // if (e.platform == 'ntqq' && e.attribute == 'group') {
+    //   // 1
+    //   c.Message.card([
+    //     {
+    //       markdown: {}
+    //     }
+    //   ])
+    //   // 2
+    //   ClientNTQQ.groupOpenMessages(e.guild_id, {
+    //     msg_id: e.msg_id,
+    //     msg_type: 3,
+    //     markdown: {}
+    //   })
+    // }
+
     if (!(await isThereAUserPresent(e, UID))) return
 
     if (!(await activityCooling(e, UID, '通天塔'))) return

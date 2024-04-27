@@ -2,14 +2,14 @@ import React from 'react'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { importPath } from 'alemonjs'
-import { mapType } from '../src/model/wrap/goods.ts'
+import { mapType } from '../src/model/wrap/goods'
 import {
   backpackInformation,
   personalInformation
-} from '../src/server/information.ts'
-import MessageComponent from '../src/component/message.tsx'
-import HelpComponent from '../src/component/help.tsx'
-import BagComponent from '../src/component/bag.tsx'
+} from '../src/server/information'
+import MessageComponent from '../src/component/message'
+import HelpComponent from '../src/component/help'
+import BagComponent from '../src/component/bag'
 
 const uid = '13348342918169126729'
 const data = await personalInformation(uid, '')

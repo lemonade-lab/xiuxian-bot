@@ -2,7 +2,7 @@ import { ABuffer, importPath } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-import ImageComponent from '../image/index.js'
+import ImageComponent from '../image/index'
 
 const helpData = {}
 const app = importPath(import.meta.url)
