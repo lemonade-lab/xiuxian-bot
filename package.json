@@ -40,6 +40,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.3",
     "@types/css-modules": "^1.0.5",
+    "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-cors": "^0.0.6",
     "@types/koa-router": "^7.4.8",
     "@types/koa-static": "^4.0.4",

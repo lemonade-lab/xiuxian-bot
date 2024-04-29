@@ -56,6 +56,10 @@ export class Information extends APlugin {
       e.reply('密码必须只包含数字或字母')
       post()
       return
+    } else if (password.length < 6 || password.length > 22) {
+      e.reply('密码大于6位或小于22位')
+      post()
+      return
     } else {
       // 更新用户密码
       DB.user

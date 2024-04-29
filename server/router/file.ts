@@ -1,45 +1,52 @@
 import koaRouter from 'koa-router'
-import { verifyToken } from '../utils/jwt.js'
-const router = new koaRouter({ prefix: '/api/test' })
+import { user } from '../../src/db/index.js'
+import { generateToken } from '../utils/jwt.js'
+const router = new koaRouter({ prefix: '/api/v1/users' })
 /**
  * 获取玩家最新操作记录
  */
 router.get('/jwt', async ctx => {
   // 获取 GET 请求的 query 数据
-  ctx.body = {
-    code: 200,
-    msg: '请求成功',
-    data: {
-      user: ctx.state.user,
-      query: ctx.request.query
-    }
-  }
+  await user
+    .findOne({
+      where: {
+        id: ctx.state.user.id
+      }
+    })
+    .then(res => {
+      if (res) {
+        ctx.body = {
+          code: 2000,
+          msg: '登录成功',
+          data: {
+            token: generateToken(res)
+          }
+        }
+        return
+      }
+      ctx.body = {
+        code: 4000,
+        msg: '账号或密码错误',
+        data: null
+      }
+    })
+    .catch(() => {
+      ctx.body = {
+        code: 4000,
+        msg: '服务器错误',
+        data: null
+      }
+    })
 })
 /**
  * 校验token并得到ws-url
  */
 router.get('/geteway', async ctx => {
-  try {
-    const token = ctx.headers.authorization
-    if (typeof token != 'string') {
-      ctx.status = 401
-      ctx.body = { error: 'Invalid token' }
-      return
-    }
-    ctx.state.user = verifyToken(token)
-  } catch (err) {
-    console.log('ctx.status', '400')
-    ctx.status = 401
-    ctx.body = { error: 'Invalid token' }
-    return
-  }
   // 返回url
   ctx.body = {
     code: 200,
     msg: '请求成功',
-    data: {
-      url: 'ws:127.0.0.1:8000/ws'
-    }
+    data: null
   }
 })
 export default router

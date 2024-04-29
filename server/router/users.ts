@@ -2,7 +2,7 @@ import koaRouter from 'koa-router'
 import { generateToken } from '../utils/jwt'
 import { user } from '../../src/db/index'
 
-const router = new koaRouter({ prefix: '/api' })
+const router = new koaRouter({ prefix: '/api/v1/users' })
 
 /**
  * 用户登录
@@ -24,10 +24,12 @@ router.post('/login', async ctx => {
     }
     return
   }
+
   await user
     .findOne({
       where: {
-        uid: body.username
+        uid: body.username,
+        password: body.password
       }
     })
     .then(res => {
