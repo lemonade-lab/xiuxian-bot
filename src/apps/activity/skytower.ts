@@ -37,25 +37,7 @@ export class SkyTower extends APlugin {
    */
   async join(e: AEvent) {
     const UID = e.user_id
-
-    // const c = Controllers(e)
-    // if (e.platform == 'ntqq' && e.attribute == 'group') {
-    //   // 1
-    //   c.Message.card([
-    //     {
-    //       markdown: {}
-    //     }
-    //   ])
-    //   // 2
-    //   ClientNTQQ.groupOpenMessages(e.guild_id, {
-    //     msg_id: e.msg_id,
-    //     msg_type: 3,
-    //     markdown: {}
-    //   })
-    // }
-
     if (!(await isThereAUserPresent(e, UID))) return
-
     if (!(await activityCooling(e, UID, '通天塔'))) return
 
     /**
@@ -80,7 +62,8 @@ export class SkyTower extends APlugin {
       quote: e.msg_id
     })
     Controllers(e).Message.reply('', [
-      { label: '挑战', value: '/挑战', enter: false }
+      { label: '挑战', value: '/挑战', enter: false },
+      { label: '控制板', value: '/控制板' }
     ])
 
     await DB.sky.create({
@@ -98,9 +81,7 @@ export class SkyTower extends APlugin {
   async showSky(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-
     if (!(await activityCooling(e, UID, '通天塔'))) return
-
     /**
      * 查看数据是否存在
      */
@@ -121,7 +102,8 @@ export class SkyTower extends APlugin {
     if (typeof img != 'boolean') {
       e.reply(img)
       Controllers(e).Message.reply('', [
-        { label: '挑战', value: '/挑战', enter: false }
+        { label: '挑战', value: '/挑战', enter: false },
+        { label: '控制板', value: '/控制板' }
       ])
     }
     return

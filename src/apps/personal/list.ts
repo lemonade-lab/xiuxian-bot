@@ -8,23 +8,8 @@ import {
 export class List extends APlugin {
   constructor() {
     super({
-      rule: [
-        { reg: /^(#|\/)?(天命榜|至尊榜|帝魂榜)$/, fnc: 'showList' },
-        { reg: /^(#|\/)?杀神榜$/, fnc: 'killGodChart' }
-      ]
+      rule: [{ reg: /^(#|\/)?杀神榜$/, fnc: 'killGodChart' }]
     })
-  }
-
-  /**
-   *天命榜
-   * @param e
-   * @returns
-   */
-  async showList(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const img = await getListComponent(await Server.getList(), UID)
-    if (typeof img != 'boolean') e.reply(img)
   }
 
   /**

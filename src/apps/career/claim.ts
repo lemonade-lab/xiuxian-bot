@@ -65,7 +65,6 @@ export class ClaimCareer extends APlugin {
       '化神境之后,可交付灵石获得学徒身份\n',
       '当前可领取[/炼器师学徒]'
     ])
-
     Controllers(e).Message.reply(
       '',
       [
@@ -89,7 +88,6 @@ export class ClaimCareer extends APlugin {
         }
       ]
     )
-
     return
   }
 

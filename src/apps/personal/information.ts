@@ -48,13 +48,11 @@ export class Information extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
-        { label: '天机门', value: '/天机门' },
         { label: '联盟', value: '/联盟商会' },
         { label: '协会', value: '/协会' }
       ],
       [
         { label: '金银坊', value: '/金银坊' },
-        { label: '万花坊', value: '/万花坊' },
         { label: '万宝楼', value: '/万宝楼' }
       ]
     )
@@ -90,7 +88,6 @@ export class Information extends APlugin {
       ],
       [
         { label: '修仙联盟', value: '/前往联盟' },
-        { label: '联盟报到', value: '/联盟报到' },
         { label: '控制板', value: '/控制板' }
       ]
     )
@@ -105,7 +102,6 @@ export class Information extends APlugin {
       '',
       [
         { label: '通天塔', value: '/通天塔' },
-        { label: '至尊榜', value: '/至尊榜' },
         { label: '杀神榜', value: '/杀神榜' }
       ],
       [{ label: '控制板', value: '/控制板' }]

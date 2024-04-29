@@ -1,6 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import { DB, GameApi, isThereAUserPresent, Server } from '../../api/index.js'
-
 import ImageComponent from '../../image/index.js'
 
 export class Bag extends APlugin {

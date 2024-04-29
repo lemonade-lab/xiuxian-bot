@@ -38,17 +38,12 @@ export class Monster extends APlugin {
     if (!(await ControlByBlood(e, UserData))) return
     const CDID = 10
     if (!(await victoryCooling(e, UID, CDID))) return
-
     const Mname = e.msg.replace(/^(#|\/)?(击杀|擊殺)/, '')
-
     if (!killNPC(e, Mname, UID, UserData.special_prestige)) return
-
     const monstersdata = await GameApi.Monster.monsterscache(
       UserData.point_type
     )
-
     const mon = monstersdata[Mname]
-
     // 是否在城里 是否存在  是否充足
     if (UserData.pont_attribute == 1 || !mon || mon.acount < 1) {
       e.reply([`这里没有[${Mname}],去别处看看吧`], {

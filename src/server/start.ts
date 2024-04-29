@@ -140,12 +140,6 @@ export async function getKillList() {
   return UserData
 }
 
-// 更新至尊榜
-export async function updatePowerList() {
-  // 写入缓存
-  set(`xiuxian:list`, JSON.stringify(await getList()))
-}
-
 // 更新杀神榜
 export async function updataKillList() {
   // 写入缓存
@@ -156,14 +150,10 @@ export async function updataKillList() {
 setTimeout(() => {
   // 统计杀神榜
   updataKillList()
-  // 统计至尊榜
-  updatePowerList()
   console.info('[list] level update')
 }, start_time)
 
 setInterval(() => {
   // 统计杀神榜
   updataKillList()
-  // 统计至尊榜
-  updatePowerList()
 }, continue_time)
