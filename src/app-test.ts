@@ -1,5 +1,6 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { isThereAUserPresent } from './api/index.js'
+import { QQ_GROUP } from './model/config/index.js'
 export class Information extends APlugin {
   constructor() {
     super({
@@ -34,7 +35,7 @@ export class Information extends APlugin {
         { label: '势力', value: '/势力' },
         {
           label: '官群',
-          link: 'https://qm.qq.com/q/BUXl2xKabe'
+          link: QQ_GROUP
         }
       ],
       [

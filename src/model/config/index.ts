@@ -64,3 +64,5 @@ export const RedisMonster = 'xiuxian:monsters5'
 export const RedisExplore = 'xiuxian:explore6'
 export const RedisBull = 'xiuxian:bull'
 export const RedisBullAction = 'xiuxian:bull:Action'
+
+export const QQ_GROUP = 'https://qm.qq.com/q/8M3yrVcglW'

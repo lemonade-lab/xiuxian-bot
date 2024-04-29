@@ -1,5 +1,6 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { postHelp } from '../../api/index.js'
+import { QQ_GROUP } from '../../model/config/index.js'
 export class Help extends APlugin {
   constructor() {
     super({
@@ -44,7 +45,7 @@ export class Help extends APlugin {
         [
           {
             label: '加入官群',
-            link: 'https://qm.qq.com/q/BUXl2xKabe'
+            link: QQ_GROUP
           },
           {
             label: '地图',

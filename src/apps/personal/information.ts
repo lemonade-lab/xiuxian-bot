@@ -10,6 +10,7 @@ import {
   createUser
 } from '../../api/index.js'
 import { Themes } from '../../component/core/color.js'
+import { QQ_GROUP } from '../../model/config/index.js'
 export class Information extends APlugin {
   constructor() {
     super({
@@ -65,7 +66,7 @@ export class Information extends APlugin {
       [
         { label: '设置密码', value: '/设置密码' },
         { label: '交易网', link: 'http://43.143.217.7/' },
-        { label: '官群', link: 'https://qm.qq.com/q/BUXl2xKabe' }
+        { label: '官群', link: QQ_GROUP }
       ],
       [
         { label: '万宝楼', value: '/万宝楼' },
