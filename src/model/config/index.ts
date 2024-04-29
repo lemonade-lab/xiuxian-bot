@@ -66,3 +66,6 @@ export const RedisBull = 'xiuxian:bull'
 export const RedisBullAction = 'xiuxian:bull:Action'
 
 export const QQ_GROUP = 'https://qm.qq.com/q/zWYMGtN4Nc'
+
+export const IllegalCharacters =
+  /^(妈|逼|草|艹|捞钱|laoqian|cao|nmd|tmd|tnnd|钱|恶心|ex|阴阳|柠檬|冲水)/

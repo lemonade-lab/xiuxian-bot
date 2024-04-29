@@ -7,6 +7,7 @@ import {
   victoryCooling,
   isThereAUserPresent
 } from '../../api/index.js'
+import { IllegalCharacters } from '../../model/config/index.js'
 export class Modify extends APlugin {
   constructor() {
     super({
@@ -31,6 +32,12 @@ export class Modify extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await Control(e, UserData))) return
     const name = e.msg.replace(/^(#|\/)?(改名|更改道號)/, '')
+    if (IllegalCharacters.test(name)) {
+      e.reply(['异常名称'], {
+        quote: e.msg_id
+      })
+      return
+    }
     if (name.length == 0) return
     if (name.length > 8) {
       e.reply(['你这名字\n可真是稀奇'], {
@@ -66,11 +73,16 @@ export class Modify extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await Control(e, UserData))) return
     const autograph = e.msg.replace(/^(#|\/)?签名/, '')
+    if (IllegalCharacters.test(autograph)) {
+      e.reply(['异常签名'], {
+        quote: e.msg_id
+      })
+      return
+    }
     if (autograph.length == 0 || autograph.length > 50) {
       e.reply(['请正确设置\n且道宣最多50字符'], {
         quote: e.msg_id
       })
-
       return
     }
     const CDID = 4,
