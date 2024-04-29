@@ -47,7 +47,7 @@ export class Information extends APlugin {
     const post = () => {
       m.reply('', [
         { label: '我的编号', value: '/我的编号' },
-        { label: '设置密码', value: '/设置密码+[数字/字母]' },
+        { label: '设置密码', value: '/设置密码+[数字/字母]', enter: false },
         { label: '控制板', value: '/控制板' }
       ])
     }
@@ -122,7 +122,7 @@ export class Information extends APlugin {
       '',
       [
         { label: '我的编号', value: '/我的编号' },
-        { label: '设置密码', value: '/设置密码+[数字/字母]' },
+        { label: '设置密码', value: '/设置密码+[数字/字母]', enter: false },
         { label: '易物阁', link: 'http://43.143.217.7/' }
       ],
       [
