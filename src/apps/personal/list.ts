@@ -1,6 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import {
-  getListComponent,
   getKillComponent,
   isThereAUserPresent,
   Server

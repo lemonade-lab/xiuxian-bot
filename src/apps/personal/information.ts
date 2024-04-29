@@ -7,10 +7,11 @@ import {
   isUser,
   getEquipmentComponent,
   getSkillsComponent,
-  createUser
+  createUser,
+  isThereAUserPresent
 } from '../../api/index.js'
 import { Themes } from '../../component/core/color.js'
-import { QQ_GROUP } from '../../model/config/index.js'
+//
 export class Information extends APlugin {
   constructor() {
     super({
@@ -25,9 +26,67 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?榜单$/, fnc: 'list' },
         { reg: /^(#|\/)?新人$/, fnc: 'newUsers' },
         { reg: /^(#|\/)?交易$/, fnc: 'shop' },
-        { reg: /^(#|\/)?天下$/, fnc: 'word' }
+        { reg: /^(#|\/)?天下$/, fnc: 'word' },
+        { reg: /^(#|\/)?设置密码/, fnc: 'setPassword' }
       ]
     })
+  }
+
+  /**
+   * 设置密码
+   * @param e
+   * @returns
+   */
+  async setPassword(e: AEvent) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    const password = e.msg.replace(/^(#|\/)?设置密码/, '')
+    var regex = /^[a-zA-Z0-9]+$/
+    const m = Controllers(e).Message
+
+    const post = () => {
+      m.reply('', [
+        { label: '我的编号', value: '/我的编号' },
+        { label: '设置密码', value: '/设置密码+[数字/字母]' },
+        { label: '控制板', value: '/控制板' }
+      ])
+    }
+
+    if (!regex.test(password)) {
+      e.reply('密码必须只包含数字或字母')
+      post()
+      return
+    } else {
+      // 更新用户密码
+      DB.user
+        .update(
+          {
+            password: password
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
+        .then(res => {
+          if (res.includes(0)) {
+            e.reply('设置错误')
+            post()
+          } else {
+            e.reply('设置成功')
+            m.reply('', [
+              { label: '我的编号', value: '/我的编号' },
+              { label: '易物阁', link: 'http://43.143.217.7/' },
+              { label: '控制板', value: '/控制板' }
+            ])
+          }
+        })
+        .catch(() => {
+          e.reply('数据错误')
+        })
+    }
+    return
   }
 
   /**
@@ -48,7 +107,7 @@ export class Information extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
-        { label: '联盟', value: '/联盟商会' },
+        { label: '联盟商会', value: '/联盟商会' },
         { label: '协会', value: '/协会' }
       ],
       [
@@ -62,9 +121,9 @@ export class Information extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
-        { label: '设置密码', value: '/设置密码' },
-        { label: '交易网', link: 'http://43.143.217.7/' },
-        { label: '官群', link: QQ_GROUP }
+        { label: '我的编号', value: '/我的编号' },
+        { label: '设置密码', value: '/设置密码+[数字/字母]' },
+        { label: '易物阁', link: 'http://43.143.217.7/' }
       ],
       [
         { label: '万宝楼', value: '/万宝楼' },
@@ -98,14 +157,11 @@ export class Information extends APlugin {
    * @param e
    */
   async list(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '通天塔', value: '/通天塔' },
-        { label: '杀神榜', value: '/杀神榜' }
-      ],
-      [{ label: '控制板', value: '/控制板' }]
-    )
+    Controllers(e).Message.reply('', [
+      { label: '通天塔', value: '/通天塔' },
+      { label: '杀神榜', value: '/杀神榜' },
+      { label: '控制板', value: '/控制板' }
+    ])
   }
 
   async cultivation(e: AEvent) {
