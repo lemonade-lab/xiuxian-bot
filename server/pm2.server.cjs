@@ -3,30 +3,20 @@ module.exports = {
     {
       name: 'xiuxian-server',
       script: 'server/index.js',
-      instances: 1,
-      autorestart: true,
-      exec_mode: 'cluster',
-      max_memory_restart: '2G',
-      cron_restart: '0 */1 * * *',
-      watch: false,
-      deploy: {
-        key: 'xiuxian'
-      },
-      autodump: true,
-      merge_logs: true,
-      error_file: `./logs/server/err.log`,
-      out_file: `./logs/server/out.log`,
-      log_max_size: '10M',
-      log_rotate_interval: 'daily',
-      log_date_format: 'YYYY-MM-DD HH:mm:ss',
-      env: {
-        NODE_ENV: 'production'
-      },
-      kill_timeout: 5000,
-      listen_timeout: 3000,
+      log_date_format: 'YYYY-MM-DD HH:mm Z',
+      error_file: './server/log/error.log',
+      out_file: './server/log/out.log',
+      instances: 6,
+      min_uptime: '200s',
       max_restarts: 10,
-      restart_delay: 5000,
-      restart_delay_max: 10000
+      max_memory_restart: '1M',
+      cron_restart: '1 0 * * *',
+      watch: false,
+      merge_logs: true,
+      exec_interpreter: 'node',
+      exec_mode: 'fork',
+      autorestart: false,
+      vizion: false
     }
   ]
 }
