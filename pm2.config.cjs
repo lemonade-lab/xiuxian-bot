@@ -3,7 +3,6 @@
  */
 
 const config = require('alemonjs/pm2.config.cjs')
-console.log('config', config)
 if (process.argv.includes('no-bot')) {
   config.apps = []
 }
@@ -32,4 +31,5 @@ if (process.argv.includes('server')) {
     max_restarts: 10
   })
 }
+console.log('config', config)
 module.exports = config
