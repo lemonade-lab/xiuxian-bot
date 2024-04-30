@@ -18,6 +18,9 @@
     "image": "nodemon --config src-image/nodemon.json",
     "server:dev": "nodemon --config server/nodemon.json",
     "server:build": "rollup --config server/rollup.config.js",
+    "server:start": "pm2 startOrRestart pm2.server.cjs",
+    "server:stop": "pm2 stop pm2.server.cjs",
+    "server:delete": "pm2 delete pm2.server.cjs",
     "format": "prettier --write .",
     "prepare": "husky"
   },
