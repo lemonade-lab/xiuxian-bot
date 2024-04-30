@@ -72,6 +72,29 @@ export class Information extends APlugin {
       e.reply('非法格式')
       return
     } else {
+      // 查询
+
+      const res = await DB.user
+        .findOne({
+          where: {
+            email: email
+          },
+          raw: true
+        })
+        .then(res => {
+          if (res) {
+            e.reply('已被使用')
+            return false
+          }
+          return true
+        })
+        .catch(() => {
+          e.reply('数据错误')
+          return false
+        })
+
+      if (!res) return
+
       // 更新信息
       DB.user
         .update(
