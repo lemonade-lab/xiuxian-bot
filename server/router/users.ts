@@ -2,7 +2,7 @@ import koaRouter from 'koa-router'
 import { generateToken } from '../utils/jwt'
 import { user } from '../../src/db/index'
 
-const router = new koaRouter({ prefix: '/api' })
+const router = new koaRouter({ prefix: '/api/v1/users' })
 
 /**
  * 用户登录
@@ -13,7 +13,9 @@ router.post('/login', async ctx => {
     username: string
     password: string
   }
+
   console.log('body', body)
+
   /**
    * 拦截非法请求
    */
@@ -24,11 +26,14 @@ router.post('/login', async ctx => {
     }
     return
   }
+
   await user
     .findOne({
       where: {
-        uid: body.username
-      }
+        email: body.username,
+        password: body.password
+      },
+      raw: true
     })
     .then(res => {
       if (res) {
@@ -47,7 +52,8 @@ router.post('/login', async ctx => {
         data: null
       }
     })
-    .catch(() => {
+    .catch(err => {
+      console.log(err)
       ctx.body = {
         code: 4000,
         msg: '服务器错误',

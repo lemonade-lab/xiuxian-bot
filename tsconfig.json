@@ -18,6 +18,12 @@
     "transpileOnly": true,
     "experimentalSpecifierResolution": "node"
   },
-  "include": ["plugins", "src", "alemon.*.{ts,tsx,js,jsx}"],
+  "include": [
+    "plugins",
+    "src",
+    "server",
+    "src-image",
+    "alemon.*.{ts,tsx,js,jsx}"
+  ],
   "exclude": ["node_modules"]
 }

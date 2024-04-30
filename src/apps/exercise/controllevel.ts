@@ -8,6 +8,7 @@ import {
   dualVerificationAction,
   victoryCooling
 } from '../../api/index.js'
+import { QQ_GROUP } from '../../model/config/index.js'
 export class ControllLevel extends APlugin {
   constructor() {
     super({
@@ -29,7 +30,7 @@ export class ControllLevel extends APlugin {
       Controllers(e).Message.reply('', [
         {
           label: '加入官群',
-          link: 'https://qm.qq.com/q/BUXl2xKabe'
+          link: QQ_GROUP
         }
       ])
     }

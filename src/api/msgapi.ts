@@ -115,23 +115,16 @@ export function createUser(e: AEvent) {
             Burial.set(UID, 8, Cooling.CD_Reborn)
 
             if (e.platform == 'ntqq') {
-              Controllers(e).Message.reply(
-                '',
-                [
-                  { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
-                  { label: '修仙帮助', value: '/修仙帮助' }
-                ],
-                [
-                  { label: '修仙联盟', value: '/前往联盟' },
-                  { label: '联盟报到', value: '/联盟报到' }
-                ]
-              )
+              Controllers(e).Message.reply('', [
+                { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
+                { label: '修仙帮助', value: '/修仙帮助' },
+                { label: '修仙联盟', value: '/前往联盟' }
+              ])
             } else {
               e.reply(
                 [
                   `修仙大陆第${res.id}位萌新`,
-                  '\n记得去联盟报到开宝箱噢',
-                  '\n签到还有特殊奖励',
+                  '\n记得去联盟签到噢',
                   '\n发送[/修仙帮助]了解更多'
                 ],
                 {

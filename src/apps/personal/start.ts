@@ -51,17 +51,13 @@ export class Start extends APlugin {
                     { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
                     { label: '修仙帮助', value: '/修仙帮助' }
                   ],
-                  [
-                    { label: '修仙联盟', value: '/前往联盟' },
-                    { label: '联盟报到', value: '/联盟报到' }
-                  ]
+                  [{ label: '修仙联盟', value: '/前往联盟' }]
                 )
               } else {
                 e.reply(
                   [
                     `修仙大陆第${res.id}位萌新`,
-                    '\n记得去联盟报到开宝箱噢',
-                    '\n签到还有特殊奖励',
+                    '\n记得去联盟签到噢',
                     '\n发送[/修仙帮助]了解更多'
                   ],
                   {
@@ -159,10 +155,6 @@ export class Start extends APlugin {
                         {
                           label: '修仙联盟',
                           value: '/前往联盟'
-                        },
-                        {
-                          label: '联盟报到',
-                          value: '/联盟报到'
                         }
                       ]
                     )
@@ -171,8 +163,7 @@ export class Start extends APlugin {
                     e.reply(
                       [
                         `修仙大陆第${UserData.id}位萌新`,
-                        '\n记得去联盟报到开宝箱噢',
-                        '\n签到还有特殊奖励',
+                        '\n记得去联盟签到噢',
                         '\n发送[/修仙帮助]了解更多'
                       ],
                       {

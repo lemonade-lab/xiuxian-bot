@@ -20,14 +20,10 @@ export class MapHelp extends APlugin {
     Controllers(e).Message.reply(
       '',
       [
-        { label: '联盟', value: '/前往联盟' },
-        { label: '万宝楼', value: '/前往万宝楼' },
-        { label: '联盟商会', value: '/前往联盟商会' }
-      ],
-      [
         { label: '金银坊', value: '/前往金银坊' },
-        { label: '天机门', value: '/前往天机门' },
-        { label: '万花坊', value: '/前往万花坊' }
+        { label: '万宝楼', value: '/前往万宝楼' },
+        { label: '联盟', value: '/前往联盟' },
+        { label: '商会', value: '/前往联盟商会' }
       ],
       [
         { label: '协会', value: '/前往协会' },
