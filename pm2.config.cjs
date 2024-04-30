@@ -3,11 +3,12 @@
  */
 
 const config = require('alemonjs/pm2.config.cjs')
+console.log('config', config)
 if (process.argv.includes('no-bot')) {
-  config.app = []
+  config.apps = []
 }
 if (process.argv.includes('server')) {
-  config.app.push({
+  config.apps.push({
     name: 'alemonb-xiuxian-server',
     script: 'server/index.js',
     instances: 1,
