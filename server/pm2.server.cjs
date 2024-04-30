@@ -9,6 +9,9 @@ module.exports = {
       max_memory_restart: '2G',
       cron_restart: '0 */1 * * *',
       watch: false,
+      deploy: {
+        key: 'xiuxian'
+      },
       autodump: true,
       merge_logs: true,
       error_file: `./logs/server/err.log`,
