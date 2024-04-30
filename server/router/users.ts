@@ -32,7 +32,8 @@ router.post('/login', async ctx => {
       where: {
         email: body.username,
         password: body.password
-      }
+      },
+      raw: true
     })
     .then(res => {
       if (res) {
@@ -52,6 +53,7 @@ router.post('/login', async ctx => {
       }
     })
     .catch(err => {
+      console.log(err)
       ctx.body = {
         code: 4000,
         msg: '服务器错误',

@@ -198,13 +198,14 @@ export class Secretplace extends APlugin {
     }
 
     // 找到传送阵
-    const PointData = await DB.map_point.findOne({
+    const PointData: DB.MapPointType = (await DB.map_point.findOne({
       where: {
         x: UserData.pont_x,
         y: UserData.pont_y,
         z: UserData.pont_z
-      }
-    })
+      },
+      raw: true
+    })) as any
     if (!PointData) {
       e.reply(['请前往传送阵'], {
         quote: e.msg_id

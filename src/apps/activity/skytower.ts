@@ -177,7 +177,8 @@ export class SkyTower extends APlugin {
     const UserDataB: DB.UserType = (await DB.user.findOne({
       where: {
         uid: dataB.uid
-      }
+      },
+      raw: true
     })) as any
 
     if (!UserDataB) {
@@ -199,7 +200,8 @@ export class SkyTower extends APlugin {
     const UserData: DB.UserType = (await DB.user.findOne({
       where: {
         uid: UID
-      }
+      },
+      raw: true
     })) as any
 
     const BMSG = GameApi.Fight.start(UserData, UserDataB)
