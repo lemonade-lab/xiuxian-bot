@@ -27,9 +27,76 @@ export class Information extends APlugin {
         { reg: /^(#|\/)?新人$/, fnc: 'newUsers' },
         { reg: /^(#|\/)?交易$/, fnc: 'shop' },
         { reg: /^(#|\/)?天下$/, fnc: 'word' },
-        { reg: /^(#|\/)?设置密码/, fnc: 'setPassword' }
+        { reg: /^(#|\/)?设置密码/, fnc: 'setPassword' },
+        { reg: /^(#|\/)?设置邮箱/, fnc: 'setMail' },
+        { reg: /^(#|\/)?账号管理/, fnc: 'accountAdmin' }
       ]
     })
+  }
+
+  accountAdminButton = [
+    [
+      { label: '设置密码', value: '/设置密码+[数字/字母]', enter: false },
+      { label: '设置邮箱', value: '/设置邮箱+[xxxx@yyy.zzz]', enter: false },
+      { label: '易物阁', link: 'http://43.143.217.7/' }
+    ],
+    [{ label: '控制板', value: '/控制板' }]
+  ]
+
+  /**
+   *
+   * @param e
+   * @returns
+   */
+  async accountAdmin(e) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    Controllers(e).Message.reply('', ...this.accountAdminButton)
+    return
+  }
+
+  /**
+   * 设置邮箱
+   * @param e
+   * @returns
+   */
+  async setMail(e: AEvent) {
+    const UID = e.user_id
+    if (!(await isThereAUserPresent(e, UID))) return
+    const email = e.msg.replace(/^(#|\/)?设置邮箱/, '')
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    const m = Controllers(e).Message
+
+    if (!regex.test(email)) {
+      e.reply('非法格式')
+      return
+    } else {
+      // 更新信息
+      DB.user
+        .update(
+          {
+            email: email
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
+        .then(res => {
+          if (res.includes(0)) {
+            e.reply('设置错误')
+          } else {
+            e.reply('设置成功')
+            m.reply('', ...this.accountAdminButton)
+          }
+        })
+        .catch(() => {
+          e.reply('数据错误')
+        })
+    }
+    return
   }
 
   /**
@@ -42,23 +109,14 @@ export class Information extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const password = e.msg.replace(/^(#|\/)?设置密码/, '')
     var regex = /^[a-zA-Z0-9]+$/
-    const m = Controllers(e).Message
 
-    const post = () => {
-      m.reply('', [
-        { label: '我的编号', value: '/我的编号' },
-        { label: '设置密码', value: '/设置密码+[数字/字母]', enter: false },
-        { label: '控制板', value: '/控制板' }
-      ])
-    }
+    const m = Controllers(e).Message
 
     if (!regex.test(password)) {
       e.reply('密码必须只包含数字或字母')
-      post()
       return
     } else if (password.length < 6 || password.length > 22) {
       e.reply('密码大于6位或小于22位')
-      post()
       return
     } else {
       // 更新用户密码
@@ -76,14 +134,9 @@ export class Information extends APlugin {
         .then(res => {
           if (res.includes(0)) {
             e.reply('设置错误')
-            post()
           } else {
             e.reply('设置成功')
-            m.reply('', [
-              { label: '我的编号', value: '/我的编号' },
-              { label: '易物阁', link: 'http://43.143.217.7/' },
-              { label: '控制板', value: '/控制板' }
-            ])
+            m.reply('', ...this.accountAdminButton)
           }
         })
         .catch(() => {
@@ -103,92 +156,124 @@ export class Information extends APlugin {
     return
   }
 
+  wordButton = [
+    [
+      { label: '联盟商会', value: '/联盟商会' },
+      { label: '协会', value: '/协会' }
+    ],
+    [
+      { label: '金银坊', value: '/金银坊' },
+      { label: '万宝楼', value: '/万宝楼' }
+    ]
+  ]
+
   /**
    *
    * @param e
    */
   async word(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '联盟商会', value: '/联盟商会' },
-        { label: '协会', value: '/协会' }
-      ],
-      [
-        { label: '金银坊', value: '/金银坊' },
-        { label: '万宝楼', value: '/万宝楼' }
-      ]
-    )
+    Controllers(e).Message.reply('', ...this.wordButton)
   }
+
+  shopButton = [
+    [
+      { label: '我的编号', value: '/我的编号' },
+      { label: '账号管理', value: '/账号管理' },
+      { label: '易物阁', link: 'http://43.143.217.7/' }
+    ],
+    [
+      { label: '万宝楼', value: '/万宝楼' },
+      { label: '商会', value: '/联盟商会' },
+      { label: '控制板', value: '/控制板' }
+    ]
+  ]
 
   async shop(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '我的编号', value: '/我的编号' },
-        { label: '设置密码', value: '/设置密码+[数字/字母]', enter: false },
-        { label: '易物阁', link: 'http://43.143.217.7/' }
-      ],
-      [
-        { label: '万宝楼', value: '/万宝楼' },
-        { label: '商会', value: '/联盟商会' },
-        { label: '控制板', value: '/控制板' }
-      ]
-    )
+    Controllers(e).Message.reply('', ...this.shopButton)
   }
 
+  newUsersButton = [
+    [
+      { label: '更换主题', value: '/更换主题' },
+      { label: '绑定头像', value: '/绑定头像+输入QQ号', enter: false },
+      { label: '再入仙途', value: '/再入仙途' }
+    ],
+    [
+      { label: '签名', value: '/签名', enter: false },
+      { label: '改名', value: '/改名', enter: false }
+    ],
+    [
+      { label: '修仙联盟', value: '/前往联盟' },
+      { label: '控制板', value: '/控制板' }
+    ]
+  ]
+
   async newUsers(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '更换主题', value: '/更换主题' },
-        { label: '绑定头像', value: '/绑定头像+输入QQ号', enter: false },
-        { label: '再入仙途', value: '/再入仙途' }
-      ],
-      [
-        { label: '签名', value: '/签名', enter: false },
-        { label: '改名', value: '/改名', enter: false }
-      ],
-      [
-        { label: '修仙联盟', value: '/前往联盟' },
-        { label: '控制板', value: '/控制板' }
-      ]
-    )
+    Controllers(e).Message.reply('', ...this.newUsersButton)
   }
+
+  listButton = [
+    [
+      { label: '通天塔', value: '/通天塔' },
+      { label: '杀神榜', value: '/杀神榜' },
+      { label: '控制板', value: '/控制板' }
+    ]
+  ]
 
   /**
    *
    * @param e
    */
   async list(e: AEvent) {
-    Controllers(e).Message.reply('', [
-      { label: '通天塔', value: '/通天塔' },
-      { label: '杀神榜', value: '/杀神榜' },
-      { label: '控制板', value: '/控制板' }
-    ])
+    Controllers(e).Message.reply('', ...this.listButton)
   }
 
+  cultivationButton = [
+    [
+      { label: '锻体', value: '/锻体' },
+      { label: '打坐', value: '/打坐' },
+      { label: '闭关', value: '/闭关' },
+      { label: '出关', value: '/出关' }
+    ],
+    [
+      { label: '顿悟', value: '/顿悟' },
+      { label: '突破', value: '/突破' },
+      { label: '破境', value: '/破境' }
+    ],
+    [
+      { label: '探索灵矿', value: '/探索灵矿' },
+      { label: '探索怪物', value: '/探索怪物' },
+      { label: '释放神识', value: '/释放神识' }
+    ]
+  ]
+
   async cultivation(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '锻体', value: '/锻体' },
-        { label: '打坐', value: '/打坐' },
-        { label: '闭关', value: '/闭关' },
-        { label: '出关', value: '/出关' }
-      ],
-      [
-        { label: '顿悟', value: '/顿悟' },
-        { label: '突破', value: '/突破' },
-        { label: '破境', value: '/破境' }
-      ],
-      [
-        { label: '探索灵矿', value: '/探索灵矿' },
-        { label: '探索怪物', value: '/探索怪物' },
-        { label: '释放神识', value: '/释放神识' }
-      ]
-    )
+    Controllers(e).Message.reply('', ...this.cultivationButton)
   }
+
+  controllersButton = [
+    [
+      { label: '资料', value: '/个人信息' },
+      { label: '面板', value: '/面板信息' },
+      { label: '功法', value: '/功法信息' }
+    ],
+    [
+      { label: '交易', value: '/交易' },
+      { label: '修炼', value: '/修炼' },
+      { label: '榜单', value: '/榜单' },
+      { label: '赶路', value: '/赶路' }
+    ],
+    [
+      { label: '天下', value: '/天下' },
+      { label: '势力', value: '/势力' }
+    ],
+    [
+      { label: '储物', value: '/储物袋' },
+      { label: '纳戒', value: '/纳戒' },
+      { label: '地图', value: '/地图' },
+      { label: '新人', value: '/新人' }
+    ]
+  ]
 
   /**
    *
@@ -196,30 +281,7 @@ export class Information extends APlugin {
    * @returns
    */
   async controllers(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '资料', value: '/个人信息' },
-        { label: '面板', value: '/面板信息' },
-        { label: '功法', value: '/功法信息' }
-      ],
-      [
-        { label: '交易', value: '/交易' },
-        { label: '修炼', value: '/修炼' },
-        { label: '榜单', value: '/榜单' },
-        { label: '赶路', value: '/赶路' }
-      ],
-      [
-        { label: '天下', value: '/天下' },
-        { label: '势力', value: '/势力' }
-      ],
-      [
-        { label: '储物', value: '/储物袋' },
-        { label: '纳戒', value: '/纳戒' },
-        { label: '地图', value: '/地图' },
-        { label: '新人', value: '/新人' }
-      ]
-    )
+    Controllers(e).Message.reply('', ...this.controllersButton)
     return true
   }
 
@@ -297,6 +359,14 @@ export class Information extends APlugin {
     return
   }
 
+  equipmentInformationButton = [
+    [
+      { label: '个人信息', value: '/个人信息' },
+      { label: '功法信息', value: '/功法信息' },
+      { label: '控制板', value: '/控制板' }
+    ]
+  ]
+
   /**
    * 面板信息
    * @param e
@@ -316,11 +386,10 @@ export class Information extends APlugin {
               getEquipmentComponent(res, UID).then(img => {
                 if (typeof img != 'boolean') {
                   e.reply(img)
-                  Controllers(e).Message.reply('', [
-                    { label: '个人信息', value: '/个人信息' },
-                    { label: '功法信息', value: '/功法信息' },
-                    { label: '控制板', value: '/控制板' }
-                  ])
+                  Controllers(e).Message.reply(
+                    '',
+                    ...this.equipmentInformationButton
+                  )
                 }
               })
             })
@@ -332,6 +401,14 @@ export class Information extends APlugin {
       })
     return
   }
+
+  skillInformationButton = [
+    [
+      { label: '个人信息', value: '/个人信息' },
+      { label: '面板信息', value: '/面板信息' },
+      { label: '控制板', value: '/控制板' }
+    ]
+  ]
 
   /**
    * 功法信息
@@ -351,11 +428,7 @@ export class Information extends APlugin {
             getSkillsComponent(res, UID).then(img => {
               if (typeof img != 'boolean') {
                 e.reply(img)
-                Controllers(e).Message.reply('', [
-                  { label: '个人信息', value: '/个人信息' },
-                  { label: '面板信息', value: '/面板信息' },
-                  { label: '控制板', value: '/控制板' }
-                ])
+                Controllers(e).Message.reply('', ...this.skillInformationButton)
               }
             })
           })

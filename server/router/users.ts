@@ -13,7 +13,9 @@ router.post('/login', async ctx => {
     username: string
     password: string
   }
+
   console.log('body', body)
+
   /**
    * 拦截非法请求
    */
@@ -28,7 +30,7 @@ router.post('/login', async ctx => {
   await user
     .findOne({
       where: {
-        uid: body.username,
+        email: body.username,
         password: body.password
       }
     })
@@ -49,7 +51,7 @@ router.post('/login', async ctx => {
         data: null
       }
     })
-    .catch(() => {
+    .catch(err => {
       ctx.body = {
         code: 4000,
         msg: '服务器错误',
