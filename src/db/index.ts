@@ -9,6 +9,9 @@ import { ass } from './models/ass.js'
 import { ass_typing } from './models/ass_typing.js'
 import { ass_bag } from './models/ass_bag.js'
 import { user } from './models/user.js'
+import { transactions } from './models/transactions.js'
+import { transactions_logs } from './models/transactions_logs.js'
+
 {
   /**
    * *********
@@ -29,6 +32,16 @@ import { user } from './models/user.js'
   user_ass.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
   ass.belongsTo(ass_typing, { foreignKey: 'typing', targetKey: 'id' })
   ass_bag.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  /**
+   * transactions
+   */
+  transactions.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  transactions.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
+  /**
+   *
+   */
+  transactions_logs.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  transactions_logs.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
 }
 /**
  * ****

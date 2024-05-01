@@ -57,3 +57,8 @@ export * from './models/user_skills.js'
 export * from './models/user_blessing.js'
 export * from './models/user_compensate.js'
 export * from './models/user_fate.js'
+/**
+ * 交易
+ */
+export * from './models/transactions.js'
+export * from './models/transactions_logs.js'

@@ -1,3 +1,4 @@
 import file from './v/file.js'
-import usersV from './v/users.js'
-export default [file, usersV]
+import users from './v/users.js'
+import transactions from './v/transactions.js'
+export default [file, users, transactions]
