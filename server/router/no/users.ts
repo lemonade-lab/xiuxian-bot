@@ -1,6 +1,7 @@
 import koaRouter from 'koa-router'
 import { generateToken } from '../../utils/jwt'
 import { user } from '../../../src/db/index.js'
+import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 
 const router = new koaRouter({ prefix: '/api/v1/users' })
 
@@ -21,7 +22,7 @@ router.post('/login', async ctx => {
    */
   if (!body || !body?.password || !body?.username) {
     ctx.body = {
-      code: 4000,
+      code: ERROE_CODE,
       msg: '非法请求'
     }
     return
@@ -38,7 +39,7 @@ router.post('/login', async ctx => {
     .then(res => {
       if (res) {
         ctx.body = {
-          code: 2000,
+          code: OK_CODE,
           msg: '登录成功',
           data: {
             token: generateToken(res)
@@ -47,7 +48,7 @@ router.post('/login', async ctx => {
         return
       }
       ctx.body = {
-        code: 4000,
+        code: ERROE_CODE,
         msg: '账号或密码错误',
         data: null
       }
@@ -55,7 +56,7 @@ router.post('/login', async ctx => {
     .catch(err => {
       console.log(err)
       ctx.body = {
-        code: 4000,
+        code: ERROE_CODE,
         msg: '服务器错误',
         data: null
       }

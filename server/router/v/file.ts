@@ -1,6 +1,7 @@
 import koaRouter from 'koa-router'
 import { user } from '../../../src/db/index.js'
 import { generateToken } from '../../utils/jwt.js'
+import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 const router = new koaRouter({ prefix: '/api/v1/users' })
 /**
  * 获取玩家最新操作记录
@@ -16,7 +17,7 @@ router.get('/jwt', async ctx => {
     .then(res => {
       if (res) {
         ctx.body = {
-          code: 2000,
+          code: OK_CODE,
           msg: '登录成功',
           data: {
             token: generateToken(res)
@@ -25,14 +26,14 @@ router.get('/jwt', async ctx => {
         return
       }
       ctx.body = {
-        code: 4000,
+        code: ERROE_CODE,
         msg: '账号或密码错误',
         data: null
       }
     })
     .catch(() => {
       ctx.body = {
-        code: 4000,
+        code: ERROE_CODE,
         msg: '服务器错误',
         data: null
       }
@@ -44,7 +45,7 @@ router.get('/jwt', async ctx => {
 router.get('/geteway', async ctx => {
   // 返回url
   ctx.body = {
-    code: 200,
+    code: OK_CODE,
     msg: '请求成功',
     data: null
   }

@@ -155,4 +155,33 @@ router.post('/create', async ctx => {
     })
 })
 
+router.post('/delete', async ctx => {
+  const body = ctx.request.body as {
+    id: number
+  }
+  console.log('body-delete', body)
+  if (!body.id) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '非法请求',
+      data: null
+    }
+    return
+  }
+  const UID = ctx.state.user.uid
+  await transactions
+    .destroy({
+      where: {
+        id: body.id
+      }
+    })
+    .then(res => {
+      // 看看res是什么
+      console.log('res', res)
+    })
+    .catch(err => {
+      // 失败
+    })
+})
+
 export default router
