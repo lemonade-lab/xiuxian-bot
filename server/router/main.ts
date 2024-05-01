@@ -1,2 +1,2 @@
-import users from './users.js'
+import users from './no/users.js'
 export default [users]

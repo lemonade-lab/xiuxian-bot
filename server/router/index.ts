@@ -1,3 +1,3 @@
-import file from './file.js'
-import usersV from './users.v.js'
+import file from './v/file.js'
+import usersV from './v/users.js'
 export default [file, usersV]

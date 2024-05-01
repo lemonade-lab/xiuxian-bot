@@ -1,17 +1,39 @@
 import koaRouter from 'koa-router'
-import { user } from '../../src/db/index.js'
-import { generateToken } from '../utils/jwt.js'
+import { generateToken } from '../../utils/jwt'
+import { user } from '../../../src/db/index'
+
 const router = new koaRouter({ prefix: '/api/v1/users' })
+
 /**
- * 获取玩家最新操作记录
+ * 用户登录
+ * x-wwww-from-urlencoded
  */
-router.get('/jwt', async ctx => {
-  // 获取 GET 请求的 query 数据
+router.post('/login', async ctx => {
+  const body = ctx.request.body as {
+    username: string
+    password: string
+  }
+
+  console.log('body', body)
+
+  /**
+   * 拦截非法请求
+   */
+  if (!body || !body?.password || !body?.username) {
+    ctx.body = {
+      code: 4000,
+      msg: '非法请求'
+    }
+    return
+  }
+
   await user
     .findOne({
       where: {
-        id: ctx.state.user.id
-      }
+        email: body.username,
+        password: body.password
+      },
+      raw: true
     })
     .then(res => {
       if (res) {
@@ -30,7 +52,8 @@ router.get('/jwt', async ctx => {
         data: null
       }
     })
-    .catch(() => {
+    .catch(err => {
+      console.log(err)
       ctx.body = {
         code: 4000,
         msg: '服务器错误',
@@ -38,15 +61,5 @@ router.get('/jwt', async ctx => {
       }
     })
 })
-/**
- * 校验token并得到ws-url
- */
-router.get('/geteway', async ctx => {
-  // 返回url
-  ctx.body = {
-    code: 200,
-    msg: '请求成功',
-    data: null
-  }
-})
+
 export default router
