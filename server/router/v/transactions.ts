@@ -18,20 +18,18 @@ router.post('/create', async ctx => {
     // 价格
     price: number
   }
-  console.log('body', body)
+  console.log('body-create', body)
   if (
     !body.name ||
     !body.count ||
     body.count <= 0 ||
     !body.price ||
-    body.price <= MIN_PRICE ||
-    typeof body.name != 'string' ||
-    typeof body.count != 'number' ||
-    typeof body.price != 'number'
+    body.price <= MIN_PRICE
   ) {
     ctx.body = {
       code: ERROE_CODE,
-      msg: '非法请求'
+      msg: '非法请求',
+      data: null
     }
     return
   }
@@ -101,6 +99,7 @@ router.post('/create', async ctx => {
           msg: '不存在该物品',
           body: null
         }
+        return
       }
       if (data.acount < body.count) {
         ctx.body = {
@@ -150,7 +149,10 @@ router.post('/create', async ctx => {
         })
         .catch(error)
     })
-    .catch(error)
+    .catch(err => {
+      console.error(err)
+      error()
+    })
 })
 
 export default router
