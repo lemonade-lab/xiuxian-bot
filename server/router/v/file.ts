@@ -12,7 +12,8 @@ router.get('/jwt', async ctx => {
     .findOne({
       where: {
         id: ctx.state.user.id
-      }
+      },
+      raw: true
     })
     .then(res => {
       if (res) {
@@ -31,7 +32,8 @@ router.get('/jwt', async ctx => {
         data: null
       }
     })
-    .catch(() => {
+    .catch(err => {
+      console.log('err', err)
       ctx.body = {
         code: ERROE_CODE,
         msg: '服务器错误',

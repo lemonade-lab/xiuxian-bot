@@ -46,34 +46,57 @@ router.get('/search', async ctx => {
       data: null
     }
   }
-  // 添加分页参数
-  const page = parseInt(query.page) || 1 // 当前页数，默认为1
-  const pageSize = parseInt(query.pageSize) || 10 // 每页数据数量，默认为10
-  const offset = (page - 1) * pageSize // 计算偏移量
-  await user_bag
-    .findAndCountAll({
-      where: obj,
-      limit: pageSize,
-      offset: offset,
-      raw: true
-    })
-    .then((res: any) => res)
-    .then((res: { count: number; rows: UserBagType[] }) => {
-      const totalCount = res.count // 总数据量
-      const totalPages = Math.ceil(totalCount / pageSize) // 总页数
-      ctx.body = {
-        code: OK_CODE,
-        msg: '请求完成',
-        data: {
-          items: res.rows, // 当前页的数据
-          page: page,
-          pageSize: pageSize,
-          totalCount: totalCount,
-          totalPages: totalPages
+  if (typeof query.page == 'string' && typeof query.pageSize == 'string') {
+    // 添加分页参数
+    const page = parseInt(query.page) || 1 // 当前页数，默认为1
+    const pageSize = parseInt(query.pageSize) || 10 // 每页数据数量，默认为10
+    const offset = (page - 1) * pageSize // 计算偏移量
+    await user_bag
+      .findAndCountAll({
+        where: obj,
+        limit: pageSize,
+        offset: offset,
+        raw: true
+      })
+      .then((res: any) => res)
+      .then((res: { count: number; rows: UserBagType[] }) => {
+        const totalCount = res.count // 总数据量
+        const totalPages = Math.ceil(totalCount / pageSize) // 总页数
+        ctx.body = {
+          code: OK_CODE,
+          msg: '请求完成',
+          data: {
+            items: res.rows, // 当前页的数据
+            page: page,
+            pageSize: pageSize,
+            totalCount: totalCount,
+            totalPages: totalPages
+          }
         }
-      }
-    })
-    .catch(error)
+      })
+      .catch(error)
+    return
+  } else {
+    await user_bag
+      .findAndCountAll({
+        where: obj,
+        raw: true
+      })
+      .then((res: any) => res)
+      .then((res: { count: number; rows: UserBagType[] }) => {
+        const totalCount = res.count
+        ctx.body = {
+          code: OK_CODE,
+          msg: '请求完成',
+          data: {
+            items: res.rows,
+            totalCount: totalCount
+          }
+        }
+      })
+      .catch(error)
+    return
+  }
 })
 
 export default router
