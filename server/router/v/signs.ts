@@ -1,6 +1,7 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 import { ass, user, UserType } from '../../../src/db'
+import { addBagThing } from '../../../src/model/users/additional/bag'
 const router = new koaRouter({ prefix: '/api/v1/signs' })
 
 // 判断是否是同一天
@@ -37,9 +38,16 @@ router.get('/in', async ctx => {
         const time = new Date()
         if (isSameDay(res.sign_in_time, time)) {
           console.log('已经签到')
+          ctx.body = {
+            code: OK_CODE,
+            msg: '今日已签到',
+            data: 0
+          }
           return
         }
+        let size = 0
         if (isSameYearAndMonth(res.sign_in_time, time)) {
+          size = 0
           // 更新 + 1
           await user.update(
             {
@@ -53,7 +61,9 @@ router.get('/in', async ctx => {
               }
             }
           )
+          //
         } else {
+          size = res.sign_in_month_count + 1
           // 更新 + 1
           await user.update(
             {
@@ -68,12 +78,19 @@ router.get('/in', async ctx => {
             }
           )
         }
+        // 增加灵石
+        addBagThing(UID, res.bag_grade, [
+          {
+            name: '极品灵石',
+            acount: 5 + Math.floor(size / 3)
+          }
+        ])
         res.sign_in_month_count += 1
         res.sign_in_count += 1
         res.sign_in_time = time
         ctx.body = {
           code: OK_CODE,
-          msg: '签到成功',
+          msg: `极品灵石+${size}`,
           data: res
         }
         return
