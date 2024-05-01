@@ -70,6 +70,7 @@ router.get('/search/log', async ctx => {
     .catch(error)
 })
 
+// 搜素
 router.get('/search', async ctx => {
   const UID = ctx.state.user.uid
   const query = ctx.request.query as {
@@ -321,6 +322,27 @@ router.post('/delete', async ctx => {
         data: err
       }
     })
+})
+
+// 购买
+router.post('/buy', async ctx => {
+  const body = ctx.request.body as {
+    id: number
+  }
+  console.log('body-delete', body)
+  if (!body.id) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '非法请求',
+      data: null
+    }
+    return
+  }
+  ctx.body = {
+    code: ERROE_CODE,
+    msg: '请求失败',
+    data: null
+  }
 })
 
 export default router

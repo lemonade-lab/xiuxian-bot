@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { UserBagType, user_bag } from '../../../src/db'
+import { UserLogType, user_log } from '../../../src/db/index'
 const router = new koaRouter({ prefix: '/api/v1/status' })
 
 // 背包查询接口
@@ -24,7 +24,7 @@ router.get('/search', async ctx => {
   const page = parseInt(query.page) || 1 // 当前页数，默认为1
   const pageSize = parseInt(query.pageSize) || 10 // 每页数据数量，默认为10
   const offset = (page - 1) * pageSize // 计算偏移量
-  await user_bag
+  await user_log
     .findAndCountAll({
       where: obj,
       limit: pageSize,
@@ -32,7 +32,7 @@ router.get('/search', async ctx => {
       raw: true
     })
     .then((res: any) => res)
-    .then((res: { count: number; rows: UserBagType[] }) => {
+    .then((res: { count: number; rows: UserLogType[] }) => {
       const totalCount = res.count // 总数据量
       const totalPages = Math.ceil(totalCount / pageSize) // 总页数
       ctx.body = {
