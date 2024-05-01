@@ -38,7 +38,6 @@ router.get('/in', async ctx => {
         const time = new Date()
         let size = 0
         if (res.sign_in_time) {
-          console.log('res.sign_in_time', res.sign_in_time)
           if (isSameDay(res.sign_in_time, time)) {
             console.log('已经签到')
             ctx.body = {
@@ -80,7 +79,23 @@ router.get('/in', async ctx => {
               }
             )
           }
+        } else {
+          size = 0
+          // 更新 + 1
+          await user.update(
+            {
+              sign_in_count: res.sign_in_count + 1,
+              sign_in_month_count: 0,
+              sign_in_time: time
+            },
+            {
+              where: {
+                uid: UID
+              }
+            }
+          )
         }
+
         // 增加灵石
         addBagThing(UID, res.bag_grade, [
           {
