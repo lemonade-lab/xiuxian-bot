@@ -1,5 +1,11 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, DB, GameApi, sendReply,postHelp } from '../../api/index.js'
+import {
+  isThereAUserPresent,
+  DB,
+  GameApi,
+  sendReply,
+  postHelp
+} from '../../api/index.js'
 export class AssManage extends APlugin {
   constructor() {
     super({
@@ -83,7 +89,10 @@ export class AssManage extends APlugin {
         }
       ]
     )
-    postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+    postHelp(
+      e,
+      '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+    )
   }
 
   /**
@@ -99,7 +108,10 @@ export class AssManage extends APlugin {
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
 
@@ -120,7 +132,10 @@ export class AssManage extends APlugin {
 
     if (!uData || uData.length == 0) {
       e.reply('暂无申请')
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
 
@@ -133,7 +148,10 @@ export class AssManage extends APlugin {
     }
 
     sendReply(e, `[${aData.name}名录]`, msg)
-    postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+    postHelp(
+      e,
+      '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+    )
     return
   }
 
@@ -170,7 +188,10 @@ export class AssManage extends APlugin {
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
 
@@ -188,7 +209,10 @@ export class AssManage extends APlugin {
       e.reply('人数已达上限', {
         quote: e.msg_id
       })
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
 
@@ -207,13 +231,19 @@ export class AssManage extends APlugin {
         e.reply('审核通过', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
       .catch(() => {
         e.reply('审核失败', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
 
     return
@@ -247,14 +277,20 @@ export class AssManage extends APlugin {
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     const { UserAss } = v
 
     if (uData.authentication <= UserAss.authentication) {
       e.reply('权能过低')
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
 
@@ -268,13 +304,19 @@ export class AssManage extends APlugin {
         e.reply('踢出成功', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
       .catch(() => {
         e.reply('踢出失败', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
 
     return
@@ -303,7 +345,10 @@ export class AssManage extends APlugin {
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     if (UIDData['ass.grade'] > 4) return e.reply('宗门等级已达最高')
@@ -321,7 +366,10 @@ export class AssManage extends APlugin {
       }
     )
     await e.reply('扩建成功')
-    postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+    postHelp(
+      e,
+      '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+    )
     return
   }
 
@@ -347,25 +395,37 @@ export class AssManage extends APlugin {
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     if (UIDData['ass.bag_grade'] > 4) {
       e.reply('宗门宝库等级已达最高')
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
-      return 
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
+      return
     }
 
     const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
     const num = GameApi.Cooling.upgradeass[UIDData['ass.bag_grade']]
-    if (!goods){
+    if (!goods) {
       e.reply('你没有开天令')
-      return postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      return postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
     }
-    if (goods.acount < num){
+    if (goods.acount < num) {
       e.reply('开天令不足')
-      return postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
-    } 
+      return postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
+    }
     GameApi.Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
     await DB.ass
       .update(
@@ -382,13 +442,19 @@ export class AssManage extends APlugin {
         e.reply('升级完成', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
       .catch(() => {
         e.reply('升级失败', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
     return
   }
@@ -414,21 +480,30 @@ export class AssManage extends APlugin {
     })) as any
     // 不存在该玩家
     if (!uData) return
-    if (!(uData.authentication - 1)){
+    if (!(uData.authentication - 1)) {
       e.reply('权能已达最高')
-      return postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
-    } 
+      return postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
+    }
     const v = await GameApi.Ass.v(UID, uData['ass.name'])
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     const { UserAss } = v
     if (uData.authentication <= UserAss.authentication) {
       e.reply('权能过低')
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     uData.authentication -= 1
@@ -443,13 +518,19 @@ export class AssManage extends APlugin {
         e.reply('提拔成功', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
       .catch(() => {
         e.reply('提拔失败', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
 
     return
@@ -476,21 +557,30 @@ export class AssManage extends APlugin {
     })) as any
     // 不存在该玩家
     if (!uData) return
-    if (uData.authentication == 9){
+    if (uData.authentication == 9) {
       e.reply('权能已达最低')
-      return postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
-    } 
+      return postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
+    }
     const v = await GameApi.Ass.v(UID, uData['ass.name'])
     if (v === false) return
     if (v === '权能不足') {
       e.reply(v)
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     const { UserAss } = v
     if (uData.authentication <= UserAss.authentication) {
       e.reply('权能过低')
-      postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+      postHelp(
+        e,
+        '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+      )
       return
     }
     uData.authentication += 1
@@ -504,13 +594,19 @@ export class AssManage extends APlugin {
         e.reply('贬职成功', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
       .catch(() => {
         e.reply('贬职失败', {
           quote: e.msg_id
         })
-        postHelp(e,"[{\"group\":\"详情\",\"list\":[{\"icon\":14,\"title\":\"/势力+?页数\",\"desc\":\"查看势力\"},{\"icon\":14,\"title\":\"/势力信息\",\"desc\":\"查看个人相关势力\"},{\"icon\":14,\"title\":\"/查看+名称\",\"desc\":\"查看指定势力信息\"}]},{\"group\":\"行为\",\"list\":[{\"icon\":14,\"title\":\"/建立+名称\",\"desc\":\"建立指令类型势力\"},{\"icon\":14,\"title\":\"/解散\",\"desc\":\"解散势力\"},{\"icon\":14,\"title\":\"/加入+势力名\",\"desc\":\"加入指定势力\"},{\"icon\":14,\"title\":\"/退出+势力名\",\"desc\":\"退出势力/取消申请\"}]},{\"group\":\"/势力管理\",\"list\":[{\"icon\":14,\"title\":\"/审核+名称\",\"desc\":\"查看所有待审核名录\"},{\"icon\":14,\"title\":\"/通过+标记\",\"desc\":\"允许加入势力\"},{\"icon\":14,\"title\":\"/踢出+标记\",\"desc\":\"踢出势力\"},{\"icon\":14,\"title\":\"/提拔+UID\",\"desc\":\"提拔玩家\"},{\"icon\":14,\"title\":\"/贬值+UID\",\"desc\":\"贬值玩家\"},{\"icon\":14,\"title\":\"/扩建\",\"desc\":\"提升宗门等级\"},{\"icon\":14,\"title\":\"/扩建宝库\",\"desc\":\"提升宗门藏宝阁等级\"}]}]")
+        postHelp(
+          e,
+          '[{"group":"详情","list":[{"icon":14,"title":"/势力+?页数","desc":"查看势力"},{"icon":14,"title":"/势力信息","desc":"查看个人相关势力"},{"icon":14,"title":"/查看+名称","desc":"查看指定势力信息"}]},{"group":"行为","list":[{"icon":14,"title":"/建立+名称","desc":"建立指令类型势力"},{"icon":14,"title":"/解散","desc":"解散势力"},{"icon":14,"title":"/加入+势力名","desc":"加入指定势力"},{"icon":14,"title":"/退出+势力名","desc":"退出势力/取消申请"}]},{"group":"/势力管理","list":[{"icon":14,"title":"/审核+名称","desc":"查看所有待审核名录"},{"icon":14,"title":"/通过+标记","desc":"允许加入势力"},{"icon":14,"title":"/踢出+标记","desc":"踢出势力"},{"icon":14,"title":"/提拔+UID","desc":"提拔玩家"},{"icon":14,"title":"/贬值+UID","desc":"贬值玩家"},{"icon":14,"title":"/扩建","desc":"提升宗门等级"},{"icon":14,"title":"/扩建宝库","desc":"提升宗门藏宝阁等级"}]}]'
+        )
       })
 
     return
