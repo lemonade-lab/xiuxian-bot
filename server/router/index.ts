@@ -5,4 +5,5 @@ import bags from './v/bags.js'
 import levels from './v/levels.js'
 import status from './v/status.js'
 import rings from './v/rings.js'
-export default [file, users, transactions, bags, levels, status, rings]
+import signs from './v/signs.js'
+export default [file, users, transactions, bags, levels, status, rings, signs]

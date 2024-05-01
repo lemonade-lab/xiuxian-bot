@@ -66,6 +66,10 @@ export const user = <ModelStatic<Model<UserType>>>sequelize.define(
 
     delete: DataTypes.INTEGER,
 
+    sign_in_count: DataTypes.INTEGER,
+    sign_in_month_count: DataTypes.INTEGER,
+    sign_in_time: DataTypes.DATE,
+
     man_size: DataTypes.INTEGER,
     dong_size: DataTypes.INTEGER,
     dong_minit: DataTypes.INTEGER,
@@ -137,6 +141,10 @@ export interface UserType {
   man_size: number
   dong_size: number
   dong_minit: number
+
+  sign_in_count: number
+  sign_in_month_count: number
+  sign_in_time: Date
 
   doc: string // 说明
 }
