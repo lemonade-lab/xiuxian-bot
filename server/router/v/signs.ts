@@ -96,11 +96,13 @@ router.get('/in', async ctx => {
           )
         }
 
+        const count = 5 + Math.floor(size / 3)
+
         // 增加灵石
         addBagThing(UID, res.bag_grade, [
           {
             name: '极品灵石',
-            acount: 5 + Math.floor(size / 3)
+            acount: count
           }
         ])
         res.sign_in_month_count += 1
@@ -108,7 +110,7 @@ router.get('/in', async ctx => {
         res.sign_in_time = time
         ctx.body = {
           code: OK_CODE,
-          msg: `极品灵石+${size}`,
+          msg: `极品灵石+${count}`,
           data: res
         }
         return
