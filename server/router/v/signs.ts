@@ -36,47 +36,50 @@ router.get('/in', async ctx => {
       if (res) {
         // 看看上次的时间
         const time = new Date()
-        if (isSameDay(res.sign_in_time, time)) {
-          console.log('已经签到')
-          ctx.body = {
-            code: OK_CODE,
-            msg: '今日已签到',
-            data: 0
-          }
-          return
-        }
         let size = 0
-        if (isSameYearAndMonth(res.sign_in_time, time)) {
-          size = 0
-          // 更新 + 1
-          await user.update(
-            {
-              sign_in_count: res.sign_in_count + 1,
-              sign_in_month_count: 0,
-              sign_in_time: time
-            },
-            {
-              where: {
-                uid: UID
-              }
+        if (res.sign_in_time) {
+          console.log('res.sign_in_time', res.sign_in_time)
+          if (isSameDay(res.sign_in_time, time)) {
+            console.log('已经签到')
+            ctx.body = {
+              code: OK_CODE,
+              msg: '今日已签到',
+              data: 0
             }
-          )
-          //
-        } else {
-          size = res.sign_in_month_count + 1
-          // 更新 + 1
-          await user.update(
-            {
-              sign_in_count: res.sign_in_count + 1,
-              sign_in_month_count: res.sign_in_month_count + 1,
-              sign_in_time: time
-            },
-            {
-              where: {
-                uid: UID
+            return
+          }
+          if (isSameYearAndMonth(res.sign_in_time, time)) {
+            size = 0
+            // 更新 + 1
+            await user.update(
+              {
+                sign_in_count: res.sign_in_count + 1,
+                sign_in_month_count: 0,
+                sign_in_time: time
+              },
+              {
+                where: {
+                  uid: UID
+                }
               }
-            }
-          )
+            )
+            //
+          } else {
+            size = res.sign_in_month_count + 1
+            // 更新 + 1
+            await user.update(
+              {
+                sign_in_count: res.sign_in_count + 1,
+                sign_in_month_count: res.sign_in_month_count + 1,
+                sign_in_time: time
+              },
+              {
+                where: {
+                  uid: UID
+                }
+              }
+            )
+          }
         }
         // 增加灵石
         addBagThing(UID, res.bag_grade, [
