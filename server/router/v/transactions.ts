@@ -175,6 +175,13 @@ router.post('/create', async ctx => {
     // 价格
     price: number
   }
+
+  try {
+    body.price = Math.floor(body.price)
+  } catch {
+    return
+  }
+
   console.log('body-create', body)
   if (
     !body.name ||
