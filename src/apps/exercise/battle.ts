@@ -7,8 +7,7 @@ import {
   dualVerification,
   dualVerificationAction,
   isThereAUserPresentB,
-  victoryCooling,
-  postHelp
+  victoryCooling
 } from '../../api/index.js'
 import { QQ_GROUP } from '../../model/config/index.js'
 export class Battle extends APlugin {
@@ -43,20 +42,13 @@ export class Battle extends APlugin {
       e.reply(['战斗过程开启'], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
 
       return
     } else {
       e.reply(['战斗过程关闭'], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
+
       return
     }
   }
@@ -75,10 +67,7 @@ export class Battle extends APlugin {
           link: QQ_GROUP
         }
       ])
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
+
       return
     }
     if (!(await isThereAUserPresent(e, UID))) return
@@ -93,20 +82,14 @@ export class Battle extends APlugin {
       e.reply(['灵力不足'], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
+
       return
     }
     if (UserDataB.special_spiritual < 5) {
       e.reply(['灵力不足'], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
+
       return
     }
 
@@ -136,11 +119,6 @@ export class Battle extends APlugin {
         quote: e.msg_id
       }
     )
-    postHelp(
-      e,
-      '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-    )
-
     const LevelDataA = await GameApi.Levels.read(UID, 1),
       LevelDataB = await GameApi.Levels.read(UIDB, 1)
 
@@ -177,11 +155,6 @@ export class Battle extends APlugin {
         quote: e.msg_id
       }
     )
-    postHelp(
-      e,
-      '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-    )
-
     return
   }
 
@@ -200,10 +173,6 @@ export class Battle extends APlugin {
           link: QQ_GROUP
         }
       ])
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
       return
     }
 
@@ -235,10 +204,6 @@ export class Battle extends APlugin {
       } as DB.UserLogType)
 
       e.reply('[玄玉天宫]玉贞子:\n何人在此造次!')
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
       let thing: { name: string; type: number; acount: number }[] = []
       if (
         await GameApi.Method.isTrueInRange(
@@ -292,11 +257,6 @@ export class Battle extends APlugin {
           message: `${UserData.name}攻击了你,被卫兵拦住了~`
         } as DB.UserLogType)
         e.reply('[城主府]普通卫兵:\n城内不可出手!')
-        postHelp(
-          e,
-          '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-        )
-
         return
       }
       await GameApi.Bag.reduceBagThing(UID, [
@@ -314,11 +274,6 @@ export class Battle extends APlugin {
       e.reply(['灵力不足'], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
-
       return
     }
     GameApi.Burial.set(UID, CDID, CDTime)
@@ -374,11 +329,6 @@ export class Battle extends APlugin {
       e.reply([`你与对方打成了平手`], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
-
       return
     }
 
@@ -411,11 +361,6 @@ export class Battle extends APlugin {
       e.reply([`未抢到的物品`], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
-
       return
     }
 
@@ -431,11 +376,6 @@ export class Battle extends APlugin {
       e.reply([`穷的都吃不起灵石了`], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
-
       return
     }
 
@@ -464,11 +404,6 @@ export class Battle extends APlugin {
       e.reply(['储物袋空间不足'], {
         quote: e.msg_id
       })
-      postHelp(
-        e,
-        '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-      )
-
       return
     }
 
@@ -483,11 +418,6 @@ export class Battle extends APlugin {
         quote: e.msg_id
       }
     )
-    postHelp(
-      e,
-      '[{"group":"战斗","list":[{"icon":21,"title":"/打劫@道友","desc":"若在城里需决斗令"},{"icon":39,"title":"/击杀+怪物名","desc":"随机掉落物品"},{"icon":68,"title":"/探索怪物","desc":"查看所在地的怪物"},{"icon":68,"title":"/战斗过程(开启|关闭)","desc":"默认关闭战斗过程"},{"icon":68,"title":"/挑战妖塔","desc":"刷取渡劫材料"}]},{"group":"提升战力","list":[{"icon":14,"title":"/闭关","desc":"进行闭关"},{"icon":14,"title":"/出关","desc":"增加修为"},{"icon":21,"title":"/锻体","desc":"进行锻体"},{"icon":21,"title":"/凝脉","desc":"锻炼气血"},{"icon":21,"title":"/打坐","desc":"聚集灵气"},{"icon":21,"title":"/聚灵","desc":"凝聚体内"},{"icon":8,"title":"/炼化+物品名","desc":"炼化物品未本命物"},{"icon":8,"title":"/精炼","desc":"强化本命物"},{"icon":8,"title":"/突破","desc":"练气升级"},{"icon":8,"title":"/破境","desc":"练体升级"}]},{"group":"其它","list":[{"icon":16,"title":"/战斗帮助","desc":"战斗系统"},{"icon":16,"title":"/地图帮助","desc":"地图系统"},{"icon":16,"title":"/联盟帮助","desc":"联盟系统"},{"icon":8,"title":"/黑市帮助","desc":"交易系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"},{"icon":16,"title":"/势力帮助","desc":"势力系统"}]}]'
-    )
-
     /**
      * 交互物品
      */

@@ -3,8 +3,7 @@ import {
   isThereAUserPresent,
   GameApi,
   controlByName,
-  DB,
-  postHelp
+  DB
 } from '../../api/index.js'
 export class Bank extends APlugin {
   constructor() {
@@ -38,29 +37,17 @@ export class Bank extends APlugin {
     const quantity = convertStoneQuantity(Number(account), LeftName, RightName)
     if (!quantity) {
       e.reply(`[金银坊]金老三\n?你玩我呢?`)
-      postHelp(
-        e,
-        '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-      )
-
       return
     }
     const lingshi = await GameApi.Bag.searchBagByName(UID, LeftName)
     if (!lingshi || lingshi.acount < Number(account)) {
       e.reply(`[金银坊]金老三\n?哪儿来的穷鬼!`)
-      postHelp(
-        e,
-        '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-      )
       return
     }
     //
     if (LeftName == '极品灵石' && Number(account) < 20) {
       postMsg(e, 20)
-      postHelp(
-        e,
-        '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-      )
+
       return
     }
     if (LeftName == '上品灵石' && Number(account) < 100) {
@@ -100,10 +87,6 @@ export class Bank extends APlugin {
     ])
 
     e.reply([`[${LeftName}]*${account}\n置换成\n[${RightName}]*${quantity}`])
-    postHelp(
-      e,
-      '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-    )
     return
   }
   async treatrefining(e: AEvent) {
@@ -119,18 +102,11 @@ export class Bank extends APlugin {
     })) as any
     if (Userleve.realm < 42) {
       e.reply('境界不足')
-      return postHelp(
-        e,
-        '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-      )
+      return
     }
     let lingshi = await GameApi.Bag.searchBagByName(UID, '极品灵石')
     if (!lingshi || lingshi.acount < Number(account) * 10000) {
       e.reply(`请确保您有足够的极品灵石再试一次呢~`)
-      postHelp(
-        e,
-        '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-      )
       return
     }
 
@@ -163,10 +139,6 @@ export class Bank extends APlugin {
       ])
     }
     e.reply(msg)
-    postHelp(
-      e,
-      '[{"group":"储物袋","list":[{"icon":52,"title":"/储物袋+类型","desc":"/储物袋装备"},{"icon":52,"title":"/储物袋升级","desc":"容量提升"},{"icon":52,"title":"/储物袋丢弃+物品名","desc":"直接丢弃指定物品"},{"icon":59,"title":"/学习+功法名","desc":"/忘掉+功法名"},{"icon":44,"title":"/消耗+道具名*数量","desc":"消耗道具"},{"icon":12,"title":"/服用+丹药名","desc":"服用丹药"},{"icon":16,"title":"/装备+装备名","desc":"/卸下+装备名"}]},{"group":"储物袋","list":[{"icon":52,"title":"/纳戒","desc":"/纳戒"},{"icon":52,"title":"/纳戒存入+物品*数量","desc":"/纳戒存入灵木*1"},{"icon":52,"title":"/纳戒取出+物品*数量","desc":"/纳戒取出灵木*1"}]},{"group":"万宝楼","list":[{"icon":52,"title":"/万宝楼+类型","desc":"/万宝楼装备"},{"icon":52,"title":"/购买+物品名*数量","desc":"/购买烂铁匕首*1"},{"icon":52,"title":"/售出所有物品","desc":"出售储物袋中所有物品"},{"icon":52,"title":"/售出所有+类型名","desc":"/售出所以武器"},{"icon":74,"title":"/赠送+物品*数量@道友","desc":"/赠送下品灵石*10"}]},{"group":"金银作坊","list":[{"icon":55,"title":"/金银置换+数量*左物*右物","desc":"/金银置换2000*下品灵石*中品灵石"}]}'
-    )
   }
 }
 
