@@ -26,7 +26,7 @@ export default function App({ data }: { data: PersonalInformationType }) {
     <div className="nav">
       <HeaderComponent />
       <div className="nav-box">
-        <span className="menu-button-flat">#个人信息</span>
+        <span className="menu-button-flat">/个人信息</span>
         <span
           className="nav-talent"
           style={{

@@ -21,13 +21,13 @@ export default function App({ data }: { data: PersonalInformationType }) {
           <div className="autograph">
             <div className="autograph-box">
               <span>{data.autograph}</span>
-              <span className="menu-button-flat">#签名+字符</span>
+              <span className="menu-button-flat">/签名+字符</span>
             </div>
           </div>
 
           <div className="level">
             <div className="level-box">
-              <span className="menu-button-flat">#面板信息</span>
+              <span className="menu-button-flat">/面板信息</span>
               <div className="level-box-item">
                 {/* <img className="nav-box-item-img" src={_('svg/attack.svg')} /> */}
                 声望: {data.special_reputation}
@@ -66,19 +66,19 @@ export default function App({ data }: { data: PersonalInformationType }) {
                 {data.skills.map((item, index) => (
                   <span key={item['good.name']}>《{item['good.name']}》 </span>
                 ))}
-                <span className="menu-button-flat">#功法信息</span>
+                <span className="menu-button-flat">/功法信息</span>
               </div>
             </div>
           )}
           <div className="box-help">
             <div className="box-help-box">
-              <span className="menu-button-flat">#修仙帮助</span>
-              <span className="menu-button">#突破</span>
-              <span className="menu-button">#闭关</span>
-              <span className="menu-button">#出关</span>
-              <span className="menu-button">#储物袋</span>
-              <span className="menu-button">#万宝楼</span>
-              <span className="menu-button">#打劫@道友</span>
+              <span className="menu-button-flat">/修仙帮助</span>
+              <span className="menu-button">/突破</span>
+              <span className="menu-button">/闭关</span>
+              <span className="menu-button">/出关</span>
+              <span className="menu-button">/储物袋</span>
+              <span className="menu-button">/万宝楼</span>
+              <span className="menu-button">/打劫@道友</span>
             </div>
           </div>
         </div>
