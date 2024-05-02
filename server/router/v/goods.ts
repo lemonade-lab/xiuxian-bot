@@ -3,7 +3,7 @@ import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 import { GoodsType, goods } from '../../../src/db'
 const router = new koaRouter({ prefix: '/api/v1/goods' })
 
-// 背包查询接口
+// 物品查询接口
 router.get('/search', async ctx => {
   const query = ctx.request.query as {
     names: string

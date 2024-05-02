@@ -5,11 +5,21 @@ import {
   user_bag,
   TransactionsType,
   TransactionsLogsType,
-  transactions_logs
+  transactions_logs,
+  user
 } from '../../../src/db/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { MIN_PRICE } from '../../config/transactions.js'
+import { MIN_PRICE, PUSH_SIZE } from '../../config/transactions.js'
+import {
+  addBagThing,
+  reduceBagThing
+} from '../../../src/model/users/additional/bag.js'
 const router = new koaRouter({ prefix: '/api/v1/transactions' })
+
+// 开id锁，有人操作这个id，就锁住不可进行。
+// 直到解锁
+
+const TransactionMap = new Map()
 
 router.get('/search/log', async ctx => {
   const UID = ctx.state.user.uid
@@ -70,17 +80,42 @@ router.get('/search/log', async ctx => {
     .catch(error)
 })
 
+router.get('/my', async ctx => {
+  const UID = ctx.state.user.uid
+  const where = {
+    uid: UID
+  }
+  const error = () => {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '数据错误',
+      data: null
+    }
+  }
+  await transactions
+    .findAndCountAll({
+      where: where,
+      raw: true
+    })
+    .then((res: any) => res)
+    .then((res: TransactionsType[]) => {
+      ctx.body = {
+        code: OK_CODE,
+        msg: '请求完成',
+        data: res
+      }
+    })
+    .catch(error)
+})
+
 // 搜素
 router.get('/search', async ctx => {
-  const UID = ctx.state.user.uid
   const query = ctx.request.query as {
     name: string
     page: string
     pageSize: string
   }
-  const obj = {
-    uid: UID
-  }
+  const obj = {}
   if (typeof query.name == 'string') {
     try {
       obj['name'] = JSON.parse(query.name)
@@ -146,7 +181,8 @@ router.post('/create', async ctx => {
     !body.count ||
     body.count <= 0 ||
     !body.price ||
-    body.price <= MIN_PRICE
+    body.price < MIN_PRICE ||
+    body.name == '下品灵石'
   ) {
     ctx.body = {
       code: ERROE_CODE,
@@ -155,8 +191,22 @@ router.post('/create', async ctx => {
     }
     return
   }
-  //
+
   const UID = ctx.state.user.uid
+  const pSzie = await transactions.count({
+    where: {
+      uid: UID
+    }
+  })
+  console.log('pSzie', pSzie)
+  if (pSzie >= PUSH_SIZE) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: `最多上架${PUSH_SIZE}个物品`,
+      data: null
+    }
+    return
+  }
 
   const error = () => {
     ctx.body = {
@@ -245,10 +295,14 @@ router.post('/create', async ctx => {
           .catch(error)
         return
       }
+
+      const size = data.acount - body.count
+      console.log('size', size)
+
       await user_bag
         .update(
           {
-            acount: data.acount - body.count
+            acount: size
           },
           {
             where: {
@@ -258,15 +312,16 @@ router.post('/create', async ctx => {
           }
         )
         .then(async res => {
+          console.log('res', res)
           if (res.includes(0)) {
-            await create(data, 'reduce')
-          } else {
             // 更新错误
             ctx.body = {
               code: ERROE_CODE,
               msg: '扣除错误',
               data: null
             }
+          } else {
+            await create(data, 'reduce')
           }
         })
         .catch(error)
@@ -290,7 +345,28 @@ router.post('/delete', async ctx => {
     }
     return
   }
+  if (TransactionMap.has(body.id)) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '请求频繁',
+      data: null
+    }
+    return
+  }
+  TransactionMap.set(body.id, 0)
+
   const UID = ctx.state.user.uid
+  const bag_grade = ctx.state.user.bag_grade
+
+  const data = (await transactions.findOne({
+    where: {
+      id: body.id
+    },
+    raw: true
+  })) as any
+
+  console.log('data', data)
+
   await transactions
     .destroy({
       where: {
@@ -300,17 +376,25 @@ router.post('/delete', async ctx => {
       }
     })
     .then(res => {
+      console.log('res', res)
       if (res == 1) {
+        // 还回来。
+        addBagThing(UID, bag_grade, [
+          {
+            name: data.name,
+            acount: data.count
+          }
+        ])
         ctx.body = {
           code: OK_CODE,
           msg: '删除完成',
-          data: res
+          data: 1
         }
       } else {
         ctx.body = {
           code: OK_CODE,
-          msg: '未删除',
-          data: res
+          msg: '下架失败',
+          data: 0
         }
       }
     })
@@ -322,6 +406,8 @@ router.post('/delete', async ctx => {
         data: err
       }
     })
+  TransactionMap.delete(body.id)
+  return
 })
 
 // 购买
@@ -338,11 +424,109 @@ router.post('/buy', async ctx => {
     }
     return
   }
-  ctx.body = {
-    code: ERROE_CODE,
-    msg: '请求失败',
-    data: null
+  if (TransactionMap.has(body.id)) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '请求频繁',
+      data: null
+    }
+    return
   }
+  TransactionMap.set(body.id, 0)
+
+  // 顺便得到该物品的主人信息
+  const data: TransactionsType = (await transactions.findOne({
+    where: {
+      id: body.id
+    },
+    include: [
+      {
+        model: user
+      }
+    ],
+    raw: true
+  })) as any
+
+  // 得到该物品的uid
+  const UID = ctx.state.user.uid
+  const bag_grade = ctx.state.user.bag_grade
+
+  if (data.uid == UID) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '不可购买',
+      data: null
+    }
+    TransactionMap.delete(body.id)
+    return
+  }
+  // 扣除 对应的下品灵石
+
+  // 查询下品灵石
+
+  const money: UserBagType = await user_bag
+    .findOne({
+      where: {
+        uid: UID,
+        name: '下品灵石'
+      },
+      raw: true
+    })
+    .then((res: any) => res)
+
+  // 要加 15%
+
+  const needMoeny = Math.floor(data.price * 1.15)
+  const getMoeny = Math.floor(data.price * 0.85)
+
+  if (money.acount < needMoeny) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '灵石不足',
+      data: null
+    }
+    TransactionMap.delete(body.id)
+    return
+  }
+
+  await transactions.destroy({
+    where: {
+      id: data.id
+    }
+  })
+
+  // 扣钱
+  await reduceBagThing(UID, [
+    {
+      name: '下品灵石',
+      acount: needMoeny
+    }
+  ])
+
+  // 加物品
+  await addBagThing(UID, bag_grade, [
+    {
+      name: data.name,
+      acount: data.count
+    }
+  ])
+
+  // 得到收益
+  await addBagThing(data.uid, data['user.bag_grade'], [
+    {
+      name: '下品灵石',
+      acount: getMoeny
+    }
+  ])
+
+  ctx.body = {
+    code: OK_CODE,
+    msg: '购买成功',
+    data: 1
+  }
+
+  TransactionMap.delete(body.id)
+  return
 })
 
 export default router
