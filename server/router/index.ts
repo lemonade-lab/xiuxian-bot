@@ -6,4 +6,15 @@ import levels from './v/levels.js'
 import status from './v/status.js'
 import rings from './v/rings.js'
 import signs from './v/signs.js'
-export default [file, users, transactions, bags, levels, status, rings, signs]
+import goods from './v/goods.js'
+export default [
+  file,
+  users,
+  goods,
+  transactions,
+  bags,
+  levels,
+  status,
+  rings,
+  signs
+]
