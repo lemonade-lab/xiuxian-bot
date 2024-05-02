@@ -23,7 +23,7 @@ export async function urlHelpCache(name: string) {
   // 缓存不存在
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
     // 得数据
-    helpData[name] = await ImageComponent.help(JSON.parse(name)).catch(
+    helpData[name] = await ImageComponent.help(await getJson(name)).catch(
       (err: any) => {
         // 发生错误
         console.error(err)
