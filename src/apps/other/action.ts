@@ -540,7 +540,6 @@ export class Action extends APlugin {
          *
          * 如果钱不够
          */
-
         e.reply(['暂不可使用'], {
           quote: e.msg_id
         })

@@ -41,7 +41,7 @@ export async function setPlayer(UID: string, user_avatar: string) {
       return map_point
         .findOne({
           where: {
-            name: '极西传送阵'
+            name: '天山'
           },
           raw: true
         })

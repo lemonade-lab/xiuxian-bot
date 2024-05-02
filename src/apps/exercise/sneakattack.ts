@@ -15,55 +15,9 @@ export class SneakAttack extends APlugin {
     super({
       rule: [
         { reg: /^(#|\/)?偷袭\d+$/, fnc: 'attackUser' },
-        { reg: /^(#|\/)?释放神识$/, fnc: 'releaseEye' },
-        { reg: /^(#|\/)?状态记录$/, fnc: 'getLogs' },
-        { reg: /^(#|\/)?删除记录$/, fnc: 'delLogs' }
+        { reg: /^(#|\/)?释放神识$/, fnc: 'releaseEye' }
       ]
     })
-  }
-
-  /**
-   * 删除记录
-   * @param e
-   * @returns
-   */
-  async delLogs(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    await GameApi.logs.del(UID)
-    e.reply(['你的的状态记录\n已删除'], {
-      quote: e.msg_id
-    })
-
-    return
-  }
-
-  /**
-   *
-   * @param e 状态记录
-   * @returns
-   */
-  async getLogs(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const logsData = await GameApi.logs.read(UID)
-    const msg = ['[状态记录]']
-    if (logsData.length == 0) {
-      e.reply('未存在任何记录', {
-        quote: e.msg_id
-      })
-      return
-    }
-    const map = {
-      1: '偷袭',
-      2: '打劫',
-      3: '窃取'
-    }
-    for await (const item of logsData) {
-      msg.push(`\n[${map[item.type]}][${item.create_time}]${item.message}`)
-    }
-    e.reply(msg)
-    return
   }
 
   /**
@@ -447,20 +401,11 @@ export class SneakAttack extends APlugin {
 
     Controllers(e).Message.reply('', [
       {
-        label: '状态记录',
-        value: '/状态记录'
-      },
-      {
-        label: '删除记录',
-        value: '/删除记录'
-      },
-      {
         label: '偷袭',
         value: '/偷袭',
         enter: false
       }
     ])
-
     return
   }
 }

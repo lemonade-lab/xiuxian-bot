@@ -219,8 +219,7 @@ export class Information extends APlugin {
   newUsersButton = [
     [
       { label: '更换主题', value: '/更换主题' },
-      { label: '绑定头像', value: '/绑定头像+输入QQ号', enter: false },
-      { label: '再入仙途', value: '/再入仙途' }
+      { label: '绑定头像', value: '/绑定头像+输入QQ号', enter: false }
     ],
     [
       { label: '签名', value: '/签名', enter: false },

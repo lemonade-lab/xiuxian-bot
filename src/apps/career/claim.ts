@@ -3,8 +3,7 @@ import {
   isThereAUserPresent,
   ControlByBlood,
   controlByName,
-  GameApi,
-  postHelp
+  GameApi
 } from '../../api/index.js'
 
 /**
@@ -66,10 +65,6 @@ export class ClaimCareer extends APlugin {
       '化神境之后,可交付灵石获得学徒身份\n',
       '当前可领取[/炼器师学徒]'
     ])
-    postHelp(
-      e,
-      '[{"group":"协会相关","list":[{"icon":14,"title":"/炼器师学徒","desc":"领取炼器师学徒身份"},{"icon":14,"title":"/炼丹师学徒","desc":"领取炼丹师学徒身份"},{"icon":14,"title":"/阵法师学徒","desc":"领取阵法师学徒身份"},{"icon":14,"title":"/徽章信息","desc":"查看徽章信息"}]},{"group":"详情","list":[{"icon":8,"title":"/个人信息","desc":"查看个人简介"},{"icon":16,"title":"/面板信息","desc":"查看战力面板"},{"icon":16,"title":"/功法信息","desc":"查看功法面板"}]},{"group":"其它","list":[{"icon":16,"title":"/势力帮助","desc":"势力系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"}]}]'
-    )
     Controllers(e).Message.reply(
       '',
       [
@@ -107,10 +102,6 @@ export class ClaimCareer extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await controlByName(e, UserData, '协会'))) return
     e.reply(['[协会执事]😳叶子凡\n', '目前职业炼丹师\n'])
-    postHelp(
-      e,
-      '[{"group":"协会相关","list":[{"icon":14,"title":"/炼器师学徒","desc":"领取炼器师学徒身份"},{"icon":14,"title":"/炼丹师学徒","desc":"领取炼丹师学徒身份"},{"icon":14,"title":"/阵法师学徒","desc":"领取阵法师学徒身份"},{"icon":14,"title":"/徽章信息","desc":"查看徽章信息"}]},{"group":"详情","list":[{"icon":8,"title":"/个人信息","desc":"查看个人简介"},{"icon":16,"title":"/面板信息","desc":"查看战力面板"},{"icon":16,"title":"/功法信息","desc":"查看功法面板"}]},{"group":"其它","list":[{"icon":16,"title":"/势力帮助","desc":"势力系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"}]}]'
-    )
     return
   }
 
@@ -125,10 +116,6 @@ export class ClaimCareer extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await controlByName(e, UserData, '协会'))) return
     e.reply(['[协会执事]😳叶子凡\n', '待开放'])
-    postHelp(
-      e,
-      '[{"group":"协会相关","list":[{"icon":14,"title":"/炼器师学徒","desc":"领取炼器师学徒身份"},{"icon":14,"title":"/炼丹师学徒","desc":"领取炼丹师学徒身份"},{"icon":14,"title":"/阵法师学徒","desc":"领取阵法师学徒身份"},{"icon":14,"title":"/徽章信息","desc":"查看徽章信息"}]},{"group":"详情","list":[{"icon":8,"title":"/个人信息","desc":"查看个人简介"},{"icon":16,"title":"/面板信息","desc":"查看战力面板"},{"icon":16,"title":"/功法信息","desc":"查看功法面板"}]},{"group":"其它","list":[{"icon":16,"title":"/势力帮助","desc":"势力系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"}]}]'
-    )
     return
   }
 
@@ -143,10 +130,6 @@ export class ClaimCareer extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await controlByName(e, UserData, '协会'))) return
     e.reply(['[协会执事]😳叶子凡\n', '待开放'])
-    postHelp(
-      e,
-      '[{"group":"协会相关","list":[{"icon":14,"title":"/炼器师学徒","desc":"领取炼器师学徒身份"},{"icon":14,"title":"/炼丹师学徒","desc":"领取炼丹师学徒身份"},{"icon":14,"title":"/阵法师学徒","desc":"领取阵法师学徒身份"},{"icon":14,"title":"/徽章信息","desc":"查看徽章信息"}]},{"group":"详情","list":[{"icon":8,"title":"/个人信息","desc":"查看个人简介"},{"icon":16,"title":"/面板信息","desc":"查看战力面板"},{"icon":16,"title":"/功法信息","desc":"查看功法面板"}]},{"group":"其它","list":[{"icon":16,"title":"/势力帮助","desc":"势力系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"}]}]'
-    )
     return
   }
 
@@ -161,10 +144,6 @@ export class ClaimCareer extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await ControlByBlood(e, UserData))) return
     e.reply('[协会执事]😳叶子凡\n暂未开放...')
-    postHelp(
-      e,
-      '[{"group":"协会相关","list":[{"icon":14,"title":"/炼器师学徒","desc":"领取炼器师学徒身份"},{"icon":14,"title":"/炼丹师学徒","desc":"领取炼丹师学徒身份"},{"icon":14,"title":"/阵法师学徒","desc":"领取阵法师学徒身份"},{"icon":14,"title":"/徽章信息","desc":"查看徽章信息"}]},{"group":"详情","list":[{"icon":8,"title":"/个人信息","desc":"查看个人简介"},{"icon":16,"title":"/面板信息","desc":"查看战力面板"},{"icon":16,"title":"/功法信息","desc":"查看功法面板"}]},{"group":"其它","list":[{"icon":16,"title":"/势力帮助","desc":"势力系统"},{"icon":16,"title":"/修炼帮助","desc":"修炼系统"},{"icon":16,"title":"/职业帮助","desc":"职业系统"}]}]'
-    )
     return
   }
 }

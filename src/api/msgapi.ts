@@ -1,19 +1,47 @@
 import { Controllers, type AEvent } from 'alemonjs'
+
 // 用户模型
 import * as State from '../model/users/base/state.js'
-// 附加模型
-import * as Bag from '../model/users/additional/bag.js'
-// 快捷方法
-import * as Map from '../model/wrap/map.js'
-import * as Method from '../model/wrap/method.js'
-// 探索宝物
-import * as Treasure from '../model/system/treasure.js'
-// 集合
+import * as Talent from '../model/users/base/talent.js'
+import * as Life from '../model/users/base/life.js'
 import * as Users from '../model/users/index.js'
-import * as Burial from '../model/wrap/burial.js'
+// 附加模型
+import * as logs from '../model/users/additional/logs.js'
+import * as Skills from '../model/users/additional/skills.js'
 import * as Levels from '../model/users/additional/levels.js'
+import * as Bag from '../model/users/additional/bag.js'
+import * as Ring from '../model/users/additional/ring.js'
+import * as Blessing from '../model/users/additional/blessing.js'
+import * as Compensate from '../model/users/additional/compensate.js'
 import * as Equipment from '../model/users/additional/equipment.js'
+
+// 交易模型
+import * as Auction from '../model/system/transaction/auction.js'
+import * as Exchange from '../model/system/transaction/exchange.js'
+import * as Board from '../model/system/transaction/board.js'
+// 特殊机制
+import * as Player from '../model/system/player.js'
+// 特殊模型
+import * as Fight from '../model/system/fight.js'
+import * as Monster from '../model/system/monster.js'
+import * as Treasure from '../model/system/treasure.js'
+import * as explore from '../model/system/explore.js'
+
+// 势力模型
+import * as Ass from '../model/system/ass.js'
+
+// 特殊模型
+import * as Burial from '../model/wrap/burial.js'
+import * as Map from '../model/wrap/map.js'
+import * as Place from '../model/wrap/place.js'
+import * as Method from '../model/wrap/method.js'
+import * as Goods from '../model/wrap/goods.js'
+import * as move from '../model/wrap/move.js'
+
+// 配置
 import * as Cooling from '../model/config/cooling.js'
+import * as Config from '../model/config/index.js'
+
 // 缓存
 import { urlHelpCache } from '../utils/cache.js'
 import {
@@ -26,6 +54,108 @@ import {
 import { personalInformation } from '../server/information.js'
 import ImageComponent from '../image/index.js'
 import { updatePlayer } from '../model/system/player.js'
+
+/**
+ *再入仙途
+ * @param e
+ * @returns
+ */
+export async function reCreateMsg(e: AEvent) {
+  const UID = e.user_id
+
+  // 确保是用户
+  isUser(UID)
+    .then(res => {
+      if (!res) {
+        createUser(e)
+        return
+      }
+
+      /**
+       * 规定时间内操作
+       */
+
+      const CDID = 8
+      const CDTime = Cooling.CD_Reborn
+
+      /**
+       * 检查冷却s
+       */
+      victoryCooling(e, UID, CDID).then(res => {
+        if (!res) return
+
+        /**
+         * 重置用户
+         */
+        Player.updatePlayer(UID, e.user_avatar)
+          .then(res => {
+            // 设置redis
+            Burial.set(UID, CDID, CDTime)
+
+            // 重新查询用户
+            isUser(UID)
+              .then(UserData => {
+                if (e.platform == 'ntqq') {
+                  Controllers(e).Message.reply(
+                    '',
+                    [
+                      {
+                        label: '绑定头像',
+                        value: '/绑定头像+QQ',
+                        enter: false
+                      },
+                      {
+                        label: '修仙帮助',
+                        value: '/修仙帮助'
+                      }
+                    ],
+                    [
+                      {
+                        label: '修仙联盟',
+                        value: '/前往联盟'
+                      }
+                    ]
+                  )
+                } else {
+                  // 新手提示
+                  e.reply(
+                    [
+                      `修仙大陆第${UserData.id}位萌新`,
+                      '\n发送[/修仙帮助]了解更多'
+                    ],
+                    {
+                      quote: e.msg_id
+                    }
+                  )
+                }
+                /**
+                 * 并发
+                 */
+                Promise.all([
+                  // 更新
+                  Equipment.updatePanel(UID, UserData.battle_blood_now),
+                  // 更新
+                  Skills.updataEfficiency(UID, UserData.talent),
+                  // 发送图片
+                  showUserMsg(e)
+                ])
+              })
+
+              .catch(() => {
+                e.reply('数据查询失败')
+              })
+          })
+          .catch(err => {
+            e.reply('冷却检查错误')
+          })
+      })
+    })
+    .catch(() => {
+      e.reply('数据查询失败')
+    })
+
+  return
+}
 
 /**
  *
@@ -122,11 +252,7 @@ export function createUser(e: AEvent) {
               ])
             } else {
               e.reply(
-                [
-                  `修仙大陆第${res.id}位萌新`,
-                  '\n记得去联盟签到噢',
-                  '\n发送[/修仙帮助]了解更多'
-                ],
+                [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
                 {
                   quote: e.msg_id
                 }
