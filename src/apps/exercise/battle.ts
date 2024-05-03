@@ -9,7 +9,6 @@ import {
   isThereAUserPresentB,
   victoryCooling
 } from '../../api/index.js'
-import { QQ_GROUP } from '../../model/config/index.js'
 export class Battle extends APlugin {
   constructor() {
     super({
@@ -165,7 +164,7 @@ export class Battle extends APlugin {
     if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type)) {
       return
     }
-    const CDID = 20,
+    const CDID = 24,
       CDTime = GameApi.Cooling.CD_Battle
     if (!(await victoryCooling(e, UID, CDID))) return
 

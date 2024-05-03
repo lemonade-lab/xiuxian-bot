@@ -56,7 +56,8 @@ export const CD_MAP = {
   20: '比斗',
   21: '偷袭',
   22: '采集',
-  23: '挑战'
+  23: '挑战',
+  24: '打劫'
 }
 // redis前缀  xiuxian   app  维护 redis 不好找了
 export const ReadiName = 'xiuxian-plugin'
