@@ -1,25 +1,9 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { ass, user, UserType } from '../../../src/db'
+import { user, UserType } from '../../../src/db/index'
 import { addBagThing } from '../../../src/model/users/additional/bag'
+import { isSameDay, isSameYearAndMonth } from '../../../src/model/wrap/method'
 const router = new koaRouter({ prefix: '/api/v1/signs' })
-
-// 判断是否是同一天
-const isSameDay = (date1: Date, date2: Date): boolean => {
-  return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
-  )
-}
-
-// 判断是否是同年同月
-const isSameYearAndMonth = (date1: Date, date2: Date): boolean => {
-  return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth()
-  )
-}
 
 // 签到
 router.get('/in', async ctx => {

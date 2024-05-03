@@ -11,6 +11,7 @@ import { ass_bag } from './models/ass_bag.js'
 import { user } from './models/user.js'
 import { transactions } from './models/transactions.js'
 import { transactions_logs } from './models/transactions_logs.js'
+import { user_buy_log } from './models/user_buy_log.js'
 
 {
   /**
@@ -42,6 +43,11 @@ import { transactions_logs } from './models/transactions_logs.js'
    */
   transactions_logs.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   transactions_logs.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
+  /**
+   *
+   */
+  user_buy_log.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  user_buy_log.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
 }
 /**
  * ****

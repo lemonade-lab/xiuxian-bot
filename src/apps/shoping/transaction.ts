@@ -6,6 +6,7 @@ import {
   sendReply,
   isThereAUserPresent
 } from '../../api/index.js'
+import { isSameDay } from '../../model/wrap/method.js'
 export class Transaction extends APlugin {
   constructor() {
     super({
@@ -131,7 +132,6 @@ export class Transaction extends APlugin {
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(购买|購買)/, '')
       .split('*')
-
     const ifexist: DB.GoodsType = (await DB.goods.findOne({
       where: {
         commodities: 1, // 找到万宝楼可购买的物品
@@ -141,29 +141,59 @@ export class Transaction extends APlugin {
     })) as any
     if (!ifexist) {
       e.reply(`[万宝楼]小二:\n不卖[${thingName}]`)
-
       return
     }
     const lingshi = await GameApi.Bag.searchBagByName(UID, '下品灵石')
+    const count = Math.floor(Number(quantity))
+
     const price = Math.floor(
-      ifexist.price * Number(quantity) * GameApi.Cooling.ExchangeStart
+      ifexist.price * count * GameApi.Cooling.ExchangeStart
     )
     if (!lingshi || lingshi.acount < price) {
       e.reply([`似乎没有${price}*[下品灵石]`], {
         quote: e.msg_id
       })
-
       return
     }
-
     // 检查背包
     const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
     if (!BagSize) {
       e.reply(['储物袋空间不足'], {
         quote: e.msg_id
       })
-
       return
+    }
+
+    // 查看自己可买多少
+    const bData: DB.UserBuyLogType = await DB.user_buy_log
+      .findOne({
+        where: {
+          uid: UID
+        },
+        raw: true
+      })
+      .then((res: any) => res)
+    const now = new Date()
+
+    if (count > ifexist.limit_buy) {
+      e.reply(`[万宝楼]小二:\n最多可买${ifexist.limit_buy}`)
+      return
+    }
+
+    // 同一天
+    if (isSameDay(bData.buy_time, now)) {
+      if (bData.count > ifexist.limit_buy) {
+        e.reply(`[万宝楼]小二:\n最多可买${ifexist.limit_buy - bData.count}`)
+        return
+      }
+    } else {
+      // 不是同一天，允许初始化
+      await DB.user_buy_log.create({
+        ...bData,
+        count: count,
+        buy_time: now,
+        createAt: now
+      })
     }
 
     await GameApi.Bag.reduceBagThing(UID, [

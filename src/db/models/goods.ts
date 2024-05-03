@@ -32,6 +32,7 @@ export const goods = <ModelStatic<Model<GoodsType>>>sequelize.define(
     commodities: DataTypes.INTEGER, // 万宝楼
     palace: DataTypes.INTEGER, // 浩瀚宫调
     limit: DataTypes.INTEGER, // 限定
+    limit_buy: DataTypes.INTEGER, // 限定
     doc: DataTypes.STRING
   },
   TableConfig
@@ -63,5 +64,6 @@ export interface GoodsType {
   commodities: number // 万宝楼
   palace: number // 浩瀚宫调
   limit: number // 浩瀚宫调限定
+  limit_buy: number // 购买上限
   doc: string
 }
