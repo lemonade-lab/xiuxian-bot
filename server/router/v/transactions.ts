@@ -503,7 +503,11 @@ router.post('/buy', async ctx => {
       }
     })
     .finally(() => {
-      transactions_logs.create(data)
+      transactions_logs.create({
+        ...data,
+        updateAt: new Date(),
+        deleteAt: new Date()
+      })
     })
     .catch(() => {})
 
