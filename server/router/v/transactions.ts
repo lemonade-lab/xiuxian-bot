@@ -496,11 +496,16 @@ router.post('/buy', async ctx => {
     return
   }
 
-  await transactions.destroy({
-    where: {
-      id: data.id
-    }
-  })
+  await transactions
+    .destroy({
+      where: {
+        id: data.id
+      }
+    })
+    .finally(() => {
+      transactions_logs.create(data)
+    })
+    .catch(() => {})
 
   // 扣钱
   await reduceBagThing(UID, [
