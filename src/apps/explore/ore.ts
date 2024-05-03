@@ -179,10 +179,20 @@ export class Ore extends APlugin {
       let arr: MessageButtonType[] = []
       for (const item in explore) {
         arr.push({
-          label: `${getMoneyGrade(explore[item].grade)}灵矿`,
-          value: `/采集${item}`
+          label: `${getMoneyGrade(explore[item].grade)}`,
+          value: `/采集${item}*1`
         })
-        if (arr.length >= 3) {
+        if (arr.length >= 5) {
+          arrs.push(arr)
+          arr = []
+        }
+      }
+      for (const item in explore) {
+        arr.push({
+          label: `${getMoneyGrade(explore[item].grade)}*2`,
+          value: `/采集${item}*2`
+        })
+        if (arr.length >= 4) {
           arrs.push(arr)
           arr = []
         }
