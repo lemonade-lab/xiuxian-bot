@@ -1,7 +1,7 @@
 import { defineConfig } from 'alemonjs'
 export default defineConfig({
   app: {
-    // scripts: 'src/main.ts'
+    scripts: 'dist/index.js'
   },
   plugin: {
     init: false
