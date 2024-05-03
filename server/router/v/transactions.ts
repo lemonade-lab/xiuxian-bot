@@ -241,7 +241,7 @@ router.post('/create', async ctx => {
   if (body.price > gData.price * MAX_PRICE_P * body.count) {
     ctx.body = {
       code: ERROE_CODE,
-      msg: '你在尝试违规定价,频繁操作,将进行封号处理。',
+      msg: '你在尝试违规定价,频繁操作,将进行封号处理',
       data: null
     }
     return
