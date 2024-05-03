@@ -42,7 +42,6 @@ export class Start extends APlugin {
             .then(() => {
               // 设置冷却
               GameApi.Burial.set(UID, 8, GameApi.Cooling.CD_Reborn)
-
               if (e.platform == 'ntqq') {
                 Controllers(e).Message.reply(
                   '',
@@ -60,7 +59,6 @@ export class Start extends APlugin {
                   }
                 )
               }
-
               // 显示资料
               showUserMsg(e)
             })

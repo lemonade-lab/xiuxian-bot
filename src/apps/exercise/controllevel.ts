@@ -26,14 +26,6 @@ export class ControllLevel extends APlugin {
    */
   async ambiguous(e: AEvent) {
     const UID = e.user_id
-    if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('', [
-        {
-          label: '加入官群',
-          link: QQ_GROUP
-        }
-      ])
-    }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(雙修|双修)/, '')

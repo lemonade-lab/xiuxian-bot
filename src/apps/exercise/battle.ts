@@ -60,16 +60,6 @@ export class Battle extends APlugin {
    */
   async combat(e: AEvent) {
     const UID = e.user_id
-    if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply('', [
-        {
-          label: '加入官群',
-          link: QQ_GROUP
-        }
-      ])
-
-      return
-    }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(比斗|比鬥)/, '')
@@ -165,27 +155,16 @@ export class Battle extends APlugin {
    */
   async duel(e: AEvent) {
     const UID = e.user_id
-    if (e.platform == 'ntqq') {
-      e.reply('NTQQ不支持此功能')
-      Controllers(e).Message.reply('', [
-        {
-          label: '加入官群',
-          link: QQ_GROUP
-        }
-      ])
-      return
-    }
-
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const UIDB = e?.at_user?.id
+    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?打劫/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
     const UserDataB = await GameApi.Users.read(UIDB)
     if (!(await dualVerification(e, UserData, UserDataB))) return
-    if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
+    if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type)) {
       return
-
+    }
     const CDID = 20,
       CDTime = GameApi.Cooling.CD_Battle
     if (!(await victoryCooling(e, UID, CDID))) return
