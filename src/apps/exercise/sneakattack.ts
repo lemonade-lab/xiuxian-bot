@@ -392,7 +392,8 @@ export class SneakAttack extends APlugin {
       let p = ClientNTQQ.createTemplate(TemplateId)
       for (const item of AllUser) {
         p.button({
-          label: `${item.name}🩸${item?.battle_blood_now} -- 偷袭👊${item?.battle_power}`,
+          text: `${item.name} 🩸 ${item?.battle_blood_now}  `,
+          label: `👊 ${item?.battle_power} 偷袭`,
           value: `/偷袭${item?.id}`,
           change: true
         })
