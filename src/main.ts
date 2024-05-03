@@ -10,4 +10,3 @@ if (process.env.APP_TEXT == '0') {
     .use(apps)
     .mount()
 }
-console.info('[APP] 凡人修仙 启动')
