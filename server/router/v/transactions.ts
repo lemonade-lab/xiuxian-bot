@@ -6,10 +6,12 @@ import {
   TransactionsType,
   TransactionsLogsType,
   transactions_logs,
-  user
+  user,
+  goods,
+  GoodsType
 } from '../../../src/db/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { MIN_PRICE, PUSH_SIZE } from '../../config/transactions.js'
+import { MAX_PRICE_P, MIN_PRICE, PUSH_SIZE } from '../../config/transactions.js'
 import {
   addBagThing,
   reduceBagThing
@@ -221,6 +223,28 @@ router.post('/create', async ctx => {
       msg: '数据错误',
       data: null
     }
+  }
+
+  // 判断物品价格合理性。
+  const gData: GoodsType = (await goods.findOne({
+    where: {
+      name: body.name
+    },
+    raw: true
+  })) as any
+
+  if (!gData) {
+    error()
+    return
+  }
+
+  if (body.price > gData.price * MAX_PRICE_P * body.count) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '你在尝试违规定价,频繁操作,将进行封号处理。',
+      data: null
+    }
+    return
   }
 
   // 创建物品  reduce   delete
