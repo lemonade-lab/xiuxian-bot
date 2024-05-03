@@ -8,7 +8,8 @@ import {
   transactions_logs,
   user,
   goods,
-  GoodsType
+  GoodsType,
+  Op
 } from '../../../src/db/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import {
@@ -22,9 +23,6 @@ import {
   reduceBagThing
 } from '../../../src/model/users/additional/bag.js'
 const router = new koaRouter({ prefix: '/api/v1/transactions' })
-
-// 开id锁，有人操作这个id，就锁住不可进行。
-// 直到解锁
 
 const TransactionMap = new Map()
 
@@ -72,6 +70,7 @@ router.get('/search/log', async ctx => {
     .then((res: { count: number; rows: TransactionsLogsType[] }) => {
       const totalCount = res.count // 总数据量
       const totalPages = Math.ceil(totalCount / pageSize) // 总页数
+
       ctx.body = {
         code: OK_CODE,
         msg: '请求完成',
@@ -146,6 +145,30 @@ router.get('/search', async ctx => {
   const page = parseInt(query.page) || 1 // 当前页数，默认为1
   const pageSize = parseInt(query.pageSize) || 10 // 每页数据数量，默认为10
   const offset = (page - 1) * pageSize // 计算偏移量
+
+  // 尝试过滤过期物品
+
+  try {
+    // 计算过期时间（当前时间减去 3 h）
+    const expirationTime = new Date()
+    expirationTime.setDate(expirationTime.getDay() - 3)
+    // 查询已过期的数据
+    const expiredData = await transactions.findAll({
+      where: {
+        createAt: {
+          [Op.lt]: expirationTime // 小于过期时间的数据
+        }
+      }
+    })
+    // 删除已过期的数据
+    for (const data of expiredData) {
+      await data.destroy()
+    }
+    console.log(`已删除 ${expiredData.length} 条过期数据`)
+  } catch (error) {
+    console.error('删除过期数据时出错：', error)
+  }
+
   await transactions
     .findAndCountAll({
       where: obj,
