@@ -198,7 +198,7 @@ export class Ore extends APlugin {
         }
       }
       if (arr.length >= 1) {
-        if (arr.length != 3) {
+        if (arr.length < 5) {
           arr.push({
             label: `采集`,
             value: `/采集`,
