@@ -8,27 +8,11 @@ if (process.argv.includes('no-bot')) {
 }
 if (process.argv.includes('server')) {
   config.apps.push({
-    name: 'alemonb-xiuxian-server',
+    name: 'xiuxian-server',
     script: 'server/index.js',
-    instances: 1,
-    autorestart: false,
-    exec_mode: 'cluster',
-    max_memory_restart: '2G',
-    cron_restart: '0 */6 * * *',
-    watch: false,
-    autodump: true,
-    merge_logs: true,
-    error_file: `./server/logs/err.log`,
-    out_file: `./server/logs/out.log`,
-    log_max_size: '10M',
-    log_rotate_interval: 'daily',
-    log_date_format: 'YYYY-MM-DD HH:mm:ss',
-    env: {
-      NODE_ENV: 'production'
-    },
-    kill_timeout: 5000,
-    listen_timeout: 3000,
-    max_restarts: 10
+    // args: app.args,
+    error_file: `./server/xiuxian-server/err.log`,
+    out_file: `./server/xiuxian-server/out.log`
   })
 }
 console.log('config', config)
