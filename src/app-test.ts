@@ -1,10 +1,13 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
 import { isThereAUserPresent } from './api/index.js'
-import { QQ_GROUP } from './model/config/index.js'
+// import { QQ_GROUP } from './model/config/index.js'
+
+const TemplateId = '102055332_1713102677'
+
 export class Information extends APlugin {
   constructor() {
     super({
-      rule: [{ reg: /^(#|\/)?/, fnc: 'controllers' }]
+      rule: [{ reg: /^(#|\/)?模板消息/, fnc: 'controllers' }]
     })
   }
 
@@ -16,35 +19,11 @@ export class Information extends APlugin {
   async controllers(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    e.reply('游戏维护中...')
-    Controllers(e).Message.reply(
-      '',
-      [
-        { label: '资料', value: '/个人信息' },
-        { label: '面板', value: '/面板信息' },
-        { label: '功法', value: '/功法信息' }
-      ],
-      [
-        { label: '交易', value: '/交易' },
-        { label: '修炼', value: '/修炼' },
-        { label: '榜单', value: '/榜单' },
-        { label: '赶路', value: '/赶路' }
-      ],
-      [
-        { label: '天下', value: '/天下' },
-        { label: '势力', value: '/势力' },
-        {
-          label: '官群',
-          link: QQ_GROUP
-        }
-      ],
-      [
-        { label: '储物', value: '/储物袋' },
-        { label: '纳戒', value: '/纳戒' },
-        { label: '地图', value: '/地图' },
-        { label: '新人', value: '/新人' }
-      ]
-    )
+    let p = ClientNTQQ.createTemplate(TemplateId)
+    p.text('叶凡')
+    p.button({ label: '击杀', value: '/个人信息' })
+    Controllers(e).Message.card([p.getParam()])
+    p = null
     return true
   }
 }

@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -10,6 +10,7 @@ import {
   ControlByBlood,
   victoryCooling
 } from '../../api/index.js'
+import { TemplateId } from '../../model/config/index.js'
 export class SneakAttack extends APlugin {
   constructor() {
     super({
@@ -387,19 +388,25 @@ export class SneakAttack extends APlugin {
       raw: true
     })) as any
     const msg: string[] = ['[附近道友]']
-    for (const item of AllUser) {
-      msg.push(
-        `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
-      )
-    }
-    e.reply(msg)
-    Controllers(e).Message.reply('', [
-      {
-        label: '偷袭',
-        value: '/偷袭',
-        enter: false
+    if (e.platform == 'ntqq') {
+      let p = ClientNTQQ.createTemplate(TemplateId)
+      for (const item of AllUser) {
+        p.button({
+          label: `${item.name}🩸${item?.battle_blood_now} -- 偷袭👊${item?.battle_power}`,
+          value: `/偷袭${item?.id}`,
+          change: true
+        })
       }
-    ])
+      Controllers(e).Message.card([p.getParam()])
+      p = null
+    } else {
+      for (const item of AllUser) {
+        msg.push(
+          `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
+        )
+      }
+      e.reply(msg)
+    }
     return
   }
 }
