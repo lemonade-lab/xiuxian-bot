@@ -398,7 +398,8 @@ export class SneakAttack extends APlugin {
           change: true
         })
       }
-      Controllers(e).Message.card([p.getParam()])
+      const param = p.getParam()
+      if (param.markdown.params.length > 0) Controllers(e).Message.card([])
       p = null
     } else {
       for (const item of AllUser) {
