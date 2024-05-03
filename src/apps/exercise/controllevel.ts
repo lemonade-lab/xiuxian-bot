@@ -36,7 +36,7 @@ export class ControllLevel extends APlugin {
     }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(雙修|双修)*/, '')
+    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(雙修|双修)/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
     const UserDataB = await GameApi.Users.read(UIDB)
@@ -111,7 +111,7 @@ export class ControllLevel extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(传功|傳功)*/, '')
+    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(传功|傳功)/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
     const UserDataB = await GameApi.Users.read(UIDB)

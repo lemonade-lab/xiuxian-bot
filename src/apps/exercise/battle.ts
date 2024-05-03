@@ -72,7 +72,7 @@ export class Battle extends APlugin {
     }
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const UIDB = e?.at_user?.id
+    const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(比斗|比鬥)/, '')
     if (!UIDB) return
     if (!(await isThereAUserPresentB(e, UIDB))) return
     const UserDataB = await GameApi.Users.read(UIDB)
