@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   DB,
   isThereAUserPresent,
@@ -14,8 +14,8 @@ export class Battle extends APlugin {
     super({
       rule: [
         { reg: /^(#|\/)?战斗过程(开启|关闭)$/, fnc: 'battelShow' },
-        { reg: /^(#|\/)?打劫$/, fnc: 'duel' },
-        { reg: /^(#|\/)?(比斗|比鬥)$/, fnc: 'combat' }
+        { reg: /^(#|\/)?打劫/, fnc: 'duel' },
+        { reg: /^(#|\/)?(比斗|比鬥)/, fnc: 'combat' }
       ]
     })
   }
@@ -59,6 +59,7 @@ export class Battle extends APlugin {
    */
   async combat(e: AEvent) {
     const UID = e.user_id
+    console.log('UID', UID)
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(比斗|比鬥)/, '')
