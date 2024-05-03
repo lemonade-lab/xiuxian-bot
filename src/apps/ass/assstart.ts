@@ -297,6 +297,23 @@ export class AssStart extends APlugin {
       })
       return
     }
+    /**
+     * 检测是否已提交申请
+     */
+    const joinData: DB.UserAssType = (await DB.user_ass.findOne({
+      where: {
+        uid: UID,
+        aid: aData.id,
+        identity: GameApi.Config.ASS_IDENTITY_MAP['9']
+      },
+      raw: true
+    })) as any
+    if (joinData) {
+      e.reply('已提交申请,请勿重复提交', {
+        quote: e.msg_id
+      })
+      return
+    }
 
     /**
      * 创建信息条目
