@@ -11,7 +11,12 @@ import {
   GoodsType
 } from '../../../src/db/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { MAX_PRICE_P, MIN_PRICE, PUSH_SIZE } from '../../config/transactions.js'
+import {
+  MAX_COUNT,
+  MAX_PRICE_P,
+  MIN_PRICE,
+  PUSH_SIZE
+} from '../../config/transactions.js'
 import {
   addBagThing,
   reduceBagThing
@@ -212,6 +217,15 @@ router.post('/create', async ctx => {
     ctx.body = {
       code: ERROE_CODE,
       msg: `最多上架${PUSH_SIZE}个物品`,
+      data: null
+    }
+    return
+  }
+
+  if (body.count > MAX_COUNT) {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '一次最多上架10个物品',
       data: null
     }
     return
