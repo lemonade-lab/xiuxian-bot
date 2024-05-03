@@ -3,16 +3,20 @@
  */
 
 const config = require('alemonjs/pm2.config.cjs')
+const apps = [...config.apps]
 if (process.argv.includes('no-bot')) {
   config.apps = []
 }
 if (process.argv.includes('server')) {
+  const t = apps[0]
   config.apps.push({
+    ...t,
     name: 'xiuxian-server',
     script: 'server/index.js',
+    args: [],
     // args: app.args,
-    error_file: `./server/xiuxian-server/err.log`,
-    out_file: `./server/xiuxian-server/out.log`
+    error_file: `./logs/server/err.log`,
+    out_file: `./logs/server/out.log`
   })
 }
 console.log('config', config)
