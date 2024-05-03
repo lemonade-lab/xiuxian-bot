@@ -387,7 +387,6 @@ export class SneakAttack extends APlugin {
       limit: 10,
       raw: true
     })) as any
-    const msg: string[] = ['[附近道友]']
     if (e.platform == 'ntqq') {
       let p = ClientNTQQ.createTemplate(TemplateId)
       for (const item of AllUser) {
@@ -399,15 +398,24 @@ export class SneakAttack extends APlugin {
         })
       }
       const param = p.getParam()
-      if (param.markdown.params.length > 0) Controllers(e).Message.card([param])
+      if (param.markdown.params.length > 0) {
+        Controllers(e).Message.card([param])
+      } else {
+        e.reply('附近空无一人')
+      }
       p = null
     } else {
+      const msg: string[] = ['[附近道友]']
       for (const item of AllUser) {
         msg.push(
           `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
         )
       }
-      e.reply(msg)
+      if (msg.length > 1) {
+        e.reply(msg)
+      } else {
+        e.reply('附近空无一人')
+      }
     }
     return
   }
