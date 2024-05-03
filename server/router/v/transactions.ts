@@ -455,10 +455,25 @@ router.post('/delete', async ctx => {
   return
 })
 
+const TypingItem = {
+  '1': '下品灵石',
+  '2': '中品灵石',
+  '3': '上品灵石',
+  '4': '极品灵石'
+}
+
+const TypingValue = {
+  '1': 1,
+  '2': 10,
+  '3': 100,
+  '4': 1000
+}
+
 // 购买
 router.post('/buy', async ctx => {
   const body = ctx.request.body as {
     id: number
+    typing: number
   }
   console.log('body-delete', body)
   if (!body.id) {
@@ -505,7 +520,14 @@ router.post('/buy', async ctx => {
     TransactionMap.delete(body.id)
     return
   }
-  // 扣除 对应的下品灵石
+
+  // 矫正类型
+  if (
+    !body?.typing ||
+    !Object.prototype.hasOwnProperty.call(TypingItem, body.typing)
+  ) {
+    body.typing = 1
+  }
 
   // 查询下品灵石
 
@@ -513,16 +535,14 @@ router.post('/buy', async ctx => {
     .findOne({
       where: {
         uid: UID,
-        name: '下品灵石'
+        name: TypingItem[body.typing]
       },
       raw: true
     })
     .then((res: any) => res)
 
-  // 要加 15%
-
-  const needMoeny = Math.floor(data.price * 1.15)
-  const getMoeny = Math.floor(data.price * 0.85)
+  const needMoeny = Math.floor((data.price * 1.1) / TypingValue[body.typing])
+  const getMoeny = Math.floor((data.price * 0.9) / TypingValue[body.typing])
 
   if (money.acount < needMoeny) {
     ctx.body = {
@@ -552,7 +572,7 @@ router.post('/buy', async ctx => {
   // 扣钱
   await reduceBagThing(UID, [
     {
-      name: '下品灵石',
+      name: TypingItem[body.typing],
       acount: needMoeny
     }
   ])
@@ -568,7 +588,7 @@ router.post('/buy', async ctx => {
   // 得到收益
   await addBagThing(data.uid, data['user.bag_grade'], [
     {
-      name: '下品灵石',
+      name: TypingItem[body.typing],
       acount: getMoeny
     }
   ])
