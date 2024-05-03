@@ -192,12 +192,19 @@ export class Ore extends APlugin {
           label: `${getMoneyGrade(explore[item].grade)}*2`,
           value: `/采集${item}*2`
         })
-        if (arr.length >= 4) {
+        if (arr.length >= 5) {
           arrs.push(arr)
           arr = []
         }
       }
       if (arr.length >= 1) {
+        if (arr.length != 3) {
+          arr.push({
+            label: `采集`,
+            value: `/采集`,
+            enter: false
+          })
+        }
         arrs.push(arr)
       }
       m.reply('', ...arrs)
