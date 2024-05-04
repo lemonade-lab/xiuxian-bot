@@ -5,7 +5,6 @@ import {
   isThereAUserPresent,
   sendReply,
   victoryCooling,
-  activityCooling,
   Server,
   getSkyComponent
 } from '../../api/index.js'
@@ -38,7 +37,6 @@ export class SkyTower extends APlugin {
   async join(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    if (!(await activityCooling(e, UID, '通天塔'))) return
 
     /**
      * 查看数据是否存在
@@ -83,7 +81,6 @@ export class SkyTower extends APlugin {
   async showSky(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    if (!(await activityCooling(e, UID, '通天塔'))) return
     /**
      * 查看数据是否存在
      */
@@ -120,7 +117,6 @@ export class SkyTower extends APlugin {
   async battle(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    if (!(await activityCooling(e, UID, '通天塔'))) return
 
     const CDID = 23,
       CDTime = GameApi.Cooling.CD_B

@@ -1,4 +1,3 @@
-export * from './apps/activity/skytower.js'
 export * from './apps/ass/assmanage.js'
 export * from './apps/ass/assstart.js'
 export * from './apps/ass/assusers.js'

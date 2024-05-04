@@ -1,5 +1,4 @@
 import * as DB from '../db/index.js'
-import * as Blessing from '../model/users/additional/blessing.js'
 import * as Ring from '../model/users/additional/ring.js'
 import * as Talent from '../model/users/base/talent.js'
 import * as Bag from '../model/users/additional/bag.js'
@@ -13,9 +12,6 @@ import * as Equipment from '../model/users/additional/equipment.js'
  * @returns
  */
 export async function personalInformation(UID: string, user_avatar: string) {
-  // 得到用户数据
-  const vip = await Blessing.isVip(UID)
-
   const UserData = await Users.read(UID)
 
   // 灵根名
@@ -101,7 +97,6 @@ export async function personalInformation(UID: string, user_avatar: string) {
   }
 
   return {
-    vip,
     UID: UID,
     avatar: avatar,
     // 天赋
@@ -238,8 +233,6 @@ export type EquipmentInformationType =
 export async function skillInformation(UID: string, user_avatar: string) {
   // 得到用户数据
   const UserData = await Users.read(UID)
-  // 用户类型
-  const vip = await Blessing.isVip(UID)
   // 灵根名
   let size = '未知'
   let name = '未知'
@@ -263,7 +256,6 @@ export async function skillInformation(UID: string, user_avatar: string) {
   }
 
   return {
-    vip,
     UID,
     skills: skills,
     name: UserData.name,

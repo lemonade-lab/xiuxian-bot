@@ -11,14 +11,9 @@ import * as Skills from '../model/users/additional/skills.js'
 import * as Levels from '../model/users/additional/levels.js'
 import * as Bag from '../model/users/additional/bag.js'
 import * as Ring from '../model/users/additional/ring.js'
-import * as Blessing from '../model/users/additional/blessing.js'
 import * as Compensate from '../model/users/additional/compensate.js'
 import * as Equipment from '../model/users/additional/equipment.js'
 
-// 交易模型
-import * as Auction from '../model/system/transaction/auction.js'
-import * as Exchange from '../model/system/transaction/exchange.js'
-import * as Board from '../model/system/transaction/board.js'
 // 特殊机制
 import * as Player from '../model/system/player.js'
 // 特殊模型
@@ -44,12 +39,7 @@ import * as Config from '../model/config/index.js'
 
 // 缓存
 import { urlHelpCache } from '../utils/cache.js'
-import {
-  user,
-  activity,
-  type UserType,
-  type ActivityType
-} from '../db/index.js'
+import { user, type UserType } from '../db/index.js'
 // img
 import { personalInformation } from '../server/information.js'
 import ImageComponent from '../image/index.js'
@@ -544,36 +534,6 @@ export async function victoryCooling(
   const { state, msg } = await Burial.cooling(UID, CDID)
   if (state == 4001) {
     e.reply(msg)
-    return false
-  }
-  return true
-}
-
-export async function activityCooling(e: AEvent, UID: string, name: string) {
-  // 读取活动条件
-  const at: ActivityType = (await activity.findOne({
-    where: {
-      name: name
-    },
-    raw: true
-  })) as any
-  // 现在的时间戳
-  const time = new Date().getTime()
-  // 不在时间之内
-  if (time <= at.start_time || time >= at.end_time) {
-    e.reply(`${name}已关闭`)
-    return false
-  }
-  // 境界条件不满足
-  const gaspractice = await Levels.read(UID, 1).then(item => item.realm)
-  const bodypractice = await Levels.read(UID, 2).then(item => item.realm)
-  const soul = await Levels.read(UID, 3).then(item => item.realm)
-  if (
-    gaspractice < at.gaspractice ||
-    bodypractice < at.bodypractice ||
-    soul < at.soul
-  ) {
-    e.reply('境界不足')
     return false
   }
   return true

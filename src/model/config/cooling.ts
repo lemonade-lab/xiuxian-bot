@@ -111,3 +111,45 @@ export const upgradeass = [4, 8, 16, 32, 64]
 export const MAXpropety = [
   5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000
 ]
+
+export const skyGoods = [
+  {
+    id: 0,
+    names: [
+      {
+        name: '通天塔',
+        count: 1
+      }
+    ]
+  },
+  {
+    id: 3,
+    names: [
+      {
+        name: '饮血剑',
+        count: 1
+      }
+    ]
+  },
+  {
+    id: 10,
+    names: [
+      {
+        name: '极品灵石',
+        count: 3000
+      }
+    ]
+  },
+  {
+    id: 20,
+    names: [
+      {
+        name: '极品灵石',
+        count: 1000
+      }
+    ]
+  }
+]
+
+// 排名表
+// 领取记录表

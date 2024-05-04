@@ -34,13 +34,6 @@ export class Admins extends APlugin {
       raw: true
     })) as any
     if (!user) return e.reply('查无此人')
-    const user_blessing: DB.UserBlessingType = (await DB.user_blessing.findOne({
-      where: { uid: switchuid },
-      attributes: {
-        exclude: ['id', 'uid'] // 指定要排除的列名
-      },
-      raw: true
-    })) as any
     const user_bag = (await DB.user_bag.findAll({
       where: { uid: switchuid },
       attributes: {
@@ -105,11 +98,6 @@ export class Admins extends APlugin {
       { where: { uid: switchuid } }
     )
     await DB.user.update(user, { where: { uid: bindinguid } })
-    await DB.user_blessing.update(
-      { uid: switchuid + '-1' },
-      { where: { uid: switchuid } }
-    )
-    await DB.user_blessing.update(user_blessing, { where: { uid: bindinguid } })
     await DB.user_ring.update(
       { uid: switchuid + '-1' },
       { where: { uid: switchuid } }

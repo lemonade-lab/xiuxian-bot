@@ -9,14 +9,9 @@ export * as Skills from '../model/users/additional/skills.js'
 export * as Levels from '../model/users/additional/levels.js'
 export * as Bag from '../model/users/additional/bag.js'
 export * as Ring from '../model/users/additional/ring.js'
-export * as Blessing from '../model/users/additional/blessing.js'
 export * as Compensate from '../model/users/additional/compensate.js'
 export * as Equipment from '../model/users/additional/equipment.js'
 
-// 交易模型
-export * as Auction from '../model/system/transaction/auction.js'
-export * as Exchange from '../model/system/transaction/exchange.js'
-export * as Board from '../model/system/transaction/board.js'
 // 特殊机制
 export * as Player from '../model/system/player.js'
 // 特殊模型
