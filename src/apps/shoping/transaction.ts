@@ -176,20 +176,36 @@ export class Transaction extends APlugin {
     const now = new Date()
 
     if (count > ifexist.limit_buy) {
-      e.reply(`[万宝楼]小二:\n最多可买${ifexist.limit_buy}`)
+      e.reply(`[万宝楼]小二:\n每天可买${ifexist.limit_buy}`)
       return
     }
 
-    // 同一天
-    if (isSameDay(bData.buy_time, now)) {
-      if (bData.count > ifexist.limit_buy) {
-        e.reply(`[万宝楼]小二:\n最多可买${ifexist.limit_buy - bData.count}`)
+    if (bData) {
+      // 存在  判断日期
+      if (isSameDay(bData.buy_time, now) && bData.count > ifexist.limit_buy) {
+        e.reply(`[万宝楼]小二:\n每天可买${ifexist.limit_buy - bData.count}`)
         return
+      } else {
+        // 更新数据
+        await DB.user_buy_log.update(
+          {
+            count: bData.count + count,
+            buy_time: now,
+            createAt: now
+          },
+          {
+            where: {
+              uid: UID,
+              name: thingName
+            }
+          }
+        )
       }
     } else {
-      // 不是同一天，允许初始化
+      // 不存在，创建即可
       await DB.user_buy_log.create({
-        ...bData,
+        uid: UID,
+        name: thingName,
         count: count,
         buy_time: now,
         createAt: now
@@ -206,12 +222,12 @@ export class Transaction extends APlugin {
     await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
       {
         name: ifexist.name,
-        acount: Number(quantity)
+        acount: count
       }
     ])
 
     e.reply(
-      `[万宝楼]薛仁贵\n你花[下品灵石]*${price}购买了[${thingName}]*${quantity},`
+      `[万宝楼]薛仁贵\n你花[下品灵石]*${price}购买了[${thingName}]*${count},`
     )
 
     return
