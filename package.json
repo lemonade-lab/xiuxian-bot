@@ -18,9 +18,8 @@
     "logs": "pm2 logs",
     "monit": "pm2 monit",
     "pm2": "pm2",
-    "image": "nodemon --config src-image/nodemon.json",
+    "image:dev": "nodemon --config src-image/nodemon.json",
     "server:dev": "nodemon --config server/nodemon.json",
-    "server:build": "rollup --config server/rollup.config.js",
     "format": "prettier --write .",
     "prepare": "husky"
   },

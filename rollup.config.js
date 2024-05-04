@@ -13,6 +13,10 @@ const config = [
   {
     input: 'index.ts',
     file: 'dist/index.js'
+  },
+  {
+    input: 'server/main.ts',
+    file: 'server/index.js'
   }
 ]
 export default config.map(item => ({
