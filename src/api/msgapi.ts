@@ -55,6 +55,8 @@ import { personalInformation } from '../server/information.js'
 import ImageComponent from '../image/index.js'
 import { updatePlayer } from '../model/system/player.js'
 
+const reStart = {}
+
 /**
  *再入仙途
  * @param e
@@ -68,6 +70,17 @@ export async function reCreateMsg(e: AEvent) {
     .then(res => {
       if (!res) {
         createUser(e)
+        return
+      }
+
+      /**
+       * 不存在或者过期了
+       */
+      if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
+        reStart[UID] = new Date().getTime()
+        e.reply(['[重要提示]\n请30s内再次消耗道具', '\n以确认转世'], {
+          quote: e.msg_id
+        })
         return
       }
 
@@ -95,39 +108,6 @@ export async function reCreateMsg(e: AEvent) {
             // 重新查询用户
             isUser(UID)
               .then(UserData => {
-                if (e.platform == 'ntqq') {
-                  Controllers(e).Message.reply(
-                    '',
-                    [
-                      {
-                        label: '绑定头像',
-                        value: '/绑定头像+QQ',
-                        enter: false
-                      },
-                      {
-                        label: '修仙帮助',
-                        value: '/修仙帮助'
-                      }
-                    ],
-                    [
-                      {
-                        label: '修仙联盟',
-                        value: '/前往联盟'
-                      }
-                    ]
-                  )
-                } else {
-                  // 新手提示
-                  e.reply(
-                    [
-                      `修仙大陆第${UserData.id}位萌新`,
-                      '\n发送[/修仙帮助]了解更多'
-                    ],
-                    {
-                      quote: e.msg_id
-                    }
-                  )
-                }
                 /**
                  * 并发
                  */
@@ -139,8 +119,9 @@ export async function reCreateMsg(e: AEvent) {
                   // 发送图片
                   showUserMsg(e)
                 ])
+                // 清除询问
+                delete reStart[UID]
               })
-
               .catch(() => {
                 e.reply('数据查询失败')
               })
@@ -153,7 +134,6 @@ export async function reCreateMsg(e: AEvent) {
     .catch(() => {
       e.reply('数据查询失败')
     })
-
   return
 }
 

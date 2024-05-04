@@ -4,7 +4,8 @@ import {
   showUserMsg,
   GameApi,
   victoryCooling,
-  isThereAUserPresent
+  isThereAUserPresent,
+  reCreateMsg
 } from '../../api/index.js'
 export class Action extends APlugin {
   constructor() {
@@ -529,27 +530,24 @@ export class Action extends APlugin {
        * 引魂灯
        */
       case 600403: {
-        /**
-         * 可以保留魂镜进行转世
-         *
-         * 保留的原则的  不仅花 道具 还要烧钱
-         *
-         * 境界越高  需要的灵石就越多 灵石多才能保留境界
-         *
-         * 不是随便得了道具就能引魂的
-         *
-         * 如果钱不够
-         */
-        e.reply(['暂不可使用'], {
-          quote: e.msg_id
-        })
+        // await GameApi.Bag.reduceBagThing(UID, [
+        //   {
+        //     name: thing.name,
+        //     acount: Number(thingAcount)
+        //   }
+        // ])
+        // 还用扣掉物品码？  直接重生了。
+        reCreateMsg(e)
+        // e.reply(['暂不可使用'], {
+        //   quote: e.msg_id
+        // })
         break
       }
       /**
        * 开天令
        */
       case 600401: {
-        e.reply(['暂不可使用'], {
+        e.reply(['开天令:开辟宗门驻地\n————————\n此物暂未开放'], {
           quote: e.msg_id
         })
         break
