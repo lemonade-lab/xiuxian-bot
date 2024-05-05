@@ -43,6 +43,8 @@ export * from './models/user_skills.js'
 export * from './models/user_compensate.js'
 export * from './models/user_fate.js'
 export * from './models/user_buy_log.js'
+export * from './models/skys.js'
+export * from './models/user_skys.js'
 /**
  * 交易
  */

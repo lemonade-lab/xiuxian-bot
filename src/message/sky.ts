@@ -8,9 +8,95 @@ import {
   Server,
   getSkyComponent
 } from '../api/index.js'
+import { SkysType, UserSkysType, skys, user_skys } from '../db/models.js'
+import { Op } from 'sequelize'
+import { addBagThing } from '../model/users/additional/bag.js'
+import { backpackFull } from '../model/users/additional/ring.js'
+import { Users } from '../api/gameapi.js'
 const message = new Messages()
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
-  e.reply('测似乎')
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  // 查看数据是否存在
+  const data: DB.SkyType = (await DB.sky.findOne({
+    where: {
+      uid: UID
+    },
+    raw: true
+  })) as any
+  if (!data) {
+    e.reply('未已进入', {
+      quote: e.msg_id
+    })
+    return
+  }
+  const currentDate = new Date()
+  // 将当前日期的日期部分设置为 1，表示本月 1 日
+  currentDate.setDate(1)
+  // 设置时间部分为 0:00:00
+  currentDate.setHours(0, 0, 0, 0)
+  const uDAta: UserSkysType[] = await user_skys
+    .findAll({
+      where: {
+        uid: UID,
+        time: currentDate
+      },
+      raw: true
+    })
+    .then((res: any) => res)
+
+  // 领取记录
+  const ids = uDAta.map(item => item.sid)
+  // 找到 比 比排名少的数据。 并一次检查记录中，是否存在领取记录。
+  const sData: SkysType[] = await skys
+    .findAll({
+      where: {
+        ranking: {
+          [Op.gte]: data.id
+        }
+      },
+      raw: true
+    })
+    .then((res: any) => res)
+  const sData2 = sData.filter(item => {
+    // 存在
+    if (ids.includes(item.id)) {
+      return false
+    } else {
+      return true
+    }
+  })
+  const goods = sData2.map(item => ({
+    id: item.id,
+    name: item.name,
+    acount: item.count
+  }))
+  const UserData = await Users.read(UID)
+  const BagSize = await backpackFull(UID, UserData.bag_grade)
+  // 背包未位置了直接返回了
+  if (!BagSize) {
+    e.reply(['储物袋空间不足'], {
+      quote: e.msg_id
+    })
+    return
+  }
+  const msg = ['领取物品']
+  for (const item of goods) {
+    await user_skys.create({
+      uid: UID,
+      // 对应奖励条
+      time: currentDate,
+      sid: item.id,
+      createAt: new Date()
+    })
+    msg.push(`[${item.name}]*${item.acount}`)
+  }
+  await addBagThing(UID, UserData.bag_grade, goods)
+  if (msg.length <= 1) {
+    e.reply('本月此排名奖励已领取')
+  } else {
+    e.reply(msg.join(''))
+  }
 })
 message.response(/^(#|\/)?进入通天塔$/, async e => {
   const UID = e.user_id
