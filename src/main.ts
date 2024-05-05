@@ -1,12 +1,16 @@
 import { createApp } from 'alemonjs'
 import * as apps from './apps.js'
 import * as test from './app-test.js'
-// import { event } from './rules.js'
-const app = createApp(import.meta.url)
+import { event } from './rules.js'
 if (process.env.APP_TEXT == '0') {
-  app.use(test)
+  createApp(import.meta.url)
+    .use(test)
+    .mount()
 } else {
-  app.use(apps)
-  // app.use(event.ok())
+  for (const item in apps) {
+    event.use(apps[item])
+  }
+  createApp(import.meta.url)
+    .use(event.ok())
+    .mount()
 }
-app.mount()

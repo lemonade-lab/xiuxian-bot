@@ -1,7 +1,6 @@
 import { AEvent, APlugin } from 'alemonjs'
 type MessageFunction = (e: AEvent) => Promise<boolean | undefined | void>
 export class Messages {
-  data: any[] = []
   count = 0
   rule: {
     reg: RegExp

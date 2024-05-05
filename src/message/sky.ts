@@ -11,9 +11,7 @@ import {
 import { Messages } from '../alemonjs.js'
 const message = new Messages()
 
-message.response(/^通天塔奖励$/, async e => {
-  //
-
+message.response(/^(#|\/)?通天塔奖励$/, async e => {
   e.reply('测似乎')
 })
 
