@@ -15,7 +15,7 @@ export class Messages {
       fnc: propName
     })
   }
-  ok() {
+  get ok() {
     const App = this
     class Children extends APlugin {
       constructor() {
@@ -30,18 +30,5 @@ export class Messages {
       }
     }
     return Children
-  }
-}
-export class Events {
-  count = 0
-  data: {
-    [key: string]: typeof APlugin
-  } = {}
-  use(val: typeof APlugin) {
-    this.count++
-    this.data[this.count] = val
-  }
-  ok() {
-    return this.data
   }
 }

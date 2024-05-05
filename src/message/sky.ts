@@ -10,11 +10,9 @@ import {
 } from '../api/index.js'
 import { Messages } from '../alemonjs.js'
 const message = new Messages()
-
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
   e.reply('测似乎')
 })
-
 message.response(/^(#|\/)?进入通天塔$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
@@ -51,7 +49,6 @@ message.response(/^(#|\/)?进入通天塔$/, async e => {
     uid: UID
   } as DB.SkyType)
 })
-
 message.response(/^(#|\/)?通天塔$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
@@ -81,7 +78,6 @@ message.response(/^(#|\/)?通天塔$/, async e => {
     ])
   }
 })
-
 message.response(/^(#|\/)?挑战\d+$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
@@ -230,4 +226,5 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
   })
 })
 
-export default message
+const sky = message.ok
+export { sky }
