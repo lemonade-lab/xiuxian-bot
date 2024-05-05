@@ -7,7 +7,9 @@ import status from './v/status.js'
 import rings from './v/rings.js'
 import signs from './v/signs.js'
 import goods from './v/goods.js'
+import ass from './v/ass.js'
 export default [
+  ass,
   file,
   users,
   goods,
