@@ -1,4 +1,4 @@
-import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -9,6 +9,7 @@ import {
   getSkyComponent
 } from '../../api/index.js'
 
+// 没有优先级。只有执行顺序。先定义先执行。 -- 不需要再为优先级烦恼。
 export class SkyTower extends APlugin {
   constructor() {
     super({
@@ -27,6 +28,10 @@ export class SkyTower extends APlugin {
         }
       ]
     })
+  }
+
+  async skyGoods(e: AEvent) {
+    //
   }
 
   /**
