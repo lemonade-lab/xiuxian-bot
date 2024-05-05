@@ -1,4 +1,4 @@
-import { Controllers } from 'alemonjs'
+import { Controllers, Messages } from 'alemonjs'
 import {
   DB,
   GameApi,
@@ -8,7 +8,6 @@ import {
   Server,
   getSkyComponent
 } from '../api/index.js'
-import { Messages } from '../alemonjs.js'
 const message = new Messages()
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
   e.reply('测似乎')
