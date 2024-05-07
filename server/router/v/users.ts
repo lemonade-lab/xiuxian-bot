@@ -1,6 +1,7 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import { UserType, user } from '../../../src/db/models.js'
+import { getKillList } from '../../../src/server/start.js'
 const router = new koaRouter({ prefix: '/api/v1/users' })
 
 /**
@@ -16,6 +17,7 @@ router.put('/password', async ctx => {
 
 router.get('/message', async ctx => {
   const UID = ctx.state.user.uid
+
   await user
     .findOne({
       where: {
@@ -48,5 +50,53 @@ router.get('/message', async ctx => {
       }
     })
 })
+
+/**
+ * 杀神榜单
+ */
+router.get("/klist", async ctx => {
+    const UID = ctx.state.user.uid;
+    try {
+        const UserData = await user.findOne({
+            attributes: ["uid"],
+            where: {
+                uid: UID
+            },
+            raw: true
+        });
+
+        if (!UserData) {
+            ctx.body = {
+                code: 'ERROR_CODE',
+                msg: '查询错误',
+                data: null
+            };
+            return;
+        }
+
+        const res = await getKillList(); // 假设这个函数是你定义的获取列表的方法
+
+        if (res) {
+            ctx.body = {
+                code: 'OK_CODE',
+                msg: '查询成功',
+                data: res
+            };
+        } else {
+            ctx.body = {
+                code: 'ERROR_CODE',
+                msg: '查询错误',
+                data: null
+            };
+        }
+    } catch (err) {
+        console.log(err);
+        ctx.body = {
+            code: 'ERROR_CODE',
+            msg: '服务器错误',
+            data: null
+        };
+    }
+});
 
 export default router
