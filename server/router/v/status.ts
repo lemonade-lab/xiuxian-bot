@@ -3,7 +3,37 @@ import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 import { UserLogType, user_log } from '../../../src/db/index'
 const router = new koaRouter({ prefix: '/api/v1/status' })
 
-// 背包查询接口
+// 删除
+router.delete('/log', async ctx => {
+  const body = ctx.request.body as {
+    id: string
+  }
+  const error = () => {
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '数据错误',
+      data: null
+    }
+  }
+  if (!body || !body.id) {
+    error()
+    return
+  }
+  await user_log.destroy({
+    where: {
+      id: body.id,
+      uid: ctx.state.user.uid
+    }
+  })
+  ctx.body = {
+    code: OK_CODE,
+    msg: '请求完成',
+    data: null
+  }
+  return
+})
+
+// 查询
 router.get('/search', async ctx => {
   const UID = ctx.state.user.uid
   const query = ctx.request.query as {
