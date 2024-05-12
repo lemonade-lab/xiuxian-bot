@@ -8,6 +8,8 @@ import rings from './v/rings.js'
 import signs from './v/signs.js'
 import goods from './v/goods.js'
 import ass from './v/ass.js'
+import ore from './v/ore.js'
+import move from './v/move.js'
 export default [
   ass,
   file,
@@ -18,5 +20,7 @@ export default [
   levels,
   status,
   rings,
-  signs
+  signs,
+  ore,
+  move
 ]
