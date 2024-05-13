@@ -1,12 +1,9 @@
 import { createApp } from 'alemonjs'
 import * as apps from './apps.js'
-import * as test from './test/index.js'
-if (process.env.test == '0') {
-  createApp(import.meta.url)
-    .use(test)
-    .mount()
-} else {
-  createApp(import.meta.url)
-    .use(apps)
-    .mount()
+import sky from './message/sky.js'
+const app = createApp(import.meta.url)
+for (const key in apps) {
+  app.use(apps[key])
 }
+app.use(sky)
+app.mount()

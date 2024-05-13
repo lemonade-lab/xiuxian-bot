@@ -291,6 +291,4 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
     quote: e.msg_id
   })
 })
-
-const sky = message.ok
-export { sky }
+export default message.ok
