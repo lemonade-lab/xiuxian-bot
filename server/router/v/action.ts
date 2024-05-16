@@ -1,49 +1,63 @@
-import { APlugin, type AEvent } from 'alemonjs'
-import {
-  DB,
-  showUserMsg,
-  GameApi,
-  victoryCooling,
-  isThereAUserPresent,
-  reCreateMsg
-} from '../../api/index.js'
-export class Action extends APlugin {
-  constructor() {
-    super({
-      rule: [
-        { reg: /^(#|\/)?服用[\u4e00-\u9fa5]+\*\d+$/, fnc: 'take' },
-        { reg: /^(#|\/)?(学习|學習)[\u4e00-\u9fa5]+$/, fnc: 'study' },
-        { reg: /^(#|\/)?忘掉[\u4e00-\u9fa5]+$/, fnc: 'forget' },
-        { reg: /^(#|\/)?消耗[\u4e00-\u9fa5]+\*\d+$/, fnc: 'consumption' }
-      ]
-    })
-  }
+import koaRouter from 'koa-router'
+import * as State from '../../../src/model/users/base/state.js'
+import { user, type UserType } from '../../../src/db/models.js'
+import { ERROE_CODE, OK_CODE } from '../../config/ajax'
+import { DB, GameApi } from '../../../src/api/index.js'
+import * as Equipment from '../../../src/model/users/additional/equipment.js'
+import * as Levels from '../../../src/model/users/additional/levels.js'
+import * as Users from '../../../src/model/users/index.js'
+import { isThereAUserPresent,victoryCooling,showUserMsg} from '../../utils/msgapi.js'
+import Application from 'koa'
+const router = new koaRouter({ prefix: '/api/v1/action' })
 
-  /**
-   * 服用
-   * @param e
-   * @returns
-   */
-  async take(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const [thingName, thingAcount] = e.msg
-      .replace(/^(#|\/)?服用/, '')
-      .split('*')
-    const thing = await GameApi.Bag.searchBagByName(UID, thingName)
+/**
+ * 模板
+ */
+router.get("/",async ctx=>{
+    const UID = ctx.state.user.uid
+    if (!(await isThereAUserPresent(UID))){
+       ctx.body = {
+        code: OK_CODE,
+        msg: `查无此人`,
+        data: null
+    }
+      return
+    }
+    const thingName =ctx.query.thingName
+})
+
+/**
+ * 嗑药
+ */
+router.get("/take",async ctx=>{
+    const UID = ctx.state.user.uid
+    if (!(await isThereAUserPresent(UID))){
+       ctx.body = {
+        code: OK_CODE,
+        msg: `查无此人`,
+        data: null
+    }
+      return
+    }
+    const thingName =ctx.query.thingName
+    const thingAcount=ctx.query.thingAcount
+    const thing = await GameApi.Bag.searchBagByName(UID, thingName as string)
     if (!thing) {
-      e.reply([`没有[${thingName}]`], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+        code: OK_CODE,
+        msg: `没有[${thingName}]`,
+        data: null
+    }
       return
     }
     if (thing.acount < Number(thingAcount)) {
-      e.reply(['数量不足'], {
-        quote: e.msg_id
-      })
+     ctx.body = {
+        code: OK_CODE,
+        msg: `数量不足`,
+        data: null
+    }
       return
     }
-    // 得到用户数据
     const UserData = await GameApi.Users.read(UID)
 
     switch (thing.addition) {
@@ -51,16 +65,20 @@ export class Action extends APlugin {
         let size = thing.boolere_covery * Number(thingAcount)
         size = size > 100 ? 100 : size
         const blood = await GameApi.Equipment.addBlood(UserData, size)
-        e.reply([`💊${thingName}\n恢复了${size}%的血量\n🩸${blood}`], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+          code: OK_CODE,
+          msg: `💊${thingName}\n恢复了${size}%的血量\n🩸${blood}`,
+          data: null
+      }
         break
       }
       case 'exp_gaspractice': {
         if (thing.exp_gaspractice <= 0) {
-          e.reply([`[修为]+${0}`], {
-            quote: e.msg_id
-          })
+          ctx.body = {
+            code: OK_CODE,
+            msg: `[修为]+${0}`,
+            data: null
+        }
           break
         }
         const size = Math.floor(
@@ -70,9 +88,11 @@ export class Action extends APlugin {
             100
         )
         const { msg } = await GameApi.Levels.addExperience(UID, 1, size)
-        e.reply([msg], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+            code: OK_CODE,
+            msg: msg,
+            data: null
+        }
         break
       }
       case 'exp_bodypractice': {
@@ -83,9 +103,11 @@ export class Action extends APlugin {
             100
         )
         const { msg } = await GameApi.Levels.addExperience(UID, 2, size)
-        e.reply([msg], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+            code: OK_CODE,
+            msg: msg,
+            data: null
+        }
         break
       }
       case 'exp_soul': {
@@ -96,15 +118,19 @@ export class Action extends APlugin {
             100
         )
         const { msg } = await GameApi.Levels.addExperience(UID, 3, size)
-        e.reply([msg], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+            code: OK_CODE,
+            msg: msg,
+            data: null
+        }
         break
       }
       default: {
-        e.reply([`啥也不是的东东,丢了~`], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+            code: OK_CODE,
+            msg: `啥也不是的东东,丢了~`,
+            data: null
+        }
       }
     }
     await GameApi.Bag.reduceBagThing(UID, [
@@ -112,46 +138,47 @@ export class Action extends APlugin {
         name: thing.name,
         acount: Number(thingAcount)
       }
-    ])
+    ])    
     return
-  }
 
-  /**
-   * 学习
-   * @param e
-   * @returns
-   */
-  async study(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+})
 
-    const thingName = e.msg.replace(/^(#|\/)?(学习|學習)/, '')
-
-    const thing = await GameApi.Bag.searchBagByName(UID, thingName)
+/**
+ * 学习
+ */
+router.get("/study",async ctx=>{
+    const UID = ctx.state.user.uid
+    if (!(await isThereAUserPresent(UID))) return
+    const thingName =ctx.query.thingName
+    const thing = await GameApi.Bag.searchBagByName(UID, thingName as string)
     if (!thing) {
-      e.reply([`没有[${thingName}]`], {
-        quote: e.msg_id
-      })
+       ctx.body = {
+        code: OK_CODE,
+        msg: `没有[${thingName}]`,
+        data: null
+    }
       return
     }
-
-    const AllSorcery = await GameApi.Skills.get(UID)
+        const AllSorcery = await GameApi.Skills.get(UID)
 
     const islearned = AllSorcery.find(item => item.name == thing.name)
     if (islearned) {
-      e.reply(['学过了'], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+        code: OK_CODE,
+        msg: '学过了',
+        data: null
+    }
       return
     }
 
     if (AllSorcery.length >= GameApi.Cooling.myconfig_gongfa) {
-      e.reply(['反复看了又看\n却怎么也学不进'], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+        code: OK_CODE,
+        msg: '反复看了又看\n却怎么也学不进',
+        data: null
+    }
       return
     }
-
     /**
      * 新增功法
      */
@@ -167,44 +194,52 @@ export class Action extends APlugin {
         acount: 1
       }
     ])
-    e.reply([`学习[${thingName}]`], {
-      quote: e.msg_id
-    })
+    ctx.body = {
+        code: OK_CODE,
+        msg: `学习[${thingName}]`,
+        data: null
+    }
     return
-  }
+})
 
-  /**
-   * 忘掉
-   * @param e
-   * @returns
-   */
-  async forget(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-
-    const thingName = e.msg.replace(/^(#|\/)?忘掉/, '')
+/**
+ * 忘掉
+ */
+router.get("/forget",async ctx=>{
+    const UID = ctx.state.user.uid
+    if (!(await isThereAUserPresent(UID))){
+       ctx.body = {
+        code: OK_CODE,
+        msg: `查无此人`,
+        data: null
+    }
+      return
+    }
+            const thingName =ctx.query.thingName
     const AllSorcery = await GameApi.Skills.get(UID)
     const islearned = AllSorcery.find(item => item.name == thingName)
     if (!islearned) {
-      e.reply([`没学过[${thingName}]`], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+        code: OK_CODE,
+        msg: `没学过[${thingName}]`,
+        data: null
+    }
       return
     }
-
     const UserData = await GameApi.Users.read(UID)
     /**
      * 检查背包
      */
     const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
     if (!BagSize) {
-      e.reply(['储物袋空间不足'], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+        code: OK_CODE,
+        msg: '储物袋空间不足',
+        data: null
+    }
       return
     }
-
-    // 直接删
+     // 直接删
 
     await GameApi.Skills.del(UID, thingName)
 
@@ -220,38 +255,49 @@ export class Action extends APlugin {
       { name: islearned.name, acount: 1 }
     ])
 
-    e.reply([`忘了[${thingName}]`], {
-      quote: e.msg_id
-    })
+    ctx.body = {
+        code: OK_CODE,
+        msg: `忘了[${thingName}]`,
+        data: null
+    }
     return
-  }
+})
 
-  /**
-   * 消耗
-   * @param e
-   * @returns
-   */
-  async consumption(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const [thingName, thingAcount] = e.msg
-      .replace(/^(#|\/)?消耗/, '')
-      .split('*')
+/**
+ * 消耗
+ */
+router.get("/consumption",async ctx=>{
+    const UID = ctx.state.user.uid
+    if (!(await isThereAUserPresent(UID))){
+       ctx.body = {
+        code: OK_CODE,
+        msg: `查无此人`,
+        data: null
+    }
+      return
+    }
+    const thingName =ctx.query.thingName as string
+    const thingAcount =ctx.query.thingAcount
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
+    console.log(thing);
+    
     if (!thing) {
-      e.reply([`没有[${thingName}]`], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+        code: OK_CODE,
+        msg: `没有[${thingName}]`,
+        data: null
+    }
       return
     }
     // 检查数量
     if (thing.acount < Number(thingAcount)) {
-      e.reply(['数量不足'], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+          code: OK_CODE,
+          msg: '数量不足',
+          data: null
+      }
       return
     }
-    // 不是道具
     if (thing.type != 6) {
       await GameApi.Bag.reduceBagThing(UID, [
         {
@@ -259,18 +305,18 @@ export class Action extends APlugin {
           acount: Number(thingAcount)
         }
       ])
-      e.reply([`[${thingName}]损坏`], {
-        quote: e.msg_id
-      })
+      ctx.body = {
+          code: OK_CODE,
+          msg: `[${thingName}]损坏`,
+          data: null
+      }
       return
     }
-    // 用户数据集成
-    const UserData = await GameApi.Users.read(UID)
-
+    const UserData = await GameApi.Users.read(UID)    
     switch (thing.id) {
       case 600201: {
         addExperience(
-          e,
+          ctx,
           UID,
           12,
           UserData.talent_size,
@@ -284,7 +330,7 @@ export class Action extends APlugin {
       }
       case 600202: {
         addExperience(
-          e,
+          ctx,
           UID,
           20,
           UserData.talent_size,
@@ -298,7 +344,7 @@ export class Action extends APlugin {
       }
       case 600203: {
         addExperience(
-          e,
+          ctx,
           UID,
           28,
           UserData.talent_size,
@@ -312,7 +358,7 @@ export class Action extends APlugin {
       }
       case 600204: {
         addExperience(
-          e,
+          ctx,
           UID,
           36,
           UserData.talent_size,
@@ -333,9 +379,11 @@ export class Action extends APlugin {
           break
         }
         if (LevelData.realm > 24) {
-          e.reply(['灵根已定\n此生不可再洗髓'], {
-            quote: e.msg_id
-          })
+           ctx.body = {
+            code: OK_CODE,
+            msg: '灵根已定\n此生不可再洗髓',
+            data: null
+          }
           break
         }
         UserData.talent = GameApi.Talent.getTalent()
@@ -362,7 +410,7 @@ export class Action extends APlugin {
          * 显示资料
          */
         setTimeout(() => {
-          showUserMsg(e)
+          showUserMsg(ctx)
         }, 1000)
         break
       }
@@ -386,9 +434,9 @@ export class Action extends APlugin {
         /**
          * 显示资料
          */
-        setTimeout(() => {
-          showUserMsg(e)
-        }, 500)
+        
+        await showUserMsg(ctx)
+      
         break
       }
       /**
@@ -409,7 +457,11 @@ export class Action extends APlugin {
          * 增加经验
          */
         const { msg } = await GameApi.Levels.addExperience(UID, 3, soul)
-        e.reply([msg])
+        ctx.body = {
+            code: OK_CODE,
+            msg: '灵根已定\n此生不可再洗髓',
+            data: null
+          }
         break
       }
       /**
@@ -430,15 +482,21 @@ export class Action extends APlugin {
          * 增加经验
          */
         const { msg } = await GameApi.Levels.addExperience(UID, 3, soul)
-        e.reply([msg])
+        ctx.body = {
+            code: OK_CODE,
+            msg: '灵根已定\n此生不可再洗髓',
+            data: null
+          }
         break
       }
       // 金盆
       case 600305: {
         if (UserData.special_prestige <= 0) {
-          e.reply(['已心无杂念'], {
-            quote: e.msg_id
-          })
+          ctx.body = {
+            code: OK_CODE,
+            msg: '已心无杂念',
+            data: null
+          }
           break
         }
         UserData.special_prestige -= Number(thingAcount)
@@ -458,7 +516,11 @@ export class Action extends APlugin {
             acount: Number(thingAcount)
           }
         ])
-        e.reply([`成功洗去[煞气]*${thingAcount}~`])
+        ctx.body = {
+            code: OK_CODE,
+            msg: `成功洗去[煞气]*${thingAcount}~`,
+            data: null
+          }
         break
       }
       /**
@@ -512,9 +574,11 @@ export class Action extends APlugin {
           pont_attribute: point.attribute
         } as DB.UserType)
 
-        e.reply([`${UserData.name}成功传送至${point.name}`], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+          code: OK_CODE,
+          msg: `成功洗去[煞气]*${thingAcount}~`,
+          data: null
+        }
         /**
          * 扣物品
          */
@@ -537,25 +601,38 @@ export class Action extends APlugin {
         //   }
         // ])
         // 还用扣掉物品码？  直接重生了。
-        reCreateMsg(e)
-        // e.reply(['暂不可使用'], {
-        //   quote: e.msg_id
-        // })
+        // reCreateMsg(ctx)
+         ctx.body = {
+          code: OK_CODE,
+          msg: '暂不可使用',
+          data: null
+        }
         break
       }
       /**
        * 开天令
        */
       case 600401: {
-        e.reply(['开天令:开辟宗门驻地\n————————\n此物暂未开放'], {
-          quote: e.msg_id
-        })
+        ctx.body = {
+          code: OK_CODE,
+          msg: '开天令:开辟宗门驻地\n————————\n此物暂未开放',
+          data: null
+        }
+        break
+      }
+      default : {
+        ctx.body = {
+          code: OK_CODE,
+          msg: "defalut",
+          data: null
+        }
         break
       }
     }
     return
   }
-}
+)
+
 
 /**
  *
@@ -568,14 +645,14 @@ export class Action extends APlugin {
  * @returns
  */
 async function addExperience(
-  e: AEvent,
+  ctx: Application.ParameterizedContext,
   UID: string,
   grade: number,
   talentsize: number,
   thing: { name: string; experience: number },
   acount: number
 ) {
-  const ling = await sendLing(e, UID, acount)
+  const ling = await sendLing(ctx, UID, acount)
   if (!ling) {
     // 直接出去
     return
@@ -583,9 +660,7 @@ async function addExperience(
   const { dividend, realm } = ling
   // 过了
   if (realm > grade) {
-    e.reply(['该灵石已不足以提升修为'], {
-      quote: e.msg_id
-    })
+    
     return
   }
   const size = Math.floor(
@@ -600,8 +675,12 @@ async function addExperience(
   ])
   // 反馈
   const { msg } = await GameApi.Levels.addExperience(UID, 1, size)
-  e.reply([msg])
-  return 
+  ctx.body = {
+      code: ERROE_CODE,
+      msg: msg,
+      data: null
+    }
+  return
 }
 
 /**
@@ -611,18 +690,20 @@ async function addExperience(
  * @param acount
  * @returns
  */
-async function sendLing(e: AEvent, UID: string, acount: number) {
+async function sendLing(ctx: Application.ParameterizedContext, UID: string, acount: number) {
   let dividend = 1
   if (acount > 2200) {
-    e.reply(['最多仅能2200'], {
-      quote: e.msg_id
-    })
+    ctx.body = {
+      code: ERROE_CODE,
+      msg: '最多仅能2200',
+      data: null
+    }
     return false
   }
   const CDID = 12,
     CDTime = GameApi.Cooling.CD_Pconst_ractice
 
-  if (!(await victoryCooling(e, UID, CDID))) return false
+  if (!(await victoryCooling(ctx, UID, CDID))) return false
 
   GameApi.Burial.set(UID, CDID, CDTime)
 
@@ -639,3 +720,5 @@ async function sendLing(e: AEvent, UID: string, acount: number) {
     dividend
   }
 }
+
+export default router
