@@ -1,11 +1,7 @@
 import koaRouter from 'koa-router'
-import { UserType, user } from '../../../src/db/models.js'
+import { user } from '../../../src/db/models.js'
 import { goByBlood } from '../../../src/model/users/base/state.js'
 import { GameApi } from '../../../src/api/index.js'
-import * as Burial from '../../../src/model/wrap/burial.js'
-import * as Users from '../../../src/model/users/index.js'
-import * as Method from '../../../src/model/wrap/method.js'
-import * as Bag from '../../../src/model/users/additional/bag.js'
 import { DB } from '../../../src/api/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 const router = new koaRouter({ prefix: '/api/v1/move' })

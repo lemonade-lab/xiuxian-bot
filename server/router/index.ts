@@ -10,6 +10,9 @@ import goods from './v/goods.js'
 import ass from './v/ass.js'
 import ore from './v/ore.js'
 import move from './v/move.js'
+import equipment from './v/equipment.js'
+import destiny from './v/destiny.js'
+
 export default [
   ass,
   file,
@@ -22,5 +25,7 @@ export default [
   rings,
   signs,
   ore,
-  move
+  move,
+  equipment,
+  destiny
 ]
