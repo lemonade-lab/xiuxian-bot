@@ -4,6 +4,7 @@ import * as Talent from '../model/users/base/talent.js'
 import * as Bag from '../model/users/additional/bag.js'
 import * as Users from '../model/users/index.js'
 import * as Equipment from '../model/users/additional/equipment.js'
+import { Op } from 'sequelize'
 
 /**
  * 个人信息
@@ -369,7 +370,7 @@ export async function showSky(UID: string) {
   })) as any
   const list: DB.SkyType[] = (await DB.sky.findAll({
     where: {
-      id: { [DB.Op.lte]: data.id } // 获取ID小于给定ID的记录
+      id: { [Op.lte]: data.id } // 获取ID小于给定ID的记录
     },
     order: [['id', 'DESC']], // 根据 id 升序排序
     //

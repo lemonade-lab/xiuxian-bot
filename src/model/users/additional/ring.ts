@@ -1,5 +1,6 @@
-import { type UserRingType, user_ring, literal } from '../../../db/index.js'
+import { type UserRingType, user_ring } from '../../../db/index.js'
 import { searchAllThing } from '../../wrap/goods.js'
+import { literal } from 'sequelize'
 
 /**
  *

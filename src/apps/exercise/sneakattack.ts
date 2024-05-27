@@ -11,6 +11,7 @@ import {
   victoryCooling
 } from '../../api/index.js'
 import { TemplateId } from '../../model/config/index.js'
+import { Op } from 'sequelize'
 export class SneakAttack extends APlugin {
   constructor() {
     super({
@@ -45,7 +46,7 @@ export class SneakAttack extends APlugin {
       where: {
         id: ID,
         uid: {
-          [DB.Op.ne]: UID
+          [Op.ne]: UID
         },
         // 区域一样的玩家
         point_type: UserData.point_type,
@@ -55,7 +56,7 @@ export class SneakAttack extends APlugin {
         state: 0,
         // 只能看到血量大于1的玩家
         battle_blood_now: {
-          [DB.Op.gt]: minBattleBlood
+          [Op.gt]: minBattleBlood
         }
       },
       raw: true
@@ -346,7 +347,7 @@ export class SneakAttack extends APlugin {
       where: {
         // 不是自己的UID
         uid: {
-          [DB.Op.ne]: UID
+          [Op.ne]: UID
         },
         // 区域一样的玩家
         point_type: UserData.point_type,
@@ -356,26 +357,26 @@ export class SneakAttack extends APlugin {
         state: 0,
         // 只能看到血量大于1的玩家
         battle_blood_now: {
-          [DB.Op.gt]: minBattleBlood
+          [Op.gt]: minBattleBlood
         },
         // 只显示比自己战力低的
         battle_power: {
-          [DB.Op.lte]: battle_power + 3280
+          [Op.lte]: battle_power + 3280
         },
         pont_x: {
-          [DB.Op.between]: [
+          [Op.between]: [
             UserData.pont_x - distanceThreshold,
             UserData.pont_x + distanceThreshold
           ]
         },
         pont_y: {
-          [DB.Op.between]: [
+          [Op.between]: [
             UserData.pont_y - distanceThreshold,
             UserData.pont_y + distanceThreshold
           ]
         },
         pont_z: {
-          [DB.Op.between]: [
+          [Op.between]: [
             UserData.pont_z - distanceThreshold,
             UserData.pont_z + distanceThreshold
           ]

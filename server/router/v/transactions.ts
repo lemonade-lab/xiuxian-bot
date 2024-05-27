@@ -8,8 +8,7 @@ import {
   transactions_logs,
   user,
   goods,
-  GoodsType,
-  Op
+  GoodsType
 } from '../../../src/db/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import {
@@ -22,6 +21,7 @@ import {
   addBagThing,
   reduceBagThing
 } from '../../../src/model/users/additional/bag.js'
+import { Op } from 'sequelize'
 const router = new koaRouter({ prefix: '/api/v1/transactions' })
 
 const TransactionMap = new Map()

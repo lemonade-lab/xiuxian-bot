@@ -1,7 +1,7 @@
+import { Op } from 'sequelize'
 import {
   map_point,
   map_position,
-  Op,
   type MapPositionType,
   type MapPointType
 } from '../../db/index.js'

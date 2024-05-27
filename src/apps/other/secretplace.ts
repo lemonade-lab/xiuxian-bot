@@ -7,6 +7,7 @@ import {
   ControlByBlood,
   endAllWord
 } from '../../api/index.js'
+import { Op, literal } from 'sequelize'
 export class Secretplace extends APlugin {
   constructor() {
     super({
@@ -92,7 +93,7 @@ export class Secretplace extends APlugin {
     const point: DB.MapPointType = (await DB.map_point.findOne({
       order: [
         [
-          DB.literal(`CASE
+          literal(`CASE
           WHEN x >= ${UserData.pont_x - 200} AND x <= ${
             UserData.pont_x + 200
           } THEN 0
@@ -101,7 +102,7 @@ export class Secretplace extends APlugin {
           'ASC'
         ],
         [
-          DB.literal(`CASE
+          literal(`CASE
           WHEN y >= ${UserData.pont_y - 200} AND y <= ${
             UserData.pont_y + 200
           } THEN 0
@@ -112,7 +113,7 @@ export class Secretplace extends APlugin {
       ],
       where: {
         name: {
-          [DB.Op.like]: `%${address}%`
+          [Op.like]: `%${address}%`
         }
       },
       raw: true

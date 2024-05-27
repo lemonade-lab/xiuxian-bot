@@ -1,5 +1,6 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { isThereAUserPresent, DB, GameApi, sendReply } from '../../api/index.js'
+import { Op } from 'sequelize'
 export class AssManage extends APlugin {
   constructor() {
     super({
@@ -174,7 +175,7 @@ export class AssManage extends APlugin {
     const data: DB.UserAssType[] = (await DB.user_ass.findAll({
       where: {
         aid: aData.id,
-        identity: { [DB.Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
+        identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
       },
       raw: true
     })) as any

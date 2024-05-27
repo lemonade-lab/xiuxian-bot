@@ -1,10 +1,12 @@
 import {
   map_treasure,
   map_position,
-  literal,
   type MapPositionType,
   type MapTreasureType
 } from '../../db/index.js'
+
+import { literal } from 'sequelize'
+
 /**
  * 写入
  * @param NAME

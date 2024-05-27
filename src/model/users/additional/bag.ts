@@ -1,4 +1,5 @@
-import { type UserBagType, user_bag, literal } from '../../../db/index.js'
+import { type UserBagType, user_bag } from '../../../db/index.js'
+import { literal } from 'sequelize'
 import { searchAllThing } from '../../wrap/goods.js'
 
 /**

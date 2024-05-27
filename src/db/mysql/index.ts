@@ -1,6 +1,7 @@
 import { appendFile, mkdirSync } from 'fs'
 import { join } from 'path'
 import { Sequelize } from 'sequelize'
+
 /**
  *
  * @param date
@@ -12,10 +13,14 @@ function formatDate(date: Date) {
   const day = String(date.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
+
+//
 const dir = join(process.cwd(), 'logs', 'mysql')
 mkdirSync(dir, {
   recursive: true
 })
+
+//
 export const sequelize = new Sequelize(
   process.env?.ALEMONJS_MYSQL_DATABASE ?? 'xiuxian',
   process.env?.ALEMONJS_MYSQL_USER ?? 'root',
@@ -48,10 +53,18 @@ export const sequelize = new Sequelize(
   }
 )
 
+// 监听连接错误
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('数据库连接成功.')
+  })
+  .catch(() => {
+    console.log('数据库连接失败')
+  })
+
 export const TableConfig = {
   freezeTableName: true, //不增加复数表名
   createdAt: false, //去掉
   updatedAt: false //去掉
 }
-
-export { Op, literal } from 'sequelize'
