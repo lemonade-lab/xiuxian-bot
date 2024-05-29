@@ -55,17 +55,17 @@ router.get('/addEquipment', async ctx => {
     }
   ])
   // 响应消息
-    
-    const UserData = await GameApi.Users.read(UID)
-    // 更新
-    await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
-    // 响应
-    ctx.body = {
-      code: OK_CODE,
-      msg: `装备[${thingName}]`,
-      data: null
-    }
-  
+
+  const UserData = await GameApi.Users.read(UID)
+  // 更新
+  await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
+  // 响应
+  ctx.body = {
+    code: OK_CODE,
+    msg: `装备[${thingName}]`,
+    data: null
+  }
+
   return
 })
 
@@ -111,12 +111,12 @@ router.get('/deleteEquipment', async ctx => {
   }
   await GameApi.Equipment.del(UID, thingName, islearned.id)
   await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
-      {
-        name: thingName,
-        acount: 1
-      }
-    ])
-    // 更新
+    {
+      name: thingName,
+      acount: 1
+    }
+  ])
+  // 更新
   await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
   ctx.body = {
     code: OK_CODE,

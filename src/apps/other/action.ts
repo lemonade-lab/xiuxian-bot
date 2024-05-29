@@ -601,7 +601,7 @@ async function addExperience(
   // 反馈
   const { msg } = await GameApi.Levels.addExperience(UID, 1, size)
   e.reply([msg])
-  return 
+  return
 }
 
 /**

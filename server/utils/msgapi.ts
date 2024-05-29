@@ -184,7 +184,7 @@ export async function levelUp(
   }
 
   const { msg } = await Levels.enhanceRealm(UID, ID)
-    ctx.body = {
+  ctx.body = {
     code: OK_CODE,
     msg: msg,
     data: null
@@ -259,7 +259,7 @@ export async function levelUp(
  * 显示个人信息
  * @param e
  */
-export async function showUserMsg(ctx:Application.Context) {
+export async function showUserMsg(ctx: Application.Context) {
   const UID = ctx.state.user.uid
   await user
     .findOne({
@@ -292,7 +292,7 @@ export async function showUserMsg(ctx:Application.Context) {
         data: null
       }
     })
-    return 
+  return
 }
 
 /**
@@ -424,8 +424,6 @@ export async function controlByName(
   return true
 }
 
-
-
 const npcName = [
   '巡逻军',
   '城主',
@@ -507,7 +505,7 @@ export async function isUser(UID: string): Promise<UserType> {
  * @param UID
  * @returns
  */
-export async function isThereAUserPresent( UID: string) {
+export async function isThereAUserPresent(UID: string) {
   const UserData = (await user.findOne({
     attributes: ['uid'],
     where: {
