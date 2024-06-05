@@ -54,3 +54,5 @@ yarn.lock
 index.js
 
 cache
+
+.yarn

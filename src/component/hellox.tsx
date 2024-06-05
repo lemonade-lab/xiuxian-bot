@@ -5,6 +5,7 @@ export default function App() {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href={_('css/output.css')}></link>
         <link rel="stylesheet" href={_(`css/hello.css`)}></link>
       </head>
       <body>

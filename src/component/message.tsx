@@ -7,6 +7,7 @@ export default function App({ data }: { data: PersonalInformationType }) {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href={_('css/output.css')}></link>
         <link rel="stylesheet" href={_('css/new-root.css')}></link>
         <link
           rel="stylesheet"

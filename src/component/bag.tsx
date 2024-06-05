@@ -8,6 +8,7 @@ export default function App({ data }) {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href={_('css/output.css')}></link>
         <link rel="stylesheet" href={_('css/root.css')}></link>
         <link rel="stylesheet" href={_('css/root-dark.css')}></link>
         <link rel="stylesheet" href={_('css/bag.css')}></link>
