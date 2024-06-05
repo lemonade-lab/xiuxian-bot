@@ -30,25 +30,15 @@ export default function App({ data }: { data: PersonalInformationType }) {
             <div className="level-box">
               <span className="menu-button-flat">/面板信息</span>
               <div className="level-box-item">
-                {/* <img className="nav-box-item-img" src={_('svg/attack.svg')} /> */}
                 声望: {data.special_reputation}
               </div>
               <div className="level-box-item">
-                {/* <img className="nav-box-item-img" src={_('svg/defense.svg')} /> */}
                 煞气: {data.special_prestige}/100
               </div>
               <div className="level-box-item">
-                {/* <img
-                  className="nav-box-item-img"
-                  src={_('svg/critical_hit_rate.svg')}
-                /> */}
                 <span>体境: {data.level?.bodypractice?.Name}</span>
               </div>
               <div className="level-box-item">
-                {/* <img
-                  className="nav-box-item-img"
-                  src={_('svg/critical_damage.svg')}
-                /> */}
                 气血: {data.level?.bodypractice?.Experience}/
                 {data.level?.bodypractice?.ExperienceLimit}
               </div>
@@ -63,9 +53,9 @@ export default function App({ data }: { data: PersonalInformationType }) {
           </div>
           {data.skills.length > 0 && (
             <div className="kills">
-              <div className="kills-box">
+              <div className="kills-box flex flex-wrap">
                 {data.skills.map((item, index) => (
-                  <span key={item['good.name']}>《{item['good.name']}》 </span>
+                  <span key={index}>《{item['good.name']}》 </span>
                 ))}
                 <span className="menu-button-flat">/功法信息</span>
               </div>

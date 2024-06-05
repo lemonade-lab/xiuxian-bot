@@ -17,9 +17,10 @@
     "logs": "pm2 logs",
     "monit": "pm2 monit",
     "pm2": "pm2",
+    "css": "tailwindcss -i ./src/input.css -o ./public/css/output.css",
+    "css:watch": "tailwindcss -i ./src/input.css -o ./public/css/output.css --watch",
     "image:dev": "nodemon --config src-image/nodemon.json",
     "server:dev": "nodemon --config server/nodemon.json",
-    "css": "node tailwind.watch.js",
     "format": "prettier --write .",
     "prepare": "husky"
   },
