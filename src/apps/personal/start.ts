@@ -10,11 +10,7 @@ import {
 export class Start extends APlugin {
   constructor() {
     super({
-      rule: [
-        { reg: /^(#|\/)?踏入仙途$/, fnc: 'createMsg' },
-        { reg: /^(#|\/)?绑定(头像|企鹅)\d+$/, fnc: 'binding' },
-        { reg: /^(#|\/)?解绑(头像|企鹅)$/, fnc: 'delBinding' }
-      ]
+      rule: [{ reg: /^(#|\/)?踏入仙途$/, fnc: 'createMsg' }]
     })
   }
 
@@ -42,23 +38,17 @@ export class Start extends APlugin {
             .then(() => {
               // 设置冷却
               GameApi.Burial.set(UID, 8, GameApi.Cooling.CD_Reborn)
-              if (e.platform == 'ntqq') {
-                Controllers(e).Message.reply(
-                  '',
-                  [
-                    { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
-                    { label: '修仙帮助', value: '/修仙帮助' }
-                  ],
-                  [{ label: '修仙联盟', value: '/前往联盟' }]
-                )
-              } else {
-                e.reply(
-                  [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
-                  {
-                    quote: e.msg_id
-                  }
-                )
-              }
+              Controllers(e).Message.reply(
+                '',
+                [{ label: '修仙帮助', value: '/修仙帮助' }],
+                [{ label: '修仙联盟', value: '/前往联盟' }]
+              )
+              e.reply(
+                [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
+                {
+                  quote: e.msg_id
+                }
+              )
               // 显示资料
               showUserMsg(e)
             })
@@ -110,46 +100,4 @@ export class Start extends APlugin {
 
     return
   }
-
-  /**
-   * (头像|企鹅)
-   * @param e
-   * @returns
-   */
-  async binding(e: AEvent) {
-    const UID = e.user_id
-
-    isUser(UID)
-      .then(res => {
-        if (!res) {
-          createUser(e)
-          return
-        }
-        const qq = e.msg.replace(/^(#|\/)?绑定(头像|企鹅)/, '').split('*')
-        if (qq.length >= 20) {
-          e.reply('错误长度', {
-            quote: e.msg_id
-          })
-          return
-        }
-        GameApi.Users.update(UID, {
-          phone: Number(qq)
-        } as DB.UserType)
-          .then(res => {
-            e.reply([`绑定${qq}成功`], {
-              quote: e.msg_id
-            })
-          })
-          .catch(() => {
-            e.reply('绑定失败')
-          })
-      })
-      .catch(() => {
-        e.reply('数据查询错误')
-      })
-
-    return
-  }
 }
-
-const reStart = {}

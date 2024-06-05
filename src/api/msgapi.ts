@@ -214,20 +214,16 @@ export function createUser(e: AEvent) {
             // 设置冷却
             Burial.set(UID, 8, Cooling.CD_Reborn)
 
-            if (e.platform == 'ntqq') {
-              Controllers(e).Message.reply('', [
-                { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
-                { label: '修仙帮助', value: '/修仙帮助' },
-                { label: '修仙联盟', value: '/前往联盟' }
-              ])
-            } else {
-              e.reply(
-                [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
-                {
-                  quote: e.msg_id
-                }
-              )
-            }
+            Controllers(e).Message.reply('', [
+              { label: '修仙帮助', value: '/修仙帮助' },
+              { label: '修仙联盟', value: '/前往联盟' }
+            ])
+            e.reply(
+              [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
+              {
+                quote: e.msg_id
+              }
+            )
 
             // 显示资料
             showUserMsg(e)
