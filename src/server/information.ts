@@ -92,14 +92,9 @@ export async function personalInformation(UID: string, user_avatar: string) {
     raw: true
   })) as any
 
-  let avatar = user_avatar == '' ? UserData.avatar : user_avatar
-  if (UserData.phone) {
-    avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UserData.phone}`
-  }
-
   return {
     UID: UID,
-    avatar: avatar,
+    avatar: user_avatar,
     // 天赋
     linggenName: name,
     talentsize: size,
@@ -202,10 +197,6 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
       speed: Equipment.valculateNumerical(fdata['good.speed'], fdata.grade)
     })
   }
-  let avatar = user_avatar == '' ? UserData.avatar : user_avatar
-  if (UserData.phone) {
-    avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UserData.phone}`
-  }
 
   return {
     UID,
@@ -218,7 +209,7 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
     battle_critical_damage: UserData.battle_critical_damage,
     equipment: equipment,
     fate: arr,
-    avatar: avatar
+    avatar: user_avatar
   }
 }
 
@@ -251,18 +242,13 @@ export async function skillInformation(UID: string, user_avatar: string) {
     raw: true
   })) as any
 
-  let avatar = user_avatar == '' ? UserData.avatar : user_avatar
-  if (UserData.phone) {
-    avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UserData.phone}`
-  }
-
   return {
     UID,
     skills: skills,
     name: UserData.name,
     linggenName: name,
     talentsize: size,
-    avatar: avatar
+    avatar: user_avatar
   }
 }
 
@@ -298,18 +284,13 @@ export async function backpackInformation(
     raw: true
   })) as any
 
-  let avatar = user_avatar == '' ? UserData.avatar : user_avatar
-  if (UserData.phone) {
-    avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UserData.phone}`
-  }
-
   return {
     UID,
     name: UserData.name,
     bag_grade: UserData.bag_grade,
     length: length,
     bag: bag,
-    avatar: avatar
+    avatar: user_avatar
   }
 }
 
@@ -337,18 +318,13 @@ export async function ringInformation(UID: string, user_avatar: string) {
     raw: true
   })) as any
 
-  let avatar = user_avatar == '' ? UserData.avatar : user_avatar
-  if (UserData.phone) {
-    avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UserData.phone}`
-  }
-
   return {
     UID,
     name: UserData.name,
     bag_grade: 1,
     length: length,
     bag: bag,
-    avatar: avatar
+    avatar: user_avatar
   }
 }
 
