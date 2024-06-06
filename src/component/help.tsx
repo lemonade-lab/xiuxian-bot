@@ -30,7 +30,10 @@ export default function App({ data }) {
             </div>
           ))}
           <div className="copyright">
-            <span className="version">{'https://alemonjs.com/'}</span>
+            官网 <span className="version">{'http://xiuxian.uk/'}</span>
+          </div>
+          <div className="copyright">
+            官群 <span className="version">744893244</span>
           </div>
         </div>
       </body>
