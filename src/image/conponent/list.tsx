@@ -5,6 +5,7 @@ export default function App({ data }) {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href="../css/output.css"></link>
         <link rel="stylesheet" href="../css/root.css"></link>
         <link rel="stylesheet" href="../css/list.css" />
       </head>

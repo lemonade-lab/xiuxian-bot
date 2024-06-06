@@ -6,6 +6,7 @@ export default function App({ data }: { data: PersonalInformationType }) {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href="../css/output.css"></link>
         <link rel="stylesheet" href="../css/root.css"></link>
         <link rel="stylesheet" href="../css/information.css"></link>
       </head>
