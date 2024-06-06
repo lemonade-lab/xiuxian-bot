@@ -10,6 +10,12 @@ export default function App({ data }) {
       <body>
         <div id="app" className="help">
           <div style={{ height: '350px' }}></div>
+          <div className="copyright">
+            官网 <span className="version">{'http://xiuxian.uk/'}</span>
+          </div>
+          <div className="copyright">
+            官群 <span className="version">744893244</span>
+          </div>
           {data.map(val => (
             <div key={val.group} className="cont-box">
               <div className="help-group">{val.group}</div>
@@ -28,12 +34,6 @@ export default function App({ data }) {
               </div>
             </div>
           ))}
-          <div className="copyright">
-            官网 <span className="version">{'http://xiuxian.uk/'}</span>
-          </div>
-          <div className="copyright">
-            官群 <span className="version">744893244</span>
-          </div>
         </div>
       </body>
     </html>
