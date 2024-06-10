@@ -39,7 +39,7 @@ export class Information extends APlugin {
     [
       { label: '设置密码', value: '/设置密码+[数字/字母]', enter: false },
       { label: '设置邮箱', value: '/设置邮箱+[xxxx@yyy.zzz]', enter: false },
-      { label: '易物阁', link: 'http://xiuxian.uk/' }
+      { label: '易物阁', link: 'http://43.143.217.7/' }
     ],
     [{ label: '控制板', value: '/控制板' }]
   ]
@@ -203,7 +203,7 @@ export class Information extends APlugin {
     [
       { label: '我的编号', value: '/我的编号' },
       { label: '账号管理', value: '/账号管理' },
-      { label: '易物阁', link: 'http://xiuxian.uk/' }
+      { label: '易物阁', link: 'http://43.143.217.7/' }
     ],
     [
       { label: '万宝楼', value: '/万宝楼' },
