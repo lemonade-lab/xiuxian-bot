@@ -1,8 +1,12 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { user, UserType } from '../../../src/db/index'
-import { addBagThing } from '../../../src/model/users/additional/bag'
-import { isSameDay, isSameYearAndMonth } from '../../../src/model/wrap/method'
+import { user, UserType } from 'xiuxian-db'
+import {
+  isSameDay,
+  isSameYearAndMonth
+} from '../../../xiuxian-core/wrap/method'
+import { addBagThing } from '../../../xiuxian-core/users/additional/bag'
+
 const router = new koaRouter({ prefix: '/api/v1/signs' })
 
 // 签到

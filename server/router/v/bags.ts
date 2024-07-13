@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { UserBagType, user_bag } from '../../../src/db'
+import { UserBagType, user_bag } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/bags' })
 
 // 背包查询接口

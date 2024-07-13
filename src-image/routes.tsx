@@ -2,14 +2,15 @@ import React from 'react'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { importPath } from 'alemonjs'
-import { mapType } from '../src/model/wrap/goods'
+import { Goods } from 'xiuxian-core'
 import {
   backpackInformation,
   personalInformation
 } from '../src/server/information'
-import MessageComponent from '../src/component/message'
-import HelpComponent from '../src/component/help'
-import BagComponent from '../src/component/bag'
+
+import MessageComponent from '../xiuxian-component/src/component2/message'
+import HelpComponent from '../xiuxian-component/src/component2/help'
+import BagComponent from '../xiuxian-component/src/component2/bag'
 
 const uid = '13348342918169126729'
 const data = await personalInformation(uid, '')
@@ -25,7 +26,7 @@ function getJson(name: string) {
 //
 const helpDAta = getJson('base_help')
 
-const bagDAta = await backpackInformation(uid, '', mapType['道具'])
+const bagDAta = await backpackInformation(uid, '', Goods.mapType['道具'])
 
 export const routes = [
   {

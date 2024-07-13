@@ -1,13 +1,6 @@
 import koaRouter from 'koa-router'
-import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import {
-  LevelsType,
-  UserBagType,
-  UserLevelType,
-  levels,
-  user_bag,
-  user_level
-} from '../../../src/db'
+import { OK_CODE } from '../../config/ajax'
+import { LevelsType, UserLevelType, levels, user_level } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/levels' })
 
 async function searchLevels(UID) {

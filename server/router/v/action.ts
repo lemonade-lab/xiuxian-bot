@@ -1,11 +1,8 @@
 import koaRouter from 'koa-router'
-import * as State from '../../../src/model/users/base/state.js'
-import { user, type UserType } from '../../../src/db/models.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { DB, GameApi } from '../../../src/api/index.js'
-import * as Equipment from '../../../src/model/users/additional/equipment.js'
-import * as Levels from '../../../src/model/users/additional/levels.js'
-import * as Users from '../../../src/model/users/index.js'
+import * as DB from 'xiuxian-db'
+import * as GameApi from 'xiuxian-core'
+
 import {
   isThereAUserPresent,
   victoryCooling,
@@ -27,7 +24,7 @@ router.get('/', async ctx => {
     }
     return
   }
-  const thingName = ctx.query.thingName
+  // const thingName = ctx.query.thingName
 })
 
 /**

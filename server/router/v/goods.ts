@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { GoodsType, goods } from '../../../src/db'
+import { GoodsType, goods } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/goods' })
 
 // 物品查询接口

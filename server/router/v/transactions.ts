@@ -9,7 +9,7 @@ import {
   user,
   goods,
   GoodsType
-} from '../../../src/db/index.js'
+} from 'xiuxian-db'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import {
   MAX_COUNT,
@@ -17,11 +17,12 @@ import {
   MIN_PRICE,
   PUSH_SIZE
 } from '../../config/transactions.js'
+
+import { Op } from 'sequelize'
 import {
   addBagThing,
   reduceBagThing
-} from '../../../src/model/users/additional/bag.js'
-import { Op } from 'sequelize'
+} from '../../../xiuxian-core/users/additional/bag.js'
 const router = new koaRouter({ prefix: '/api/v1/transactions' })
 
 const TransactionMap = new Map()

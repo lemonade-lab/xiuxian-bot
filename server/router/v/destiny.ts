@@ -1,7 +1,10 @@
-import { DB, GameApi } from '../../../src/api/index.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { user } from '../../../src/db/models.js'
+import { user } from 'xiuxian-db'
 import koaRouter from 'koa-router'
+
+import * as DB from 'xiuxian-db'
+import * as GameApi from 'xiuxian-core'
+
 const router = new koaRouter({ prefix: '/api/v1/destiny' })
 const reGiveup = {}
 

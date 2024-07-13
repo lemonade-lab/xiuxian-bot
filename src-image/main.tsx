@@ -4,7 +4,7 @@ import Koa from 'koa'
 import KoaStatic from 'koa-static'
 import Router from 'koa-router'
 import { routes } from './routes.js'
-import component from '../src/image/index.js'
+import component from 'xiuxian-component'
 import { writeFileSync } from 'fs'
 import { join } from 'path'
 // new

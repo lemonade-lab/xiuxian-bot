@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { AssType, UserAssType, ass, user, user_ass } from '../../../src/db'
+import { AssType, UserAssType, ass, user_ass } from 'xiuxian-db'
 import { GameApi } from '../../../src/api'
 const router = new koaRouter({ prefix: '/api/v1/ass' })
 

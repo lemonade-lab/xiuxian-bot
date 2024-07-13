@@ -1,9 +1,11 @@
 import koaRouter from 'koa-router'
-import { user } from '../../../src/db/models.js'
-import { goByBlood } from '../../../src/model/users/base/state.js'
-import { GameApi } from '../../../src/api/index.js'
-import { DB } from '../../../src/api/index.js'
+import { user } from 'xiuxian-db'
+
+import * as DB from 'xiuxian-db'
+import * as GameApi from 'xiuxian-core'
+
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
+import { goByBlood } from '../../../xiuxian-core/users/base/state'
 const router = new koaRouter({ prefix: '/api/v1/move' })
 
 //个人位置

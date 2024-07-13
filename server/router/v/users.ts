@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { UserType, user } from '../../../src/db/models.js'
+import { UserType, user } from 'xiuxian-db'
 import { getKillList } from '../../../src/server/start.js'
 const router = new koaRouter({ prefix: '/api/v1/users' })
 

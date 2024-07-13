@@ -1,7 +1,9 @@
 import koaRouter from 'koa-router'
-import { user } from '../../../src/db/models.js'
-import { GameApi } from '../../../src/api/index.js'
+import { user } from 'xiuxian-db'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
+
+import * as GameApi from 'xiuxian-core'
+
 const router = new koaRouter({ prefix: '/api/v1/equipment' })
 
 router.get('/addEquipment', async ctx => {

@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { UserLogType, user_log } from '../../../src/db/index'
+import { UserLogType, user_log } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/status' })
 
 // 删除
