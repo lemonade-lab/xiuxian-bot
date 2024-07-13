@@ -1,10 +1,22 @@
-import * as DB from '../db/src/index.js'
-import * as Ring from '../model/users/additional/ring.js'
-import * as Talent from '../model/users/base/talent.js'
-import * as Bag from '../model/users/additional/bag.js'
-import * as Users from '../model/users/index.js'
-import * as Equipment from '../model/users/additional/equipment.js'
+import * as DB from 'xiuxian-db'
 import { Op } from 'sequelize'
+
+import {
+  Cooling,
+  Talent,
+  Ring,
+  Method,
+  Map,
+  Burial,
+  Treasure,
+  Player,
+  State,
+  Users,
+  Skills,
+  Levels,
+  Bag,
+  Equipment
+} from 'xiuxian-core'
 
 /**
  * 个人信息

@@ -4,7 +4,7 @@ import {
   ass_typing,
   ass,
   user_ass
-} from '../../db/src'
+} from 'xiuxian-db'
 export const v = async (UID: string, name: string, size = 4) => {
   /**
    * ********

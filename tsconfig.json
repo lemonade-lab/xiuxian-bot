@@ -1,5 +1,7 @@
 {
   "include": [
+    "xiuxian-component",
+    "xiuxian-db",
     "src",
     "server",
     "src-image",

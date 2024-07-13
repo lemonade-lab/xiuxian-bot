@@ -1,4 +1,4 @@
-import { goods, type GoodsType } from '../../db/src'
+import { goods, type GoodsType } from 'xiuxian-db'
 import { WhereOptions, literal } from 'sequelize'
 
 /**

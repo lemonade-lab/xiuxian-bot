@@ -5,7 +5,8 @@ import {
   sendReply,
   isThereAUserPresent
 } from '../../api/index.js'
-import { isSameDay } from '../../model/wrap/method.js'
+
+import { Method } from 'xiuxian-core'
 
 import * as DB from 'xiuxian-db'
 
@@ -184,7 +185,10 @@ export class Transaction extends APlugin {
 
     if (bData) {
       // 存在  判断日期
-      if (isSameDay(bData.buy_time, now) && bData.count > ifexist.limit_buy) {
+      if (
+        Method.isSameDay(bData.buy_time, now) &&
+        bData.count > ifexist.limit_buy
+      ) {
         e.reply(`[万宝楼]小二:\n每天可买${ifexist.limit_buy - bData.count}`)
         return
       } else {

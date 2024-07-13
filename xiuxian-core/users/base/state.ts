@@ -1,4 +1,4 @@
-import { type UserType, user } from '../../../db/src'
+import { type UserType, user } from 'xiuxian-db'
 const ACTIONMAP = {
   0: '空闲',
   1: '闭关',

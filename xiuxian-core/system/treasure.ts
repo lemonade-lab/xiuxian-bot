@@ -3,7 +3,7 @@ import {
   map_position,
   type MapPositionType,
   type MapTreasureType
-} from '../../db/src'
+} from 'xiuxian-db'
 
 import { literal } from 'sequelize'
 

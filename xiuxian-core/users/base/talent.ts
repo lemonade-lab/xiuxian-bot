@@ -1,5 +1,5 @@
 // 数据框架
-import { talent, type TalentType } from '../../../db/src'
+import { talent, type TalentType } from 'xiuxian-db'
 
 /**
  * 计算天赋大小

@@ -1,4 +1,4 @@
-import { Redis } from '../../db/src'
+import { Redis } from 'xiuxian-db'
 /**
  * 得到数据
  * @param i

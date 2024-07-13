@@ -2,132 +2,24 @@ import { Controllers, type AEvent } from 'alemonjs'
 
 // 用户模型
 import { ERROE_CODE, OK_CODE } from '../config/ajax'
-import * as State from '../../src/model/users/base/state.js'
-import * as Talent from '../../src/model/users/base/talent.js'
-import * as Life from '../../src/model/users/base/life.js'
-import * as Users from '../../src/model/users/index.js'
-// 附加模型
-import * as logs from '../../src/model/users/additional/logs.js'
-import * as Skills from '../../src/model/users/additional/skills.js'
-import * as Levels from '../../src/model/users/additional/levels.js'
-import * as Bag from '../../src/model/users/additional/bag.js'
-import * as Ring from '../../src/model/users/additional/ring.js'
-import * as Compensate from '../../src/model/users/additional/compensate.js'
-import * as Equipment from '../../src/model/users/additional/equipment.js'
+import { user, type UserType } from 'xiuxian-db'
 
-// 特殊机制
-import * as Player from '../../src/model/system/player.js'
-// 特殊模型
-import * as Fight from '../../src/model/system/fight.js'
-import * as Monster from '../../src/model/system/monster.js'
-import * as Treasure from '../../src/model/system/treasure.js'
-import * as explore from '../../src/model/system/explore.js'
-
-// 势力模型
-import * as Ass from '../../src/model/system/ass.js'
-
-// 特殊模型
-import * as Burial from '../../src/model/wrap/burial.js'
-import * as Map from '../../src/model/wrap/map.js'
-import * as Place from '../../src/model/wrap/place.js'
-import * as Method from '../../src/model/wrap/method.js'
-import * as Goods from '../../src/model/wrap/goods.js'
-import * as move from '../../src/model/wrap/move.js'
-
-// 配置
-import * as Cooling from '../../src/model/config/cooling.js'
-import * as Config from '../../src/model/config/index.js'
-
-// 缓存
-import { urlHelpCache } from '../../src/utils/cache.js'
-import { user, type UserType } from '../../src/db/index.js'
-// img
-import { personalInformation } from '../../src/server/information.js'
-import ImageComponent from '../../src/image/index.js'
-import { updatePlayer } from '../../src/model/system/player.js'
 import Application from 'koa'
 
-const reStart = {}
-
-// /**
-//  *再入仙途
-//  * @param e
-//  * @returns
-//  */
-// export async function reCreateMsg(e: AEvent) {
-//   const UID = e.user_id
-
-//   // 确保是用户
-//   isUser(UID)
-//     .then(res => {
-//       if (!res) {
-//         createUser(e)
-//         return
-//       }
-
-//       /**
-//        * 不存在或者过期了
-//        */
-//       if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
-//         reStart[UID] = new Date().getTime()
-//         e.reply(['[重要提示]\n请30s内再次消耗道具', '\n以确认转世'], {
-//           quote: e.msg_id
-//         })
-//         return
-//       }
-
-//       /**
-//        * 规定时间内操作
-//        */
-
-//       const CDID = 8
-//       const CDTime = Cooling.CD_Reborn
-
-//       /**
-//        * 检查冷却s
-//        */
-//       victoryCooling(, UID, CDID).then(res => {
-//         if (!res) return
-
-//         /**
-//          * 重置用户
-//          */
-//         Player.updatePlayer(UID, e.user_avatar)
-//           .then(res => {
-//             // 设置redis
-//             Burial.set(UID, CDID, CDTime)
-
-//             // 重新查询用户
-//             isUser(UID)
-//               .then(UserData => {
-//                 /**
-//                  * 并发
-//                  */
-//                 Promise.all([
-//                   // 更新
-//                   Equipment.updatePanel(UID, UserData.battle_blood_now),
-//                   // 更新
-//                   Skills.updataEfficiency(UID, UserData.talent),
-//                   // 发送图片
-//                   showUserMsg(e)
-//                 ])
-//                 // 清除询问
-//                 delete reStart[UID]
-//               })
-//               .catch(() => {
-//                 e.reply('数据查询失败')
-//               })
-//           })
-//           .catch(err => {
-//             e.reply('冷却检查错误')
-//           })
-//       })
-//     })
-//     .catch(() => {
-//       e.reply('数据查询失败')
-//     })
-//   return
-// }
+import {
+  Cooling,
+  Method,
+  Map,
+  Burial,
+  Treasure,
+  Player,
+  State,
+  Users,
+  Skills,
+  Levels,
+  Bag,
+  Equipment
+} from 'xiuxian-core'
 
 /**
  *

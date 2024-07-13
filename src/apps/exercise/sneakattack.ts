@@ -9,7 +9,7 @@ import {
   ControlByBlood,
   victoryCooling
 } from '../../api/index.js'
-import { TemplateId } from '../../model/config/index.js'
+import { Config } from 'xiuxian-core'
 import { Op } from 'sequelize'
 
 import * as DB from 'xiuxian-db'
@@ -391,7 +391,7 @@ export class SneakAttack extends APlugin {
       raw: true
     })) as any
     if (e.platform == 'ntqq') {
-      let p = ClientNTQQ.createTemplate(TemplateId)
+      let p = ClientNTQQ.createTemplate(Config.TemplateId)
       for (const item of AllUser) {
         p.button({
           start: `${item.name} 🩸${item?.battle_blood_now}\r`,

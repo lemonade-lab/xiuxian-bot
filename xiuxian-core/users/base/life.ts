@@ -1,4 +1,4 @@
-import { type UserType, user } from '../../../db/src'
+import { type UserType, user } from 'xiuxian-db'
 
 /**
  * 得到用户名称

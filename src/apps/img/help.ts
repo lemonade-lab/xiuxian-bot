@@ -1,6 +1,6 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { postHelp } from '../../api/index.js'
-import { QQ_GROUP } from '../../model/config/index.js'
+import { Config } from 'xiuxian-core'
 export class Help extends APlugin {
   constructor() {
     super({
@@ -16,7 +16,7 @@ export class Help extends APlugin {
     Controllers(e).Message.reply('', [
       {
         label: '加入官群',
-        link: QQ_GROUP
+        link: Config.QQ_GROUP
       },
       {
         label: '地图',

@@ -4,7 +4,7 @@ import {
   map_position,
   type MapPositionType,
   type MapPointType
-} from '../../db/src'
+} from 'xiuxian-db'
 /**
  * 模糊搜索名字并判断是否在此地
  * @param action

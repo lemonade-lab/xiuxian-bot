@@ -9,14 +9,27 @@ import {
 
 import { getSkyComponent } from 'xiuxian-component'
 
-import * as DB from '../db/src/index.js'
+import * as DB from 'xiuxian-db'
 
-import { SkysType, UserSkysType, skys, user_skys } from '../db/src/index.js'
+import { SkysType, UserSkysType, skys, user_skys } from 'xiuxian-db'
 
 import { Op } from 'sequelize'
-import { addBagThing } from '../model/users/additional/bag.js'
-import { backpackFull } from '../model/users/additional/ring.js'
-import { Users } from '../api/gameapi.js'
+
+import {
+  Cooling,
+  Method,
+  Map,
+  Burial,
+  Treasure,
+  Player,
+  State,
+  Users,
+  Skills,
+  Levels,
+  Bag,
+  Equipment
+} from 'xiuxian-core'
+
 const message = new Messages()
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id
@@ -83,7 +96,7 @@ message.response(/^(#|\/)?通天塔奖励$/, async e => {
     acount: item.count
   }))
   const UserData = await Users.read(UID)
-  const BagSize = await backpackFull(UID, UserData.bag_grade)
+  const BagSize = await Bag.backpackFull(UID, UserData.bag_grade)
   // 背包未位置了直接返回了
   if (!BagSize) {
     e.reply(['储物袋空间不足'], {
@@ -102,7 +115,7 @@ message.response(/^(#|\/)?通天塔奖励$/, async e => {
     })
     msg.push(`[${item.name}]*${item.acount}`)
   }
-  await addBagThing(UID, UserData.bag_grade, goods)
+  await Bag.addBagThing(UID, UserData.bag_grade, goods)
   if (msg.length <= 1) {
     e.reply('此排名奖励本月已无法领取')
   } else {

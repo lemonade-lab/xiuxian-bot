@@ -1,4 +1,4 @@
-import { type UserCompensateType, user_compensate } from '../../../db/src'
+import { type UserCompensateType, user_compensate } from 'xiuxian-db'
 export const install = {}
 export const start_time = '2023-10-02 12:00'
 export const end_time = '2023-10-02 23:59'

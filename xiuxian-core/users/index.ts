@@ -1,4 +1,4 @@
-import { user, type UserType } from '../../db/src'
+import { user, type UserType } from 'xiuxian-db'
 
 /**
  * 写入

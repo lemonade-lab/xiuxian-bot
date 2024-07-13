@@ -1,6 +1,6 @@
 import { Messages } from 'alemonjs'
 
-import * as DB from '../../db/src'
+import * as DB from 'xiuxian-db'
 
 const message = new Messages()
 message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {

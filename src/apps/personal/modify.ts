@@ -9,7 +9,8 @@ import {
 
 import * as DB from 'xiuxian-db'
 
-import { IllegalCharacters } from '../../model/config/index.js'
+import { Config } from 'xiuxian-core'
+
 export class Modify extends APlugin {
   constructor() {
     super({
@@ -34,7 +35,7 @@ export class Modify extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await Control(e, UserData))) return
     const name = e.msg.replace(/^(#|\/)?(改名|更改道號)/, '')
-    if (IllegalCharacters.test(name)) {
+    if (Config.IllegalCharacters.test(name)) {
       e.reply(['异常名称'], {
         quote: e.msg_id
       })
@@ -75,7 +76,7 @@ export class Modify extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await Control(e, UserData))) return
     const autograph = e.msg.replace(/^(#|\/)?签名/, '')
-    if (IllegalCharacters.test(autograph)) {
+    if (Config.IllegalCharacters.test(autograph)) {
       e.reply(['异常签名'], {
         quote: e.msg_id
       })
