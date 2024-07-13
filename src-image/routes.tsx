@@ -21,6 +21,8 @@ function getJson(name: string) {
     readFileSync(join(dir, 'public', 'defset', `${name}.json`), 'utf-8')
   )
 }
+
+//
 const helpDAta = getJson('base_help')
 
 const bagDAta = await backpackInformation(uid, '', mapType['道具'])

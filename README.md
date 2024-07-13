@@ -20,7 +20,7 @@ cd xiuxian-bot
 - 依赖加载
 
 ```sh
-npm install yarn -g
+npm install yarn@1.12.1 -g
 yarn --ignore-engines
 ```
 
@@ -33,19 +33,20 @@ ALEMONJS_REDIS_HOST = 'localhost'
 ALEMONJS_REDIS_PORT = '6379'
 ALEMONJS_REDIS_PASSWORD = ''
 ALEMONJS_REDIS_DB = '3'
-ALEMONJS_MYSQL_DATABASE = 'xiuxian'
-ALEMONJS_MYSQL_USER = 'root'
-ALEMONJS_MYSQL_PASSWORD = ''
+
 ALEMONJS_MYSQL_HOST = 'locahost'
 ALEMONJS_MYSQL_PROT = '3306'
+ALEMONJS_MYSQL_USER = 'root'
+ALEMONJS_MYSQL_PASSWORD = ''
+ALEMONJS_MYSQL_DATABASE = 'xiuxian'
 ```
 
 - 应用调试
 
 ```sh
+yarn app
+# 
 yarn dev
 ```
 
-```sh
-yarn build
-```
+ 

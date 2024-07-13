@@ -7,10 +7,6 @@ const onwarn = (warning, warn) => {
 }
 const config = [
   {
-    input: 'src/main.{ts,js,tsx,jsx}',
-    file: 'dist/main.js'
-  },
-  {
     input: 'index.ts',
     file: 'dist/index.js'
   },

@@ -1,13 +1,18 @@
 {
-  "exec": "ts-node index.ts",
+  "exec": "npm run app",
   "verbose": true,
   "delay": 1000,
   "restartable": "rs",
   "execMap": {
     "ts": "ts-node"
   },
-  "ignore": ["node_modules"],
-  "watch": ["src", "alemon.*.{js,ts,tsx,jsx}"],
+  "ignore": [
+    "node_modules"
+  ],
+  "watch": [
+    "src",
+    "alemon.*.{js,ts,tsx,jsx}"
+  ],
   "env": {
     "NODE_ENV": "development",
     "ALEMONJS_MESSAGE": "dev"

@@ -1,23 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "ignoreDeprecations": "5.0",
-    "jsx": "react",
-    "allowJs": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "typeRoots": ["node_modules/@types"]
-  },
-  "ts-node": {
-    "esm": true,
-    "transpileOnly": true,
-    "experimentalSpecifierResolution": "node"
-  },
   "include": [
     "plugins",
     "src",
@@ -25,5 +6,5 @@
     "src-image",
     "alemon.*.{ts,tsx,js,jsx}"
   ],
-  "exclude": ["node_modules"]
+  "extends": "alemonjs/config/tsconfig.json"
 }

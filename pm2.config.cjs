@@ -1,34 +1,32 @@
+const argv = [...process.argv].slice(4)
+const name = 'alemonb'
 /**
- * @type {import("pm2/pm2.config.cjs")}
+ * @type {import("pm2").StartOptions}
  */
-
-// 如果存在 index.js
-const path = require('path')
-const fs = require('fs')
-const config = require('alemonjs/pm2.config.cjs')
-const dir = path.join(process.cwd(), 'dist/index.js')
-if (fs.existsSync(dir)) {
-  // 修正 地址
-  config.apps = config.apps.map(item => {
-    item.script = 'dist/index.js'
-    return item
-  })
+const app = {
+  name: name,
+  script: './app.js',
+  args: ['--run', 'index.ts'].concat(argv),
+  // 超时时间内进程仍未终止，则 PM2 将强制终止该进程
+  kill_timeout: 5000,
+  // 发送意外重启
+  autorestart: true,
+  // 进程到达指定内存时重启
+  max_memory_restart: '2G',
+  // 进程重启之间的延迟时间
+  restart_delay: 5000,
+  // 进程重启之间的最大延迟时间
+  restart_delay_max: 10000,
+  // 将 PM2 进程列表自动保存到文件中
+  autodump: true,
+  // 不监听文件变化
+  watch: false,
+  // 不监听文件变化
+  watch: false,
+  env: {
+    NODE_ENV: 'production'
+  }
 }
-const apps = [...config.apps]
-if (process.argv.includes('no-bot')) {
-  config.apps = []
+module.exports = {
+  apps: [app]
 }
-if (process.argv.includes('server')) {
-  const t = apps[0]
-  config.apps.push({
-    ...t,
-    name: 'xiuxian-server',
-    script: 'server/index.js',
-    args: [],
-    // args: app.args,
-    error_file: `./logs/server/err.log`,
-    out_file: `./logs/server/out.log`
-  })
-}
-console.log('config', config)
-module.exports = config
