@@ -1,12 +1,14 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
-  DB,
   GameApi,
   controlByName,
   sendReply,
   isThereAUserPresent
 } from '../../api/index.js'
 import { isSameDay } from '../../model/wrap/method.js'
+
+import * as DB from 'xiuxian-db'
+
 export class Transaction extends APlugin {
   constructor() {
     super({

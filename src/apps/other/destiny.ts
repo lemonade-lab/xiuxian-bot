@@ -1,7 +1,9 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { DB, GameApi, isThereAUserPresent } from '../../api/index.js'
+import { GameApi, isThereAUserPresent } from '../../api/index.js'
 
 const reGiveup = {}
+
+import * as DB from 'xiuxian-db'
 
 export class Destiny extends APlugin {
   constructor() {

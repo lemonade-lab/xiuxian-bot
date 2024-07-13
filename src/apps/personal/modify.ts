@@ -1,12 +1,14 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import {
-  DB,
   GameApi,
   Control,
   showUserMsg,
   victoryCooling,
   isThereAUserPresent
 } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
+
 import { IllegalCharacters } from '../../model/config/index.js'
 export class Modify extends APlugin {
   constructor() {

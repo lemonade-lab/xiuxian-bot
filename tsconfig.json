@@ -1,9 +1,9 @@
 {
   "include": [
-    "plugins",
     "src",
     "server",
     "src-image",
+    "index.ts",
     "alemon.*.{ts,tsx,js,jsx}"
   ],
   "extends": "alemonjs/config/tsconfig.json"

@@ -1,10 +1,8 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import {
-  GameApi,
-  getRingComponent,
-  isThereAUserPresent,
-  Server
-} from '../../api/index.js'
+import { GameApi, isThereAUserPresent, Server } from '../../api/index.js'
+
+import { getRingComponent } from 'xiuxian-component'
+
 export class Ring extends APlugin {
   constructor() {
     super({

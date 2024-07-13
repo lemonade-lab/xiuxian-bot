@@ -1,6 +1,7 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { DB, isThereAUserPresent, GameApi } from '../../api/index.js'
+import { isThereAUserPresent, GameApi } from '../../api/index.js'
 
+import * as DB from 'xiuxian-db'
 export class fairyland extends APlugin {
   constructor() {
     super({

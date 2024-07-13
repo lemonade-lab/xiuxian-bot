@@ -1,6 +1,6 @@
-import * as DB from '../db/index.js'
+import * as DB from '../db/src/index.js'
 import { type KillListType } from './types.js'
-import { Redis } from '../db/redis/index.js'
+import { Redis } from '../db/src/index.js'
 
 // 启动刷新时间   // 一小时刷新一次  // 响应控制
 const start_time = 30000

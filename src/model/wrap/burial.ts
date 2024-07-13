@@ -1,4 +1,4 @@
-import { Redis } from '../../db/redis/index.js'
+import { Redis } from 'xiuxian-db'
 import { convertTime } from './method.js'
 import { CD_MAP, ReadiName } from '../config/index.js'
 

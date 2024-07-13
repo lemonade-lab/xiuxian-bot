@@ -12,10 +12,10 @@ import RingComponent from './conponent/ring'
 import SkillsComponent from './conponent/skills'
 import SkyComponent from './conponent/sky'
 
-import MessageComponent from '../component/message'
-import HelpComponents from '../component/help'
-import BagComponents from '../component/bag'
-import { PersonalInformationType } from '../server/information'
+import MessageComponent from './component2/message'
+import HelpComponents from './component2/help'
+import BagComponents from './component2/bag'
+// import { PersonalInformationType } from '../server/information'
 
 // getPath
 const app = importPath(import.meta.url)
@@ -42,7 +42,7 @@ function create(dom, key, uid) {
   return address
 }
 
-class Component {
+export class ImageComponent {
   puppeteer: typeof Puppeteer.prototype
   #dir = ''
   constructor(dir: string) {
@@ -81,7 +81,7 @@ class Component {
    * @param name
    * @returns
    */
-  async message(data: PersonalInformationType, uid: number | string) {
+  async message(data: any, uid: number | string) {
     return this.puppeteer.toFile(
       this.create(<MessageComponent data={data} />, 'message', `${uid}.html`)
     )
@@ -99,8 +99,6 @@ class Component {
     )
   }
 }
-
-export default new Component(join(cwd, 'public', 'cache'))
 
 /**
  * 修仙配置

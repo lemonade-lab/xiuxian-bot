@@ -1,4 +1,4 @@
-import * as DB from '../db/index.js'
+import * as DB from '../db/src/index.js'
 import * as Ring from '../model/users/additional/ring.js'
 import * as Talent from '../model/users/base/talent.js'
 import * as Bag from '../model/users/additional/bag.js'

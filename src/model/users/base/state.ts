@@ -1,4 +1,4 @@
-import { type UserType, user } from '../../../db/index.js'
+import { type UserType, user } from '../../../db/src'
 const ACTIONMAP = {
   0: '空闲',
   1: '闭关',

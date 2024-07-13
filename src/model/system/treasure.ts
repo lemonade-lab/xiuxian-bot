@@ -3,7 +3,7 @@ import {
   map_position,
   type MapPositionType,
   type MapTreasureType
-} from '../../db/index.js'
+} from '../../db/src'
 
 import { literal } from 'sequelize'
 

@@ -5,13 +5,14 @@ import {
   type AEvent
 } from 'alemonjs'
 import {
-  DB,
   isThereAUserPresent,
   ControlByBlood,
   GameApi,
   killNPC,
   victoryCooling
 } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
 
 export class Ore extends APlugin {
   constructor() {

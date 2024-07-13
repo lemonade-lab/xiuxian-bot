@@ -13,7 +13,7 @@ import {
   type LevelsType,
   type UserLevelType,
   type UserType
-} from '../../db/index.js'
+} from 'xiuxian-db'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
 

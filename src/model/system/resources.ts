@@ -1,4 +1,4 @@
-import { Redis } from '../../db/redis/index.js'
+import { Redis } from '../../db/src'
 /**
  * 得到数据
  * @param i

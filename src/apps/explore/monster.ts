@@ -5,7 +5,6 @@ import {
   type AEvent
 } from 'alemonjs'
 import {
-  DB,
   isThereAUserPresent,
   GameApi,
   ControlByBlood,
@@ -15,6 +14,8 @@ import {
   controlByName
 } from '../../api/index.js'
 const reStart = {}
+
+import * as DB from 'xiuxian-db'
 export class Monster extends APlugin {
   constructor() {
     super({

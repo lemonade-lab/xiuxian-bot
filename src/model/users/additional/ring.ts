@@ -1,4 +1,4 @@
-import { type UserRingType, user_ring } from '../../../db/index.js'
+import { type UserRingType, user_ring } from 'xiuxian-db'
 import { searchAllThing } from '../../wrap/goods.js'
 import { literal } from 'sequelize'
 

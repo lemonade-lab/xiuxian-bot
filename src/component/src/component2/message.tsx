@@ -1,9 +1,9 @@
 import React from 'react'
 import NavMessage from './nav.jsx'
-import _ from './core/url.js'
-import { PersonalInformationType } from '../server/information.js'
+import _ from '../core/url.js'
+// import { PersonalInformationType } from '../server/information.js'
 
-export default function App({ data }: { data: PersonalInformationType }) {
+export default function App({ data }: { data }) {
   return (
     <html>
       <head>

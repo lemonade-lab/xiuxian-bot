@@ -1,14 +1,18 @@
 import { Controllers, Messages } from 'alemonjs'
 import {
-  DB,
   GameApi,
   isThereAUserPresent,
   sendReply,
   victoryCooling,
-  Server,
-  getSkyComponent
+  Server
 } from '../api/index.js'
-import { SkysType, UserSkysType, skys, user_skys } from '../db/models.js'
+
+import { getSkyComponent } from 'xiuxian-component'
+
+import * as DB from '../db/src/index.js'
+
+import { SkysType, UserSkysType, skys, user_skys } from '../db/src/index.js'
+
 import { Op } from 'sequelize'
 import { addBagThing } from '../model/users/additional/bag.js'
 import { backpackFull } from '../model/users/additional/ring.js'

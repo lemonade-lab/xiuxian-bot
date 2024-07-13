@@ -1,4 +1,4 @@
-import { goods, type GoodsType } from '../../db/index.js'
+import { goods, type GoodsType } from '../../db/src'
 import { WhereOptions, literal } from 'sequelize'
 
 /**

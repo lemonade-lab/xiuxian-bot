@@ -1,11 +1,13 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
-  DB,
   GameApi,
   controlByName,
   sendReply,
   isThereAUserPresent
 } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
+
 export class union extends APlugin {
   constructor() {
     super({

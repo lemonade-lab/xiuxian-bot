@@ -1,4 +1,4 @@
-import { type UserType, user } from '../../../db/index.js'
+import { type UserType, user } from '../../../db/src'
 
 /**
  * 得到用户名称

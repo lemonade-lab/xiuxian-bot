@@ -1,5 +1,7 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, DB, GameApi } from '../../api/index.js'
+import { isThereAUserPresent, GameApi } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
 export class AssStart extends APlugin {
   constructor() {
     super({

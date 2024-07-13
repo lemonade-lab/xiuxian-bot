@@ -3,7 +3,7 @@ import {
   goods,
   type UserSkillsType,
   type UserType
-} from '../../../db/index.js'
+} from 'xiuxian-db'
 import { talentSize } from '../base/talent.js'
 import * as Users from '../index.js'
 

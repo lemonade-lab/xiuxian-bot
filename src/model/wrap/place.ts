@@ -1,4 +1,4 @@
-import { Redis } from '../../db/redis'
+import { Redis } from '../../db/src'
 import { ReadiName } from '../config'
 export async function get(key: string | number) {
   return await Redis.get(`${ReadiName}:${key}:lace`)

@@ -1,7 +1,7 @@
 import React from 'react'
-import { nameMap } from './core'
+import { nameMap } from '../core'
 import { hash } from 'alemonjs'
-import _ from './core/url.js'
+import _ from '../core/url.js'
 
 export default function App({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID

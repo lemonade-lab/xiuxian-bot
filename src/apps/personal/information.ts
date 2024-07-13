@@ -1,17 +1,20 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
-  DB,
   GameApi,
   showUserMsg,
   Server,
   isUser,
-  getEquipmentComponent,
-  getSkillsComponent,
   createUser,
   isThereAUserPresent
 } from '../../api/index.js'
-import { Themes } from '../../component/core/color.js'
+import {
+  Themes,
+  getEquipmentComponent,
+  getSkillsComponent
+} from 'xiuxian-component'
 import { QQ_GROUP } from '../../model/config/index.js'
+
+import * as DB from 'xiuxian-db'
 //
 export class Information extends APlugin {
   constructor() {

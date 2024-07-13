@@ -1,6 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import {
-  DB,
   isThereAUserPresent,
   GameApi,
   sendReply,
@@ -9,6 +8,9 @@ import {
   isThereAUserPresentB,
   victoryCooling
 } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
+
 export class Battle extends APlugin {
   constructor() {
     super({

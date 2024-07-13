@@ -1,6 +1,5 @@
 import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
 import {
-  DB,
   isThereAUserPresent,
   isThereAUserPresentB,
   GameApi,
@@ -12,6 +11,9 @@ import {
 } from '../../api/index.js'
 import { TemplateId } from '../../model/config/index.js'
 import { Op } from 'sequelize'
+
+import * as DB from 'xiuxian-db'
+
 export class SneakAttack extends APlugin {
   constructor() {
     super({

@@ -1,4 +1,4 @@
-import { type UserBagType, user_bag } from '../../../db/index.js'
+import { type UserBagType, user_bag } from 'xiuxian-db'
 import { literal } from 'sequelize'
 import { searchAllThing } from '../../wrap/goods.js'
 

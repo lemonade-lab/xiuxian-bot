@@ -9,7 +9,7 @@ import {
   type UserType,
   user_fate,
   UserFateType
-} from '../../../db/index.js'
+} from 'xiuxian-db'
 import * as Users from '../index.js'
 /**
  * 添加装备

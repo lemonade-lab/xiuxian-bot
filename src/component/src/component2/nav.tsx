@@ -1,11 +1,11 @@
 import React from 'react'
 import HeaderComponent from './header.js'
-import _ from './core/url.js'
-import { PersonalInformationType } from '../server/information.js'
-import { ThemesColor } from './core/color.js'
+import _ from '../core/url.js'
+// import { PersonalInformationType } from '../server/information.js'
+import { ThemesColor } from '../core/color.js'
 import { hash } from 'alemonjs'
 
-export default function App({ data }: { data: PersonalInformationType }) {
+export default function App({ data }: { data }) {
   // 现在的血量   血量总量
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
   const color = `linear-gradient(to right, ${

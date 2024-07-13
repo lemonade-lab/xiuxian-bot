@@ -6,7 +6,7 @@
 
 > 必要环境 Windows>=7/Linux>=7.6 + Chrome/Chromium/Edge
 
-> 必要环境 Node.js 18.18.2 + Redis 6.0.0
+> 必要环境 Node.js 18.20.3 + Redis 6.0.0
 
 ### 本地调试
 
@@ -15,6 +15,12 @@
 ```sh
 git clone --depth=1  git@github.com:ningmengchongshui/xiuxian-bot.git
 cd xiuxian-bot
+```
+
+```sh
+git clone --depth=1  https://github.com/lemonade-lab/xiuxian.bot.git
+cd xiuxian-bot
+
 ```
 
 - 依赖加载

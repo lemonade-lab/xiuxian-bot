@@ -4,7 +4,7 @@ import {
   type LevelsType,
   type UserLevelType,
   type UserType
-} from '../../../db/index.js'
+} from 'xiuxian-db'
 import * as Users from '../index.js'
 export const LEVELMAP = {
     1: 'gaspractice',

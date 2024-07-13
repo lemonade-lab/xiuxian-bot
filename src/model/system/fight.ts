@@ -1,4 +1,4 @@
-import { type UserType } from '../../db/index.js'
+import { type UserType } from 'xiuxian-db'
 import { isProbability } from '../wrap/method.js'
 
 export const Sneakattack = [

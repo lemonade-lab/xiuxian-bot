@@ -1,10 +1,12 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import {
-  DB,
   GameApi,
   ControlByBlood,
   isThereAUserPresent
 } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
+
 export class Move extends APlugin {
   constructor() {
     super({

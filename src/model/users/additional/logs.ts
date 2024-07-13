@@ -1,4 +1,4 @@
-import { type UserLogType, user_log } from '../../../db/index.js'
+import { type UserLogType, user_log } from 'xiuxian-db'
 import { timeChange } from '../../wrap/method.js'
 
 /**

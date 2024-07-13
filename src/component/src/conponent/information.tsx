@@ -1,7 +1,7 @@
 import React from 'react'
 import { hash } from 'alemonjs'
-import { PersonalInformationType } from '../../server/information'
-export default function App({ data }: { data: PersonalInformationType }) {
+// import { PersonalInformationType } from '../../server/information'
+export default function App({ data }: { data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
     <html>

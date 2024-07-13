@@ -1,10 +1,8 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import {
-  isThereAUserPresent,
-  GameApi,
-  controlByName,
-  DB
-} from '../../api/index.js'
+import { isThereAUserPresent, GameApi, controlByName } from '../../api/index.js'
+
+import * as DB from 'xiuxian-db'
+
 export class Bank extends APlugin {
   constructor() {
     super({

@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from './core/url.js'
+import _ from '../core/url.js'
 
 export default function App({ data }) {
   return (

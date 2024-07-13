@@ -1,5 +1,5 @@
 // 数据框架
-import { talent, type TalentType } from '../../../db/index.js'
+import { talent, type TalentType } from '../../../db/src'
 
 /**
  * 计算天赋大小

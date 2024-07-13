@@ -1,6 +1,9 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { getDefsetComponent, lcalCacheImage } from '../../api/index.js'
+import { lcalCacheImage } from '../../api/index.js'
 import { Cooling } from '../../api/gameapi.js'
+
+import { getDefsetComponent } from 'xiuxian-component'
+
 export class MapHelp extends APlugin {
   constructor() {
     super({

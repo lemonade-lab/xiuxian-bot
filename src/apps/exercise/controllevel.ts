@@ -1,6 +1,5 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
-  DB,
   isThereAUserPresent,
   isThereAUserPresentB,
   GameApi,
@@ -8,7 +7,9 @@ import {
   dualVerificationAction,
   victoryCooling
 } from '../../api/index.js'
-import { QQ_GROUP } from '../../model/config/index.js'
+
+import * as DB from 'xiuxian-db'
+
 export class ControllLevel extends APlugin {
   constructor() {
     super({

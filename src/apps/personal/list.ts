@@ -1,9 +1,8 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import {
-  getKillComponent,
-  isThereAUserPresent,
-  Server
-} from '../../api/index.js'
+import { isThereAUserPresent, Server } from '../../api/index.js'
+
+import { getKillComponent } from 'xiuxian-component'
+
 export class List extends APlugin {
   constructor() {
     super({

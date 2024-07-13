@@ -1,4 +1,4 @@
-import { user, type UserType } from '../../db/index.js'
+import { user, type UserType } from '../../db/src'
 
 /**
  * 写入

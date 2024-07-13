@@ -2,47 +2,47 @@ import { Controllers, type AEvent } from 'alemonjs'
 
 // 用户模型
 import * as State from '../model/users/base/state.js'
-import * as Talent from '../model/users/base/talent.js'
-import * as Life from '../model/users/base/life.js'
+// import * as Talent from '../model/users/base/talent.js'
+// import * as Life from '../model/users/base/life.js'
 import * as Users from '../model/users/index.js'
 // 附加模型
-import * as logs from '../model/users/additional/logs.js'
+// import * as logs from '../model/users/additional/logs.js'
 import * as Skills from '../model/users/additional/skills.js'
 import * as Levels from '../model/users/additional/levels.js'
 import * as Bag from '../model/users/additional/bag.js'
-import * as Ring from '../model/users/additional/ring.js'
-import * as Compensate from '../model/users/additional/compensate.js'
+// import * as Ring from '../model/users/additional/ring.js'
+// import * as Compensate from '../model/users/additional/compensate.js'
 import * as Equipment from '../model/users/additional/equipment.js'
 
 // 特殊机制
 import * as Player from '../model/system/player.js'
 // 特殊模型
-import * as Fight from '../model/system/fight.js'
-import * as Monster from '../model/system/monster.js'
+// import * as Fight from '../model/system/fight.js'
+// import * as Monster from '../model/system/monster.js'
 import * as Treasure from '../model/system/treasure.js'
-import * as explore from '../model/system/explore.js'
+// import * as explore from '../model/system/explore.js'
 
 // 势力模型
-import * as Ass from '../model/system/ass.js'
+// import * as Ass from '../model/system/ass.js'
 
 // 特殊模型
 import * as Burial from '../model/wrap/burial.js'
 import * as Map from '../model/wrap/map.js'
-import * as Place from '../model/wrap/place.js'
+// import * as Place from '../model/wrap/place.js'
 import * as Method from '../model/wrap/method.js'
-import * as Goods from '../model/wrap/goods.js'
-import * as move from '../model/wrap/move.js'
+// import * as Goods from '../model/wrap/goods.js'
+// import * as move from '../model/wrap/move.js'
 
 // 配置
 import * as Cooling from '../model/config/cooling.js'
-import * as Config from '../model/config/index.js'
+// import * as Config from '../model/config/index.js'
 
 // 缓存
 import { urlHelpCache } from '../utils/cache.js'
-import { user, type UserType } from '../db/index.js'
+import { user, type UserType } from '../db/src/main.js'
 // img
 import { personalInformation } from '../server/information.js'
-import ImageComponent from '../image/index.js'
+import ImageComponent from 'xiuxian-component'
 import { updatePlayer } from '../model/system/player.js'
 
 const reStart = {}
@@ -91,7 +91,7 @@ export async function reCreateMsg(e: AEvent) {
          * 重置用户
          */
         Player.updatePlayer(UID, e.user_avatar)
-          .then(res => {
+          .then(_ => {
             // 设置redis
             Burial.set(UID, CDID, CDTime)
 
@@ -116,7 +116,7 @@ export async function reCreateMsg(e: AEvent) {
                 e.reply('数据查询失败')
               })
           })
-          .catch(err => {
+          .catch(_ => {
             e.reply('冷却检查错误')
           })
       })
@@ -228,7 +228,7 @@ export function createUser(e: AEvent) {
             // 显示资料
             showUserMsg(e)
           })
-          .catch(err => {
+          .catch(_ => {
             e.reply(['未寻得仙缘'], {
               quote: e.msg_id
             })
@@ -238,7 +238,7 @@ export function createUser(e: AEvent) {
         showUserMsg(e)
       }
     })
-    .catch(err => {
+    .catch(_ => {
       e.reply('数据查询错误')
     })
 }

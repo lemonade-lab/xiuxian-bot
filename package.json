@@ -37,7 +37,9 @@
     "postcss": "^8.4.38",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "xiuxian-db": "link:./src/db",
+    "xiuxian-component": "link:./src/component"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.0",

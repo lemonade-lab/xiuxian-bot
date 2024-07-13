@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { generateToken } from '../../utils/jwt'
-import { user } from '../../../src/db/index.js'
+import { user } from '../../../src/db/src/main.js'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 
 const router = new koaRouter({ prefix: '/api/v1/users' })

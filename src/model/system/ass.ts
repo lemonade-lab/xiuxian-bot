@@ -4,7 +4,7 @@ import {
   ass_typing,
   ass,
   user_ass
-} from '../../db/index.js'
+} from '../../db/src'
 export const v = async (UID: string, name: string, size = 4) => {
   /**
    * ********
