@@ -12,10 +12,8 @@ import {
   Map,
   Burial,
   Treasure,
-  Player,
   State,
   Users,
-  Skills,
   Levels,
   Bag,
   Equipment

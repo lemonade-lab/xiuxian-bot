@@ -1,0 +1,16 @@
+{
+  "name": "xiuxian-backend",
+  "version": "1.0.0",
+  "description": "凡人修仙文字游戏",
+  "author": "ningmengchongshui",
+  "license": "GPL-2.0",
+  "main": "main.js",
+  "type": "module",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

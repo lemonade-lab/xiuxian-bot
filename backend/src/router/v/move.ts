@@ -5,7 +5,9 @@ import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { goByBlood } from '../../../xiuxian-core/users/base/state'
+
+import { State } from 'xiuxian-core'
+
 const router = new koaRouter({ prefix: '/api/v1/move' })
 
 //个人位置
@@ -51,7 +53,7 @@ router.get('/mapW', async ctx => {
     return
   }
   const UserData = await GameApi.Users.read(UID)
-  const { state, msg } = await goByBlood(UserData)
+  const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
       code: ERROE_CODE,
@@ -99,7 +101,7 @@ router.get('/mapS', async ctx => {
     return
   }
   const UserData = await GameApi.Users.read(UID)
-  const { state, msg } = await goByBlood(UserData)
+  const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
       code: ERROE_CODE,
@@ -147,7 +149,7 @@ router.get('/mapA', async ctx => {
     return
   }
   const UserData = await GameApi.Users.read(UID)
-  const { state, msg } = await goByBlood(UserData)
+  const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
       code: ERROE_CODE,
@@ -195,7 +197,7 @@ router.get('/mapD', async ctx => {
     return
   }
   const UserData = await GameApi.Users.read(UID)
-  const { state, msg } = await goByBlood(UserData)
+  const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
       code: ERROE_CODE,

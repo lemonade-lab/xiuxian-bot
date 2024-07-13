@@ -1,5 +1,5 @@
 import koaRouter from 'koa-router'
-import { generateToken } from '../../utils/jwt'
+import { generateToken } from '../../utils/jwt.js'
 import { user } from 'xiuxian-db'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 

@@ -7,8 +7,8 @@ const onwarn = (warning, warn) => {
 }
 const config = [
   {
-    input: 'server/main.ts',
-    file: 'server/index.js'
+    input: 'backend/main.ts',
+    file: 'backend/index.js'
   }
 ]
 export default config.map(item => ({

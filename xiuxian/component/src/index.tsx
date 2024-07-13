@@ -7,4 +7,6 @@ const app = importPath(import.meta.url)
 const cwd = app.cwd()
 export default new ImageComponent(join(cwd, 'public', 'cache'))
 export * from './main.js'
+
+export * from './component2/index.js'
 export * from './core/index.js'

@@ -4,10 +4,10 @@ import KoaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import cors from 'koa-cors'
 
-import MainRouters from './router/main.js'
-import IndexRouters from './router/index.js'
+import MainRouters from './src/router/main.js'
+import IndexRouters from './src/router/index.js'
 
-import { authMiddleware } from './utils/jwt.js'
+import { authMiddleware } from './src/utils/jwt.js'
 
 // new
 const app = new Koa()

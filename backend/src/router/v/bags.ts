@@ -1,5 +1,5 @@
 import koaRouter from 'koa-router'
-import { ERROE_CODE, OK_CODE } from '../../config/ajax'
+import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import { UserBagType, user_bag } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/bags' })
 

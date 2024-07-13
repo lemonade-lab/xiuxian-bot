@@ -3,14 +3,14 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { importPath } from 'alemonjs'
 import { Goods } from 'xiuxian-core'
-import {
-  backpackInformation,
-  personalInformation
-} from '../src/server/information'
 
-import MessageComponent from '../xiuxian/component/src/component2/message'
-import HelpComponent from '../xiuxian/component/src/component2/help'
-import BagComponent from '../xiuxian/component/src/component2/bag'
+import { backpackInformation, personalInformation } from 'xiuxian-statistics'
+
+import {
+  MessageComponent,
+  HelpComponent,
+  BagComponent
+} from 'xiuxian-component'
 
 const uid = '13348342918169126729'
 const data = await personalInformation(uid, '')

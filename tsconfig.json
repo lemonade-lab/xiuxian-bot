@@ -2,10 +2,10 @@
   "include": [
     "xiuxian",
     "src",
-    "server",
-    "src-image",
+    "backend",
+    "image-dev",
     "index.ts",
-    "alemon.*.{ts,tsx,js,jsx}"
+    "alemon.*.ts"
   ],
   "extends": "alemonjs/config/tsconfig.json"
 }

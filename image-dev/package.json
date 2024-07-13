@@ -1,0 +1,16 @@
+{
+  "name": "xiuxian-image-dev",
+  "version": "1.0.0",
+  "description": "凡人修仙文字游戏",
+  "author": "ningmengchongshui",
+  "license": "GPL-2.0",
+  "main": "./src/main.tsx",
+  "type": "module",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

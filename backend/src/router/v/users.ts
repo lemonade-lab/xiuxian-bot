@@ -1,7 +1,7 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import { UserType, user } from 'xiuxian-db'
-import { getKillList } from '../../../src/server/start.js'
+import { getKillList } from 'xiuxian-statistics'
 const router = new koaRouter({ prefix: '/api/v1/users' })
 
 /**

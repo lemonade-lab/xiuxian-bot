@@ -1,5 +1,5 @@
 import koaRouter from 'koa-router'
-import { ERROE_CODE, OK_CODE } from '../../config/ajax'
+import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 

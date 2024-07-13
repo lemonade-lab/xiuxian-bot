@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken'
  */
 
 // 设置密钥
-const secretKey = process.env.APP_SERVER_KEY ?? 'xiuxian-serve'
+const secretKey = process.env.APP_SERVER_KEY ?? 'xiuxian'
 
 /**
  * 生成 JWT

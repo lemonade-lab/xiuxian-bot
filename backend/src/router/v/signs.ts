@@ -1,11 +1,7 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 import { user, UserType } from 'xiuxian-db'
-import {
-  isSameDay,
-  isSameYearAndMonth
-} from '../../../xiuxian-core/wrap/method'
-import { addBagThing } from '../../../xiuxian-core/users/additional/bag'
+import { Bag, Method } from 'xiuxian-core'
 
 const router = new koaRouter({ prefix: '/api/v1/signs' })
 
@@ -26,7 +22,7 @@ router.get('/in', async ctx => {
         const time = new Date()
         let size = 0
         if (res.sign_in_time) {
-          if (isSameDay(res.sign_in_time, time)) {
+          if (Method.isSameDay(res.sign_in_time, time)) {
             console.log('已经签到')
             ctx.body = {
               code: OK_CODE,
@@ -35,7 +31,7 @@ router.get('/in', async ctx => {
             }
             return
           }
-          if (isSameYearAndMonth(res.sign_in_time, time)) {
+          if (Method.isSameYearAndMonth(res.sign_in_time, time)) {
             size = 0
             // 更新 + 1
             await user.update(
@@ -87,7 +83,7 @@ router.get('/in', async ctx => {
         const count = 5 + Math.floor(size / 3)
 
         // 增加灵石
-        addBagThing(UID, res.bag_grade, [
+        Bag.addBagThing(UID, res.bag_grade, [
           {
             name: '极品灵石',
             acount: count

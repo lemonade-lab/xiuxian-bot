@@ -19,10 +19,8 @@ import {
 } from '../../config/transactions.js'
 
 import { Op } from 'sequelize'
-import {
-  addBagThing,
-  reduceBagThing
-} from '../../../xiuxian-core/users/additional/bag.js'
+import { Bag } from 'xiuxian-core'
+
 const router = new koaRouter({ prefix: '/api/v1/transactions' })
 
 const TransactionMap = new Map()
@@ -448,7 +446,7 @@ router.post('/delete', async ctx => {
       console.log('res', res)
       if (res == 1) {
         // 还回来。
-        addBagThing(UID, bag_grade, [
+        Bag.addBagThing(UID, bag_grade, [
           {
             name: data.name,
             acount: data.count
@@ -594,7 +592,7 @@ router.post('/buy', async ctx => {
     .catch(() => {})
 
   // 扣钱
-  await reduceBagThing(UID, [
+  await Bag.reduceBagThing(UID, [
     {
       name: TypingItem[body.typing],
       acount: needMoeny
@@ -602,7 +600,7 @@ router.post('/buy', async ctx => {
   ])
 
   // 加物品
-  await addBagThing(UID, bag_grade, [
+  await Bag.addBagThing(UID, bag_grade, [
     {
       name: data.name,
       acount: data.count
@@ -610,7 +608,7 @@ router.post('/buy', async ctx => {
   ])
 
   // 得到收益
-  await addBagThing(data.uid, data['user.bag_grade'], [
+  await Bag.addBagThing(data.uid, data['user.bag_grade'], [
     {
       name: TypingItem[body.typing],
       acount: getMoeny
