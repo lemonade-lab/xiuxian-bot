@@ -1,5 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { GameApi, isThereAUserPresent, Server } from '../../api/index.js'
+import { GameApi, isThereAUserPresent, Server } from 'xiuxian-api'
 import ImageComponent from 'xiuxian-component'
 
 import * as DB from 'xiuxian-db'

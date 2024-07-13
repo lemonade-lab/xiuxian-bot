@@ -1,5 +1,5 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, GameApi, sendReply } from '../../api/index.js'
+import { isThereAUserPresent, GameApi, sendReply } from 'xiuxian-api'
 import { Op } from 'sequelize'
 
 import * as DB from 'xiuxian-db'

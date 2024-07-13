@@ -1,22 +1,7 @@
 import * as DB from 'xiuxian-db'
 import { Op } from 'sequelize'
 
-import {
-  Cooling,
-  Talent,
-  Ring,
-  Method,
-  Map,
-  Burial,
-  Treasure,
-  Player,
-  State,
-  Users,
-  Skills,
-  Levels,
-  Bag,
-  Equipment
-} from 'xiuxian-core'
+import { Talent, Ring, Users, Bag, Equipment } from 'xiuxian-core'
 
 /**
  * 个人信息

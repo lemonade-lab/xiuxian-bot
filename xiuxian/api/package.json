@@ -1,0 +1,21 @@
+{
+  "name": "xiuxian-api",
+  "version": "1.0.0",
+  "description": "接口",
+  "author": "ningmengchongshui",
+  "license": "GPL-2.0",
+  "main": "src/index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    }
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

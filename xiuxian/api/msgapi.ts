@@ -18,9 +18,9 @@ import {
 import ImageComponent from 'xiuxian-component'
 
 // 缓存
-import { urlHelpCache } from '../utils/cache.js'
+import { urlHelpCache } from 'xiuxian-utils'
 // img
-import { personalInformation } from '../server/information.js'
+import { personalInformation } from 'xiuxian-statistics'
 
 const reStart = {}
 

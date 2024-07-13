@@ -38,9 +38,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sequelize": "^6.33.0",
-    "xiuxian-db": "link:xiuxian-db",
-    "xiuxian-component": "link:xiuxian-component",
-    "xiuxian-core": "link:xiuxian-core"
+    "xiuxian-db": "link:xiuxian/db",
+    "xiuxian-component": "link:xiuxian/component",
+    "xiuxian-core": "link:xiuxian/core",
+    "xiuxian-api": "link:xiuxian/api",
+    "xiuxian-statistics": "link:xiuxian/statistics",
+    "xiuxian-utils": "link:xiuxian/utils"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.0",

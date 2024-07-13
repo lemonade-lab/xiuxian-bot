@@ -4,7 +4,7 @@ import {
   controlByName,
   sendReply,
   isThereAUserPresent
-} from '../../api/index.js'
+} from 'xiuxian-api'
 
 import { Method } from 'xiuxian-core'
 

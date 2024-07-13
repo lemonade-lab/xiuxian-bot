@@ -4,7 +4,7 @@ import {
   ControlByBlood,
   controlByName,
   GameApi
-} from '../../api/index.js'
+} from 'xiuxian-api'
 
 /**
  * 职业经验够了之后

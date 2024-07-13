@@ -1,5 +1,5 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { levelUp } from '../../api/index.js'
+import { levelUp } from 'xiuxian-api'
 export class Level extends APlugin {
   constructor() {
     super({

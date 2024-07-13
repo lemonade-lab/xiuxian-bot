@@ -5,7 +5,7 @@ import {
   sendReply,
   ControlByBlood,
   endAllWord
-} from '../../api/index.js'
+} from 'xiuxian-api'
 import { Op, literal } from 'sequelize'
 
 import * as DB from 'xiuxian-db'

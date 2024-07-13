@@ -8,9 +8,9 @@ import {
   personalInformation
 } from '../src/server/information'
 
-import MessageComponent from '../xiuxian-component/src/component2/message'
-import HelpComponent from '../xiuxian-component/src/component2/help'
-import BagComponent from '../xiuxian-component/src/component2/bag'
+import MessageComponent from '../xiuxian/component/src/component2/message'
+import HelpComponent from '../xiuxian/component/src/component2/help'
+import BagComponent from '../xiuxian/component/src/component2/bag'
 
 const uid = '13348342918169126729'
 const data = await personalInformation(uid, '')

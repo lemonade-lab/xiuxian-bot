@@ -1,5 +1,5 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { postHelp } from '../../api/index.js'
+import { postHelp } from 'xiuxian-api'
 import { Config } from 'xiuxian-core'
 export class Help extends APlugin {
   constructor() {

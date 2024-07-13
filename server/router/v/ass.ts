@@ -1,7 +1,7 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 import { AssType, UserAssType, ass, user_ass } from 'xiuxian-db'
-import { GameApi } from '../../../src/api'
+import * as GameApi from 'xiuxian-core'
 const router = new koaRouter({ prefix: '/api/v1/ass' })
 
 // 势力列表

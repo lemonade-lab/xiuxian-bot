@@ -1,5 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { GameApi, isThereAUserPresent } from '../../api/index.js'
+import { GameApi, isThereAUserPresent } from 'xiuxian-api'
 
 const reGiveup = {}
 

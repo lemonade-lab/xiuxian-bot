@@ -3,33 +3,14 @@ import {
   GameApi,
   isThereAUserPresent,
   sendReply,
-  victoryCooling,
-  Server
-} from '../api/index.js'
-
+  victoryCooling
+} from 'xiuxian-api'
 import { getSkyComponent } from 'xiuxian-component'
-
 import * as DB from 'xiuxian-db'
-
 import { SkysType, UserSkysType, skys, user_skys } from 'xiuxian-db'
-
 import { Op } from 'sequelize'
-
-import {
-  Cooling,
-  Method,
-  Map,
-  Burial,
-  Treasure,
-  Player,
-  State,
-  Users,
-  Skills,
-  Levels,
-  Bag,
-  Equipment
-} from 'xiuxian-core'
-
+import { Users, Bag } from 'xiuxian-core'
+import { showSky } from 'xiuxian-statistics'
 const message = new Messages()
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id
@@ -171,7 +152,7 @@ message.response(/^(#|\/)?通天塔$/, async e => {
 
     return
   }
-  const img = await getSkyComponent(await Server.showSky(UID), UID)
+  const img = await getSkyComponent(await showSky(UID), UID)
   if (typeof img != 'boolean') {
     e.reply(img)
     Controllers(e).Message.reply('', [
@@ -308,4 +289,5 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
     quote: e.msg_id
   })
 })
-export default message.ok
+
+export const Sky = message.ok

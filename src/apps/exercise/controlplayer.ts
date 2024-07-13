@@ -1,5 +1,5 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, GameApi, endAllWord } from '../../api/index.js'
+import { isThereAUserPresent, GameApi, endAllWord } from 'xiuxian-api'
 export class ControlPlayer extends APlugin {
   constructor() {
     super({

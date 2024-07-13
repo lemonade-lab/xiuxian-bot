@@ -1,5 +1,5 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { lcalCacheImage } from '../../api/index.js'
+import { lcalCacheImage } from 'xiuxian-api'
 import { Cooling } from 'xiuxian-core'
 
 import { getDefsetComponent } from 'xiuxian-component'

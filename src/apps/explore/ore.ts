@@ -10,7 +10,7 @@ import {
   GameApi,
   killNPC,
   victoryCooling
-} from '../../api/index.js'
+} from 'xiuxian-api'
 
 import * as DB from 'xiuxian-db'
 

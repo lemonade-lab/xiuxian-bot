@@ -5,7 +5,7 @@ import {
   victoryCooling,
   isThereAUserPresent,
   reCreateMsg
-} from '../../api/index.js'
+} from 'xiuxian-api'
 
 import * as DB from 'xiuxian-db'
 

@@ -1,5 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, Server } from '../../api/index.js'
+import { isThereAUserPresent, Server } from 'xiuxian-api'
 
 import { getKillComponent } from 'xiuxian-component'
 

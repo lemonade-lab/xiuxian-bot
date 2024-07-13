@@ -12,7 +12,7 @@ import {
   killNPC,
   victoryCooling,
   controlByName
-} from '../../api/index.js'
+} from 'xiuxian-api'
 const reStart = {}
 
 import * as DB from 'xiuxian-db'

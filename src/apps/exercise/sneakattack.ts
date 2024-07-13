@@ -8,7 +8,7 @@ import {
   sendReply,
   ControlByBlood,
   victoryCooling
-} from '../../api/index.js'
+} from 'xiuxian-api'
 import { Config } from 'xiuxian-core'
 import { Op } from 'sequelize'
 

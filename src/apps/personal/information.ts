@@ -6,7 +6,7 @@ import {
   isUser,
   createUser,
   isThereAUserPresent
-} from '../../api/index.js'
+} from 'xiuxian-api'
 import {
   Themes,
   getEquipmentComponent,

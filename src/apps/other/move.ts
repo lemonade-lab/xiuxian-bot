@@ -1,9 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import {
-  GameApi,
-  ControlByBlood,
-  isThereAUserPresent
-} from '../../api/index.js'
+import { GameApi, ControlByBlood, isThereAUserPresent } from 'xiuxian-api'
 
 import * as DB from 'xiuxian-db'
 
