@@ -45,8 +45,6 @@ ALEMONJS_MYSQL_DATABASE = 'xiuxian'
 
 ```sh
 yarn app
-# 
+#
 yarn dev
 ```
-
- 
