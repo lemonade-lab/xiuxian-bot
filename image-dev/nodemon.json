@@ -1,7 +1,7 @@
 {
   "watch": ["image-dev"],
   "ext": "ts,json,js,tsx,jsx",
-  "exec": "ts-node image-dev/src/main.tsx",
+  "exec": "ts-node image-dev/src/main.ts",
   "env": {
     "NODE_ENV": "development"
   }

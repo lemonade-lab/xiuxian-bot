@@ -1,9 +1,9 @@
 {
   "include": [
-    "xiuxian",
-    "src",
     "backend",
     "image-dev",
+    "src",
+    "xiuxian",
     "index.ts",
     "alemon.*.ts"
   ],
