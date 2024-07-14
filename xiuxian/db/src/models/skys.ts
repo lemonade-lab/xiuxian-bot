@@ -1,12 +1,13 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const skys = <ModelStatic<Model<SkysType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const skys = sequelize.define<Model<SkysType>>(
   'skys',
   {
     // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     name: DataTypes.STRING, // string
     count: DataTypes.INTEGER,
@@ -15,7 +16,11 @@ export const skys = <ModelStatic<Model<SkysType>>>sequelize.define(
     updateAt: DataTypes.DATE,
     deleteAt: DataTypes.DATE
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface SkysType {
   // 定义模型属性

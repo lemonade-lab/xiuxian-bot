@@ -1,21 +1,30 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const ass_bag = <ModelStatic<Model<AssBagType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const ass_bag = sequelize.define<Model<AssBagType>>(
   'ass_bag',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
-    aid: DataTypes.INTEGER, // 编号
+    aid: {
+      type: DataTypes.INTEGER
+    }, // 编号
     tid: DataTypes.INET, // 物品编号
     type: DataTypes.INET, // 物品类型
     name: DataTypes.STRING, // 物品名
     acount: DataTypes.INTEGER, // 数量
     doc: DataTypes.STRING // 说明
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
+
 export interface AssBagType {
   id: number
   aid: number // 编号

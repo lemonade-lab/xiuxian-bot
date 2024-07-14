@@ -1,11 +1,12 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const user_ass = <ModelStatic<Model<UserAssType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const user_ass = sequelize.define<Model<UserAssType>>(
   'user_ass',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     create_tiime: DataTypes.INTEGER,
     // uid
@@ -21,7 +22,11 @@ export const user_ass = <ModelStatic<Model<UserAssType>>>sequelize.define(
     // 说明
     doc: DataTypes.STRING
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 
 export interface UserAssType {

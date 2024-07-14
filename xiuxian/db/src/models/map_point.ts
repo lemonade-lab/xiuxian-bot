@@ -1,22 +1,28 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-const TableName = 'map_point'
-const TableBase = {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const map_point = sequelize.define<Model<MapPointType>>(
+  'map_point',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      unique: true
+    },
+    name: DataTypes.STRING, //string
+    type: DataTypes.INTEGER, //int
+    grade: DataTypes.INTEGER, //int
+    attribute: DataTypes.INTEGER, //int
+    x: DataTypes.INTEGER, //int
+    y: DataTypes.INTEGER, //int
+    z: DataTypes.INTEGER, //int
+    doc: DataTypes.STRING //string
   },
-  name: DataTypes.STRING, //string
-  type: DataTypes.INTEGER, //int
-  grade: DataTypes.INTEGER, //int
-  attribute: DataTypes.INTEGER, //int
-  x: DataTypes.INTEGER, //int
-  y: DataTypes.INTEGER, //int
-  z: DataTypes.INTEGER, //int
-  doc: DataTypes.STRING //string
-}
-export const map_point = <ModelStatic<Model<MapPointType>>>(
-  sequelize.define(TableName, TableBase, TableConfig)
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface MapPointType {
   id: number

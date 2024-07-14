@@ -1,5 +1,29 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const transactions = sequelize.define<Model<TransactionsType>>(
+  'transactions',
+  {
+    id: {
+      type: DataTypes.INTEGER, // integer
+      primaryKey: true,
+      unique: true
+    },
+    uid: DataTypes.STRING, //string
+    name: DataTypes.STRING, //string
+    count: DataTypes.INTEGER,
+    price: DataTypes.INTEGER, // integer
+    createAt: DataTypes.DATE,
+    updateAt: DataTypes.DATE,
+    deleteAt: DataTypes.DATE
+  },
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
+)
+
 export interface TransactionsType {
   id: number
   uid: string //string
@@ -10,22 +34,3 @@ export interface TransactionsType {
   updateAt: Date
   deleteAt: Date
 }
-export const transactions = <ModelStatic<Model<TransactionsType>>>(
-  sequelize.define(
-    'transactions',
-    {
-      id: {
-        type: DataTypes.INTEGER, // integer
-        primaryKey: true
-      },
-      uid: DataTypes.STRING, //string
-      name: DataTypes.STRING, //string
-      count: DataTypes.INTEGER,
-      price: DataTypes.INTEGER, // integer
-      createAt: DataTypes.DATE,
-      updateAt: DataTypes.DATE,
-      deleteAt: DataTypes.DATE
-    },
-    TableConfig
-  )
-)

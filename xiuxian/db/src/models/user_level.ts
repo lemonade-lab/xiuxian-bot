@@ -1,11 +1,12 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const user_level = <ModelStatic<Model<UserLevelType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const user_level = sequelize.define<Model<UserLevelType>>(
   'user_level',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     uid: DataTypes.STRING, // 编号
     type: DataTypes.INET, // 境界类型
@@ -15,7 +16,11 @@ export const user_level = <ModelStatic<Model<UserLevelType>>>sequelize.define(
     experience: DataTypes.INTEGER, // 经验
     doc: DataTypes.STRING // 说明
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface UserLevelType {
   id: number

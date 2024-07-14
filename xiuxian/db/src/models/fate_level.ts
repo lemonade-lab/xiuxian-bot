@@ -1,20 +1,27 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-const TableName = 'fate_level'
-const TableBase = {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const fate_level = sequelize.define<Model<fateLevelType>>(
+  'fate_level',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      unique: true
+    },
+    grade: DataTypes.INTEGER, //int
+    exp_bodypractice: DataTypes.INTEGER, //int
+    exp_gaspractice: DataTypes.INTEGER, //int
+    exp_soul: DataTypes.INTEGER, //int
+    doc: DataTypes.STRING //string
   },
-  grade: DataTypes.INTEGER, //int
-  exp_bodypractice: DataTypes.INTEGER, //int
-  exp_gaspractice: DataTypes.INTEGER, //int
-  exp_soul: DataTypes.INTEGER, //int
-  doc: DataTypes.STRING //string
-}
-export const fate_level = <ModelStatic<Model<fateLevelType>>>(
-  sequelize.define(TableName, TableBase, TableConfig)
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
+
 export interface fateLevelType {
   id: number
   grade: number //int

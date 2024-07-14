@@ -44,10 +44,18 @@ ALEMONJS_MYSQL_HOST = 'locahost'
 ALEMONJS_MYSQL_PROT = '3306'
 ALEMONJS_MYSQL_USER = 'root'
 ALEMONJS_MYSQL_PASSWORD = ''
-ALEMONJS_MYSQL_DATABASE = 'xiuxian'
+ALEMONJS_MYSQL_DATABASE = 'xiuxian_bak'
 
 APP_SERVER_PORT = '9090'
 APP_SERVER_KEY = 'xiuxian'
+```
+
+- MySQL80
+
+```
+数据库名 xiuxian_bak
+字符集 utf8mb4
+排序规则 utf8mb4_german2_ci
 ```
 
 - 应用调试

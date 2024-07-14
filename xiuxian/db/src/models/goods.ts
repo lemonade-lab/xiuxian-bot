@@ -1,12 +1,14 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const goods = <ModelStatic<Model<GoodsType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const goods = sequelize.define<Model<GoodsType>>(
   'goods',
   {
     // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     type: DataTypes.INTEGER, //int
     monster_type: DataTypes.INTEGER, //int
@@ -35,7 +37,11 @@ export const goods = <ModelStatic<Model<GoodsType>>>sequelize.define(
     limit_buy: DataTypes.INTEGER, // 限定
     doc: DataTypes.STRING
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface GoodsType {
   // 定义模型属性

@@ -52,19 +52,3 @@ export const sequelize = new Sequelize(
     }
   }
 )
-
-// 监听连接错误
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('数据库连接成功.')
-  })
-  .catch(() => {
-    console.log('数据库连接失败')
-  })
-
-export const TableConfig = {
-  freezeTableName: true, //不增加复数表名
-  createdAt: false, //去掉
-  updatedAt: false //去掉
-}

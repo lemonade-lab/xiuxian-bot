@@ -1,11 +1,12 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const user_ring = <ModelStatic<Model<UserRingType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const user_ring = sequelize.define<Model<UserRingType>>(
   'user_ring',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     uid: DataTypes.STRING, // 编号
     tid: DataTypes.INET, // 物品编号
@@ -14,7 +15,11 @@ export const user_ring = <ModelStatic<Model<UserRingType>>>sequelize.define(
     acount: DataTypes.INTEGER, // 数量
     doc: DataTypes.STRING // 说明
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface UserRingType {
   id: number

@@ -1,11 +1,12 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const user_bag = <ModelStatic<Model<UserBagType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const user_bag = sequelize.define<Model<UserBagType>>(
   'user_bag',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     uid: DataTypes.STRING, // 编号
     tid: DataTypes.INET, // 物品编号
@@ -14,7 +15,11 @@ export const user_bag = <ModelStatic<Model<UserBagType>>>sequelize.define(
     acount: DataTypes.INTEGER, // 数量
     doc: DataTypes.STRING // 说明
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface UserBagType {
   id: number

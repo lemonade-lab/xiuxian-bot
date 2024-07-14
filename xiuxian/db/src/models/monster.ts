@@ -1,19 +1,25 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const monster = <ModelStatic<Model<MonsterTyoe>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const monster = sequelize.define<Model<MonsterTyoe>>(
   'monster',
   {
     // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     type: DataTypes.INTEGER, //int
     grade: DataTypes.INTEGER, //int
     name: DataTypes.STRING, //string
     doc: DataTypes.STRING
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 
 export interface MonsterTyoe {

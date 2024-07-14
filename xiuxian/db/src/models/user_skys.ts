@@ -1,12 +1,13 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const user_skys = <ModelStatic<Model<UserSkysType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const user_skys = sequelize.define<Model<UserSkysType>>(
   'user_skys',
   {
     // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     uid: DataTypes.STRING, // string
     sid: DataTypes.INTEGER, // string
@@ -15,7 +16,11 @@ export const user_skys = <ModelStatic<Model<UserSkysType>>>sequelize.define(
     updateAt: DataTypes.DATE,
     deleteAt: DataTypes.DATE
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface UserSkysType {
   // 定义模型属性

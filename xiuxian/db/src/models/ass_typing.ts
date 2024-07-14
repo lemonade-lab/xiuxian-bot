@@ -1,11 +1,12 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const ass_typing = <ModelStatic<Model<AsstypingType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const ass_typing = sequelize.define<Model<AsstypingType>>(
   'ass_typing',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     master: DataTypes.STRING,
     vice_master: DataTypes.STRING,
@@ -19,7 +20,11 @@ export const ass_typing = <ModelStatic<Model<AsstypingType>>>sequelize.define(
     reviewed_member: DataTypes.STRING,
     doc: DataTypes.STRING
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 
 export interface AsstypingType {

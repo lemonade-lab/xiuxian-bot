@@ -12,25 +12,41 @@ import { user } from './models/user.js'
 import { transactions } from './models/transactions.js'
 import { transactions_logs } from './models/transactions_logs.js'
 import { user_buy_log } from './models/user_buy_log.js'
-{
+import { sequelize } from './mysql/index.js'
+
+const belongsTo = () => {
   /**
-   * *********
-   * 确定关联关系
-   * ********
+   * user_ring
    */
   user_ring.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  /**
+   * user_bag
+   */
   user_bag.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  /**
+   * user_skills
+   */
   user_skills.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  /**
+   * user_equipment
+   */
   user_equipment.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  /**
+   * user_fate
+   */
   user_fate.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   /**
-   * ****
-   * ass
-   * ****
+   *
    */
   user_ass.belongsTo(ass, { foreignKey: 'aid', targetKey: 'id' })
   user_ass.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
+  /**
+   * ass
+   */
   ass.belongsTo(ass_typing, { foreignKey: 'typing', targetKey: 'id' })
+  /**
+   * ass_bag
+   */
   ass_bag.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   /**
    * transactions
@@ -38,20 +54,35 @@ import { user_buy_log } from './models/user_buy_log.js'
   transactions.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   transactions.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
   /**
-   *
+   * transactions_logs
    */
   transactions_logs.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   transactions_logs.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
   /**
-   *
+   * user_buy_log
    */
   user_buy_log.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   user_buy_log.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
 }
-/**
- * ****
- * 模型入口
- * *****
- */
-export * from './models.js'
-export * from './mysql/index.js'
+
+await sequelize
+  .authenticate()
+  .then(() => {
+    console.log('数据库连接成功.')
+
+    belongsTo()
+  })
+  .catch(() => {
+    console.log('数据库连接失败.')
+    process.cwd()
+  })
+
+// await sequelize.sync({
+//   alter: true
+// }).then(() => {
+//   console.log('数据库同步成功.')
+//   // 开始
+//   belongsTo()
+// }).catch(() => {
+//   console.log('数据库同步失败.')
+// })

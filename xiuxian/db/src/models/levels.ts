@@ -1,27 +1,32 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-const TableName = 'levels'
-const TableBase = {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const levels = sequelize.define<Model<LevelsType>>(
+  'levels',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      unique: true
+    },
+    type: DataTypes.INTEGER, //int
+    grade: DataTypes.INTEGER, //int
+    name: DataTypes.STRING, //string
+    attack: DataTypes.INTEGER, //int
+    defense: DataTypes.INTEGER, //int
+    blood: DataTypes.INTEGER, //int
+    critical_hit: DataTypes.INTEGER, //int
+    critical_damage: DataTypes.INTEGER, //int
+    speed: DataTypes.INTEGER,
+    size: DataTypes.INTEGER,
+    soul: DataTypes.INTEGER,
+    exp_needed: DataTypes.INTEGER, //int
+    doc: DataTypes.STRING //string
   },
-  type: DataTypes.INTEGER, //int
-  grade: DataTypes.INTEGER, //int
-  name: DataTypes.STRING, //string
-  attack: DataTypes.INTEGER, //int
-  defense: DataTypes.INTEGER, //int
-  blood: DataTypes.INTEGER, //int
-  critical_hit: DataTypes.INTEGER, //int
-  critical_damage: DataTypes.INTEGER, //int
-  speed: DataTypes.INTEGER,
-  size: DataTypes.INTEGER,
-  soul: DataTypes.INTEGER,
-  exp_needed: DataTypes.INTEGER, //int
-  doc: DataTypes.STRING //string
-}
-export const levels = <ModelStatic<Model<LevelsType>>>(
-  sequelize.define(TableName, TableBase, TableConfig)
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface LevelsType {
   id: number

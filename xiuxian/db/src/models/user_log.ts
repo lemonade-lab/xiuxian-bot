@@ -1,11 +1,12 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const user_log = <ModelStatic<Model<UserLogType>>>sequelize.define(
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const user_log = sequelize.define<Model<UserLogType>>(
   'user_log',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      unique: true
     },
     uid: DataTypes.STRING,
     type: DataTypes.INET,
@@ -13,7 +14,11 @@ export const user_log = <ModelStatic<Model<UserLogType>>>sequelize.define(
     message: DataTypes.STRING,
     doc: DataTypes.STRING
   },
-  TableConfig
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface UserLogType {
   id: number

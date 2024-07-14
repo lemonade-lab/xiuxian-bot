@@ -10,7 +10,10 @@ function createRedis() {
   ALRedis.on('error', (err: any) => {
     console.error('\n[REDIS]', err)
     console.error('\n[REDIS]', '请检查配置')
+    process.cwd()
   })
   return ALRedis
 }
+
+//
 export const Redis: RedisClient = createRedis()

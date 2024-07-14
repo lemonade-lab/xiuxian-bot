@@ -1,16 +1,22 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-const TableName = 'talent'
-const TableBase = {
-  id: {
-    type: DataTypes.INTEGER, // integer
-    primaryKey: true
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+
+export const talent = sequelize.define<Model<TalentType>>(
+  'talent',
+  {
+    id: {
+      type: DataTypes.INTEGER, // integer
+      primaryKey: true,
+      unique: true
+    },
+    name: DataTypes.STRING, //string
+    doc: DataTypes.STRING //string
   },
-  name: DataTypes.STRING, //string
-  doc: DataTypes.STRING //string
-}
-export const talent = <ModelStatic<Model<TalentType>>>(
-  sequelize.define(TableName, TableBase, TableConfig)
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface TalentType {
   id: number

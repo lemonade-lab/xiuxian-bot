@@ -1,24 +1,27 @@
-import { sequelize, TableConfig } from '../mysql/index.js'
-import { DataTypes, ModelStatic, Model } from 'sequelize'
-export const map_treasure = <ModelStatic<Model<MapTreasureType>>>(
-  sequelize.define(
-    'map_treasure',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-      },
-      name: DataTypes.STRING, //string
-      type: DataTypes.INTEGER, //int
-      acount: DataTypes.INTEGER, //int
-      attribute: DataTypes.INTEGER, //int
-      x: DataTypes.INTEGER, //int
-      y: DataTypes.INTEGER, //int
-      z: DataTypes.INTEGER, //int
-      doc: DataTypes.STRING //string
+import { sequelize } from '../mysql/index.js'
+import { DataTypes, Model } from 'sequelize'
+export const map_treasure = sequelize.define<Model<MapTreasureType>>(
+  'map_treasure',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      unique: true
     },
-    TableConfig
-  )
+    name: DataTypes.STRING, //string
+    type: DataTypes.INTEGER, //int
+    acount: DataTypes.INTEGER, //int
+    attribute: DataTypes.INTEGER, //int
+    x: DataTypes.INTEGER, //int
+    y: DataTypes.INTEGER, //int
+    z: DataTypes.INTEGER, //int
+    doc: DataTypes.STRING //string
+  },
+  {
+    freezeTableName: true, //不增加复数表名
+    createdAt: false, //去掉
+    updatedAt: false //去掉
+  }
 )
 export interface MapTreasureType {
   id: number
