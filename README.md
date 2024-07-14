@@ -65,3 +65,29 @@ yarn app
 #
 yarn dev
 ```
+
+## dev
+
+- xiuxian-api
+
+针对于 alemonjs 做消息处理函数的抽简
+
+- xiuxian-db
+
+数据库模型调用
+
+- xiuxian-component
+
+tsx组件及截图
+
+- xiuxian-core
+
+游戏核心处理模型
+
+- xiuxian-statistics
+
+数据统计函数
+
+- xiuxian-utils
+
+工具类

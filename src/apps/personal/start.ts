@@ -1,7 +1,9 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { GameApi, showUserMsg, isUser, createUser } from 'xiuxian-api'
+import { showUserMsg, isUser, createUser } from 'xiuxian-api'
 
 import * as DB from 'xiuxian-db'
+
+import * as GameApi from 'xiuxian-core'
 
 export class Start extends APlugin {
   constructor() {
