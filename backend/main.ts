@@ -1,4 +1,4 @@
-import './utils/env.js'
+import './src/utils/env.js'
 import Koa from 'koa'
 import KoaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
