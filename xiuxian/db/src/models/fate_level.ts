@@ -1,7 +1,16 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const fate_level = sequelize.define<Model<fateLevelType>>(
+export const fate_level = sequelize.define<
+  Model<{
+    id: number
+    grade: number //int
+    exp_bodypractice: number //int
+    exp_gaspractice: number //int
+    exp_soul: number //int
+    doc: string //string
+  }>
+>(
   'fate_level',
   {
     id: {
@@ -21,12 +30,3 @@ export const fate_level = sequelize.define<Model<fateLevelType>>(
     updatedAt: false //去掉
   }
 )
-
-export interface fateLevelType {
-  id: number
-  grade: number //int
-  exp_bodypractice: number //int
-  exp_gaspractice: number //int
-  exp_soul: number //int
-  doc: string //string
-}

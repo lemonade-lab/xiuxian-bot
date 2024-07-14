@@ -8,11 +8,7 @@ import {
   user,
   user_log,
   user_fate,
-  user_ring,
-  type MapPointType,
-  type LevelsType,
-  type UserLevelType,
-  type UserType
+  user_ring
 } from 'xiuxian-db'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
@@ -31,22 +27,20 @@ export async function setPlayer(UID: string, user_avatar: string) {
         grade: 0,
         type: [1, 2]
       },
-      order: [['type', 'DESC']],
-      raw: true
+      order: [['type', 'DESC']]
     })
-    .then(async (res: any) => {
-      const levelist: LevelsType[] = res
+    .then(res => res.map(item => item.dataValues))
+    .then(async levelist => {
       if (!levelist || levelist.length == 0) return false
       const [gaspractice, bodypractice] = levelist
       return map_point
         .findOne({
           where: {
             name: '天山'
-          },
-          raw: true
+          }
         })
-        .then(async (res: any) => {
-          const point: MapPointType = res
+        .then(res => res.dataValues)
+        .then(async point => {
           if (!point || !point?.type) return false
           return Promise.all([
             // 创建基础信息
@@ -85,7 +79,7 @@ export async function setPlayer(UID: string, user_avatar: string) {
               battle_power: 0, // 战力_默认0
               talent: Talent.getTalent(), // 灵根
               create_time: new Date().getTime() // 创建时间搓
-            } as UserType),
+            }),
             // 创建境界信息1
             user_level.create({
               uid: UID,
@@ -93,7 +87,7 @@ export async function setPlayer(UID: string, user_avatar: string) {
               addition: 0,
               realm: 0,
               experience: 0
-            } as UserLevelType),
+            }),
             // 创建境界信息2
             user_level.create({
               uid: UID,
@@ -101,14 +95,14 @@ export async function setPlayer(UID: string, user_avatar: string) {
               addition: 0,
               realm: 0,
               experience: 0
-            } as UserLevelType),
+            }),
             user_level.create({
               uid: UID,
               type: 3,
               addition: 0,
               realm: 0,
               experience: 0
-            } as UserLevelType)
+            })
           ])
         })
     })

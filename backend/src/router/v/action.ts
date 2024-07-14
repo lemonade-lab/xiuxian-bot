@@ -388,7 +388,7 @@ router.get('/consumption', async ctx => {
 
       await GameApi.Users.update(UID, {
         talent: UserData.talent
-      } as DB.UserType)
+      })
       /**
        * 更新天赋
        */
@@ -419,7 +419,7 @@ router.get('/consumption', async ctx => {
       UserData.talent_show = 1
       await GameApi.Users.update(UID, {
         talent_show: UserData.talent_show
-      } as DB.UserType)
+      })
       /**
        * 扣物品
        */
@@ -454,7 +454,7 @@ router.get('/consumption', async ctx => {
       /**
        * 增加经验
        */
-      const { msg } = await GameApi.Levels.addExperience(UID, 3, soul)
+      await GameApi.Levels.addExperience(UID, 3, soul)
       ctx.body = {
         code: OK_CODE,
         msg: '灵根已定\n此生不可再洗髓',
@@ -479,7 +479,7 @@ router.get('/consumption', async ctx => {
       /**
        * 增加经验
        */
-      const { msg } = await GameApi.Levels.addExperience(UID, 3, soul)
+      await GameApi.Levels.addExperience(UID, 3, soul)
       ctx.body = {
         code: OK_CODE,
         msg: '灵根已定\n此生不可再洗髓',
@@ -503,7 +503,7 @@ router.get('/consumption', async ctx => {
       }
       await GameApi.Users.update(UID, {
         special_prestige: UserData.special_prestige
-      } as DB.UserType)
+      })
 
       /**
        * 扣物品
@@ -528,14 +528,13 @@ router.get('/consumption', async ctx => {
       /**
        * 传送符用来回城池的
        */
-      const PositionData: DB.MapPositionType[] = (await DB.map_position.findAll(
-        {
+      const PositionData = await DB.map_position
+        .findAll({
           where: {
             attribute: [1, 6]
-          },
-          raw: true
-        }
-      )) as any
+          }
+        })
+        .then(res => res.map(item => item.dataValues))
       const point = {
         type: 0,
         attribute: 0,
@@ -571,7 +570,7 @@ router.get('/consumption', async ctx => {
         pont_z: point.z,
         point_type: point.type,
         pont_attribute: point.attribute
-      } as DB.UserType)
+      })
 
       ctx.body = {
         code: OK_CODE,

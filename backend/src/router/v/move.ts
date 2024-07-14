@@ -1,7 +1,6 @@
 import koaRouter from 'koa-router'
 import { user } from 'xiuxian-db'
 
-import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
@@ -74,7 +73,7 @@ router.get('/mapW', async ctx => {
       pont_x: UserData.pont_x,
       pont_y: UserData.pont_y,
       pont_z: UserData.pont_z
-    } as DB.UserType)
+    })
   }
   ctx.body = {
     code: OK_CODE,
@@ -122,7 +121,7 @@ router.get('/mapS', async ctx => {
       pont_x: UserData.pont_x,
       pont_y: UserData.pont_y,
       pont_z: UserData.pont_z
-    } as DB.UserType)
+    })
   }
   ctx.body = {
     code: OK_CODE,
@@ -170,7 +169,7 @@ router.get('/mapA', async ctx => {
       pont_x: UserData.pont_x,
       pont_y: UserData.pont_y,
       pont_z: UserData.pont_z
-    } as DB.UserType)
+    })
   }
   ctx.body = {
     code: OK_CODE,
@@ -218,7 +217,7 @@ router.get('/mapD', async ctx => {
       pont_x: UserData.pont_x,
       pont_y: UserData.pont_y,
       pont_z: UserData.pont_z
-    } as DB.UserType)
+    })
   }
   ctx.body = {
     code: OK_CODE,

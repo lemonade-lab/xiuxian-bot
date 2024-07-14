@@ -107,18 +107,19 @@ export class AssManage extends APlugin {
 
     const { aData } = v
 
-    const uData: DB.UserAssType[] = (await DB.user_ass.findAll({
-      where: {
-        aid: aData.id,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['9']
-      },
-      include: [
-        {
-          model: DB.user
-        }
-      ],
-      raw: true
-    })) as any
+    const uData = await DB.user_ass
+      .findAll({
+        where: {
+          aid: aData.id,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['9']
+        },
+        include: [
+          {
+            model: DB.user
+          }
+        ]
+      })
+      .then(res => res.map(item => item.dataValues))
 
     if (!uData || uData.length == 0) {
       e.reply('暂无申请')
@@ -149,18 +150,19 @@ export class AssManage extends APlugin {
 
     if (!id) return
 
-    const uData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        id: Number(id),
-        identity: GameApi.Config.ASS_IDENTITY_MAP['9']
-      },
-      include: [
-        {
-          model: DB.ass
-        }
-      ],
-      raw: true
-    })) as any
+    const uData = await DB.user_ass
+      .findOne({
+        where: {
+          id: Number(id),
+          identity: GameApi.Config.ASS_IDENTITY_MAP['9']
+        },
+        include: [
+          {
+            model: DB.ass
+          }
+        ]
+      })
+      .then(res => res.dataValues)
 
     // 不存在该条目
     if (!uData) return
@@ -174,13 +176,14 @@ export class AssManage extends APlugin {
 
     const { aData } = v
 
-    const data: DB.UserAssType[] = (await DB.user_ass.findAll({
-      where: {
-        aid: aData.id,
-        identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
-      },
-      raw: true
-    })) as any
+    const data = await DB.user_ass
+      .findAll({
+        where: {
+          aid: aData.id,
+          identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
+        }
+      })
+      .then(res => res.map(item => item.dataValues))
 
     if (data.length >= (aData.grade + 1) * 5) {
       e.reply('人数已达上限', {
@@ -193,7 +196,7 @@ export class AssManage extends APlugin {
       .update(
         {
           identity: GameApi.Config.ASS_IDENTITY_MAP['8']
-        } as DB.UserAssType,
+        },
         {
           where: {
             id: Number(id)
@@ -223,17 +226,18 @@ export class AssManage extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const id = Number(e.msg.replace(/^(#|\/)?踢出/, ''))
     if (!id) return
-    const uData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        id: Number(id)
-      },
-      include: [
-        {
-          model: DB.ass
-        }
-      ],
-      raw: true
-    })) as any
+    const uData = await DB.user_ass
+      .findOne({
+        where: {
+          id: Number(id)
+        },
+        include: [
+          {
+            model: DB.ass
+          }
+        ]
+      })
+      .then(res => res.dataValues)
 
     // 不存在该条目
     if (!uData) return
@@ -278,17 +282,18 @@ export class AssManage extends APlugin {
   async improreAss(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID
-      },
-      include: [
-        {
-          model: DB.ass
-        }
-      ],
-      raw: true
-    })) as any
+    const UIDData = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID
+        },
+        include: [
+          {
+            model: DB.ass
+          }
+        ]
+      })
+      .then(res => res.dataValues)
 
     const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
     if (v === false) return
@@ -321,17 +326,18 @@ export class AssManage extends APlugin {
   async improreAssTreasure(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UIDData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID
-      },
-      include: [
-        {
-          model: DB.ass
-        }
-      ],
-      raw: true
-    })) as any
+    const UIDData = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID
+        },
+        include: [
+          {
+            model: DB.ass
+          }
+        ]
+      })
+      .then(res => res.dataValues)
     const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
     if (v === false) return
     if (v === '权能不足') {
@@ -386,17 +392,18 @@ export class AssManage extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const id = e.msg.replace(/^(#|\/)?提拔/, '')
     if (!id) return
-    const uData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: id
-      },
-      include: [
-        {
-          model: DB.ass
-        }
-      ],
-      raw: true
-    })) as any
+    const uData = await DB.user_ass
+      .findOne({
+        where: {
+          uid: id
+        },
+        include: [
+          {
+            model: DB.ass
+          }
+        ]
+      })
+      .then(res => res.dataValues)
     // 不存在该玩家
     if (!uData) return
     if (!(uData.authentication - 1)) {
@@ -444,17 +451,18 @@ export class AssManage extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const id = e.msg.replace(/^(#|\/)?贬职/, '')
     if (!id) return
-    const uData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: id
-      },
-      include: [
-        {
-          model: DB.ass
-        }
-      ],
-      raw: true
-    })) as any
+    const uData = await DB.user_ass
+      .findOne({
+        where: {
+          uid: id
+        },
+        include: [
+          {
+            model: DB.ass
+          }
+        ]
+      })
+      .then(res => res.dataValues)
     // 不存在该玩家
     if (!uData) return
     if (uData.authentication == 9) {

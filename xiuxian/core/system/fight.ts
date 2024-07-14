@@ -1,4 +1,3 @@
-import { type UserType } from 'xiuxian-db'
 import { isProbability } from '../wrap/method.js'
 
 export const Sneakattack = [
@@ -17,7 +16,7 @@ export const Sneakattack = [
  * @param param1
  * @returns
  */
-export function start(UserA: UserType, UserB: UserType) {
+export function start(UserA, UserB) {
   // 战斗消息
   const msg: string[] = [],
     HurtA = {

@@ -38,7 +38,7 @@ export class Battle extends APlugin {
     }
     await GameApi.Users.update(UID, {
       battle_show: UserData.battle_show
-    } as DB.UserType)
+    })
     if (UserData.battle_show == 1) {
       e.reply(['战斗过程开启'], {
         quote: e.msg_id
@@ -122,11 +122,11 @@ export class Battle extends APlugin {
     await GameApi.Users.update(UID, {
       battle_blood_now: BMSG.battle_blood_now.a,
       special_spiritual: UserData.special_spiritual - 5
-    } as DB.UserType)
+    })
     await GameApi.Users.update(UIDB, {
       battle_blood_now: BMSG.battle_blood_now.b,
       special_spiritual: UserDataB.special_spiritual - 5
-    } as DB.UserType)
+    })
 
     const exA = Math.floor((expA * (UserDataB.talent_size + 100)) / 100),
       exB = Math.floor((expB * (UserDataB.talent_size + 100)) / 100)
@@ -176,13 +176,13 @@ export class Battle extends APlugin {
     if (UserData.point_type == 2) {
       await GameApi.Users.update(UID, {
         battle_blood_now: 0
-      } as DB.UserType)
+      })
 
       GameApi.logs.write(UIDB, {
         type: 1,
         create_time,
         message: `${UserData.name}攻击了你,被[玄玉天宫]修士拦住了~`
-      } as DB.UserLogType)
+      })
 
       e.reply('[玄玉天宫]玉贞子:\n何人在此造次!')
       let thing: { name: string; type: number; acount: number }[] = []
@@ -236,7 +236,7 @@ export class Battle extends APlugin {
           type: 2,
           create_time,
           message: `${UserData.name}攻击了你,被卫兵拦住了~`
-        } as DB.UserLogType)
+        })
         e.reply('[城主府]普通卫兵:\n城内不可出手!')
         return
       }
@@ -275,11 +275,11 @@ export class Battle extends APlugin {
       special_spiritual:
         UserData.special_spiritual - Math.floor(levelsB.realm / 2),
       battle_blood_now: BMSG.battle_blood_now.a
-    } as DB.UserType)
+    })
 
     await GameApi.Users.update(UIDB, {
       battle_blood_now: BMSG.battle_blood_now.b
-    } as DB.UserType)
+    })
 
     e.reply(
       [
@@ -305,7 +305,7 @@ export class Battle extends APlugin {
         type: 2,
         create_time,
         message: `${UserData.name}攻击了你,你跟他打成了平手~`
-      } as DB.UserLogType)
+      })
 
       e.reply([`你与对方打成了平手`], {
         quote: e.msg_id
@@ -337,7 +337,7 @@ export class Battle extends APlugin {
         type: 2,
         create_time,
         message: `[${UserData.name}]攻击了你,你重伤在地`
-      } as DB.UserLogType)
+      })
 
       e.reply([`未抢到的物品`], {
         quote: e.msg_id
@@ -353,7 +353,7 @@ export class Battle extends APlugin {
         type: 2,
         create_time,
         message: `[${UserData.name}]攻击了你,你重伤在地`
-      } as DB.UserLogType)
+      })
       e.reply([`穷的都吃不起灵石了`], {
         quote: e.msg_id
       })
@@ -365,13 +365,13 @@ export class Battle extends APlugin {
         type: 2,
         create_time,
         message: `[${UserData.name}]夺走了你的[${data[0].name}]*${data[0].acount}~`
-      } as DB.UserLogType)
+      })
     } else {
       GameApi.logs.write(UIDB, {
         type: 2,
         create_time,
         message: `你夺走了[${UserData.name}]的[${data[0].name}]*${data[0].acount}~`
-      } as DB.UserLogType)
+      })
     }
 
     /**

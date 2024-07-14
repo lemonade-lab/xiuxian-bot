@@ -65,10 +65,10 @@ export class ControllLevel extends APlugin {
 
     await GameApi.Users.update(UID, {
       special_spiritual: UserData.special_spiritual - 5
-    } as DB.UserType)
+    })
     await GameApi.Users.update(UIDB, {
       special_spiritual: UserDataB.special_spiritual - 5
-    } as DB.UserType)
+    })
 
     const exA = Math.floor((expA * (UserData.talent_size + 100)) / 100),
       exB = Math.floor((expB * (UserDataB.talent_size + 100)) / 100)
@@ -155,10 +155,10 @@ export class ControllLevel extends APlugin {
 
     await GameApi.Users.update(UID, {
       special_spiritual: UserData.special_spiritual - 5
-    } as DB.UserType)
+    })
     await GameApi.Users.update(UIDB, {
       special_spiritual: UserDataB.special_spiritual - 5
-    } as DB.UserType)
+    })
 
     if (!GameApi.Method.isTrueInRange(1, 100, 85)) {
       // 清空经验

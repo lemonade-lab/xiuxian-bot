@@ -2,7 +2,7 @@ import { Controllers, type AEvent } from 'alemonjs'
 
 // 用户模型
 import { ERROE_CODE, OK_CODE } from '../config/ajax'
-import { user, type UserType } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 
 import Application from 'koa'
 
@@ -103,7 +103,7 @@ export async function levelUp(
 //       },
 //       raw: true
 //     })
-//     .then((res: any) => res as UserType)
+//     .then((res: any) => res )
 //     .then(async res => {
 //       if (!res) {
 //         // 刷新用户信息
@@ -159,7 +159,7 @@ export async function showUserMsg(ctx: Application.Context) {
       raw: true
     })
     .then((res: any) => res)
-    .then((res: UserType) => {
+    .then(res => {
       if (res) {
         ctx.body = {
           code: OK_CODE,
@@ -192,11 +192,7 @@ export async function showUserMsg(ctx: Application.Context) {
  * @param UIDB
  * @returns
  */
-export async function dualVerification(
-  e: AEvent,
-  UserData: UserType,
-  UserDataB: UserType
-) {
+export async function dualVerification(e: AEvent, UserData, UserDataB) {
   if (UserData.uid == UserDataB.uid) {
     e.reply(['咦惹'])
     return false
@@ -263,7 +259,7 @@ export async function sendReply(
  * @param UID
  * @returns
  */
-export async function Control(e: AEvent, UserData: UserType) {
+export async function Control(e: AEvent, UserData) {
   const { state, msg } = await State.Go(UserData)
   if (state == 4001) {
     e.reply([msg])
@@ -278,7 +274,7 @@ export async function Control(e: AEvent, UserData: UserType) {
  * @param UID
  * @returns
  */
-export async function ControlByBlood(e: AEvent, UserData: UserType) {
+export async function ControlByBlood(e: AEvent, UserData) {
   const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     e.reply([msg])
@@ -294,11 +290,7 @@ export async function ControlByBlood(e: AEvent, UserData: UserType) {
  * @param addressName
  * @returns
  */
-export async function controlByName(
-  e: AEvent,
-  UserData: UserType,
-  addressName: string
-) {
+export async function controlByName(e: AEvent, UserData, addressName: string) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     e.reply([`你没有在这里哦—\n————————\n[/前往${addressName}]`])
@@ -351,7 +343,7 @@ export async function killNPC(
 
   await Users.update(UID, {
     battle_blood_now: 0
-  } as UserType)
+  })
 
   // 不触发
   if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {
@@ -381,13 +373,14 @@ export async function killNPC(
  * @param UID
  * @returns
  */
-export async function isUser(UID: string): Promise<UserType> {
-  return user.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  }) as any
+export async function isUser(UID: string) {
+  return user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
 }
 
 /**
@@ -441,7 +434,7 @@ export async function victoryCooling(
   return true
 }
 
-export async function endAllWord(e: AEvent, UID: string, UserData: UserType) {
+export async function endAllWord(e: AEvent, UID: string, UserData) {
   const mapText = {
     1: '只是呆了一会儿',
     2: '走累了,就停一停吧',
@@ -486,7 +479,7 @@ export async function condensateGas(
   e: AEvent,
   UID: string,
   time: number,
-  UserData: UserType
+  UserData
 ) {
   const size = Math.floor((time * (UserData.talent_size + 100)) / 100)
   const limit = UserData.special_spiritual_limit
@@ -499,7 +492,7 @@ export async function condensateGas(
   }
   await Users.update(UID, {
     special_spiritual: special_spiritual
-  } as UserType)
+  })
 
   setTimeout(() => {
     e.reply([`聚灵成功\n当前灵力${special_spiritual}/${limit}`])
@@ -520,7 +513,7 @@ export async function upgrade(
   time: number,
   key: number,
   type: 1 | 2 | 3,
-  UserData: UserType
+  UserData
 ) {
   const config = {
     1: Cooling.work_size,

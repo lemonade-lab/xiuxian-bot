@@ -23,10 +23,9 @@ export class Start extends APlugin {
         attributes: ['uid'],
         where: {
           uid: e.user_id
-        },
-        raw: true
+        }
       })
-      .then((res: any) => res as DB.UserType)
+      .then(res => res.dataValues)
       .then(async res => {
         if (!res) {
           // 刷新用户信息
@@ -48,7 +47,7 @@ export class Start extends APlugin {
               // 显示资料
               showUserMsg(e)
             })
-            .catch(err => {
+            .catch(_ => {
               e.reply(['未寻得仙缘'], {
                 quote: e.msg_id
               })
@@ -58,7 +57,7 @@ export class Start extends APlugin {
           showUserMsg(e)
         }
       })
-      .catch(err => {
+      .catch(_ => {
         e.reply('数据查询错误')
       })
 
@@ -80,7 +79,7 @@ export class Start extends APlugin {
         }
         GameApi.Users.update(UID, {
           phone: null
-        } as DB.UserType)
+        })
           .then(() => {
             e.reply([`解绑成功`], {
               quote: e.msg_id

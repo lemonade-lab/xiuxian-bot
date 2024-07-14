@@ -36,13 +36,14 @@ export class union extends APlugin {
     const start_msg = []
     start_msg.push('\n[/兑换+物品名*数量]')
     const type = e.msg.replace(/^(#|\/)?(联盟商会|聯盟商會)/, '')
-    const commoditiesList: DB.GoodsType[] = (await DB.goods.findAll({
-      where: {
-        alliancemall: 1,
-        type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
-      },
-      raw: true
-    })) as any
+    const commoditiesList = await DB.goods
+      .findAll({
+        where: {
+          alliancemall: 1,
+          type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
+        }
+      })
+      .then(res => res.map(item => item.dataValues))
     const end_msg = GameApi.Goods.getListMsg(commoditiesList, '声望')
     const msg = [...start_msg, ...end_msg]
     sendReply(e, '___[联盟商会]___', msg)
@@ -68,13 +69,14 @@ export class union extends APlugin {
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(兑换|兌換)/, '')
       .split('*')
-    const ifexist: DB.GoodsType = (await DB.goods.findOne({
-      where: {
-        alliancemall: 1,
-        name: thingName
-      },
-      raw: true
-    })) as any
+    const ifexist = await DB.goods
+      .findOne({
+        where: {
+          alliancemall: 1,
+          name: thingName
+        }
+      })
+      .then(res => res.dataValues)
     if (!ifexist) {
       e.reply(`[联盟]叶铭\n没有[${thingName}]`)
       return
@@ -99,7 +101,7 @@ export class union extends APlugin {
     // 更新用户
     await GameApi.Users.update(UID, {
       special_reputation: UserData.special_reputation
-    } as DB.UserType)
+    })
     await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
       {
         name: ifexist.name,
@@ -149,7 +151,7 @@ export class union extends APlugin {
     // 更新用户
     GameApi.Users.update(UID, {
       special_reputation: UserData.special_reputation + size
-    } as DB.UserType)
+    })
     e.reply(`[联盟]黄天霸\n贡献成功,奖励[声望]*${size}`)
 
     return

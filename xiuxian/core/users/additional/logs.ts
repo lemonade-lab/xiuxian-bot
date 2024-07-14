@@ -1,4 +1,4 @@
-import { type UserLogType, user_log } from 'xiuxian-db'
+import { user_log } from 'xiuxian-db'
 import { timeChange } from '../../wrap/method.js'
 
 /**
@@ -6,7 +6,7 @@ import { timeChange } from '../../wrap/method.js'
  * @param UID
  * @param DATA
  */
-export async function write(UID: string, DATA: UserLogType) {
+export async function write(UID: string, DATA) {
   await user_log.create({
     ...DATA,
     uid: UID
@@ -31,17 +31,18 @@ export async function del(UID: string) {
  * @returns
  */
 export async function read(UID: string) {
-  const da: UserLogType[] = (await user_log.findAll({
-    attributes: ['type', 'create_time', 'message'],
-    where: {
-      uid: UID
-    },
-    order: [
-      ['create_time', 'DESC'] // 降序排列
-    ],
-    limit: 10,
-    raw: true
-  })) as any
+  const da = await user_log
+    .findAll({
+      attributes: ['type', 'create_time', 'message'],
+      where: {
+        uid: UID
+      },
+      order: [
+        ['create_time', 'DESC'] // 降序排列
+      ],
+      limit: 10
+    })
+    .then(res => res.map(item => item.dataValues))
   const arr: { type: number; create_time: string; message: string }[] = []
   for await (const item of da) {
     arr.push({

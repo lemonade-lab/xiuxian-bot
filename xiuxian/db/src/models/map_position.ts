@@ -1,7 +1,22 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const map_position = sequelize.define<Model<MapPositionType>>(
+export const map_position = sequelize.define<
+  Model<{
+    id: number
+    name: string //string
+    type: number //int
+    grade: number //int
+    attribute: number //int
+    x1: number //int
+    x2: number //int
+    y1: number //int
+    y2: number //int
+    z1: number //int
+    z2: number //int
+    doc: string //string
+  }>
+>(
   'map_position',
   {
     id: {
@@ -26,17 +41,3 @@ export const map_position = sequelize.define<Model<MapPositionType>>(
     updatedAt: false //去掉
   }
 )
-export interface MapPositionType {
-  id: number
-  name: string //string
-  type: number //int
-  grade: number //int
-  attribute: number //int
-  x1: number //int
-  x2: number //int
-  y1: number //int
-  y2: number //int
-  z1: number //int
-  z2: number //int
-  doc: string //string
-}

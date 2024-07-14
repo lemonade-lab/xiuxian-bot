@@ -48,13 +48,14 @@ export class Transaction extends APlugin {
     const start_msg = []
     start_msg.push('\n欢迎关顾本店')
     const type = e.msg.replace(/^(#|\/)?(万宝楼|萬寶樓)/, '')
-    const commoditiesList: DB.GoodsType[] = (await DB.goods.findAll({
-      where: {
-        commodities: 1,
-        type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
-      },
-      raw: true
-    })) as any
+    const commoditiesList = await DB.goods
+      .findAll({
+        where: {
+          commodities: 1,
+          type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
+        }
+      })
+      .then(res => res.map(item => item.dataValues))
     const end_msg = GameApi.Goods.getListMsg(
       commoditiesList,
       '灵石',
@@ -135,13 +136,14 @@ export class Transaction extends APlugin {
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(购买|購買)/, '')
       .split('*')
-    const ifexist: DB.GoodsType = (await DB.goods.findOne({
-      where: {
-        commodities: 1, // 找到万宝楼可购买的物品
-        name: thingName // 找到物品名
-      },
-      raw: true
-    })) as any
+    const ifexist = await DB.goods
+      .findOne({
+        where: {
+          commodities: 1, // 找到万宝楼可购买的物品
+          name: thingName // 找到物品名
+        }
+      })
+      .then(res => res.dataValues)
     if (!ifexist) {
       e.reply(`[万宝楼]小二:\n不卖[${thingName}]`)
       return
@@ -168,14 +170,13 @@ export class Transaction extends APlugin {
     }
 
     // 查看自己可买多少
-    const bData: DB.UserBuyLogType = await DB.user_buy_log
+    const bData = await DB.user_buy_log
       .findOne({
         where: {
           uid: UID
-        },
-        raw: true
+        }
       })
-      .then((res: any) => res)
+      .then(res => res.dataValues)
     const now = new Date()
 
     if (count > ifexist.limit_buy) {
@@ -263,8 +264,8 @@ export class Transaction extends APlugin {
     }
 
     // 得到该物品的所有信息
-    const bag: { 'acount': number; 'good.price': number }[] =
-      (await DB.user_bag.findAll({
+    const bag = await DB.user_bag
+      .findAll({
         where: {
           uid: UID
         },
@@ -273,9 +274,9 @@ export class Transaction extends APlugin {
           where: {
             type: GameApi.Goods.mapType[type]
           }
-        },
-        raw: true
-      })) as any
+        }
+      })
+      .then(res => res.map(item => item.dataValues))
 
     // 计算金额
     for await (const item of bag) {
@@ -319,16 +320,16 @@ export class Transaction extends APlugin {
     // 累计
     let money = 0
     // 得到该物品的所有信息
-    const bag: { 'acount': number; 'good.price': number }[] =
-      (await DB.user_bag.findAll({
+    const bag = await DB.user_bag
+      .findAll({
         where: {
           uid: UID
         },
         include: {
           model: DB.goods
-        },
-        raw: true
-      })) as any
+        }
+      })
+      .then(res => res.map(item => item.dataValues))
     // 计算金额
     for await (const item of bag) {
       money += item.acount * item['good.price']

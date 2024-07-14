@@ -1,45 +1,49 @@
 import koaRouter from 'koa-router'
 import { OK_CODE } from '../../config/ajax'
-import { LevelsType, UserLevelType, levels, user_level } from 'xiuxian-db'
+import { levels, user_level } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/levels' })
 
 async function searchLevels(UID) {
   // 固定数据读取
-  const userLevelData: UserLevelType[] = (await user_level.findAll({
-    where: {
-      uid: UID,
-      type: [1, 2, 3]
-    },
-    order: [['type', 'DESC']],
-    raw: true
-  })) as any
+  const userLevelData = await user_level
+    .findAll({
+      where: {
+        uid: UID,
+        type: [1, 2, 3]
+      },
+      order: [['type', 'DESC']]
+    })
+    .then(res => res.map(item => item.dataValues))
   // 境界数据
-  const GaspracticeList: LevelsType[] = (await levels.findAll({
-    attributes: ['name', 'type', 'exp_needed'],
-    where: {
-      grade: [userLevelData[2]?.realm],
-      type: 1
-    },
-    raw: true
-  })) as any
+  const GaspracticeList = await levels
+    .findAll({
+      attributes: ['name', 'type', 'exp_needed'],
+      where: {
+        grade: [userLevelData[2]?.realm],
+        type: 1
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   // 境界数据
-  const BodypracticeList: LevelsType[] = (await levels.findAll({
-    attributes: ['name', 'type', 'exp_needed'],
-    where: {
-      grade: userLevelData[1]?.realm,
-      type: 2
-    },
-    raw: true
-  })) as any
+  const BodypracticeList = await levels
+    .findAll({
+      attributes: ['name', 'type', 'exp_needed'],
+      where: {
+        grade: userLevelData[1]?.realm,
+        type: 2
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   // 境界数据
-  const SoulList: LevelsType[] = (await levels.findAll({
-    attributes: ['name', 'type', 'exp_needed'],
-    where: {
-      grade: userLevelData[0]?.realm,
-      type: 3
-    },
-    raw: true
-  })) as any
+  const SoulList = await levels
+    .findAll({
+      attributes: ['name', 'type', 'exp_needed'],
+      where: {
+        grade: userLevelData[0]?.realm,
+        type: 3
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   // 固定数据读取
   const GaspracticeData = GaspracticeList[0]
   const BodypracticeData = BodypracticeList[0]

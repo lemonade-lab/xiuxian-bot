@@ -344,7 +344,7 @@ export class Action extends APlugin {
 
         await GameApi.Users.update(UID, {
           talent: UserData.talent
-        } as DB.UserType)
+        })
         /**
          * 更新天赋
          */
@@ -375,7 +375,7 @@ export class Action extends APlugin {
         UserData.talent_show = 1
         await GameApi.Users.update(UID, {
           talent_show: UserData.talent_show
-        } as DB.UserType)
+        })
         /**
          * 扣物品
          */
@@ -449,7 +449,7 @@ export class Action extends APlugin {
         }
         await GameApi.Users.update(UID, {
           special_prestige: UserData.special_prestige
-        } as DB.UserType)
+        })
 
         /**
          * 扣物品
@@ -470,13 +470,13 @@ export class Action extends APlugin {
         /**
          * 传送符用来回城池的
          */
-        const PositionData: DB.MapPositionType[] =
-          (await DB.map_position.findAll({
+        const PositionData = await DB.map_position
+          .findAll({
             where: {
               attribute: [1, 6]
-            },
-            raw: true
-          })) as any
+            }
+          })
+          .then(res => res.map(item => item.dataValues))
         const point = {
           type: 0,
           attribute: 0,
@@ -512,7 +512,7 @@ export class Action extends APlugin {
           pont_z: point.z,
           point_type: point.type,
           pont_attribute: point.attribute
-        } as DB.UserType)
+        })
 
         e.reply([`${UserData.name}成功传送至${point.name}`], {
           quote: e.msg_id

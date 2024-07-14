@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { UserBagType, user_bag } from 'xiuxian-db'
+import { user_bag } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/bags' })
 
 // 背包查询接口
@@ -59,7 +59,7 @@ router.get('/search', async ctx => {
         raw: true
       })
       .then((res: any) => res)
-      .then((res: { count: number; rows: UserBagType[] }) => {
+      .then((res: { count: number; rows }) => {
         const totalCount = res.count // 总数据量
         const totalPages = Math.ceil(totalCount / pageSize) // 总页数
         ctx.body = {
@@ -83,7 +83,7 @@ router.get('/search', async ctx => {
         raw: true
       })
       .then((res: any) => res)
-      .then((res: { count: number; rows: UserBagType[] }) => {
+      .then((res: { count: number; rows }) => {
         const totalCount = res.count
         ctx.body = {
           code: OK_CODE,

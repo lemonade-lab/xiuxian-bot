@@ -1,7 +1,38 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const goods = sequelize.define<Model<GoodsType>>(
+export const goods = sequelize.define<
+  Model<{
+    // 定义模型属性
+    id: number
+    type: number //int
+    monster_type: number //int
+    grade: number //int
+    name: string //string
+    addition: string
+    talent: number[] // json
+    attack: number
+    defense: number
+    blood: number
+    boolere_covery: number
+    critical_hit: number
+    critical_damage: number
+    exp_bodypractice: number
+    exp_gaspractice: number
+    exp_soul: number
+    speed: number
+    size: number
+    price: number
+    drops: number // 怪物掉落
+    wheeldisc: number // 命运转盘
+    alliancemall: number //  联盟商城
+    commodities: number // 万宝楼
+    palace: number // 浩瀚宫调
+    limit: number // 浩瀚宫调限定
+    limit_buy: number // 购买上限
+    doc: string
+  }>
+>(
   'goods',
   {
     // 定义模型属性
@@ -43,33 +74,3 @@ export const goods = sequelize.define<Model<GoodsType>>(
     updatedAt: false //去掉
   }
 )
-export interface GoodsType {
-  // 定义模型属性
-  id: number
-  type: number //int
-  monster_type: number //int
-  grade: number //int
-  name: string //string
-  addition: string
-  talent: number[] // json
-  attack: number
-  defense: number
-  blood: number
-  boolere_covery: number
-  critical_hit: number
-  critical_damage: number
-  exp_bodypractice: number
-  exp_gaspractice: number
-  exp_soul: number
-  speed: number
-  size: number
-  price: number
-  drops: number // 怪物掉落
-  wheeldisc: number // 命运转盘
-  alliancemall: number //  联盟商城
-  commodities: number // 万宝楼
-  palace: number // 浩瀚宫调
-  limit: number // 浩瀚宫调限定
-  limit_buy: number // 购买上限
-  doc: string
-}

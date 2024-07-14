@@ -94,10 +94,11 @@ export class Bank extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     let account = Number(e.msg.replace(/^(#|\/)?治炼仙石/, '')) || 1
     if (account > 10) account = 10
-    const Userleve: DB.UserLevelType = (await DB.user_level.findOne({
-      where: { uid: UID, type: 1 },
-      raw: true
-    })) as any
+    const Userleve = await DB.user_level
+      .findOne({
+        where: { uid: UID, type: 1 }
+      })
+      .then(res => res.dataValues)
     if (Userleve.realm < 42) {
       e.reply('境界不足')
       return

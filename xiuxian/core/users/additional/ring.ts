@@ -1,4 +1,4 @@
-import { type UserRingType, user_ring } from 'xiuxian-db'
+import { user_ring } from 'xiuxian-db'
 import { searchAllThing } from '../../wrap/goods.js'
 import { literal } from 'sequelize'
 
@@ -76,13 +76,14 @@ export async function addRingThing(
     // 当前储物袋格子已到极限
     if (length >= grade * 10) break
     // 查找物品
-    const existingItem: UserRingType = (await user_ring.findOne({
-      where: {
-        uid: UID,
-        name: name
-      },
-      raw: true
-    })) as any
+    const existingItem = await user_ring
+      .findOne({
+        where: {
+          uid: UID,
+          name: name
+        }
+      })
+      .then(res => res.dataValues)
     // 存在则更新
     if (existingItem) {
       await user_ring.update(
@@ -104,7 +105,7 @@ export async function addRingThing(
         type: THING.type, //物品类型
         name: THING.name, // 物品名
         acount: acount // 物品数量
-      } as UserRingType)
+      })
     }
   }
   return
@@ -162,13 +163,14 @@ export async function reduceRingThing(
  * @returns
  */
 export async function searchRingByName(UID: string, name: string) {
-  const data: UserRingType | null = (await user_ring.findOne({
-    where: {
-      uid: UID,
-      name
-    },
-    raw: true
-  })) as any
+  const data = await user_ring
+    .findOne({
+      where: {
+        uid: UID,
+        name
+      }
+    })
+    .then(res => res.dataValues)
   if (data)
     return {
       ...(await searchAllThing(name)),
@@ -185,14 +187,15 @@ export async function searchRingByName(UID: string, name: string) {
  * @returns
  */
 export async function delThing(UID: string) {
-  const data: UserRingType | null = (await user_ring.findOne({
-    where: {
-      uid: UID
-    },
-    // 进行随机排序
-    order: literal('RAND()'),
-    raw: true
-  })) as any
+  const data = await user_ring
+    .findOne({
+      where: {
+        uid: UID
+      },
+      // 进行随机排序
+      order: literal('RAND()')
+    })
+    .then(res => res.dataValues)
   if (!data) return []
   // 击碎
   reduceRingThing(UID, [

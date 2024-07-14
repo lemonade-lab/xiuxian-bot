@@ -1,4 +1,4 @@
-import { type UserCompensateType, user_compensate } from 'xiuxian-db'
+import { user_compensate } from 'xiuxian-db'
 export const install = {}
 export const start_time = '2023-10-02 12:00'
 export const end_time = '2023-10-02 23:59'
@@ -7,7 +7,7 @@ export async function add(UID: string, time: string) {
   await user_compensate.create({
     uid: UID,
     time: time
-  } as UserCompensateType)
+  })
 }
 
 /**
@@ -17,13 +17,14 @@ export async function add(UID: string, time: string) {
  * @returns
  */
 export async function read(UID: string, time: string) {
-  const data: UserCompensateType = (await user_compensate.findOne({
-    where: {
-      time,
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await user_compensate
+    .findOne({
+      where: {
+        time,
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   return data
 }
 

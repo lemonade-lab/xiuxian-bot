@@ -1,11 +1,11 @@
-import { user, type UserType } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 
 /**
  * 写入
  * @param UID
  * @param param1
  */
-export async function update(UID: string, data: UserType) {
+export async function update(UID: string, data) {
   await user.update(data, {
     where: {
       uid: UID
@@ -19,11 +19,12 @@ export async function update(UID: string, data: UserType) {
  * @returns
  */
 export async function read(UID: string) {
-  const data: UserType = (await user.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   return data
 }

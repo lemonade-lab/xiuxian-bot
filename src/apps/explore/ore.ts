@@ -130,7 +130,7 @@ export class Ore extends APlugin {
     // 减少灵力 保存灵力信息
     await GameApi.Users.update(UID, {
       special_spiritual: UserData.special_spiritual - ep.spiritual * acount
-    } as DB.UserType)
+    })
 
     // 设置冷却
     GameApi.Burial.set(UID, CDID, GameApi.Cooling.CD_Mine)

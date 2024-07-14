@@ -1,7 +1,12 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const levels = sequelize.define<Model<LevelsType>>(
+export const levels = sequelize.define<
+  Model<{
+    id: number
+    doc: string //string
+  }>
+>(
   'bags',
   {
     id: {
@@ -18,8 +23,3 @@ export const levels = sequelize.define<Model<LevelsType>>(
     updatedAt: false //去掉
   }
 )
-
-export interface LevelsType {
-  id: number
-  doc: string //string
-}

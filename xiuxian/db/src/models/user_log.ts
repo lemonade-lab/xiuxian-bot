@@ -1,6 +1,15 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_log = sequelize.define<Model<UserLogType>>(
+export const user_log = sequelize.define<
+  Model<{
+    id: number
+    uid: string
+    type: number
+    create_time: number
+    message: string
+    doc: string
+  }>
+>(
   'user_log',
   {
     id: {
@@ -20,11 +29,3 @@ export const user_log = sequelize.define<Model<UserLogType>>(
     updatedAt: false //去掉
   }
 )
-export interface UserLogType {
-  id: number
-  uid: string
-  type: number
-  create_time: number
-  message: string
-  doc: string
-}

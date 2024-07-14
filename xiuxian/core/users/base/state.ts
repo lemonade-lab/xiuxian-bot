@@ -1,4 +1,4 @@
-import { type UserType, user } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 const ACTIONMAP = {
   0: '空闲',
   1: '闭关',
@@ -25,7 +25,7 @@ export async function set(
       state: actionID,
       state_start_time: startTime,
       state_end_time: endTime
-    } as UserType,
+    },
     {
       where: {
         uid: UID
@@ -44,7 +44,7 @@ export async function del(UID: string) {
       state: 0,
       state_start_time: 9999999999999,
       state_end_time: 9999999999999
-    } as UserType,
+    },
     {
       where: {
         uid: UID
@@ -58,7 +58,7 @@ export async function del(UID: string) {
  * @param UID
  * @returns
  */
-export async function Go(UserData: UserType) {
+export async function Go(UserData) {
   // 空闲状态
   if (UserData.state == 0) {
     return {
@@ -88,7 +88,7 @@ export async function Go(UserData: UserType) {
  * @param UID
  * @returns
  */
-export async function goByBlood(UserData: UserType) {
+export async function goByBlood(UserData) {
   // 空闲状态
   if (UserData.state == 0) {
     if (UserData.battle_blood_now >= 1) {

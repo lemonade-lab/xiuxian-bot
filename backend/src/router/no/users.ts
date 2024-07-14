@@ -33,9 +33,9 @@ router.post('/login', async ctx => {
       where: {
         email: body.username,
         password: body.password
-      },
-      raw: true
+      }
     })
+    .then(res => res.dataValues)
     .then(res => {
       if (res) {
         ctx.body = {

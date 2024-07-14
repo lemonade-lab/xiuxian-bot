@@ -1,6 +1,16 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_ring = sequelize.define<Model<UserRingType>>(
+export const user_ring = sequelize.define<
+  Model<{
+    id: number
+    uid: string // 编号
+    tid: number // 物品编号
+    type: number // 物品类型
+    name: string // 物品名
+    acount: number // 数量
+    doc: number // 说明
+  }>
+>(
   'user_ring',
   {
     id: {
@@ -21,12 +31,3 @@ export const user_ring = sequelize.define<Model<UserRingType>>(
     updatedAt: false //去掉
   }
 )
-export interface UserRingType {
-  id: number
-  uid: string // 编号
-  tid: number // 物品编号
-  type: number // 物品类型
-  name: string // 物品名
-  acount: number // 数量
-  doc: number // 说明
-}

@@ -4,9 +4,10 @@ import { Bag, Method, Users } from 'xiuxian-core'
 
 import * as GameApi from 'xiuxian-core'
 
+import { State } from 'xiuxian-core'
+
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { user, UserType } from 'xiuxian-db'
-import { goByBlood } from '../../../xiuxian-core/users/base/state'
+import { user } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/ore' })
 
 router.get('/1', async ctx => {
@@ -173,7 +174,7 @@ router.get('/search', async ctx => {
     return
   }
   //判断血量
-  const { state } = await goByBlood(UserData)
+  const { state } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
       code: ERROE_CODE,
@@ -241,7 +242,7 @@ async function killNPC(Mname: string, UID: string, prestige: number) {
 
   await Users.update(UID, {
     battle_blood_now: 0
-  } as UserType)
+  })
 
   // 不触发
   if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {
@@ -249,7 +250,7 @@ async function killNPC(Mname: string, UID: string, prestige: number) {
   }
 
   // 随机去掉一个物品
-  const data = await Bag.delThing(UID)
+  await Bag.delThing(UID)
   return false
 }
 

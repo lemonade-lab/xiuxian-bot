@@ -1,6 +1,17 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_level = sequelize.define<Model<UserLevelType>>(
+export const user_level = sequelize.define<
+  Model<{
+    id: number
+    uid: string // 编号
+    type: number // 境界类型
+    career: number // 职业类型
+    addition: number // 突破概率加成
+    realm: number // 等级
+    experience: number // 经验
+    doc: string // 说明
+  }>
+>(
   'user_level',
   {
     id: {
@@ -22,13 +33,3 @@ export const user_level = sequelize.define<Model<UserLevelType>>(
     updatedAt: false //去掉
   }
 )
-export interface UserLevelType {
-  id: number
-  uid: string // 编号
-  type: number // 境界类型
-  career: number // 职业类型
-  addition: number // 突破概率加成
-  realm: number // 等级
-  experience: number // 经验
-  doc: string // 说明
-}

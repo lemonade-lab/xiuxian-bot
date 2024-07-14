@@ -35,34 +35,35 @@ export class SneakAttack extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     const minBattleBlood = 1
     const ID = e.msg.replace(/^(#|\/)?偷袭/, '')
-    const userDataB: DB.UserType = (await DB.user.findOne({
-      attributes: [
-        'id',
-        'uid',
-        'state',
-        'battle_blood_now',
-        'point_type',
-        'battle_power',
-        'name'
-      ],
-      where: {
-        id: ID,
-        uid: {
-          [Op.ne]: UID
-        },
-        // 区域一样的玩家
-        point_type: UserData.point_type,
-        // 没有死亡的玩家
-        age_state: 1,
-        // 只能看到空闲玩家
-        state: 0,
-        // 只能看到血量大于1的玩家
-        battle_blood_now: {
-          [Op.gt]: minBattleBlood
+    const userDataB = await DB.user
+      .findOne({
+        attributes: [
+          'id',
+          'uid',
+          'state',
+          'battle_blood_now',
+          'point_type',
+          'battle_power',
+          'name'
+        ],
+        where: {
+          id: ID,
+          uid: {
+            [Op.ne]: UID
+          },
+          // 区域一样的玩家
+          point_type: UserData.point_type,
+          // 没有死亡的玩家
+          age_state: 1,
+          // 只能看到空闲玩家
+          state: 0,
+          // 只能看到血量大于1的玩家
+          battle_blood_now: {
+            [Op.gt]: minBattleBlood
+          }
         }
-      },
-      raw: true
-    })) as any
+      })
+      .then(res => res.dataValues)
     if (!userDataB) {
       e.reply('对方消失了', {
         quote: e.msg_id
@@ -90,13 +91,13 @@ export class SneakAttack extends APlugin {
     if (UserData.point_type == 2) {
       await GameApi.Users.update(UID, {
         battle_blood_now: 0
-      } as DB.UserType)
+      })
 
       GameApi.logs.write(UIDB, {
         type: 1,
         create_time,
         message: `${UserData.name}攻击了你,被[玄玉天宫]修士拦住了~`
-      } as DB.UserLogType)
+      })
 
       e.reply('[玄玉天宫]:玉贞子\n何人在此造次!')
       let thing: { name: string; type: number; acount: number }[] = []
@@ -153,7 +154,7 @@ export class SneakAttack extends APlugin {
           type: 1,
           create_time,
           message: `${UserData.name}攻击了你,被卫兵拦住了~`
-        } as DB.UserLogType)
+        })
 
         e.reply('[城主府]普通卫兵:\n城内不可出手!', {
           quote: e.msg_id
@@ -194,11 +195,11 @@ export class SneakAttack extends APlugin {
       special_spiritual:
         UserData.special_spiritual - Math.floor(levelsB.realm / 2),
       special_prestige: UserData.special_prestige
-    } as DB.UserType)
+    })
 
     await GameApi.Users.update(UIDB, {
       battle_blood_now: BMSG.battle_blood_now.b
-    } as DB.UserType)
+    })
 
     const BooldMsg = `${UserData.name}当前剩余:${BMSG.battle_blood_now.a}[血量]\n${UserDataB.name}当前剩余:${BMSG.battle_blood_now.b}[血量]`
 
@@ -213,7 +214,7 @@ export class SneakAttack extends APlugin {
         type: 1,
         create_time,
         message: `${UserData.name}攻击了你,你跟他打成了平手~`
-      } as DB.UserLogType)
+      })
       // 只要有一方战斗过程是开着的
       e.reply([`你跟他两打成了平手\n${BooldMsg}`], {
         quote: e.msg_id
@@ -243,7 +244,7 @@ export class SneakAttack extends APlugin {
         type: 1,
         create_time,
         message: `[${UserData.name}]攻击了你,你重伤在地`
-      } as DB.UserLogType)
+      })
       e.reply([`并未抢到他的物品~\n${BooldMsg}`], {
         quote: e.msg_id
       })
@@ -257,7 +258,7 @@ export class SneakAttack extends APlugin {
         type: 2,
         create_time,
         message: `[${UserData.name}]攻击了你,你重伤在地`
-      } as DB.UserLogType)
+      })
       e.reply([`穷的都吃不起灵石了`], {
         quote: e.msg_id
       })
@@ -295,7 +296,7 @@ export class SneakAttack extends APlugin {
         type: 1,
         create_time,
         message: msg
-      } as DB.UserLogType)
+      })
       e.reply(`${msg}\n${BooldMsg}`, {
         quote: e.msg_id
       })
@@ -305,7 +306,7 @@ export class SneakAttack extends APlugin {
         type: 1,
         create_time,
         message: msg
-      } as DB.UserLogType)
+      })
       e.reply(`${msg}\n${BooldMsg}`, {
         quote: e.msg_id
       })
@@ -334,62 +335,63 @@ export class SneakAttack extends APlugin {
     // 有效距离为
     const distanceThreshold = (LevelData.realm ?? 1) * 10 + 50
     const minBattleBlood = 1
-    const AllUser: DB.UserType[] = (await DB.user.findAll({
-      attributes: [
-        'id',
-        'uid',
-        'state',
-        'battle_blood_now',
-        'battle_power',
-        'pont_x',
-        'pont_y',
-        'point_type',
-        'name'
-      ],
-      where: {
-        // 不是自己的UID
-        uid: {
-          [Op.ne]: UID
+    const AllUser = await DB.user
+      .findAll({
+        attributes: [
+          'id',
+          'uid',
+          'state',
+          'battle_blood_now',
+          'battle_power',
+          'pont_x',
+          'pont_y',
+          'point_type',
+          'name'
+        ],
+        where: {
+          // 不是自己的UID
+          uid: {
+            [Op.ne]: UID
+          },
+          // 区域一样的玩家
+          point_type: UserData.point_type,
+          // 没有死亡的玩家
+          age_state: 1,
+          // 只能看到空闲玩家
+          state: 0,
+          // 只能看到血量大于1的玩家
+          battle_blood_now: {
+            [Op.gt]: minBattleBlood
+          },
+          // 只显示比自己战力低的
+          battle_power: {
+            [Op.lte]: battle_power + 3280
+          },
+          pont_x: {
+            [Op.between]: [
+              UserData.pont_x - distanceThreshold,
+              UserData.pont_x + distanceThreshold
+            ]
+          },
+          pont_y: {
+            [Op.between]: [
+              UserData.pont_y - distanceThreshold,
+              UserData.pont_y + distanceThreshold
+            ]
+          },
+          pont_z: {
+            [Op.between]: [
+              UserData.pont_z - distanceThreshold,
+              UserData.pont_z + distanceThreshold
+            ]
+          }
         },
-        // 区域一样的玩家
-        point_type: UserData.point_type,
-        // 没有死亡的玩家
-        age_state: 1,
-        // 只能看到空闲玩家
-        state: 0,
-        // 只能看到血量大于1的玩家
-        battle_blood_now: {
-          [Op.gt]: minBattleBlood
-        },
-        // 只显示比自己战力低的
-        battle_power: {
-          [Op.lte]: battle_power + 3280
-        },
-        pont_x: {
-          [Op.between]: [
-            UserData.pont_x - distanceThreshold,
-            UserData.pont_x + distanceThreshold
-          ]
-        },
-        pont_y: {
-          [Op.between]: [
-            UserData.pont_y - distanceThreshold,
-            UserData.pont_y + distanceThreshold
-          ]
-        },
-        pont_z: {
-          [Op.between]: [
-            UserData.pont_z - distanceThreshold,
-            UserData.pont_z + distanceThreshold
-          ]
-        }
-      },
-      // 战力高的在前面
-      order: [['battle_power', 'DESC']],
-      // 只显示十个玩家
-      limit: 10,
-      raw: true
-    })) as any
+        // 战力高的在前面
+        order: [['battle_power', 'DESC']],
+        // 只显示十个玩家
+        limit: 10
+      })
+      .then(res => res.map(item => item.dataValues))
     if (e.platform == 'ntqq') {
       let p = ClientNTQQ.createTemplate(Config.TemplateId)
       for (const item of AllUser) {

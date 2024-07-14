@@ -26,9 +26,9 @@ export class Secretplace extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
-    const PositionData: DB.MapPointType[] = (await DB.map_point.findAll({
-      raw: true
-    })) as any
+    const PositionData = await DB.map_point
+      .findAll({})
+      .then(res => res.map(item => item.dataValues))
     const msg: string[] = []
     for await (const item of PositionData) {
       if (
@@ -92,34 +92,35 @@ export class Secretplace extends APlugin {
     // 检查地点
     const address = e.msg.replace(/^(#|\/)?前往/, '')
     // 得到地点数据
-    const point: DB.MapPointType = (await DB.map_point.findOne({
-      order: [
-        [
-          literal(`CASE
+    const point = await DB.map_point
+      .findOne({
+        order: [
+          [
+            literal(`CASE
           WHEN x >= ${UserData.pont_x - 200} AND x <= ${
             UserData.pont_x + 200
           } THEN 0
           ELSE ABS(x - ${UserData.pont_x})
         END`),
-          'ASC'
-        ],
-        [
-          literal(`CASE
+            'ASC'
+          ],
+          [
+            literal(`CASE
           WHEN y >= ${UserData.pont_y - 200} AND y <= ${
             UserData.pont_y + 200
           } THEN 0
           ELSE ABS(y - ${UserData.pont_y})
         END`),
-          'ASC'
-        ]
-      ],
-      where: {
-        name: {
-          [Op.like]: `%${address}%`
+            'ASC'
+          ]
+        ],
+        where: {
+          name: {
+            [Op.like]: `%${address}%`
+          }
         }
-      },
-      raw: true
-    })) as any
+      })
+      .then(res => res.dataValues)
 
     // 判断
     if (!point) {
@@ -179,12 +180,13 @@ export class Secretplace extends APlugin {
     const UserData = await GameApi.Users.read(UID)
     if (!(await ControlByBlood(e, UserData))) return
     const address = e.msg.replace(/^(#|\/)?(传送|傳送)/, '')
-    const position: DB.MapPositionType = (await DB.map_position.findOne({
-      where: {
-        name: address
-      },
-      raw: true
-    })) as any
+    const position = await DB.map_position
+      .findOne({
+        where: {
+          name: address
+        }
+      })
+      .then(res => res.dataValues)
     if (!position) {
       e.reply(['未知地点'], {
         quote: e.msg_id
@@ -201,14 +203,15 @@ export class Secretplace extends APlugin {
     }
 
     // 找到传送阵
-    const PointData: DB.MapPointType = (await DB.map_point.findOne({
-      where: {
-        x: UserData.pont_x,
-        y: UserData.pont_y,
-        z: UserData.pont_z
-      },
-      raw: true
-    })) as any
+    const PointData = await DB.map_point
+      .findOne({
+        where: {
+          x: UserData.pont_x,
+          y: UserData.pont_y,
+          z: UserData.pont_z
+        }
+      })
+      .then(res => res.dataValues)
     if (!PointData) {
       e.reply(['请前往传送阵'], {
         quote: e.msg_id
@@ -264,7 +267,7 @@ export class Secretplace extends APlugin {
           pont_z: mz,
           point_type: position.type, // 地点
           pont_attribute: position.attribute // 属性
-        } as DB.UserType)
+        })
         e.reply([`成功传送至${address}`], {
           quote: e.msg_id
         })

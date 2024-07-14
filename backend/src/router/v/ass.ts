@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { AssType, UserAssType, ass, user_ass } from 'xiuxian-db'
+import { ass, user_ass } from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 const router = new koaRouter({ prefix: '/api/v1/ass' })
 
@@ -33,13 +33,14 @@ router.post('/join', async ctx => {
   try {
     const { assId } = ctx.request.body as any
     const UID = ctx.state.user.uid
-    const UserAss: UserAssType = (await user_ass.findOne({
-      where: {
-        uid: UID,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['0']
-      },
-      raw: true
-    })) as any
+    const UserAss = await user_ass
+      .findOne({
+        where: {
+          uid: UID,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['0']
+        }
+      })
+      .then(res => res.dataValues)
     if (UserAss) {
       ctx.body = {
         code: ERROE_CODE,
@@ -48,12 +49,13 @@ router.post('/join', async ctx => {
       return
     }
 
-    const aData: AssType = (await ass.findOne({
-      where: {
-        id: assId
-      },
-      raw: true
-    })) as any
+    const aData = await ass
+      .findOne({
+        where: {
+          id: assId
+        }
+      })
+      .then(res => res.dataValues)
 
     if (!aData) {
       ctx.body = {
@@ -65,14 +67,15 @@ router.post('/join', async ctx => {
     /**
      * 检测是否已提交申请
      */
-    const joinData: UserAssType = (await user_ass.findOne({
-      where: {
-        uid: UID,
-        aid: aData.id,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['9']
-      },
-      raw: true
-    })) as any
+    const joinData = await user_ass
+      .findOne({
+        where: {
+          uid: UID,
+          aid: aData.id,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['9']
+        }
+      })
+      .then(res => res.dataValues)
     if (joinData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -111,11 +114,11 @@ router.post('/join', async ctx => {
 router.get('/my', async ctx => {
   try {
     const UID = ctx.state.user.uid
-    const userASS: UserAssType[] = (await user_ass.findAll({
+    const userASS = await user_ass.findAll({
       where: {
         uid: UID
       }
-    })) as any
+    })
     ctx.body = {
       code: OK_CODE,
       data: userASS
@@ -132,12 +135,13 @@ router.get('/my', async ctx => {
 router.get('/detail', async ctx => {
   try {
     const { assId } = ctx.query
-    const aData: AssType = (await ass.findOne({
-      where: {
-        id: assId
-      },
-      raw: true
-    })) as any
+    const aData = await ass
+      .findOne({
+        where: {
+          id: assId
+        }
+      })
+      .then(res => res.dataValues)
     if (!aData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -161,12 +165,13 @@ router.get('/detail', async ctx => {
 router.get('/member', async ctx => {
   try {
     const { assId } = ctx.query
-    const aData: AssType = (await ass.findOne({
-      where: {
-        id: assId
-      },
-      raw: true
-    })) as any
+    const aData = await ass
+      .findOne({
+        where: {
+          id: assId
+        }
+      })
+      .then(res => res.dataValues)
     if (!aData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -174,11 +179,11 @@ router.get('/member', async ctx => {
       }
       return
     }
-    const userASS: UserAssType[] = (await user_ass.findAll({
+    const userASS = await user_ass.findAll({
       where: {
         aid: aData.id
       }
-    })) as any
+    })
     ctx.body = {
       code: OK_CODE,
       data: userASS
@@ -202,12 +207,13 @@ router.get('/join-list', async ctx => {
       }
       return
     }
-    const aData: AssType = (await ass.findOne({
-      where: {
-        id: assId
-      },
-      raw: true
-    })) as any
+    const aData = await ass
+      .findOne({
+        where: {
+          id: assId
+        }
+      })
+      .then(res => res.dataValues)
     if (!aData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -215,12 +221,12 @@ router.get('/join-list', async ctx => {
       }
       return
     }
-    const userASS: UserAssType[] = (await user_ass.findAll({
+    const userASS = await user_ass.findAll({
       where: {
         aid: aData.id,
         identity: GameApi.Config.ASS_IDENTITY_MAP['9']
       }
-    })) as any
+    })
     ctx.body = {
       code: OK_CODE,
       data: userASS

@@ -1,7 +1,18 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const transactions = sequelize.define<Model<TransactionsType>>(
+export const transactions = sequelize.define<
+  Model<{
+    id: number
+    uid: string //string
+    name: string //string
+    count: number
+    price: number
+    createAt: Date
+    updateAt: Date
+    deleteAt: Date
+  }>
+>(
   'transactions',
   {
     id: {
@@ -23,14 +34,3 @@ export const transactions = sequelize.define<Model<TransactionsType>>(
     updatedAt: false //去掉
   }
 )
-
-export interface TransactionsType {
-  id: number
-  uid: string //string
-  name: string //string
-  count: number
-  price: number
-  createAt: Date
-  updateAt: Date
-  deleteAt: Date
-}

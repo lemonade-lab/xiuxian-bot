@@ -23,43 +23,47 @@ export async function personalInformation(UID: string, user_avatar: string) {
   }
 
   // 固定数据读取
-  const userLevelData: DB.UserLevelType[] = (await DB.user_level.findAll({
-    where: {
-      uid: UID,
-      type: [1, 2, 3]
-    },
-    order: [['type', 'DESC']],
-    raw: true
-  })) as any
+  const userLevelData = await DB.user_level
+    .findAll({
+      where: {
+        uid: UID,
+        type: [1, 2, 3]
+      },
+      order: [['type', 'DESC']]
+    })
+    .then(res => res.map(item => item.dataValues))
 
   // 境界数据
-  const GaspracticeList: DB.LevelsType[] = (await DB.levels.findAll({
-    attributes: ['name', 'type', 'exp_needed'],
-    where: {
-      grade: [userLevelData[2]?.realm],
-      type: 1
-    },
-    raw: true
-  })) as any
+  const GaspracticeList = await DB.levels
+    .findAll({
+      attributes: ['name', 'type', 'exp_needed'],
+      where: {
+        grade: [userLevelData[2]?.realm],
+        type: 1
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   // 境界数据
-  const BodypracticeList: DB.LevelsType[] = (await DB.levels.findAll({
-    attributes: ['name', 'type', 'exp_needed'],
-    where: {
-      grade: userLevelData[1]?.realm,
-      type: 2
-    },
-    raw: true
-  })) as any
+  const BodypracticeList = await DB.levels
+    .findAll({
+      attributes: ['name', 'type', 'exp_needed'],
+      where: {
+        grade: userLevelData[1]?.realm,
+        type: 2
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   // 境界数据
-  const SoulList: DB.LevelsType[] = (await DB.levels.findAll({
-    attributes: ['name', 'type', 'exp_needed'],
-    where: {
-      grade: userLevelData[0]?.realm,
-      type: 3
-    },
-    raw: true
-  })) as any
+  const SoulList = await DB.levels
+    .findAll({
+      attributes: ['name', 'type', 'exp_needed'],
+      where: {
+        grade: userLevelData[0]?.realm,
+        type: 3
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   /**
    * 境界数据要关联起来
@@ -70,24 +74,28 @@ export async function personalInformation(UID: string, user_avatar: string) {
     BodypracticeData = BodypracticeList[0],
     SoulData = SoulList[0]
 
-  const skills = (await DB.user_skills.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods
-    },
-    raw: true
-  })) as any
-  const equipment = (await DB.user_equipment.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods
-    },
-    raw: true
-  })) as any
+  const skills = await DB.user_skills
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: DB.goods
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
+
+  //
+  const equipment = await DB.user_equipment
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: DB.goods
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   return {
     UID: UID,
@@ -155,15 +163,16 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
     raw: true
   })) as any
 
-  const fdata: DB.UserFateType = (await DB.user_fate.findOne({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods
-    },
-    raw: true
-  })) as any
+  const fdata = await DB.user_fate
+    .findOne({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: DB.goods
+      }
+    })
+    .then(res => res.dataValues)
 
   const arr: {
     name: string
@@ -305,15 +314,16 @@ export async function ringInformation(UID: string, user_avatar: string) {
 
   const length = await Ring.getLength(UID)
 
-  const bag: DB.UserRingType[] = (await DB.user_ring.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods
-    },
-    raw: true
-  })) as any
+  const bag = await DB.user_ring
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: DB.goods
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   return {
     UID,
@@ -341,15 +351,16 @@ export async function showSky(UID: string) {
     },
     raw: true
   })) as any
-  const list: DB.SkyType[] = (await DB.sky.findAll({
-    where: {
-      id: { [Op.lte]: data.id } // 获取ID小于给定ID的记录
-    },
-    order: [['id', 'DESC']], // 根据 id 升序排序
-    //
-    limit: 5,
-    raw: true
-  })) as any
+  const list = await DB.sky
+    .findAll({
+      where: {
+        id: { [Op.lte]: data.id } // 获取ID小于给定ID的记录
+      },
+      order: [['id', 'DESC']], // 根据 id 升序排序
+      //
+      limit: 5
+    })
+    .then(res => res.map(item => item.dataValues))
   const msg: {
     id: number
     UID: string
@@ -359,13 +370,21 @@ export async function showSky(UID: string) {
     avatar: string
   }[] = []
   for (const item of list) {
-    const data: DB.UserType = (await DB.user.findOne({
-      attributes: ['id', 'uid', 'name', 'battle_power', 'autograph', 'avatar'],
-      where: {
-        uid: item.uid
-      },
-      raw: true
-    })) as any
+    const data = await DB.user
+      .findOne({
+        attributes: [
+          'id',
+          'uid',
+          'name',
+          'battle_power',
+          'autograph',
+          'avatar'
+        ],
+        where: {
+          uid: item.uid
+        }
+      })
+      .then(res => res.dataValues)
     if (!data) {
       // 不存在 uid
       DB.sky.destroy({

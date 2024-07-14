@@ -1,6 +1,13 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const sky = sequelize.define<Model<SkyType>>(
+export const sky = sequelize.define<
+  Model<{
+    // 定义模型属性
+    id: number
+    uid: string // string
+    doc: string //
+  }>
+>(
   'sky',
   {
     // 定义模型属性
@@ -18,9 +25,3 @@ export const sky = sequelize.define<Model<SkyType>>(
     updatedAt: false //去掉
   }
 )
-export interface SkyType {
-  // 定义模型属性
-  id: number
-  uid: string // string
-  doc: string //
-}

@@ -1,7 +1,19 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const map_point = sequelize.define<Model<MapPointType>>(
+export const map_point = sequelize.define<
+  Model<{
+    id: number
+    name: string //string
+    type: number //int
+    grade: number //int
+    attribute: number //int
+    x: number //int
+    y: number //int
+    z: number //int
+    doc: string //string
+  }>
+>(
   'map_point',
   {
     id: {
@@ -24,14 +36,3 @@ export const map_point = sequelize.define<Model<MapPointType>>(
     updatedAt: false //去掉
   }
 )
-export interface MapPointType {
-  id: number
-  name: string //string
-  type: number //int
-  grade: number //int
-  attribute: number //int
-  x: number //int
-  y: number //int
-  z: number //int
-  doc: string //string
-}

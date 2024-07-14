@@ -1,9 +1,4 @@
-import {
-  map_treasure,
-  map_position,
-  type MapPositionType,
-  type MapTreasureType
-} from 'xiuxian-db'
+import { map_treasure, map_position } from 'xiuxian-db'
 
 import { literal } from 'sequelize'
 
@@ -36,15 +31,16 @@ export async function add(NAME: string, TYPE: number, ACOUNT: number) {
  * @param count
  */
 export async function create(NAME: string, count: number) {
-  const da: MapPositionType[] = (await map_position.findOne({
-    where: {
-      // 不要城池和天外天
-      type: [2, 3, 4, 5, 6, 8, 9, 10, 11]
-    },
-    order: [literal('rand()')],
-    limit: 1,
-    raw: true
-  })) as any
+  const da = await map_position
+    .findOne({
+      where: {
+        // 不要城池和天外天
+        type: [2, 3, 4, 5, 6, 8, 9, 10, 11]
+      },
+      order: [literal('rand()')],
+      limit: 1
+    })
+    .then(res => res.dataValues)
   const position = da[0]
   if (!position) return
   const mx =
@@ -65,5 +61,5 @@ export async function create(NAME: string, count: number) {
     x: mx,
     y: my,
     z: mz
-  } as MapTreasureType)
+  })
 }

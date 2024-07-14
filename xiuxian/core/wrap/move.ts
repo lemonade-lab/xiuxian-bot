@@ -1,4 +1,4 @@
-import { UserType, user } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 import { Redis } from 'xiuxian-db'
 import { RedisBull, RedisBullAction } from '../config/index.js'
 import * as State from '../users/base/state.js'
@@ -15,13 +15,14 @@ new Worker(
   RedisBull,
   async ({ data: { UID, x, y, z, size } }) => {
     // 得到目的地
-    const { pont_x, pont_y }: UserType = (await user.findOne({
-      attributes: ['pont_x', 'pont_y'],
-      where: {
-        uid: UID
-      },
-      raw: true
-    })) as any
+    const { pont_x, pont_y } = await user
+      .findOne({
+        attributes: ['pont_x', 'pont_y'],
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     const direction = await Redis.get(`${RedisBullAction}:${UID}:action`)
     // 如果x对齐了  还是走y
     if (direction == '0' || pont_x == x) {
@@ -37,7 +38,7 @@ new Worker(
           point_type: mData.type,
           pont_attribute: mData.attribute,
           pont_y: s
-        } as UserType,
+        },
         {
           where: {
             uid: UID
@@ -63,7 +64,7 @@ new Worker(
           point_type: mData.type,
           pont_attribute: mData.attribute,
           pont_x: s
-        } as UserType,
+        },
         {
           where: {
             uid: UID

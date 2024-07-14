@@ -54,13 +54,14 @@ export class AssStart extends APlugin {
      * *******
      * 已拥有查询
      */
-    const UserAss: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['0']
-      },
-      raw: true
-    })) as any
+    const UserAss = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['0']
+        }
+      })
+      .then(res => res.dataValues)
     if (UserAss) {
       e.reply('已创立个人势力', {
         quote: e.msg_id
@@ -92,12 +93,13 @@ export class AssStart extends APlugin {
      * ********
      * 存在该昵称的宗门
      */
-    const aData: DB.AssType = (await DB.ass.findOne({
-      where: {
-        name: NAME
-      },
-      raw: true
-    })) as any
+    const aData = await DB.ass
+      .findOne({
+        where: {
+          name: NAME
+        }
+      })
+      .then(res => res.dataValues)
     if (aData) {
       e.reply('该势力已存在', {
         quote: e.msg_id
@@ -150,12 +152,13 @@ export class AssStart extends APlugin {
         typing: GameApi.Config.ASS_TYPING_MAP[typing] // 类型
       })
       .then(async res => {
-        const aData: DB.AssType = (await DB.ass.findOne({
-          where: {
-            name: NAME
-          },
-          raw: true
-        })) as any
+        const aData = await DB.ass
+          .findOne({
+            where: {
+              name: NAME
+            }
+          })
+          .then(res => res.dataValues)
         if (!aData) {
           e.reply('创建失败', {
             quote: e.msg_id
@@ -189,13 +192,14 @@ export class AssStart extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
 
     // 查看自己的宗门
-    const UserAss: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID, // uid
-        identity: GameApi.Config.ASS_IDENTITY_MAP['0'] // 身份
-      },
-      raw: true
-    })) as any
+    const UserAss = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID, // uid
+          identity: GameApi.Config.ASS_IDENTITY_MAP['0'] // 身份
+        }
+      })
+      .then(res => res.dataValues)
     if (!UserAss) {
       e.reply('未创立个人势力', {
         quote: e.msg_id
@@ -263,13 +267,14 @@ export class AssStart extends APlugin {
     /**
      * 查看是否是主人
      */
-    const UserAss: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['0']
-      },
-      raw: true
-    })) as any
+    const UserAss = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['0']
+        }
+      })
+      .then(res => res.dataValues)
     if (UserAss) {
       e.reply('已创立个人势力', {
         quote: e.msg_id
@@ -286,12 +291,13 @@ export class AssStart extends APlugin {
      * ********
      * 存在该昵称的宗门
      */
-    const aData: DB.AssType = (await DB.ass.findOne({
-      where: {
-        name: name
-      },
-      raw: true
-    })) as any
+    const aData = await DB.ass
+      .findOne({
+        where: {
+          name: name
+        }
+      })
+      .then(res => res.dataValues)
 
     if (!aData) {
       e.reply('该势力不存在', {
@@ -302,14 +308,15 @@ export class AssStart extends APlugin {
     /**
      * 检测是否已提交申请
      */
-    const joinData: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID,
-        aid: aData.id,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['9']
-      },
-      raw: true
-    })) as any
+    const joinData = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID,
+          aid: aData.id,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['9']
+        }
+      })
+      .then(res => res.dataValues)
     if (joinData) {
       e.reply('已提交申请,请勿重复提交', {
         quote: e.msg_id
@@ -348,12 +355,13 @@ export class AssStart extends APlugin {
      * ********
      * 存在该昵称的宗门
      */
-    const aData: DB.AssType = (await DB.ass.findOne({
-      where: {
-        name: name
-      },
-      raw: true
-    })) as any
+    const aData = await DB.ass
+      .findOne({
+        where: {
+          name: name
+        }
+      })
+      .then(res => res.dataValues)
     if (!aData) {
       e.reply('该势力不存在', {
         quote: e.msg_id
@@ -365,14 +373,15 @@ export class AssStart extends APlugin {
      * ******
      * 查看是否是主人
      */
-    const UserAss: DB.UserAssType = (await DB.user_ass.findOne({
-      where: {
-        uid: UID,
-        aid: aData.id,
-        identity: GameApi.Config.ASS_IDENTITY_MAP['0']
-      },
-      raw: true
-    })) as any
+    const UserAss = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID,
+          aid: aData.id,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['0']
+        }
+      })
+      .then(res => res.dataValues)
     if (UserAss) {
       e.reply('个人势力不可退出', {
         quote: e.msg_id

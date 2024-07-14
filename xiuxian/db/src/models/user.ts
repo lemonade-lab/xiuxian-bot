@@ -1,6 +1,78 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user = sequelize.define<Model<UserType>>(
+export const user = sequelize.define<
+  Model<{
+    id: number
+    uid: string //编号
+    password: string // 密码_默认123456
+    name: string // 道号
+    avatar: string // 头像地址
+    autograph: string // 道宣
+    phone: number // 手机号
+
+    state: number // 用户状态_默认0
+    state_start_time: number // 状态开始时间
+    state_end_time: number // 状态结束时间
+
+    theme: string
+
+    email: string
+
+    age: number // 寿龄_默认1
+    age_limit: number // 最高寿龄_默认100
+    age_state: number // 是否死亡_默认1
+
+    point_type: number // 地点类型_默认0
+    pont_attribute: number // 地点属性_默认0
+    pont_x: number // 地点x轴_默认0
+    pont_y: number // 地点y轴_默认0
+    pont_z: number // 地点z轴_默认0
+
+    battle_show: number // 是否显示战斗过程_默认为0
+    battle_blood_now: number // 当前血量_默认0
+    battle_blood_limit: number // 血量上限_默认0
+    battle_attack: number // 攻击_默认0
+    battle_defense: number // 防御_默认0
+    battle_speed: number // 敏捷_默认0
+    battle_power: number // 战力_默认0
+    battle_critical_hit: number // 暴击率_默认0
+    battle_critical_damage: number // 暴击伤害_默认50
+
+    special_reputation: number // 声望_默认0
+    special_prestige: number // 煞气_默认50
+    special_spiritual: number // 灵力_默认100
+    special_spiritual_limit: number // 灵力上限_默认100
+    special_virtues: number // 功德_默认0
+
+    talent: number[] // 灵根
+    talent_size: number // 天赋_默认0
+    talent_show: number // 是否显示天赋_默认0
+
+    bag_grade: number // 背包等级_默认1
+
+    sign_day: number // 签到天数_默认0
+    sign_math: number // 签到月数_默认1
+    sign_size: number // 0
+    sign_time: number // 签到时间_默认0
+
+    newcomer_gift: number // 新人礼物_默认0
+
+    update_time: string // 刷新时间
+    create_time: number // 创建时间搓
+
+    delete: number
+
+    man_size: number
+    dong_size: number
+    dong_minit: number
+
+    sign_in_count: number
+    sign_in_month_count: number
+    sign_in_time: Date
+
+    doc: string // 说明
+  }>
+>(
   'user',
   {
     id: {
@@ -82,74 +154,3 @@ export const user = sequelize.define<Model<UserType>>(
     updatedAt: false //去掉
   }
 )
-export interface UserType {
-  id: number
-  uid: string //编号
-  password: string // 密码_默认123456
-  name: string // 道号
-  avatar: string // 头像地址
-  autograph: string // 道宣
-  phone: number // 手机号
-
-  state: number // 用户状态_默认0
-  state_start_time: number // 状态开始时间
-  state_end_time: number // 状态结束时间
-
-  theme: string
-
-  email: string
-
-  age: number // 寿龄_默认1
-  age_limit: number // 最高寿龄_默认100
-  age_state: number // 是否死亡_默认1
-
-  point_type: number // 地点类型_默认0
-  pont_attribute: number // 地点属性_默认0
-  pont_x: number // 地点x轴_默认0
-  pont_y: number // 地点y轴_默认0
-  pont_z: number // 地点z轴_默认0
-
-  battle_show: number // 是否显示战斗过程_默认为0
-  battle_blood_now: number // 当前血量_默认0
-  battle_blood_limit: number // 血量上限_默认0
-  battle_attack: number // 攻击_默认0
-  battle_defense: number // 防御_默认0
-  battle_speed: number // 敏捷_默认0
-  battle_power: number // 战力_默认0
-  battle_critical_hit: number // 暴击率_默认0
-  battle_critical_damage: number // 暴击伤害_默认50
-
-  special_reputation: number // 声望_默认0
-  special_prestige: number // 煞气_默认50
-  special_spiritual: number // 灵力_默认100
-  special_spiritual_limit: number // 灵力上限_默认100
-  special_virtues: number // 功德_默认0
-
-  talent: number[] // 灵根
-  talent_size: number // 天赋_默认0
-  talent_show: number // 是否显示天赋_默认0
-
-  bag_grade: number // 背包等级_默认1
-
-  sign_day: number // 签到天数_默认0
-  sign_math: number // 签到月数_默认1
-  sign_size: number // 0
-  sign_time: number // 签到时间_默认0
-
-  newcomer_gift: number // 新人礼物_默认0
-
-  update_time: string // 刷新时间
-  create_time: number // 创建时间搓
-
-  delete: number
-
-  man_size: number
-  dong_size: number
-  dong_minit: number
-
-  sign_in_count: number
-  sign_in_month_count: number
-  sign_in_time: Date
-
-  doc: string // 说明
-}

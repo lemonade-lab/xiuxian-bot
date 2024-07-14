@@ -7,7 +7,7 @@ import {
 } from 'xiuxian-api'
 import { getSkyComponent } from 'xiuxian-component'
 import * as DB from 'xiuxian-db'
-import { SkysType, UserSkysType, skys, user_skys } from 'xiuxian-db'
+import { skys, user_skys } from 'xiuxian-db'
 import { Op } from 'sequelize'
 import { Users, Bag } from 'xiuxian-core'
 import { showSky } from 'xiuxian-statistics'
@@ -16,12 +16,13 @@ message.response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
   // 查看数据是否存在
-  const data: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await DB.sky
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (!data) {
     e.reply('未已进入', {
       quote: e.msg_id
@@ -40,29 +41,27 @@ message.response(/^(#|\/)?通天塔奖励$/, async e => {
   // const currentDate = new Date()
   // currentDate.setDate(1)
   // currentDate.setHours(8, 0, 0, 0)
-  const uDAta: UserSkysType[] = await user_skys
+  const uDAta = await user_skys
     .findAll({
       where: {
         uid: UID,
         time: currentDate
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
+    .then(res => res.map(item => item.dataValues))
 
   // 领取记录
   const ids = uDAta.map(item => item.sid)
   // 找到 比 比排名少的数据。 并一次检查记录中，是否存在领取记录。
-  const sData: SkysType[] = await skys
+  const sData = await skys
     .findAll({
       where: {
         ranking: {
           [Op.gte]: data.id
         }
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
+    .then(res => res.map(item => item.dataValues))
   const sData2 = sData.filter(item => {
     // 存在
     if (ids.includes(item.id)) {
@@ -107,12 +106,13 @@ message.response(/^(#|\/)?进入通天塔$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
   //查看数据是否存在
-  const data: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await DB.sky
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
 
   if (data) {
     e.reply('已进入', {
@@ -132,18 +132,19 @@ message.response(/^(#|\/)?进入通天塔$/, async e => {
   ])
   await DB.sky.create({
     uid: UID
-  } as DB.SkyType)
+  })
 })
 message.response(/^(#|\/)?通天塔$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
   // 查看数据是否存在
-  const data: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await DB.sky
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
 
   if (!data) {
     e.reply('未进入', {
@@ -169,12 +170,13 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
   const CDTime = GameApi.Cooling.CD_B
   if (!(await victoryCooling(e, UID, CDID))) return
   // 查看数据是否存在
-  const data: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await DB.sky
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (!data) {
     e.reply('😃未进入', {
       quote: e.msg_id
@@ -190,12 +192,13 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
   }
   // 设置redis
   GameApi.Burial.set(UID, CDID, CDTime)
-  const dataB: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      id: id
-    },
-    raw: true
-  })) as any
+  const dataB = await DB.sky
+    .findOne({
+      where: {
+        id: id
+      }
+    })
+    .then(res => res.dataValues)
   // 如果发现找不到。就说明位置是空的，占领位置。
   if (!dataB) {
     await DB.sky.update(
@@ -211,12 +214,13 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
     e.reply('位置占领成功')
     return
   }
-  const UserDataB: DB.UserType = (await DB.user.findOne({
-    where: {
-      uid: dataB.uid
-    },
-    raw: true
-  })) as any
+  const UserDataB = await DB.user
+    .findOne({
+      where: {
+        uid: dataB.uid
+      }
+    })
+    .then(res => res.dataValues)
   if (!UserDataB) {
     // 不存在该用户了
     await DB.sky.update(
@@ -232,12 +236,13 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
     e.reply('位置占领成功')
     return
   }
-  const UserData: DB.UserType = (await DB.user.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const BMSG = GameApi.Fight.start(UserData, UserDataB)
   // 是否显示战斗结果
   if (UserData.battle_show || UserDataB.battle_show) {

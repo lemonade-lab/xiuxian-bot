@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
-import { UserType, user } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 import { getKillList } from 'xiuxian-statistics'
 const router = new koaRouter({ prefix: '/api/v1/users' })
 
@@ -22,11 +22,10 @@ router.get('/message', async ctx => {
     .findOne({
       where: {
         uid: UID
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
-    .then((res: UserType) => {
+    .then(res => res.dataValues)
+    .then(res => {
       if (res) {
         ctx.body = {
           code: OK_CODE,

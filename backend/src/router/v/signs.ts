@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { user, UserType } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 import { Bag, Method } from 'xiuxian-core'
 
 const router = new koaRouter({ prefix: '/api/v1/signs' })
@@ -12,11 +12,10 @@ router.get('/in', async ctx => {
     .findOne({
       where: {
         uid: UID
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
-    .then(async (res: UserType) => {
+    .then(res => res.dataValues)
+    .then(async res => {
       if (res) {
         // 看看上次的时间
         const time = new Date()

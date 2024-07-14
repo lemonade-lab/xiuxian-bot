@@ -1,14 +1,10 @@
 import koaRouter from 'koa-router'
 import {
-  type UserBagType,
   transactions,
   user_bag,
-  TransactionsType,
-  TransactionsLogsType,
   transactions_logs,
   user,
-  goods,
-  GoodsType
+  goods
 } from 'xiuxian-db'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax.js'
 import {
@@ -62,11 +58,9 @@ router.get('/search/log', async ctx => {
     .findAndCountAll({
       where: obj,
       limit: pageSize,
-      offset: offset,
-      raw: true
+      offset: offset
     })
-    .then((res: any) => res)
-    .then((res: { count: number; rows: TransactionsLogsType[] }) => {
+    .then(res => {
       const totalCount = res.count // 总数据量
       const totalPages = Math.ceil(totalCount / pageSize) // 总页数
 
@@ -102,8 +96,7 @@ router.get('/my', async ctx => {
       where: where,
       raw: true
     })
-    .then((res: any) => res)
-    .then((res: TransactionsType[]) => {
+    .then(res => {
       ctx.body = {
         code: OK_CODE,
         msg: '请求完成',
@@ -172,11 +165,9 @@ router.get('/search', async ctx => {
     .findAndCountAll({
       where: obj,
       limit: pageSize,
-      offset: offset,
-      raw: true
+      offset: offset
     })
-    .then((res: any) => res)
-    .then((res: { count: number; rows: TransactionsType[] }) => {
+    .then(res => {
       const totalCount = res.count // 总数据量
       const totalPages = Math.ceil(totalCount / pageSize) // 总页数
       ctx.body = {
@@ -262,12 +253,13 @@ router.post('/create', async ctx => {
   }
 
   // 判断物品价格合理性。
-  const gData: GoodsType = (await goods.findOne({
-    where: {
-      name: body.name
-    },
-    raw: true
-  })) as any
+  const gData = await goods
+    .findOne({
+      where: {
+        name: body.name
+      }
+    })
+    .then(res => res.dataValues)
 
   if (!gData) {
     error()
@@ -284,7 +276,7 @@ router.post('/create', async ctx => {
   }
 
   // 创建物品  reduce   delete
-  const create = async (data: UserBagType, type = 'delete') => {
+  const create = async (data, type = 'delete') => {
     await transactions
       .create({
         uid: UID,
@@ -327,11 +319,10 @@ router.post('/create', async ctx => {
       where: {
         uid: UID,
         name: body.name
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
-    .then(async (data: UserBagType) => {
+    .then(res => res.dataValues)
+    .then(async data => {
       if (!data) {
         ctx.body = {
           code: ERROE_CODE,
@@ -517,17 +508,18 @@ router.post('/buy', async ctx => {
   TransactionMap.set(body.id, 0)
 
   // 顺便得到该物品的主人信息
-  const data: TransactionsType = (await transactions.findOne({
-    where: {
-      id: body.id
-    },
-    include: [
-      {
-        model: user
-      }
-    ],
-    raw: true
-  })) as any
+  const data = await transactions
+    .findOne({
+      where: {
+        id: body.id
+      },
+      include: [
+        {
+          model: user
+        }
+      ]
+    })
+    .then(res => res.dataValues)
 
   // 得到该物品的uid
   const UID = ctx.state.user.uid
@@ -553,15 +545,14 @@ router.post('/buy', async ctx => {
 
   // 查询下品灵石
 
-  const money: UserBagType = await user_bag
+  const money = await user_bag
     .findOne({
       where: {
         uid: UID,
         name: TypingItem[body.typing]
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
+    .then(res => res.dataValues)
 
   const needMoeny = Math.floor((data.price * 1.1) / TypingValue[body.typing])
   const getMoeny = Math.floor((data.price * 0.9) / TypingValue[body.typing])

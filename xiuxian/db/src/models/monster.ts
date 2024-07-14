@@ -1,7 +1,15 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const monster = sequelize.define<Model<MonsterTyoe>>(
+export const monster = sequelize.define<
+  Model<{
+    id: number
+    type: number //int
+    grade: number //int
+    name: string //string
+    doc: string
+  }>
+>(
   'monster',
   {
     // 定义模型属性
@@ -21,11 +29,3 @@ export const monster = sequelize.define<Model<MonsterTyoe>>(
     updatedAt: false //去掉
   }
 )
-
-export interface MonsterTyoe {
-  id: number
-  type: number //int
-  grade: number //int
-  name: string //string
-  doc: string
-}

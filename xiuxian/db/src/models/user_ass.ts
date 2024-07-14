@@ -1,6 +1,17 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_ass = sequelize.define<Model<UserAssType>>(
+export const user_ass = sequelize.define<
+  Model<{
+    id: number
+    create_tiime: number
+    uid: string
+    aid: number
+    authentication: number
+    contribute: number
+    identity: string
+    doc: string
+  }>
+>(
   'user_ass',
   {
     id: {
@@ -28,14 +39,3 @@ export const user_ass = sequelize.define<Model<UserAssType>>(
     updatedAt: false //去掉
   }
 )
-
-export interface UserAssType {
-  id: number
-  create_tiime: number
-  uid: string
-  aid: number
-  authentication: number
-  contribute: number
-  identity: string
-  doc: string
-}

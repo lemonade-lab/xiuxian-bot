@@ -1,26 +1,21 @@
-import {
-  type AssType,
-  type UserAssType,
-  ass_typing,
-  ass,
-  user_ass
-} from 'xiuxian-db'
+import { ass_typing, ass, user_ass } from 'xiuxian-db'
 export const v = async (UID: string, name: string, size = 4) => {
   /**
    * ********
    * 存在该昵称的宗门
    */
-  const aData: AssType = (await ass.findOne({
-    where: {
-      name: name
-    },
-    include: [
-      {
-        model: ass_typing
-      }
-    ],
-    raw: true
-  })) as any
+  const aData = await ass
+    .findOne({
+      where: {
+        name: name
+      },
+      include: [
+        {
+          model: ass_typing
+        }
+      ]
+    })
+    .then(res => res.dataValues)
 
   // 不存在
   if (!aData) {
@@ -29,13 +24,14 @@ export const v = async (UID: string, name: string, size = 4) => {
   }
 
   // 查看自己的宗门
-  const UserAss: UserAssType = (await user_ass.findOne({
-    where: {
-      uid: UID, // uid
-      aid: aData.id
-    },
-    raw: true
-  })) as any
+  const UserAss = await user_ass
+    .findOne({
+      where: {
+        uid: UID, // uid
+        aid: aData.id
+      }
+    })
+    .then(res => res.dataValues)
 
   // 未加入
   if (!UserAss || UserAss?.authentication == 9) {

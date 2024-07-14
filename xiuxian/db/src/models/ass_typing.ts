@@ -1,6 +1,22 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const ass_typing = sequelize.define<Model<AsstypingType>>(
+
+export const ass_typing = sequelize.define<
+  Model<{
+    id: number
+    master: string
+    vice_master: string
+    super_admin: string
+    admin: string
+    core_member: string
+    senior_menber: string
+    intermediate_member: string
+    lowerlevel_member: string
+    tagged_member: string
+    reviewed_member: string
+    doc: string
+  }>
+>(
   'ass_typing',
   {
     id: {
@@ -26,18 +42,3 @@ export const ass_typing = sequelize.define<Model<AsstypingType>>(
     updatedAt: false //去掉
   }
 )
-
-export interface AsstypingType {
-  id: number
-  master: string
-  vice_master: string
-  super_admin: string
-  admin: string
-  core_member: string
-  senior_menber: string
-  intermediate_member: string
-  lowerlevel_member: string
-  tagged_member: string
-  reviewed_member: string
-  doc: string
-}

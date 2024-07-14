@@ -1,6 +1,13 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_compensate = sequelize.define<Model<UserCompensateType>>(
+export const user_compensate = sequelize.define<
+  Model<{
+    id: number
+    uid: string // 编号
+    time: string
+    doc: string // 说明
+  }>
+>(
   'user_compensate',
   {
     id: {
@@ -18,9 +25,3 @@ export const user_compensate = sequelize.define<Model<UserCompensateType>>(
     updatedAt: false //去掉
   }
 )
-export interface UserCompensateType {
-  id: number
-  uid: string // 编号
-  time: string
-  doc: string // 说明
-}

@@ -1,6 +1,14 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_fate = sequelize.define<Model<UserFateType>>(
+export const user_fate = sequelize.define<
+  Model<{
+    id: number
+    uid: string // 编号
+    name: string // 装备名
+    grade: number // 装备名
+    doc: string // 说明
+  }>
+>(
   'user_fate',
   {
     id: {
@@ -19,10 +27,3 @@ export const user_fate = sequelize.define<Model<UserFateType>>(
     updatedAt: false //去掉
   }
 )
-export interface UserFateType {
-  id: number
-  uid: string // 编号
-  name: string // 装备名
-  grade: number // 装备名
-  doc: string // 说明
-}

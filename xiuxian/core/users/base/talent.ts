@@ -1,5 +1,5 @@
 // 数据框架
-import { talent, type TalentType } from 'xiuxian-db'
+import { talent } from 'xiuxian-db'
 
 /**
  * 计算天赋大小
@@ -50,10 +50,11 @@ export function getTalent() {
  */
 export async function getTalentName(arr: number[]) {
   let name = ''
-  const TalentData: TalentType[] = (await talent.findAll({
-    attributes: ['id', 'name'],
-    raw: true
-  })) as any
+  const TalentData = await talent
+    .findAll({
+      attributes: ['id', 'name']
+    })
+    .then(res => res.map(item => item.dataValues))
   for await (const item of arr) {
     // item是id
     for await (const obj of TalentData) {

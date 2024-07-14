@@ -1,7 +1,17 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const ass_bag = sequelize.define<Model<AssBagType>>(
+export const ass_bag = sequelize.define<
+  Model<{
+    id: number
+    aid: number // 编号
+    tid: number // 物品编号
+    type: number // 物品类型
+    name: string // 物品名
+    acount: number // 数量
+    doc: number // 说明
+  }>
+>(
   'ass_bag',
   {
     id: {
@@ -24,13 +34,3 @@ export const ass_bag = sequelize.define<Model<AssBagType>>(
     updatedAt: false //去掉
   }
 )
-
-export interface AssBagType {
-  id: number
-  aid: number // 编号
-  tid: number // 物品编号
-  type: number // 物品类型
-  name: string // 物品名
-  acount: number // 数量
-  doc: number // 说明
-}

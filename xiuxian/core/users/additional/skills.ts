@@ -1,9 +1,4 @@
-import {
-  user_skills,
-  goods,
-  type UserSkillsType,
-  type UserType
-} from 'xiuxian-db'
+import { user_skills, goods } from 'xiuxian-db'
 import { talentSize } from '../base/talent.js'
 import * as Users from '../index.js'
 
@@ -16,7 +11,7 @@ export async function add(UID: string, name: string | string[]) {
   await user_skills.create({
     uid: UID,
     name
-  } as UserSkillsType)
+  } as any)
 }
 
 /**
@@ -40,12 +35,13 @@ export async function del(UID: string, name: string | string[]) {
  * @returns
  */
 export async function get(UID: string) {
-  const data: UserSkillsType[] = (await user_skills.findAll({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await user_skills
+    .findAll({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   return data
 }
 
@@ -57,15 +53,16 @@ export async function get(UID: string) {
 export async function updataEfficiency(UID: string, talent: number[]) {
   // 统计
   let skill = 0
-  const skills: UserSkillsType[] = (await user_skills.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: goods
-    },
-    raw: true
-  })) as any
+  const skills = await user_skills
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: goods
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   for await (const item of skills) {
     skill += item['good.size']
   }
@@ -75,6 +72,6 @@ export async function updataEfficiency(UID: string, talent: number[]) {
   await Users.update(UID, {
     talent: talent,
     talent_size: size + skill
-  } as UserType)
+  })
   return true
 }

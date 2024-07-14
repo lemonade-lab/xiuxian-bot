@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { UserLogType, user_log } from 'xiuxian-db'
+import { user_log } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/status' })
 
 // 删除
@@ -58,11 +58,9 @@ router.get('/search', async ctx => {
     .findAndCountAll({
       where: obj,
       limit: pageSize,
-      offset: offset,
-      raw: true
+      offset: offset
     })
-    .then((res: any) => res)
-    .then((res: { count: number; rows: UserLogType[] }) => {
+    .then(res => {
       const totalCount = res.count // 总数据量
       const totalPages = Math.ceil(totalCount / pageSize) // 总页数
       ctx.body = {

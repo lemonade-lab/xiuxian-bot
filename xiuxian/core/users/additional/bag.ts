@@ -1,4 +1,4 @@
-import { type UserBagType, user_bag } from 'xiuxian-db'
+import { user_bag } from 'xiuxian-db'
 import { literal } from 'sequelize'
 import { searchAllThing } from '../../wrap/goods.js'
 
@@ -75,13 +75,14 @@ export async function addBagThing(
     // 当前储物袋格子已到极限
     if (length >= grade * 10) break
     // 查找物品
-    const existingItem: UserBagType = (await user_bag.findOne({
-      where: {
-        uid: UID,
-        name: name
-      },
-      raw: true
-    })) as any
+    const existingItem = await user_bag
+      .findOne({
+        where: {
+          uid: UID,
+          name: name
+        }
+      })
+      .then(res => res.dataValues)
     // 存在则更新
     if (existingItem) {
       await user_bag.update(
@@ -103,7 +104,7 @@ export async function addBagThing(
         type: THING.type, //物品类型
         name: THING.name, // 物品名
         acount: acount // 物品数量
-      } as UserBagType)
+      })
     }
   }
   return
@@ -161,13 +162,14 @@ export async function reduceBagThing(
  * @returns
  */
 export async function searchBagByName(UID: string, name: string, acount = 1) {
-  const data: UserBagType | null = (await user_bag.findOne({
-    where: {
-      uid: UID,
-      name
-    },
-    raw: true
-  })) as any
+  const data = await user_bag
+    .findOne({
+      where: {
+        uid: UID,
+        name
+      }
+    })
+    .then(res => res.dataValues)
   if (data && data.acount >= acount)
     return {
       ...(await searchAllThing(name)),
@@ -184,14 +186,15 @@ export async function searchBagByName(UID: string, name: string, acount = 1) {
  * @returns
  */
 export async function delThing(UID: string, size = 100, t = false) {
-  const data: UserBagType | null = (await user_bag.findOne({
-    where: {
-      uid: UID
-    },
-    // 进行随机排序
-    order: literal('RAND()'),
-    raw: true
-  })) as any
+  const data = await user_bag
+    .findOne({
+      where: {
+        uid: UID
+      },
+      // 进行随机排序
+      order: literal('RAND()')
+    })
+    .then(res => res.dataValues)
   if (!data) return []
   // 击碎
 

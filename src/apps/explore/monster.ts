@@ -299,13 +299,14 @@ export class Monster extends APlugin {
       UserData.point_type,
       UserData.pont_attribute
     )
-    const MonsterData: DB.LevelsType[] = (await DB.levels.findAll({
-      attributes: ['name'],
-      where: {
-        type: 0
-      },
-      raw: true
-    })) as any
+    const MonsterData = await DB.levels
+      .findAll({
+        attributes: ['name'],
+        where: {
+          type: 0
+        }
+      })
+      .then(res => res.map(item => item.dataValues))
     const monster = await GameApi.Monster.monsterscache(UserData.point_type)
     // monster 是一个对象 需要先按等级排序
     const sortedMonsters = Object.keys(monster).sort(

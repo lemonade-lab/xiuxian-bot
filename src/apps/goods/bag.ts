@@ -103,7 +103,7 @@ export class Bag extends APlugin {
     // 更新用户
     await GameApi.Users.update(UID, {
       bag_grade: grade
-    } as DB.UserType)
+    })
 
     // 扣灵石
     await GameApi.Bag.reduceBagThing(UID, [

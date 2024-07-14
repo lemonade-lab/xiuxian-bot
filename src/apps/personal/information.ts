@@ -337,7 +337,7 @@ export class Information extends APlugin {
         GameApi.Users.update(UID, {
           avatar: e.user_avatar,
           theme: UserData.theme
-        } as DB.UserType).then(() => {
+        }).then(() => {
           Promise.all([
             GameApi.Skills.updataEfficiency(UID, UserData.talent),
             GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
@@ -367,7 +367,7 @@ export class Information extends APlugin {
         }
         GameApi.Users.update(UID, {
           avatar: e.user_avatar
-        } as DB.UserType).then(() => {
+        }).then(() => {
           Promise.all([
             GameApi.Skills.updataEfficiency(UID, UserData.talent),
             GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),

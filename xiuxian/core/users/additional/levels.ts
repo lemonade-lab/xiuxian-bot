@@ -1,10 +1,4 @@
-import {
-  levels,
-  user_level,
-  type LevelsType,
-  type UserLevelType,
-  type UserType
-} from 'xiuxian-db'
+import { levels, user_level } from 'xiuxian-db'
 import * as Users from '../index.js'
 export const LEVELMAP = {
     1: 'gaspractice',
@@ -36,7 +30,7 @@ export const LEVELMAP = {
  * @param type
  * @param DATA
  */
-export async function write(UID: string, type: number, DATA: UserLevelType) {
+export async function write(UID: string, type: number, DATA) {
   await user_level.update(DATA, {
     where: {
       type,
@@ -54,20 +48,16 @@ export async function write(UID: string, type: number, DATA: UserLevelType) {
  * @param type
  * @returns
  */
-export async function read(
-  UID: string,
-  type: 1 | 2 | 3
-): Promise<UserLevelType> {
+export async function read(UID: string, type: 1 | 2 | 3) {
   return user_level
     .findOne({
       attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type
-      },
-      raw: true
+      }
     })
-    .then((res: any) => res)
+    .then(res => res.dataValues)
 }
 
 /**
@@ -104,15 +94,16 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   const UserLevel = await read(UID, type)
   const realm = UserLevel.realm
   // 查看是否是渡劫
-  const LevelListMax: LevelsType[] = (await levels.findAll({
-    attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
-    where: {
-      type
-    },
-    order: [['grade', 'DESC']],
-    limit: 3,
-    raw: true
-  })) as any
+  const LevelListMax = await levels
+    .findAll({
+      attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
+      where: {
+        type
+      },
+      order: [['grade', 'DESC']],
+      limit: 3
+    })
+    .then(res => res.map(item => item.dataValues))
   const data = LevelListMax[1]
   if (!data || UserLevel.realm == data.grade) {
     return {
@@ -121,16 +112,17 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
     }
   }
   // 查看下一个境界
-  const LevelList: LevelsType[] = (await levels.findAll({
-    attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
-    where: {
-      type,
-      grade: [realm + 1, realm]
-    },
-    order: [['grade', 'DESC']],
-    limit: 3,
-    raw: true
-  })) as any
+  const LevelList = await levels
+    .findAll({
+      attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
+      where: {
+        type,
+        grade: [realm + 1, realm]
+      },
+      order: [['grade', 'DESC']],
+      limit: 3
+    })
+    .then(res => res.map(item => item.dataValues))
   const next = LevelList[0]
   const now = LevelList[1]
   if (!next || !now) {
@@ -158,7 +150,7 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   if (type == 1) {
     Users.update(UID, {
       special_spiritual_limit: 100 + UserLevel.realm
-    } as UserType)
+    })
   }
 
   // 调整叠加
@@ -182,14 +174,15 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
 export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
   const UserLevel = await read(UID, type)
   const realm = UserLevel.realm
-  const data: LevelsType = (await levels.findOne({
-    attributes: ['id', 'exp_needed', 'name'],
-    where: {
-      grade: realm - size,
-      type
-    },
-    raw: true
-  })) as any
+  const data = await levels
+    .findOne({
+      attributes: ['id', 'exp_needed', 'name'],
+      where: {
+        grade: realm - size,
+        type
+      }
+    })
+    .then(res => res.dataValues)
   // 并没有
   if (!data) {
     return {
@@ -205,7 +198,7 @@ export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
   if (type == 1) {
     Users.update(UID, {
       special_spiritual_limit: 100 + UserLevel.realm
-    } as UserType)
+    })
   }
   // 保存境界信息
   await write(UID, type, UserLevel)
@@ -277,15 +270,16 @@ export async function reduceExperience(
  */
 export async function isLevelPoint(UID: string, type: 1 | 2 | 3) {
   const UserLevel = await read(UID, type)
-  const LevelList: LevelsType[] = (await levels.findAll({
-    attributes: ['exp_needed', 'grade'],
-    where: {
-      type
-    },
-    order: [['grade', 'DESC']],
-    limit: 3,
-    raw: true
-  })) as any
+  const LevelList = await levels
+    .findAll({
+      attributes: ['exp_needed', 'grade'],
+      where: {
+        type
+      },
+      order: [['grade', 'DESC']],
+      limit: 3
+    })
+    .then(res => res.map(item => item.dataValues))
   // 选最高的第二个就是渡劫期
   const data = LevelList[1]
   // 境界不存在,出去

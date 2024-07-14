@@ -1,4 +1,4 @@
-import { type UserType, user } from 'xiuxian-db'
+import { user } from 'xiuxian-db'
 
 /**
  * 得到用户名称
@@ -6,12 +6,13 @@ import { type UserType, user } from 'xiuxian-db'
  * @returns
  */
 export async function getUserName(UID: string) {
-  const data: UserType = (await user.findOne({
-    attributes: ['name'],
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await user
+    .findOne({
+      attributes: ['name'],
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   return data.name
 }

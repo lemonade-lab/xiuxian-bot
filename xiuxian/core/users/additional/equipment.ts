@@ -3,12 +3,7 @@ import {
   goods,
   levels,
   user_equipment,
-  type UserEquipmentType,
-  type LevelsType,
-  type UserLevelType,
-  type UserType,
-  user_fate,
-  UserFateType
+  user_fate
 } from 'xiuxian-db'
 import * as Users from '../index.js'
 /**
@@ -20,7 +15,7 @@ export async function add(UID: string, name: string) {
   await user_equipment.create({
     uid: UID,
     name
-  } as UserEquipmentType)
+  })
 }
 
 /**
@@ -44,12 +39,13 @@ export async function del(UID: string, name: string, id: number) {
  * @returns
  */
 export async function get(UID: string) {
-  const tda: UserEquipmentType[] = (await user_equipment.findAll({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const tda = await user_equipment
+    .findAll({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
   return tda
 }
 
@@ -76,13 +72,14 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
   }
 
   // 用户境界数据
-  const userLevelData: UserLevelType[] = (await user_level.findAll({
-    where: {
-      uid: UID,
-      type: [1, 2, 3] // 只要123
-    },
-    raw: true
-  })) as any
+  const userLevelData = await user_level
+    .findAll({
+      where: {
+        uid: UID,
+        type: [1, 2, 3] // 只要123
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   // 计算数值
   for await (const item of userLevelData) {
@@ -99,11 +96,10 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
         where: {
           grade: item?.realm,
           type: item.type
-        },
-        raw: true
+        }
       })
-      .then((res: any) => res)
-      .then((res: LevelsType) => {
+      .then(res => res.dataValues)
+      .then(res => {
         panel.battle_attack = panel.battle_attack + res.attack
         panel.battle_defense = panel.battle_defense + res.defense
         panel.battle_blood_limit = panel.battle_blood_limit + res.blood
@@ -126,15 +122,16 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
     speed: 0
   }
 
-  const edata: UserEquipmentType[] = (await user_equipment.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: goods
-    },
-    raw: true
-  })) as any
+  const edata = await user_equipment
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: goods
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   for await (const item of edata) {
     equ.attack = equ.attack + item['good.attack']
@@ -145,15 +142,16 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
     equ.speed = equ.speed + item['good.speed']
   }
 
-  const fdata: UserFateType = (await user_fate.findOne({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: goods
-    },
-    raw: true
-  })) as any
+  const fdata = await user_fate
+    .findOne({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: goods
+      }
+    })
+    .then(res => res.dataValues)
 
   // 根据等级增幅 1级增加原来的 如 math.f(23+23/10*g)
 
@@ -212,7 +210,7 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
       : battle_blood_now
 
   // 写入数据
-  await Users.update(UID, panel as UserType)
+  await Users.update(UID, panel)
   return
 }
 
@@ -222,7 +220,7 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
  * @param SIZE
  * @returns
  */
-export async function addBlood(BattleData: UserType, SIZE: number) {
+export async function addBlood(BattleData, SIZE: number) {
   // 血量 增加 原来的百分之几
   if (isNaN(BattleData.battle_blood_now)) {
     BattleData.battle_blood_now = 100
@@ -235,7 +233,7 @@ export async function addBlood(BattleData: UserType, SIZE: number) {
   }
   await Users.update(BattleData.uid, {
     battle_blood_now: BattleData.battle_blood_now
-  } as UserType)
+  })
   return BattleData.battle_blood_now
 }
 
@@ -245,7 +243,7 @@ export async function addBlood(BattleData: UserType, SIZE: number) {
  * @param SIZE
  * @returns
  */
-export async function reduceBlood(BattleData: UserType, SIZE: number) {
+export async function reduceBlood(BattleData, SIZE: number) {
   BattleData.battle_blood_now -= Math.floor(
     BattleData.battle_blood_limit * SIZE * 0.01
   )
@@ -254,7 +252,7 @@ export async function reduceBlood(BattleData: UserType, SIZE: number) {
   }
   await Users.update(BattleData.uid, {
     battle_blood_now: BattleData.battle_blood_now
-  } as UserType)
+  })
   return BattleData.battle_blood_now
 }
 

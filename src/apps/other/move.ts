@@ -65,7 +65,7 @@ export class Move extends APlugin {
   }
 }
 
-async function showAction(e: AEvent, UID: string, UserData: DB.UserType) {
+async function showAction(e: AEvent, UID: string, UserData) {
   const mData = await GameApi.Map.getRecordsByXYZ(
     UserData.pont_x,
     UserData.pont_y,
@@ -78,7 +78,7 @@ async function showAction(e: AEvent, UID: string, UserData: DB.UserType) {
       pont_x: UserData.pont_x,
       pont_y: UserData.pont_y,
       pont_z: UserData.pont_z
-    } as DB.UserType)
+    })
     e.reply(`(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`)
   }
   return

@@ -30,12 +30,13 @@ router.get('/refining', async ctx => {
     return
   }
   // 检查是否已有卡槽
-  const T: DB.UserFateType = (await DB.user_fate.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const T = await DB.user_fate
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (T) {
     ctx.body = {
       code: ERROE_CODE,
@@ -72,7 +73,7 @@ router.get('/refining', async ctx => {
     uid: UID,
     name: bagThing.name,
     grade: 0
-  } as DB.UserFateType)
+  })
   const UserData = await GameApi.Users.read(UID)
   // 减少物品
   await GameApi.Bag.reduceBagThing(UID, [
@@ -109,15 +110,16 @@ router.get('/benming', async ctx => {
     return
   }
 
-  const thing: DB.UserFateType = (await DB.user_fate.findOne({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods
-    },
-    raw: true
-  })) as any
+  const thing = await DB.user_fate
+    .findOne({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: DB.goods
+      }
+    })
+    .then(res => res.dataValues)
   //
   if (!thing) {
     ctx.body = {
@@ -128,12 +130,13 @@ router.get('/benming', async ctx => {
     return
   }
   // 查看消耗所需
-  const data: DB.fateLevelType = (await DB.fate_level.findOne({
-    where: {
-      grade: thing.grade
-    },
-    raw: true
-  })) as any
+  const data = await DB.fate_level
+    .findOne({
+      where: {
+        grade: thing.grade
+      }
+    })
+    .then(res => res.dataValues)
 
   // 得到该境界经验
   const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
@@ -183,12 +186,13 @@ router.get('/giveup', async ctx => {
     }
     return
   }
-  const thing: DB.UserFateType = (await DB.user_fate.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const thing = await DB.user_fate
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   //
   if (!thing) {
     ctx.body = {

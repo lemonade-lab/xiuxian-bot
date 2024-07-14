@@ -26,12 +26,13 @@ export class Destiny extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     // 检查是否已有卡槽
-    const T: DB.UserFateType = (await DB.user_fate.findOne({
-      where: {
-        uid: UID
-      },
-      raw: true
-    })) as any
+    const T = await DB.user_fate
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (T) {
       e.reply(['已有本命物品'], {
         quote: e.msg_id
@@ -64,7 +65,7 @@ export class Destiny extends APlugin {
       uid: UID,
       name: bagThing.name,
       grade: 0
-    } as DB.UserFateType)
+    })
     const UserData = await GameApi.Users.read(UID)
     // 减少物品
     await GameApi.Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
@@ -86,15 +87,16 @@ export class Destiny extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     // 查看本命信息：武器名/等级/属性/精炼需要消耗提示
-    const thing: DB.UserFateType = (await DB.user_fate.findOne({
-      where: {
-        uid: UID
-      },
-      include: {
-        model: DB.goods
-      },
-      raw: true
-    })) as any
+    const thing = await DB.user_fate
+      .findOne({
+        where: {
+          uid: UID
+        },
+        include: {
+          model: DB.goods
+        }
+      })
+      .then(res => res.dataValues)
     //
     if (!thing) {
       e.reply(['未有本命物品'], {
@@ -103,12 +105,13 @@ export class Destiny extends APlugin {
       return
     }
     // 查看消耗所需
-    const data: DB.fateLevelType = (await DB.fate_level.findOne({
-      where: {
-        grade: thing.grade
-      },
-      raw: true
-    })) as any
+    const data = await DB.fate_level
+      .findOne({
+        where: {
+          grade: thing.grade
+        }
+      })
+      .then(res => res.dataValues)
 
     // 得到该境界经验
     const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
@@ -147,12 +150,13 @@ export class Destiny extends APlugin {
   async refine(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const thing: DB.UserFateType = (await DB.user_fate.findOne({
-      where: {
-        uid: UID
-      },
-      raw: true
-    })) as any
+    const thing = await DB.user_fate
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!thing) {
       e.reply(['未有本命物品'], {
         quote: e.msg_id
@@ -183,11 +187,13 @@ export class Destiny extends APlugin {
     }
 
     // 得到门槛所需
-    const udata: DB.fateLevelType = (await DB.fate_level.findOne({
-      where: {
-        grade: thing.grade
-      }
-    })) as any
+    const udata = await DB.fate_level
+      .findOne({
+        where: {
+          grade: thing.grade
+        }
+      })
+      .then(res => res.dataValues)
 
     // 得到境界剩余经验
     const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
@@ -261,12 +267,13 @@ export class Destiny extends APlugin {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
 
-    const thing: DB.UserFateType = (await DB.user_fate.findOne({
-      where: {
-        uid: UID
-      },
-      raw: true
-    })) as any
+    const thing = await DB.user_fate
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     //
     if (!thing) {
       e.reply(['未有本命物品'], {

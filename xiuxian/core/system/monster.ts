@@ -21,9 +21,8 @@ const map = {
   },
   full: { id: number; name: string; type: number; grade: number }[] =
     await monster
-      .findAll({
-        raw: true
-      })
+      .findAll({})
+      .then(res => res.map(item => item.dataValues))
       .then(res => {
         const data: any = res
         return data

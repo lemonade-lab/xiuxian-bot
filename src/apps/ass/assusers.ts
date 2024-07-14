@@ -36,14 +36,12 @@ export class AssSsers extends APlugin {
     const totalCount = await DB.ass.count()
     const totalPages = Math.ceil(totalCount / pageSize)
     if (page > totalPages) return
-    const AuctionData: DB.AssType[] = (await DB.ass.findAll({
-      /**
-       * 需要先排序
-       */
-      raw: true,
-      limit: GameApi.Cooling.pageSize,
-      offset: (page - 1) * GameApi.Cooling.pageSize
-    })) as any
+    const AuctionData = await DB.ass
+      .findAll({
+        limit: GameApi.Cooling.pageSize,
+        offset: (page - 1) * GameApi.Cooling.pageSize
+      })
+      .then(res => res.map(item => item.dataValues))
     const msg: string[] = []
     for (const item of AuctionData) {
       msg.push(
@@ -94,22 +92,23 @@ export class AssSsers extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
 
     // 需要关联外键
-    const UserAss: DB.UserAssType[] = (await DB.user_ass.findAll({
-      where: {
-        uid: UID
-      },
-      include: [
-        {
-          model: DB.ass,
-          include: [
-            {
-              model: DB.ass_typing
-            }
-          ]
-        }
-      ],
-      raw: true
-    })) as any
+    const UserAss = await DB.user_ass
+      .findAll({
+        where: {
+          uid: UID
+        },
+        include: [
+          {
+            model: DB.ass,
+            include: [
+              {
+                model: DB.ass_typing
+              }
+            ]
+          }
+        ]
+      })
+      .then(res => res.map(item => item.dataValues))
 
     if (!UserAss || UserAss?.length == 0) {
       e.reply('未加入任何势力', {
@@ -162,18 +161,19 @@ export class AssSsers extends APlugin {
       `\n名气:${aData['fame']}`
     ])
 
-    const uData: DB.UserAssType[] = (await DB.user_ass.findAll({
-      where: {
-        aid: aData.id,
-        identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
-      },
-      include: [
-        {
-          model: DB.user
-        }
-      ],
-      raw: true
-    })) as any
+    const uData = await DB.user_ass
+      .findAll({
+        where: {
+          aid: aData.id,
+          identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
+        },
+        include: [
+          {
+            model: DB.user
+          }
+        ]
+      })
+      .then(res => res.map(item => item.dataValues))
 
     const msg = []
 

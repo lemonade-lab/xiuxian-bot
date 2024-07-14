@@ -1,7 +1,20 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const ass = sequelize.define<Model<AssType>>(
+export const ass = sequelize.define<
+  Model<{
+    id: number
+    create_time: number
+    name: string
+    typing: number
+    grade: number
+    bag_grade: number
+    property: number
+    fame: number
+    activation: number
+    doc: string
+  }>
+>(
   'ass',
   {
     id: {
@@ -25,15 +38,3 @@ export const ass = sequelize.define<Model<AssType>>(
     updatedAt: false //去掉
   }
 )
-export interface AssType {
-  id: number
-  create_time: number
-  name: string
-  typing: number
-  grade: number
-  bag_grade: number
-  property: number
-  fame: number
-  activation: number
-  doc: string
-}

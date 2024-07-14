@@ -32,26 +32,28 @@ export function set(i: string, val: any) {
  */
 export async function getKillList() {
   //  得到玩家数据
-  const ALLData: DB.UserType[] = (await DB.user.findAll({
-    attributes: [
-      'id',
-      'uid',
-      'battle_power',
-      'autograph',
-      'special_prestige',
-      'name',
-      'avatar'
-    ],
-    where: {
-      delete: 1
-    },
-    order: [
-      // 按照煞气降序排列
-      ['special_prestige', 'DESC']
-    ],
-    limit: 5,
-    raw: true
-  })) as any
+  const ALLData = await DB.user
+    .findAll({
+      attributes: [
+        'id',
+        'uid',
+        'battle_power',
+        'autograph',
+        'special_prestige',
+        'name',
+        'avatar'
+      ],
+      where: {
+        delete: 1
+      },
+      order: [
+        // 按照煞气降序排列
+        ['special_prestige', 'DESC']
+      ],
+      limit: 5
+    })
+    .then(res => res.map(item => item.dataValues))
+  //
   const UserData: KillListType[] = ALLData.map(item => {
     return {
       id: item.id,

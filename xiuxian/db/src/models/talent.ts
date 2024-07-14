@@ -1,7 +1,13 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const talent = sequelize.define<Model<TalentType>>(
+export const talent = sequelize.define<
+  Model<{
+    id: number
+    name: string //string
+    doc: string //string
+  }>
+>(
   'talent',
   {
     id: {
@@ -18,8 +24,3 @@ export const talent = sequelize.define<Model<TalentType>>(
     updatedAt: false //去掉
   }
 )
-export interface TalentType {
-  id: number
-  name: string //string
-  doc: string //string
-}

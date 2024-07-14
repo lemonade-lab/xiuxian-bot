@@ -1,6 +1,18 @@
 import { sequelize } from '../mysql/index.js'
 import { DataTypes, Model } from 'sequelize'
-export const map_treasure = sequelize.define<Model<MapTreasureType>>(
+export const map_treasure = sequelize.define<
+  Model<{
+    id: number
+    name: string //string
+    type: number //int
+    acount: number //int
+    attribute: number //int
+    x: number //int
+    y: number //int
+    z: number //int
+    doc: string //string
+  }>
+>(
   'map_treasure',
   {
     id: {
@@ -23,14 +35,3 @@ export const map_treasure = sequelize.define<Model<MapTreasureType>>(
     updatedAt: false //去掉
   }
 )
-export interface MapTreasureType {
-  id: number
-  name: string //string
-  type: number //int
-  acount: number //int
-  attribute: number //int
-  x: number //int
-  y: number //int
-  z: number //int
-  doc: string //string
-}

@@ -6,9 +6,6 @@ import {
   victoryCooling,
   isThereAUserPresent
 } from 'xiuxian-api'
-
-import * as DB from 'xiuxian-db'
-
 import { Config } from 'xiuxian-core'
 
 export class Modify extends APlugin {
@@ -58,7 +55,7 @@ export class Modify extends APlugin {
     // 更新用户
     await GameApi.Users.update(UID, {
       name: name
-    } as DB.UserType)
+    })
     setTimeout(() => {
       showUserMsg(e)
     }, 500)
@@ -97,7 +94,7 @@ export class Modify extends APlugin {
     // 更新用户
     await GameApi.Users.update(UID, {
       autograph: autograph
-    } as DB.UserType)
+    })
     setTimeout(() => {
       showUserMsg(e)
     }, 500)
