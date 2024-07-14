@@ -1,8 +1,6 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
-  GameApi,
   showUserMsg,
-  Server,
   isUser,
   createUser,
   isThereAUserPresent
@@ -15,6 +13,8 @@ import {
 import { Config } from 'xiuxian-core'
 
 import * as DB from 'xiuxian-db'
+import * as GameApi from 'xiuxian-core'
+import * as Server from 'xiuxian-statistics'
 //
 export class Information extends APlugin {
   constructor() {

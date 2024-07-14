@@ -1,7 +1,8 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, GameApi, sendReply } from 'xiuxian-api'
+import { isThereAUserPresent, sendReply } from 'xiuxian-api'
 import { Op } from 'sequelize'
 
+import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
 export class AssSsers extends APlugin {
   constructor() {

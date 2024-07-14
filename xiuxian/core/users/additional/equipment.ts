@@ -12,7 +12,7 @@ import * as Users from '../index.js'
  * @param name
  */
 export async function add(UID: string, name: string) {
-  await user_equipment.create({
+  return await user_equipment.create({
     uid: UID,
     name
   })
@@ -24,7 +24,7 @@ export async function add(UID: string, name: string) {
  * @param name
  */
 export async function del(UID: string, name: string, id: number) {
-  await user_equipment.destroy({
+  return await user_equipment.destroy({
     where: {
       uid: UID,
       id,
@@ -39,14 +39,13 @@ export async function del(UID: string, name: string, id: number) {
  * @returns
  */
 export async function get(UID: string) {
-  const tda = await user_equipment
+  return await user_equipment
     .findAll({
       where: {
         uid: UID
       }
     })
     .then(res => res.map(item => item.dataValues))
-  return tda
 }
 
 /**

@@ -1,6 +1,5 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import {
-  GameApi,
   Control,
   showUserMsg,
   victoryCooling,
@@ -8,6 +7,7 @@ import {
 } from 'xiuxian-api'
 import { Config } from 'xiuxian-core'
 
+import * as GameApi from 'xiuxian-core'
 export class Modify extends APlugin {
   constructor() {
     super({

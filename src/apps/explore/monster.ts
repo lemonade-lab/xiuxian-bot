@@ -6,7 +6,6 @@ import {
 } from 'alemonjs'
 import {
   isThereAUserPresent,
-  GameApi,
   ControlByBlood,
   sendReply,
   killNPC,
@@ -15,6 +14,7 @@ import {
 } from 'xiuxian-api'
 const reStart = {}
 
+import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
 export class Monster extends APlugin {
   constructor() {
@@ -72,13 +72,14 @@ export class Monster extends APlugin {
       return
     }
 
-    const LevelMax: DB.LevelsType = (await DB.levels.findOne({
-      where: {
-        id: Number(mon.level),
-        type: 0
-      },
-      raw: true
-    })) as any
+    const LevelMax = await DB.levels
+      .findOne({
+        where: {
+          id: Number(mon.level),
+          type: 0
+        }
+      })
+      .then(res => res.dataValues)
 
     // 怪物没有那么多的字段
     const BMSG = GameApi.Fight.start(UserData, {
@@ -99,13 +100,13 @@ export class Monster extends APlugin {
       battle_critical_damage: LevelMax.critical_damage + mon.level,
       battle_speed: LevelMax.speed + 10,
       battle_power: 0
-    } as DB.UserType)
+    })
 
     await GameApi.Users.update(UID, {
       battle_blood_now: BMSG.battle_blood_now.a,
       special_spiritual: UserData.special_spiritual - need_spiritual,
       special_reputation: UserData.special_reputation + mon.level
-    } as DB.UserType)
+    })
 
     const BooldMsg = `\n🩸${BMSG.battle_blood_now.a}`
     if (UserData.battle_show) {
@@ -401,7 +402,7 @@ export class Monster extends APlugin {
       battle_critical_damage: Math.floor(50 + addpower),
       battle_speed: Math.floor(41 + addpower),
       battle_power: 0
-    } as DB.UserType)
+    })
     const BooldMsg = `\n🩸${BMSG.battle_blood_now.a}`
     if (UserData.battle_show) {
       sendReply(e, '[战斗结果]', BMSG.msg)

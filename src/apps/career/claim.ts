@@ -1,11 +1,7 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import {
-  isThereAUserPresent,
-  ControlByBlood,
-  controlByName,
-  GameApi
-} from 'xiuxian-api'
+import { isThereAUserPresent, ControlByBlood, controlByName } from 'xiuxian-api'
 
+import * as GameApi from 'xiuxian-core'
 /**
  * 职业经验够了之后
  * 需要前往协会交付灵石来考核

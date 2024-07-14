@@ -7,12 +7,11 @@ import {
 import {
   isThereAUserPresent,
   ControlByBlood,
-  GameApi,
   killNPC,
   victoryCooling
 } from 'xiuxian-api'
 
-import * as DB from 'xiuxian-db'
+import * as GameApi from 'xiuxian-core'
 
 export class Ore extends APlugin {
   constructor() {

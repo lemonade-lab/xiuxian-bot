@@ -1,7 +1,6 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
-  GameApi,
   sendReply,
   ControlByBlood,
   endAllWord
@@ -10,6 +9,7 @@ import { Op, literal } from 'sequelize'
 
 import * as DB from 'xiuxian-db'
 
+import * as GameApi from 'xiuxian-core'
 export class Secretplace extends APlugin {
   constructor() {
     super({

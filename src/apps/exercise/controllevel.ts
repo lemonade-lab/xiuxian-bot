@@ -2,14 +2,12 @@ import { APlugin, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   isThereAUserPresentB,
-  GameApi,
   dualVerification,
   dualVerificationAction,
   victoryCooling
 } from 'xiuxian-api'
 
-import * as DB from 'xiuxian-db'
-
+import * as GameApi from 'xiuxian-core'
 export class ControllLevel extends APlugin {
   constructor() {
     super({

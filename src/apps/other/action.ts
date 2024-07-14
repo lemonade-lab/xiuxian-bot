@@ -1,7 +1,6 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import {
   showUserMsg,
-  GameApi,
   victoryCooling,
   isThereAUserPresent,
   reCreateMsg
@@ -9,6 +8,7 @@ import {
 
 import * as DB from 'xiuxian-db'
 
+import * as GameApi from 'xiuxian-core'
 export class Action extends APlugin {
   constructor() {
     super({

@@ -1,5 +1,7 @@
 import { APlugin, type AEvent } from 'alemonjs'
-import { GameApi, isThereAUserPresent } from 'xiuxian-api'
+import { isThereAUserPresent } from 'xiuxian-api'
+
+import * as GameApi from 'xiuxian-core'
 export class Equipment extends APlugin {
   constructor() {
     super({

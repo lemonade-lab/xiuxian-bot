@@ -1,6 +1,5 @@
 import * as DB from 'xiuxian-db'
 import { Op } from 'sequelize'
-
 import { Talent, Ring, Users, Bag, Equipment } from 'xiuxian-core'
 
 /**
@@ -277,18 +276,19 @@ export async function backpackInformation(
   const UserData = await Users.read(UID)
   const length = await Bag.getLength(UID)
 
-  const bag: DB.UserBagType[] = (await DB.user_bag.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods,
+  const bag = await DB.user_bag
+    .findAll({
       where: {
-        type: type
+        uid: UID
+      },
+      include: {
+        model: DB.goods,
+        where: {
+          type: type
+        }
       }
-    },
-    raw: true
-  })) as any
+    })
+    .then(res => res.map(item => item.dataValues))
 
   return {
     UID,
@@ -311,9 +311,7 @@ export type BackpackInformationType =
  */
 export async function ringInformation(UID: string, user_avatar: string) {
   const UserData = await Users.read(UID)
-
   const length = await Ring.getLength(UID)
-
   const bag = await DB.user_ring
     .findAll({
       where: {
@@ -324,7 +322,6 @@ export async function ringInformation(UID: string, user_avatar: string) {
       }
     })
     .then(res => res.map(item => item.dataValues))
-
   return {
     UID,
     name: UserData.name,
@@ -345,12 +342,13 @@ export type RingInformationType =
  */
 export async function showSky(UID: string) {
   // 找到比自己id大  xxx的 4条数据。
-  const data: DB.SkyType = (await DB.sky.findOne({
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
+  const data = await DB.sky
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const list = await DB.sky
     .findAll({
       where: {

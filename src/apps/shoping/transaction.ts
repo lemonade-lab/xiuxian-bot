@@ -1,14 +1,10 @@
 import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import {
-  GameApi,
-  controlByName,
-  sendReply,
-  isThereAUserPresent
-} from 'xiuxian-api'
+import { controlByName, sendReply, isThereAUserPresent } from 'xiuxian-api'
 
 import { Method } from 'xiuxian-core'
 
 import * as DB from 'xiuxian-db'
+import * as GameApi from 'xiuxian-core'
 
 export class Transaction extends APlugin {
   constructor() {

@@ -1,16 +1,13 @@
 import { Controllers, Messages } from 'alemonjs'
-import {
-  GameApi,
-  isThereAUserPresent,
-  sendReply,
-  victoryCooling
-} from 'xiuxian-api'
+import { isThereAUserPresent, sendReply, victoryCooling } from 'xiuxian-api'
 import { getSkyComponent } from 'xiuxian-component'
 import * as DB from 'xiuxian-db'
 import { skys, user_skys } from 'xiuxian-db'
 import { Op } from 'sequelize'
 import { Users, Bag } from 'xiuxian-core'
 import { showSky } from 'xiuxian-statistics'
+
+import * as GameApi from 'xiuxian-core'
 const message = new Messages()
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id

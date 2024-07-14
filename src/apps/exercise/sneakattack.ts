@@ -2,7 +2,6 @@ import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   isThereAUserPresentB,
-  GameApi,
   dualVerification,
   dualVerificationAction,
   sendReply,
@@ -12,6 +11,7 @@ import {
 import { Config } from 'xiuxian-core'
 import { Op } from 'sequelize'
 
+import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
 
 export class SneakAttack extends APlugin {
