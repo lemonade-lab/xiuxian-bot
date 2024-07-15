@@ -1,11 +1,11 @@
 import React from 'react'
 import HeaderComponent from './header.js'
-import _ from '../core/url.js'
-// import { PersonalInformationType } from '../server/information.js'
 import { ThemesColor } from '../core/color.js'
 import { hash } from 'alemonjs'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 
-export default function App({ data }: { data }) {
+export default function App({ data }) {
   // 现在的血量   血量总量
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
   const color = `linear-gradient(to right, ${
@@ -76,11 +76,17 @@ export default function App({ data }: { data }) {
         </span>
         <div className="nav-box-flex">
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/name.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../../../public/svg/name.svg')}
+            />
             <span>{data.name}</span>
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/level.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../../../public/svg/level.svg')}
+            />
             <span>{data.level?.gaspractice?.Name}</span>
           </div>
           <div className="nav-box-item">
@@ -106,7 +112,10 @@ export default function App({ data }: { data }) {
             // 战力
           }
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/power.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../../../public/svg/power.svg')}
+            />
             <span>{data.battle_power}</span>
           </div>
           {/* <div className="nav-box-item">
@@ -117,7 +126,10 @@ export default function App({ data }: { data }) {
             // 天赋
           }
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/efficiency.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../../../public/svg/efficiency.svg')}
+            />
             <span>{data.talentsize}</span>{' '}
           </div>
           <div className="nav-box-item">

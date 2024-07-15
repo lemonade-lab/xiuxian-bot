@@ -1,6 +1,6 @@
 import { Controllers, Messages } from 'alemonjs'
 import { isThereAUserPresent, sendReply, victoryCooling } from 'xiuxian-api'
-import { getSkyComponent } from 'xiuxian-component'
+import { picture } from 'xiuxian-component'
 import * as DB from 'xiuxian-db'
 import { skys, user_skys } from 'xiuxian-db'
 import { Op } from 'sequelize'
@@ -150,7 +150,14 @@ message.response(/^(#|\/)?通天塔$/, async e => {
 
     return
   }
-  const img = await getSkyComponent(await showSky(UID), UID)
+  const sData = await showSky(UID)
+  const img = await picture.render('SkyComponent', {
+    cssName: 'new-sky',
+    props: {
+      data: sData
+    },
+    name: UID
+  })
   if (typeof img != 'boolean') {
     e.reply(img)
     Controllers(e).Message.reply('', [

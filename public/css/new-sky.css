@@ -1,16 +1,4 @@
 .user {
-  background-image: url('../img/information.jpg');
-}
-
-.user_top {
-  background-image: url('../img/left.jpg');
-}
-
-.user_top_img_bottom {
-  background-image: url('../img/right.jpg');
-}
-
-.user {
   width: 100%;
   margin: auto;
   text-align: center;

@@ -1,7 +1,7 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 
-import { getRingComponent } from 'xiuxian-component'
+import { picture } from 'xiuxian-component'
 
 import * as GameApi from 'xiuxian-core'
 import * as Server from 'xiuxian-statistics'
@@ -33,10 +33,14 @@ export class Ring extends APlugin {
   async showRing(e: AEvent) {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const img = await getRingComponent(
-      await Server.ringInformation(UID, e.user_avatar),
-      UID
-    )
+    const data = await Server.ringInformation(UID, e.user_avatar)
+    const img = await picture.render('RingComponent', {
+      cssName: 'new-ring',
+      props: {
+        data
+      },
+      name: UID
+    })
     if (typeof img != 'boolean') e.reply(img)
     return
   }

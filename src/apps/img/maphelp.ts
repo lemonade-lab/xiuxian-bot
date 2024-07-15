@@ -2,7 +2,7 @@ import { APlugin, Controllers, type AEvent } from 'alemonjs'
 import { lcalCacheImage } from 'xiuxian-utils'
 import { Cooling } from 'xiuxian-core'
 
-import { getDefsetComponent } from 'xiuxian-component'
+import { picture } from 'xiuxian-component'
 
 export class MapHelp extends APlugin {
   constructor() {
@@ -94,7 +94,13 @@ export class MapHelp extends APlugin {
    * @returns
    */
   async boxDefset(e: AEvent) {
-    const img = await getDefsetComponent(Cooling)
+    const img = await picture.render('Defsetcomponent', {
+      name: 'boxDefset',
+      cssName: 'new-defset',
+      props: {
+        data: Cooling
+      }
+    })
     if (typeof img != 'boolean') e.reply(img)
     return
   }

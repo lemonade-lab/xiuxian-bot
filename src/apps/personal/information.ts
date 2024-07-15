@@ -5,11 +5,7 @@ import {
   createUser,
   isThereAUserPresent
 } from 'xiuxian-api'
-import {
-  Themes,
-  getEquipmentComponent,
-  getSkillsComponent
-} from 'xiuxian-component'
+import { Themes, picture } from 'xiuxian-component'
 import { Config } from 'xiuxian-core'
 
 import * as DB from 'xiuxian-db'
@@ -408,15 +404,23 @@ export class Information extends APlugin {
         GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now).then(
           () => {
             Server.equipmentInformation(UID, e.user_avatar).then(res => {
-              getEquipmentComponent(res, UID).then(img => {
-                if (typeof img != 'boolean') {
-                  e.reply(img)
-                  Controllers(e).Message.reply(
-                    '',
-                    ...this.equipmentInformationButton
-                  )
-                }
-              })
+              picture
+                .render('Equipmentcomponent', {
+                  name: UID,
+                  cssName: 'new-equiment',
+                  props: {
+                    data: res
+                  }
+                })
+                .then(img => {
+                  if (typeof img != 'boolean') {
+                    e.reply(img)
+                    Controllers(e).Message.reply(
+                      '',
+                      ...this.equipmentInformationButton
+                    )
+                  }
+                })
             })
           }
         )
@@ -450,12 +454,23 @@ export class Information extends APlugin {
         }
         GameApi.Skills.updataEfficiency(UID, UserData.talent).then(() => {
           Server.skillInformation(UID, e.user_avatar).then(res => {
-            getSkillsComponent(res, UID).then(img => {
-              if (typeof img != 'boolean') {
-                e.reply(img)
-                Controllers(e).Message.reply('', ...this.skillInformationButton)
-              }
-            })
+            picture
+              .render('SkillsComponent', {
+                name: UID,
+                props: {
+                  data: res
+                },
+                cssName: 'new-skills'
+              })
+              .then(img => {
+                if (typeof img != 'boolean') {
+                  e.reply(img)
+                  Controllers(e).Message.reply(
+                    '',
+                    ...this.skillInformationButton
+                  )
+                }
+              })
           })
         })
       })
