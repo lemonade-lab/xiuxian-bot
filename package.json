@@ -20,7 +20,6 @@
     "pm2": "pm2",
     "css": "tailwindcss -i ./src/input.css -o ./public/css/output.css",
     "css:watch": "tailwindcss -i ./src/input.css -o ./public/css/output.css --watch",
-    "dev:img": "nodemon --config image-dev/nodemon.json",
     "dev:server": "nodemon --config backend/nodemon.json",
     "format": "prettier --write .",
     "check-format": "git diff --exit-code",

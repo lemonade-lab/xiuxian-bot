@@ -18,7 +18,8 @@ const CssNameArray = [
   'new-shopping',
   'new-ring',
   'new-skills',
-  'new-sky'
+  'new-sky',
+  'new-help'
 ] as const
 
 const ThemeArray = ['blue', 'dark', 'purple', 'red'] as const

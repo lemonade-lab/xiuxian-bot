@@ -1,11 +1,4 @@
 {
-  "include": [
-    "backend",
-    "image-dev",
-    "src",
-    "xiuxian",
-    "index.ts",
-    "alemon.*.ts"
-  ],
+  "include": ["backend", "src", "xiuxian", "index.ts", "alemon.*.ts"],
   "extends": "alemonjs/config/tsconfig.json"
 }

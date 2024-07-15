@@ -69,9 +69,9 @@ export async function personalInformation(UID: string, user_avatar: string) {
    */
 
   // 固定数据读取
-  const GaspracticeData = GaspracticeList[0],
-    BodypracticeData = BodypracticeList[0],
-    SoulData = SoulList[0]
+  const GaspracticeData = GaspracticeList[0]
+  const BodypracticeData = BodypracticeList[0]
+  const SoulData = SoulList[0]
 
   const skills = await DB.user_skills
     .findAll({
@@ -119,19 +119,19 @@ export async function personalInformation(UID: string, user_avatar: string) {
     // 境界信息
     level: {
       gaspractice: {
-        Name: GaspracticeData.name,
+        Name: GaspracticeData?.name,
         Experience: userLevelData[2]?.experience,
-        ExperienceLimit: GaspracticeData.exp_needed
+        ExperienceLimit: GaspracticeData?.exp_needed
       },
       bodypractice: {
-        Name: BodypracticeData.name,
+        Name: BodypracticeData?.name,
         Experience: userLevelData[1]?.experience,
-        ExperienceLimit: BodypracticeData.exp_needed
+        ExperienceLimit: BodypracticeData?.exp_needed
       },
       soul: {
-        Name: SoulData.name,
+        Name: SoulData?.name,
         Experience: userLevelData[0]?.experience,
-        ExperienceLimit: SoulData.exp_needed
+        ExperienceLimit: SoulData?.exp_needed
       }
     },
     equipment: equipment,

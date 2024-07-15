@@ -1,8 +1,0 @@
-{
-  "watch": ["image-dev"],
-  "ext": "ts,json,js,tsx,jsx",
-  "exec": "node --no-warnings=ExperimentalWarning --loader  ts-node/esm  image-dev/src/main.ts",
-  "env": {
-    "NODE_ENV": "development"
-  }
-}

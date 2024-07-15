@@ -16,7 +16,7 @@ import {
   Bag,
   Equipment
 } from 'xiuxian-core'
-import ImageComponent from 'xiuxian-component'
+import { picture } from 'xiuxian-component'
 
 // 缓存
 import { urlHelpCache } from 'xiuxian-utils'
@@ -227,19 +227,28 @@ export function createUser(e: AEvent) {
 export function showUserMsg(e: AEvent) {
   const UID = e.user_id
   personalInformation(UID, e.user_avatar).then(res => {
-    ImageComponent.message(res, UID).then(img => {
-      if (typeof img != 'boolean') {
-        // 图片发送
-        e.reply(img).then(() => {
-          // buttons
-          Controllers(e).Message.reply('', [
-            { label: '面板信息', value: '/面板信息' },
-            { label: '功法信息', value: '/功法信息' },
-            { label: '控制板', value: '/控制板' }
-          ])
-        })
-      }
-    })
+    picture
+      .render('MessageComponent', {
+        name: UID,
+        props: {
+          data: res
+        },
+        cssName: 'new-message',
+        theme: res.theme as any
+      })
+      .then(img => {
+        if (typeof img != 'boolean') {
+          // 图片发送
+          e.reply(img).then(() => {
+            // buttons
+            Controllers(e).Message.reply('', [
+              { label: '面板信息', value: '/面板信息' },
+              { label: '功法信息', value: '/功法信息' },
+              { label: '控制板', value: '/控制板' }
+            ])
+          })
+        }
+      })
   })
 }
 

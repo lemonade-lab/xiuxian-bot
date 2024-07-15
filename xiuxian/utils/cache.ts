@@ -2,7 +2,7 @@ import { ABuffer, importPath } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-import ImageComponent from 'xiuxian-component'
+import { picture } from 'xiuxian-component'
 
 const helpData = {}
 const app = importPath(import.meta.url)
@@ -23,13 +23,19 @@ export async function urlHelpCache(name: string) {
   // 缓存不存在
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
     // 得数据
-    helpData[name] = await ImageComponent.help(await getJson(name)).catch(
-      (err: any) => {
+    helpData[name] = await picture
+      .render('HelpComponent', {
+        name: 'help',
+        props: {
+          data: await getJson(name)
+        },
+        cssName: 'new-help'
+      })
+      .catch((err: any) => {
         // 发生错误
         console.error(err)
         return false
-      }
-    )
+      })
   }
   // 返回
   return helpData[name]
