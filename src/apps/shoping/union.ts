@@ -72,7 +72,7 @@ export class union extends APlugin {
           name: thingName
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!ifexist) {
       e.reply(`[联盟]叶铭\n没有[${thingName}]`)
       return

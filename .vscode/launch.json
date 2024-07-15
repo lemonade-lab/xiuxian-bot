@@ -3,7 +3,13 @@
   "configurations": [
     {
       "command": "npm run app qq",
-      "name": "AlemonJS qq Debug",
+      "name": " qq ",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "command": "npm run app kook",
+      "name": " kook ",
       "request": "launch",
       "type": "node-terminal"
     }

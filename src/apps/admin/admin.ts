@@ -16,7 +16,7 @@ message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {
         exclude: ['id', 'uid'] // 指定要排除的列名
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (!user) {
     e.reply('查无此人')
     return
@@ -53,7 +53,7 @@ message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {
         exclude: ['id', 'uid'] // 指定要排除的列名
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const user_fate = await DB.user_fate
     .findAll({
       where: { uid: switchuid },

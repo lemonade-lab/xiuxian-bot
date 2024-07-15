@@ -82,6 +82,7 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
 
   // 计算数值
   for await (const item of userLevelData) {
+    // 境界？
     await levels
       .findOne({
         attributes: [
@@ -97,8 +98,9 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
           type: item.type
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
       .then(res => {
+        if (!res) return
         panel.battle_attack = panel.battle_attack + res.attack
         panel.battle_defense = panel.battle_defense + res.defense
         panel.battle_blood_limit = panel.battle_blood_limit + res.blood
@@ -106,6 +108,9 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
         panel.battle_critical_damage =
           panel.battle_critical_damage + res.critical_damage
         panel.battle_speed = panel.battle_speed + res.speed
+      })
+      .catch(err => {
+        console.error(err)
       })
   }
 
@@ -130,7 +135,7 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
         model: goods
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   for await (const item of edata) {
     equ.attack = equ.attack + item['good.attack']
@@ -150,7 +155,7 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
         model: goods
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   // 根据等级增幅 1级增加原来的 如 math.f(23+23/10*g)
 

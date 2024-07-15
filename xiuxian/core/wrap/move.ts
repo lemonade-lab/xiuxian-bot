@@ -22,7 +22,7 @@ new Worker(
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     const direction = await Redis.get(`${RedisBullAction}:${UID}:action`)
     // 如果x对齐了  还是走y
     if (direction == '0' || pont_x == x) {

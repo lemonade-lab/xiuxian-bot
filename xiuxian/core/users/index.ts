@@ -25,6 +25,6 @@ export async function read(UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   return data
 }

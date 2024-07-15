@@ -82,7 +82,7 @@ export async function addBagThing(
           name: name
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     // 存在则更新
     if (existingItem) {
       await user_bag.update(
@@ -169,7 +169,7 @@ export async function searchBagByName(UID: string, name: string, acount = 1) {
         name
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (data && data.acount >= acount)
     return {
       ...(await searchAllThing(name)),
@@ -194,7 +194,7 @@ export async function delThing(UID: string, size = 100, t = false) {
       // 进行随机排序
       order: literal('RAND()')
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (!data) return []
   // 击碎
 

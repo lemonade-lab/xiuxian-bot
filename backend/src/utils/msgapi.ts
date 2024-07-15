@@ -380,7 +380,7 @@ export async function isUser(UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 }
 
 /**

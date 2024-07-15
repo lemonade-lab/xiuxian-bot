@@ -62,7 +62,7 @@ export class AssStart extends APlugin {
           identity: GameApi.Config.ASS_IDENTITY_MAP['0']
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (UserAss) {
       e.reply('已创立个人势力', {
         quote: e.msg_id
@@ -100,7 +100,7 @@ export class AssStart extends APlugin {
           name: NAME
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (aData) {
       e.reply('该势力已存在', {
         quote: e.msg_id
@@ -159,7 +159,7 @@ export class AssStart extends APlugin {
               name: NAME
             }
           })
-          .then(res => res.dataValues)
+          .then(res => res?.dataValues)
         if (!aData) {
           e.reply('创建失败', {
             quote: e.msg_id
@@ -200,7 +200,7 @@ export class AssStart extends APlugin {
           identity: GameApi.Config.ASS_IDENTITY_MAP['0'] // 身份
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!UserAss) {
       e.reply('未创立个人势力', {
         quote: e.msg_id
@@ -275,7 +275,7 @@ export class AssStart extends APlugin {
           identity: GameApi.Config.ASS_IDENTITY_MAP['0']
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (UserAss) {
       e.reply('已创立个人势力', {
         quote: e.msg_id
@@ -298,7 +298,7 @@ export class AssStart extends APlugin {
           name: name
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     if (!aData) {
       e.reply('该势力不存在', {
@@ -317,7 +317,7 @@ export class AssStart extends APlugin {
           identity: GameApi.Config.ASS_IDENTITY_MAP['9']
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (joinData) {
       e.reply('已提交申请,请勿重复提交', {
         quote: e.msg_id
@@ -362,7 +362,7 @@ export class AssStart extends APlugin {
           name: name
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!aData) {
       e.reply('该势力不存在', {
         quote: e.msg_id
@@ -382,7 +382,7 @@ export class AssStart extends APlugin {
           identity: GameApi.Config.ASS_IDENTITY_MAP['0']
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (UserAss) {
       e.reply('个人势力不可退出', {
         quote: e.msg_id

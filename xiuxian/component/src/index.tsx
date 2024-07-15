@@ -59,7 +59,9 @@ class ImagePicture extends Picture {
     options?: {
       props?: Parameters<(typeof Component)[TKey]>[0]
       name: string
-      cssName?: (typeof CssNameArray)[number]
+      cssName?:
+        | (typeof CssNameArray)[number]
+        | Array<(typeof CssNameArray)[number]>
       theme?: (typeof ThemeArray)[number]
     }
   ) {
@@ -77,17 +79,15 @@ class ImagePicture extends Picture {
       // 头部插入其他资源
       html_head: this.Com.render(
         <>
-          <link
-            rel="stylesheet"
-            href={require('../../../public/css/output.css')}
-          />
-          <link
-            rel="stylesheet"
-            href={require(
-              `../../../public/css/root-${options?.theme ?? 'dark'}.css`
-            )}
-          />
-          {options?.cssName && (
+          {options?.cssName && Array.isArray(options?.cssName) ? (
+            options.cssName.map((item, index) => (
+              <link
+                key={index}
+                rel="stylesheet"
+                href={require(`../../../public/css/${item}.css`)}
+              />
+            ))
+          ) : (
             <link
               rel="stylesheet"
               href={require(`../../../public/css/${options.cssName}.css`)}

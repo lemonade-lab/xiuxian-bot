@@ -259,7 +259,7 @@ router.post('/create', async ctx => {
         name: body.name
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   if (!gData) {
     error()
@@ -321,7 +321,7 @@ router.post('/create', async ctx => {
         name: body.name
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .then(async data => {
       if (!data) {
         ctx.body = {
@@ -519,7 +519,7 @@ router.post('/buy', async ctx => {
         }
       ]
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   // 得到该物品的uid
   const UID = ctx.state.user.uid
@@ -552,7 +552,7 @@ router.post('/buy', async ctx => {
         name: TypingItem[body.typing]
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   const needMoeny = Math.floor((data.price * 1.1) / TypingValue[body.typing])
   const getMoeny = Math.floor((data.price * 0.9) / TypingValue[body.typing])

@@ -99,7 +99,7 @@ export class Bank extends APlugin {
       .findOne({
         where: { uid: UID, type: 1 }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (Userleve.realm < 42) {
       e.reply('境界不足')
       return

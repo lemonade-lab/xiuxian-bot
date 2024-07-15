@@ -83,7 +83,7 @@ export async function addRingThing(
           name: name
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     // 存在则更新
     if (existingItem) {
       await user_ring.update(
@@ -170,7 +170,7 @@ export async function searchRingByName(UID: string, name: string) {
         name
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (data)
     return {
       ...(await searchAllThing(name)),
@@ -195,7 +195,7 @@ export async function delThing(UID: string) {
       // 进行随机排序
       order: literal('RAND()')
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (!data) return []
   // 击碎
   reduceRingThing(UID, [

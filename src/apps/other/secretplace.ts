@@ -120,7 +120,7 @@ export class Secretplace extends APlugin {
           }
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 判断
     if (!point) {
@@ -186,7 +186,7 @@ export class Secretplace extends APlugin {
           name: address
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!position) {
       e.reply(['未知地点'], {
         quote: e.msg_id
@@ -211,7 +211,7 @@ export class Secretplace extends APlugin {
           z: UserData.pont_z
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!PointData) {
       e.reply(['请前往传送阵'], {
         quote: e.msg_id

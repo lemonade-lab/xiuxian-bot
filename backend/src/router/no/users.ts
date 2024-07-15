@@ -35,7 +35,7 @@ router.post('/login', async ctx => {
         password: body.password
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .then(res => {
       if (res) {
         ctx.body = {

@@ -182,7 +182,7 @@ export function createUser(e: AEvent) {
         uid: e.user_id
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .then(async res => {
       if (!res) {
         // 刷新用户信息
@@ -233,7 +233,7 @@ export function showUserMsg(e: AEvent) {
         props: {
           data: res
         },
-        cssName: 'new-message',
+        cssName: ['new-nav', 'new-message'],
         theme: res.theme as any
       })
       .then(img => {
@@ -462,7 +462,7 @@ export async function isUser(UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 }
 
 /**

@@ -27,7 +27,7 @@ export class Start extends APlugin {
           uid: e.user_id
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
       .then(async res => {
         if (!res) {
           // 刷新用户信息

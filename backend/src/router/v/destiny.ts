@@ -36,7 +36,7 @@ router.get('/refining', async ctx => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (T) {
     ctx.body = {
       code: ERROE_CODE,
@@ -119,7 +119,7 @@ router.get('/benming', async ctx => {
         model: DB.goods
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   //
   if (!thing) {
     ctx.body = {
@@ -136,7 +136,7 @@ router.get('/benming', async ctx => {
         grade: thing.grade
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   // 得到该境界经验
   const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
@@ -192,7 +192,7 @@ router.get('/giveup', async ctx => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   //
   if (!thing) {
     ctx.body = {

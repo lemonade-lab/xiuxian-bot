@@ -19,7 +19,7 @@ message.response(/^(#|\/)?通天塔奖励$/, async e => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (!data) {
     e.reply('未已进入', {
       quote: e.msg_id
@@ -109,7 +109,7 @@ message.response(/^(#|\/)?进入通天塔$/, async e => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   if (data) {
     e.reply('已进入', {
@@ -141,7 +141,7 @@ message.response(/^(#|\/)?通天塔$/, async e => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   if (!data) {
     e.reply('未进入', {
@@ -180,7 +180,7 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (!data) {
     e.reply('😃未进入', {
       quote: e.msg_id
@@ -202,7 +202,7 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
         id: id
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   // 如果发现找不到。就说明位置是空的，占领位置。
   if (!dataB) {
     await DB.sky.update(
@@ -224,7 +224,7 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
         uid: dataB.uid
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (!UserDataB) {
     // 不存在该用户了
     await DB.sky.update(
@@ -246,7 +246,7 @@ message.response(/^(#|\/)?挑战\d+$/, async e => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const BMSG = GameApi.Fight.start(UserData, UserDataB)
   // 是否显示战斗结果
   if (UserData.battle_show || UserDataB.battle_show) {

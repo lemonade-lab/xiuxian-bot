@@ -40,7 +40,7 @@ export async function create(NAME: string, count: number) {
       order: [literal('rand()')],
       limit: 1
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const position = da[0]
   if (!position) return
   const mx =

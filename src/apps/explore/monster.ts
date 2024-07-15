@@ -79,7 +79,7 @@ export class Monster extends APlugin {
           type: 0
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 怪物没有那么多的字段
     const BMSG = GameApi.Fight.start(UserData, {

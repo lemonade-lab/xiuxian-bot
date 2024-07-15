@@ -368,7 +368,8 @@ export class Information extends APlugin {
             GameApi.Skills.updataEfficiency(UID, UserData.talent),
             GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
             showUserMsg(e)
-          ]).catch(() => {
+          ]).catch(err => {
+            console.error(err)
             e.reply('数据处理错误')
           })
         })

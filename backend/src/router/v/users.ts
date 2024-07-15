@@ -24,7 +24,7 @@ router.get('/message', async ctx => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .then(res => {
       if (res) {
         ctx.body = {

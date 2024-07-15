@@ -33,7 +33,7 @@ export class Destiny extends APlugin {
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (T) {
       e.reply(['已有本命物品'], {
         quote: e.msg_id
@@ -97,7 +97,7 @@ export class Destiny extends APlugin {
           model: DB.goods
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     //
     if (!thing) {
       e.reply(['未有本命物品'], {
@@ -112,7 +112,7 @@ export class Destiny extends APlugin {
           grade: thing.grade
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 得到该境界经验
     const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
@@ -157,7 +157,7 @@ export class Destiny extends APlugin {
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!thing) {
       e.reply(['未有本命物品'], {
         quote: e.msg_id
@@ -194,7 +194,7 @@ export class Destiny extends APlugin {
           grade: thing.grade
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 得到境界剩余经验
     const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
@@ -274,7 +274,7 @@ export class Destiny extends APlugin {
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     //
     if (!thing) {
       e.reply(['未有本命物品'], {

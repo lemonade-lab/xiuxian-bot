@@ -57,7 +57,7 @@ export async function read(UID: string, type: 1 | 2 | 3) {
         type
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 }
 
 /**
@@ -182,7 +182,7 @@ export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
         type
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   // 并没有
   if (!data) {
     return {

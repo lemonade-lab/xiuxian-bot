@@ -17,7 +17,7 @@ export async function mapExistence(x: number, y: number, addressName: string) {
         y: y
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (PointData) return true
   return false
 }
@@ -54,7 +54,7 @@ export async function getPlaceName(type: number, attribute: number) {
         attribute: attribute
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   if (PositionData) return PositionData.name
   return '未知地点'
 }
@@ -78,6 +78,6 @@ export async function getRecordsByXYZ(x: number, y: number, z: number) {
         z2: { [Op.gte]: z }
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   return records
 }

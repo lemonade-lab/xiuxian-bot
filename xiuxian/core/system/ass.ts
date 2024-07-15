@@ -15,7 +15,7 @@ export const v = async (UID: string, name: string, size = 4) => {
         }
       ]
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   // 不存在
   if (!aData) {
@@ -31,7 +31,7 @@ export const v = async (UID: string, name: string, size = 4) => {
         aid: aData.id
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   // 未加入
   if (!UserAss || UserAss?.authentication == 9) {

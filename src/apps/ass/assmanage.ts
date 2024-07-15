@@ -165,7 +165,7 @@ export class AssManage extends APlugin {
           }
         ]
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 不存在该条目
     if (!uData) return
@@ -240,7 +240,7 @@ export class AssManage extends APlugin {
           }
         ]
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 不存在该条目
     if (!uData) return
@@ -296,7 +296,7 @@ export class AssManage extends APlugin {
           }
         ]
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
     if (v === false) return
@@ -340,7 +340,7 @@ export class AssManage extends APlugin {
           }
         ]
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     const v = await GameApi.Ass.v(UID, UIDData['ass.name'])
     if (v === false) return
     if (v === '权能不足') {
@@ -406,7 +406,7 @@ export class AssManage extends APlugin {
           }
         ]
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     // 不存在该玩家
     if (!uData) return
     if (!(uData.authentication - 1)) {
@@ -465,7 +465,7 @@ export class AssManage extends APlugin {
           }
         ]
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     // 不存在该玩家
     if (!uData) return
     if (uData.authentication == 9) {

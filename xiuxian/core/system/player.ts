@@ -39,7 +39,7 @@ export async function setPlayer(UID: string, user_avatar: string) {
             name: '天山'
           }
         })
-        .then(res => res.dataValues)
+        .then(res => res?.dataValues)
         .then(async point => {
           if (!point || !point?.type) return false
           return Promise.all([

@@ -1,5 +1,5 @@
 import { goods } from 'xiuxian-db'
-import { WhereOptions, literal } from 'sequelize'
+import { literal } from 'sequelize'
 
 /**
  * 转换函数集
@@ -82,7 +82,7 @@ export async function getRandomThing(where) {
       // 进行随机排序
       order: literal('RAND()')
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   return data
 }
 
@@ -98,6 +98,6 @@ export async function searchAllThing(name: string) {
         name
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   return da
 }

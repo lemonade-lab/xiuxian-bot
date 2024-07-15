@@ -171,7 +171,7 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
         model: DB.goods
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   const arr: {
     name: string
@@ -348,7 +348,7 @@ export async function showSky(UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const list = await DB.sky
     .findAll({
       where: {
@@ -382,7 +382,7 @@ export async function showSky(UID: string) {
           uid: item.uid
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!data) {
       // 不存在 uid
       DB.sky.destroy({

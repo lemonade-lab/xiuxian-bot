@@ -40,7 +40,7 @@ router.post('/join', async ctx => {
           identity: GameApi.Config.ASS_IDENTITY_MAP['0']
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (UserAss) {
       ctx.body = {
         code: ERROE_CODE,
@@ -55,7 +55,7 @@ router.post('/join', async ctx => {
           id: assId
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     if (!aData) {
       ctx.body = {
@@ -75,7 +75,7 @@ router.post('/join', async ctx => {
           identity: GameApi.Config.ASS_IDENTITY_MAP['9']
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (joinData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -141,7 +141,7 @@ router.get('/detail', async ctx => {
           id: assId
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!aData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -171,7 +171,7 @@ router.get('/member', async ctx => {
           id: assId
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!aData) {
       ctx.body = {
         code: ERROE_CODE,
@@ -213,7 +213,7 @@ router.get('/join-list', async ctx => {
           id: assId
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!aData) {
       ctx.body = {
         code: ERROE_CODE,

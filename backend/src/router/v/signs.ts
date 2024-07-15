@@ -14,7 +14,7 @@ router.get('/in', async ctx => {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .then(async res => {
       if (res) {
         // 看看上次的时间

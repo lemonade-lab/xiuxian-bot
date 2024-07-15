@@ -139,7 +139,7 @@ export class Transaction extends APlugin {
           name: thingName // 找到物品名
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!ifexist) {
       e.reply(`[万宝楼]小二:\n不卖[${thingName}]`)
       return
@@ -172,7 +172,7 @@ export class Transaction extends APlugin {
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     const now = new Date()
 
     if (count > ifexist.limit_buy) {

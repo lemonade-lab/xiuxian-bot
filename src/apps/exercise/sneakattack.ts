@@ -63,7 +63,7 @@ export class SneakAttack extends APlugin {
           }
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     if (!userDataB) {
       e.reply('对方消失了', {
         quote: e.msg_id
