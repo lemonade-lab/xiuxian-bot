@@ -1,25 +1,20 @@
 import { hash } from 'alemonjs'
 import React from 'react'
-
+import BackgroundImage from './com/backgroundImage'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
-
 export default function App({ data }) {
   return (
-    <div
+    <BackgroundImage
       id="app"
       className="user"
-      style={{
-        backgroundImage: `url(${require('../../../../public/img/information.jpg')})`
-      }}
+      url={require('../../../../public/img/information.jpg')}
     >
       {data.map(item => (
         <div key={item.UID} style={{ display: 'grid' }}>
-          <div
+          <BackgroundImage
             className="user_top"
-            style={{
-              backgroundImage: `url(${require('../../../../public/img/left.jpg')})`
-            }}
+            url={require('../../../../public/img/left.jpg')}
           >
             <div className="user_top_left">
               <div
@@ -48,20 +43,17 @@ export default function App({ data }) {
               </div>
             </div>
             <div className="user_top_right">
-              <div
-                className="user_top_img_bottom"
-                style={{
-                  backgroundImage: `url(${require('../../../../public/img/right.jpg')})`
-                }}
+              <BackgroundImage
+                url={require('../../../../public/img/right.jpg')}
               >
                 <img
                   className="user_top_img"
                   src={item.user_avatar}
                   alt="User Avatar"
                 />
-              </div>
+              </BackgroundImage>
             </div>
-          </div>
+          </BackgroundImage>
           <div className="user_bottom1">
             <div className="use_data">
               <div className="user_top_right_font0 font_control Horizontal_grid">
@@ -74,6 +66,6 @@ export default function App({ data }) {
           </div>
         </div>
       ))}
-    </div>
+    </BackgroundImage>
   )
 }

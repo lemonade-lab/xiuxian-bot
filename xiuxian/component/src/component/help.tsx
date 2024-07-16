@@ -1,14 +1,13 @@
 import React from 'react'
+import BackgroundImage from './com/backgroundImage'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
+
 export default function App({ data }) {
   return (
-    <div
+    <BackgroundImage
       id="app"
-      className="help"
-      style={{
-        backgroundImage: `url(${require('../../../../public/img/equipment.jpg')})`
-      }}
+      src={require('../../../../public/img/equipment.jpg')}
     >
       <div className="copyright">
         官网 <span className="version">{'http://xiuxian.uk/'}</span>
@@ -32,6 +31,6 @@ export default function App({ data }) {
           </div>
         </div>
       ))}
-    </div>
+    </BackgroundImage>
   )
 }

@@ -1,17 +1,15 @@
 import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire } from 'module'
+import BackgroundImage from './com/backgroundImage'
 const require = createRequire(import.meta.url)
-
 export default function App({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
-    <div
+    <BackgroundImage
       id="app"
       className="user"
-      style={{
-        backgroundImage: `url(${require('../../../../public/img/equipment.jpg')})`
-      }}
+      url={require('../../../../public/img/equipment.jpg')}
     >
       <div style={{ height: '30px' }}></div>
       <div className="user_top">
@@ -54,6 +52,6 @@ export default function App({ data }) {
           ))}
         </div>
       </div>
-    </div>
+    </BackgroundImage>
   )
 }

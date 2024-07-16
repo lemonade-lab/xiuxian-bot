@@ -1,8 +1,7 @@
 import { hash } from 'alemonjs'
 import React from 'react'
-export default function App({
-  data
-}: {
+
+type PropsType = {
   data: {
     UID: string
     avatar: string
@@ -16,7 +15,9 @@ export default function App({
     fate: any[]
     battle_power: number
   }
-}) {
+}
+
+export default function App({ data }: PropsType) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
     <div id="app" className="user">
@@ -105,7 +106,6 @@ export default function App({
           ))}
         </div>
       </div>
-
       <div className="user_bottom1">
         <div className="use_data">
           {data.equipment.map(item => (

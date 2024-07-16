@@ -1,26 +1,22 @@
 import React from 'react'
 import { hash } from 'alemonjs'
-
 import { createRequire } from 'module'
+import BackgroundImage from './com/backgroundImage'
 const require = createRequire(import.meta.url)
 
 export default function App({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
   return (
-    <div
+    <BackgroundImage
       id="app"
       className="user"
-      style={{
-        backgroundImage: `url(${require('../../../../public/img/information.jpg')})`
-      }}
+      url={require('../../../../public/img/information.jpg')}
     >
       {/* 头部 */}
       <div style={{ display: 'grid' }}>
-        <div
+        <BackgroundImage
           className="user_top"
-          style={{
-            backgroundImage: `url(${require('../../../../public/img/left.jpg')})`
-          }}
+          url={require('../../../../public/img/left.jpg')}
         >
           <div className="user_top_left">
             <div
@@ -49,16 +45,14 @@ export default function App({ data }) {
             </div>
           </div>
           <div className="user_top_right">
-            <div
+            <BackgroundImage
               className="user_top_img_bottom"
-              style={{
-                backgroundImage: `url(${require('../../../../public/img/right.jpg')})`
-              }}
+              url={require('../../../../public/img/right.jpg')}
             >
               <img className="user_top_img" src={data.avatar} />
-            </div>
+            </BackgroundImage>
           </div>
-        </div>
+        </BackgroundImage>
       </div>
 
       {/* 修心道宣 */}
@@ -143,6 +137,6 @@ export default function App({ data }) {
       </div>
 
       {/* 底部 */}
-    </div>
+    </BackgroundImage>
   )
 }

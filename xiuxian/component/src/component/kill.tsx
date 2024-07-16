@@ -2,14 +2,13 @@ import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
+import BackgroundImage from './com/backgroundImage'
 export default function App({ data }) {
   return (
-    <div
+    <BackgroundImage
       id="app"
       className="user"
-      style={{
-        backgroundImage: `url(${require('../../../../public/img/information.jpg')})`
-      }}
+      url={require('../../../../public/img/information.jpg')}
     >
       {data.map((item, index) => (
         <div key={index} style={{ display: 'grid' }}>
@@ -68,6 +67,6 @@ export default function App({ data }) {
           </div>
         </div>
       ))}
-    </div>
+    </BackgroundImage>
   )
 }
