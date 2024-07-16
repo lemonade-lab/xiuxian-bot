@@ -24,7 +24,6 @@
 .user_top {
   display: grid;
   grid-template-columns: repeat(2, 65% 35%);
-  background-size: 100% 100%;
 }
 
 .user_right {
@@ -37,7 +36,6 @@
   width: 285px;
   height: 300px;
   margin: auto;
-  background-size: 100% 100%;
 }
 
 .user_top_img {

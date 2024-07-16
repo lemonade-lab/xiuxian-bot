@@ -2,7 +2,7 @@ import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
-import BackgroundImage from './com/backgroundImage'
+import BackgroundImage from './com/BackgroundImage'
 export default function App({ data }) {
   return (
     <BackgroundImage
@@ -12,11 +12,10 @@ export default function App({ data }) {
     >
       {data.map((item, index) => (
         <div key={index} style={{ display: 'grid' }}>
-          <div
+          <BackgroundImage
             className="user_top"
-            style={{
-              backgroundImage: `url(${require('../../../../public/img/left.jpg')})`
-            }}
+            url={require('../../../../public/img/left.jpg')}
+            size={'100% 100%'}
           >
             <div className="user_top_left">
               <div
@@ -45,16 +44,15 @@ export default function App({ data }) {
               </div>
             </div>
             <div className="user_top_right">
-              <div
+              <BackgroundImage
                 className="user_top_img_bottom"
-                style={{
-                  backgroundImage: `url(${require('../../../../public/img/right.jpg')})`
-                }}
+                size={'100% 100%'}
+                url={require('../../../../public/img/right.jpg')}
               >
                 <img className="user_top_img" src={item.user_avatar} />
-              </div>
+              </BackgroundImage>
             </div>
-          </div>
+          </BackgroundImage>
           <div className="user_bottom1">
             <div className="use_data">
               <div className="user_top_right_font0 font_control Horizontal_grid">

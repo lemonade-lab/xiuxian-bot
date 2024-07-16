@@ -137,11 +137,9 @@
 }
 
 .nav-box-img {
-  background-size: 100% 100%;
   width: 13rem;
   height: 13rem;
   border-radius: 50%;
-
   border: 2px solid #ffffff;
 }
 

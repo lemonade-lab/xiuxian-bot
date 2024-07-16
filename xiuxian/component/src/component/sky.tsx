@@ -1,7 +1,7 @@
 import React from 'react'
 import { hash } from 'alemonjs'
 import { createRequire } from 'module'
-import BackgroundImage from './com/backgroundImage'
+import BackgroundImage from './com/BackgroundImage'
 const require = createRequire(import.meta.url)
 export default function App({ data }) {
   return (
@@ -15,6 +15,7 @@ export default function App({ data }) {
           <div style={{ display: 'grid' }}>
             <BackgroundImage
               className="user_top"
+              size={'100% 100%'}
               url={require('../../../../public/img/left.jpg')}
             >
               <div className="user_top_left">
@@ -46,6 +47,7 @@ export default function App({ data }) {
               <div className="user_top_right">
                 <BackgroundImage
                   className="user_top_img_bottom"
+                  size={'100% 100%'}
                   url={require('../../../../public/img/right.jpg')}
                 >
                   <img

@@ -4,7 +4,6 @@ import { ThemesColor } from '../core/color.js'
 import { hash } from 'alemonjs'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
-
 export default function App({ data }) {
   // 现在的血量   血量总量
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
