@@ -1,6 +1,6 @@
 import { hash } from 'alemonjs'
 import React from 'react'
-import BackgroundImage from './com/BackgroundImage'
+import { BackgroundImage } from 'react-puppeteer'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 export default function App({ data }) {

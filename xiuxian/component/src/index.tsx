@@ -1,9 +1,11 @@
 import React from 'react'
 import { dirname, join } from 'path'
-import { Picture } from 'alemonjs'
 import { createRequire } from 'module'
 import * as Component from './component/index.js'
+import { Picture } from 'react-puppeteer'
+
 const require = createRequire(import.meta.url)
+
 const CssNameArray = [
   'new-defset',
   'new-information',
@@ -27,7 +29,7 @@ const ThemeArray = ['blue', 'dark', 'purple', 'red'] as const
 /**
  *
  */
-class ImagePicture extends Picture {
+class ScreenshotPicture extends Picture {
   constructor() {
     super()
     this.Pup.start()
@@ -67,7 +69,8 @@ class ImagePicture extends Picture {
   ) {
     const MyComponent = Component[key]
     const Props = (options.props ?? {}) as any
-    const adr = this.Com.create(<MyComponent {...Props} />, {
+    // 截图
+    return this.screenshot({
       join_dir: key,
       html_name: `${options?.name ?? 'help'}.html`,
       // 别名
@@ -77,7 +80,7 @@ class ImagePicture extends Picture {
         require(`../../../public/css/root-${options?.theme ?? 'dark'}.css`)
       ],
       // 头部插入其他资源
-      html_head: this.Com.render(
+      html_head: (
         <>
           {options?.cssName && Array.isArray(options?.cssName) ? (
             options.cssName.map((item, index) => (
@@ -94,12 +97,12 @@ class ImagePicture extends Picture {
             />
           )}
         </>
-      )
+      ),
+      html_body: <MyComponent {...Props} />
     })
-    return this.Pup.render(adr)
   }
 }
 //
-export const picture = new ImagePicture()
+export const picture = new ScreenshotPicture()
 //
 export * from './core/index.js'

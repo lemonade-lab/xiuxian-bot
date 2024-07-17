@@ -1,7 +1,7 @@
 import React from 'react'
 import { nameMap } from '../core/public'
 import { hash } from 'alemonjs'
-import BackgroundImage from './com/backgroundImage'
+import { BackgroundImage } from 'react-puppeteer'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 export default function App({ data }) {

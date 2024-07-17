@@ -1,7 +1,7 @@
 import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire } from 'module'
-import BackgroundImage from './com/backgroundImage'
+import { BackgroundImage } from 'react-puppeteer'
 const require = createRequire(import.meta.url)
 export default function App({ data }) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID

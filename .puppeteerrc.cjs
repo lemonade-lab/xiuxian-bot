@@ -1,4 +1,4 @@
 /**
  * @type {import("puppeteer").Configuration}
  */
-module.exports = require('alemonjs/.puppeteerrc')
+module.exports = require('react-puppeteer/.puppeteerrc')
