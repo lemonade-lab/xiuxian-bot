@@ -64,7 +64,7 @@ export async function updataEfficiency(UID: string, talent: number[]) {
     })
     .then(res => res.map(item => item.dataValues))
   for await (const item of skills) {
-    skill += item['good.size']
+    skill += item['good']['dataValues']['size']
   }
   // 统计灵根
   const size = talentSize(talent)

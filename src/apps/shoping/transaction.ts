@@ -276,7 +276,7 @@ export class Transaction extends APlugin {
 
     // 计算金额
     for await (const item of bag) {
-      money += item.acount * item['good.price']
+      money += item.acount * item['good']['dataValues']['price']
     }
 
     // 计算所得
@@ -328,7 +328,7 @@ export class Transaction extends APlugin {
       .then(res => res.map(item => item.dataValues))
     // 计算金额
     for await (const item of bag) {
-      money += item.acount * item['good.price']
+      money += item.acount * item['good']['dataValues']['price']
     }
 
     // 计算所得

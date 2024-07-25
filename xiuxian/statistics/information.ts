@@ -188,18 +188,30 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
     arr.push({
       name: fdata.name,
       grade: fdata.grade,
-      attack: Equipment.valculateNumerical(fdata['good.attack'], fdata.grade),
-      defense: Equipment.valculateNumerical(fdata['good.defense'], fdata.grade),
-      blood: Equipment.valculateNumerical(fdata['good.blood'], fdata.grade),
+      attack: Equipment.valculateNumerical(
+        fdata['good']['dataValues']['attack'],
+        fdata.grade
+      ),
+      defense: Equipment.valculateNumerical(
+        fdata['good']['dataValues']['defense'],
+        fdata.grade
+      ),
+      blood: Equipment.valculateNumerical(
+        fdata['good']['dataValues']['blood'],
+        fdata.grade
+      ),
       critical_hit: Equipment.valculateNumerical(
-        fdata['good.critical_hit'],
+        fdata['good']['dataValues']['critical_hit'],
         fdata.grade
       ),
       critical_damage: Equipment.valculateNumerical(
-        fdata['good.critical_damage'],
+        fdata['good']['dataValues']['critical_damage'],
         fdata.grade
       ),
-      speed: Equipment.valculateNumerical(fdata['good.speed'], fdata.grade)
+      speed: Equipment.valculateNumerical(
+        fdata['good']['dataValues']['speed'],
+        fdata.grade
+      )
     })
   }
 

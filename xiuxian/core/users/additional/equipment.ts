@@ -138,12 +138,14 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
     .then(res => res.map(item => item?.dataValues))
 
   for await (const item of edata) {
-    equ.attack = equ.attack + item['good.attack']
-    equ.defense = equ.defense + item['good.defense']
-    equ.blood = equ.blood + item['good.blood']
-    equ.critical_hit = equ.critical_hit + item['good.critical_hit']
-    equ.critical_damage = equ.critical_damage + item['good.critical_damage']
-    equ.speed = equ.speed + item['good.speed']
+    equ.attack = equ.attack + item['good']['dataValues']['attack']
+    equ.defense = equ.defense + item['good']['dataValues']['defense']
+    equ.blood = equ.blood + item['good']['dataValues']['blood']
+    equ.critical_hit =
+      equ.critical_hit + item['good']['dataValues']['critical_hit']
+    equ.critical_damage =
+      equ.critical_damage + item['good']['dataValues']['critical_damage']
+    equ.speed = equ.speed + item['good']['dataValues']['speed']
   }
 
   const fdata = await user_fate
@@ -162,17 +164,29 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
   if (fdata) {
     // fdata.grade
     equ.attack =
-      equ.attack + valculateNumerical(fdata['good.attack'], fdata.grade)
+      equ.attack +
+      valculateNumerical(fdata['good']['dataValues']['attack'], fdata.grade)
     equ.defense =
-      equ.defense + valculateNumerical(fdata['good.defense'], fdata.grade)
-    equ.blood = equ.blood + valculateNumerical(fdata['good.blood'], fdata.grade)
+      equ.defense +
+      valculateNumerical(fdata['good']['dataValues']['defense'], fdata.grade)
+    equ.blood =
+      equ.blood +
+      valculateNumerical(fdata['good']['dataValues']['blood'], fdata.grade)
     equ.critical_hit =
       equ.critical_hit +
-      valculateNumerical(fdata['good.critical_hit'], fdata.grade)
+      valculateNumerical(
+        fdata['good']['dataValues']['critical_hit'],
+        fdata.grade
+      )
     equ.critical_damage =
       equ.critical_damage +
-      valculateNumerical(fdata['good.critical_damage'], fdata.grade)
-    equ.speed = equ.speed + valculateNumerical(fdata['good.speed'], fdata.grade)
+      valculateNumerical(
+        fdata['good']['dataValues']['critical_damage'],
+        fdata.grade
+      )
+    equ.speed =
+      equ.speed +
+      valculateNumerical(fdata['good']['dataValues']['speed'], fdata.grade)
   }
 
   /**

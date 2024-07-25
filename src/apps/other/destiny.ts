@@ -133,7 +133,7 @@ export class Destiny extends APlugin {
     e.reply([
       `\n本命物:${thing.name}`,
       `\n等级:${thing.grade}`,
-      `\n属性:${await GameApi.Talent.getTalentName(thing['good.talent'])}`,
+      `\n属性:${await GameApi.Talent.getTalentName(thing['good']['dataValues']['talent'])}`,
       `\n精炼所需物品:${thing.name}`,
       `\n精炼所需灵石:${size}`,
       `\n精炼所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,
