@@ -33,24 +33,26 @@ export default function App({ data }) {
         {data.bag.map((item, index) => (
           <div key={index} className="main-item">
             <div className="user_top_right_font0 font_control Horizontal_grid">
-              {item['good.name']}
+              {item['name']}
             </div>
             <div className="user_top_right_font1 font_control lattice">
-              <div>攻击: {item['good.attack']}%</div>
-              <div>防御: {item['good.defense']}%</div>
-              <div>血量: {item['good.blood']}%</div>
+              <div>攻击: {item.good.dataValues.attack}%</div>
+              <div>防御: {item.good.dataValues.defense}%</div>
+              <div>血量: {item.good.dataValues.blood}%</div>
             </div>
             <div className="user_top_right_font font_control lattice">
-              <div>天赋: {item['good.size']}%</div>
-              <div>暴击: {item['good.critical_hit']}%</div>
-              <div>暴伤: {item['good.critical_damage']}%</div>
+              <div>天赋: {item.good.dataValues.size}%</div>
+              <div>暴击: {item.good.dataValues.critical_hit}%</div>
+              <div>暴伤: {item.good.dataValues.critical_damage}%</div>
             </div>
             <div className="user_top_right_font1 font_control lattice">
-              <div>敏捷: {item['good.speed']}</div>
+              <div>敏捷: {item.good.dataValues.speed}</div>
               <div>
-                {nameMap[item['good.addition']]}:{' '}
-                {item[`good.${item['good.addition']}`]}
-                {item['good.addition'] === 'boolere_covery' && <span> % </span>}
+                {nameMap[item.good.dataValues.addition]}:{' '}
+                {item[`good.${item.good.dataValues.addition}`]}
+                {item.good.dataValues.addition === 'boolere_covery' && (
+                  <span> % </span>
+                )}
               </div>
               <div>五行: ???</div>
             </div>
@@ -58,9 +60,9 @@ export default function App({ data }) {
               className="user_top_right_font2 font_control lattice"
               style={{ marginBottom: '5px' }}
             >
-              <div>等级: {item['good.grade']}</div>
-              <div>数量: {item['acount']}</div>
-              <div>灵石: {item['good.price']}</div>
+              <div>等级: {item.good.dataValues.grade}</div>
+              <div>数量: {item.acount}</div>
+              <div>灵石: {item.good.dataValues.price}</div>
             </div>
           </div>
         ))}
