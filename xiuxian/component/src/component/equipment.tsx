@@ -109,24 +109,34 @@ export default function App({ data }: PropsType) {
       <div className="user_bottom1">
         <div className="use_data">
           {data.equipment.map(item => (
-            <div key={item['good.name']}>
+            <div key={item['good']['dataValues']['name']}>
               <div className="user_top_right_font0 font_control Horizontal_grid">
-                {item['good.name']}
+                {item['good']['dataValues']['name']}
               </div>
               <div className="user_top_right_font1 font_control lattice">
-                <div className="font">攻击 : {item['good.attack']}%</div>
-                <div className="font">防御 : {item['good.defense']}%</div>
-                <div className="font">血量 : {item['good.blood']}%</div>
+                <div className="font">
+                  攻击 : {item['good']['dataValues']['attack']}%
+                </div>
+                <div className="font">
+                  防御 : {item['good']['dataValues']['defense']}%
+                </div>
+                <div className="font">
+                  血量 : {item['good']['dataValues']['blood']}%
+                </div>
               </div>
               <div
                 className="user_top_right_font2 font_control lattice"
                 style={{ marginBottom: '5px' }}
               >
-                <div className="font">暴击 : {item['good.critical_hit']}%</div>
                 <div className="font">
-                  暴伤 : {item['good.critical_damage']}%
+                  暴击 : {item['good']['dataValues']['critical_hit']}%
                 </div>
-                <div className="font">敏捷 : {item['good.speed']}</div>
+                <div className="font">
+                  暴伤 : {item['good']['dataValues']['critical_damage']}%
+                </div>
+                <div className="font">
+                  敏捷 : {item['good']['dataValues']['speed']}
+                </div>
               </div>
             </div>
           ))}

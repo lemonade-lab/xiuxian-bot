@@ -36,7 +36,7 @@ export default function App({ data }) {
         <div className="kills">
           <div className="kills-box flex flex-wrap">
             {data.skills.map((item, index) => (
-              <span key={index}>《{item['good.name']}》 </span>
+              <span key={index}>《{item['good']['dataValues']['name']}》 </span>
             ))}
             <span className="menu-button-flat">/功法信息</span>
           </div>

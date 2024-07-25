@@ -118,7 +118,9 @@ export default function App({ data }) {
           </div>
           <div className="user_top_right_font2 font_control Horizontal_grid grid-4">
             {data.equipment.map(item => (
-              <div key={item['good.name']}>{item['good.name']}</div>
+              <div key={item['good']['dataValues']['name']}>
+                {item['good']['dataValues']['name']}
+              </div>
             ))}
           </div>
         </div>
@@ -132,7 +134,9 @@ export default function App({ data }) {
           </div>
           <div className="user_top_right_font2 font_control Horizontal_grid grid-4">
             {data.skills.map(item => (
-              <div key={item['good.name']}>《{item['good.name']}》</div>
+              <div key={item['good']['dataValues']['name']}>
+                《{item['good']['dataValues']['name']}》
+              </div>
             ))}
           </div>
         </div>

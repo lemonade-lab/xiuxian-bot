@@ -38,15 +38,17 @@ export default function App({ data }) {
           {data.skills.map(item => (
             <div key={item.id}>
               <div className="user_top_right_font0 font_control Horizontal_grid">
-                {item['good.name']}
+                {item['good']['dataValues']['name']}
               </div>
               <div
                 className="user_top_right_font2 font_control lattice"
                 style={{ marginBottom: '5px' }}
               >
-                <div>天赋: {item['good.size']}%</div>
-                <div>修为: +{item['good.exp_gaspractice']}</div>
-                <div>灵石: {item['good.price']}</div>
+                <div>天赋: {item['good']['dataValues']['size']}%</div>
+                <div>
+                  修为: +{item['good']['dataValues']['exp_gaspractice']}
+                </div>
+                <div>灵石: {item['good']['dataValues']['price']}</div>
               </div>
             </div>
           ))}
