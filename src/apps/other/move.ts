@@ -71,4 +71,4 @@ message.response(/^(#|\/)?向右$/, async e => {
   return
 })
 
-export const Move = new Messages()
+export const Move = message.ok

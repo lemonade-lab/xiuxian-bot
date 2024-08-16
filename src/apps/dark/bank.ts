@@ -156,3 +156,5 @@ message.response(/^(#|\/)?治炼仙石\d+$/, async e => {
   }
   e.reply(msg)
 })
+
+export const Bank = message.ok
