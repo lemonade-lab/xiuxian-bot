@@ -91,3 +91,7 @@ tsx组件及截图
 - xiuxian-utils
 
 工具类
+
+## Centos
+
+- redis

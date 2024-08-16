@@ -37,7 +37,7 @@
     "puppeteer": "^22.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-puppeteer": "^1.0.0-rc.3",
+    "react-puppeteer": "^1.0.2",
     "sequelize": "^6.33.0",
     "xiuxian-api": "link:xiuxian/api",
     "xiuxian-component": "link:xiuxian/component",

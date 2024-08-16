@@ -1,11 +1,9 @@
 import React from 'react'
 import { dirname, join } from 'path'
-import { createRequire } from 'module'
+import { createRequire } from 'react-puppeteer'
 import * as Component from './component/index.js'
 import { Picture } from 'react-puppeteer'
-
 const require = createRequire(import.meta.url)
-
 const CssNameArray = [
   'new-defset',
   'new-information',
@@ -29,25 +27,15 @@ const ThemeArray = ['blue', 'dark', 'purple', 'red'] as const
 /**
  *
  */
+const paths = {
+  // 定位自身的 md文件，并获取目录地址
+  '@xiuxian': join(dirname(require('../../../README.md')), 'public')
+}
+
 class ScreenshotPicture extends Picture {
   constructor() {
     super()
     this.Pup.start()
-  }
-
-  files = {
-    blue: [require('../../../public/css/root-blue.css')],
-    dark: [require('../../../public/css/root-dark.css')],
-    purple: [require('../../../public/css/root-purple.css')],
-    red: [require('../../../public/css/root-red.css')]
-  }
-
-  /**
-   *
-   */
-  paths = {
-    // 定位自身的 md文件，并获取目录地址
-    '@xiuxian': join(dirname(require('../../../README.md')), 'public')
   }
 
   /**
@@ -74,7 +62,7 @@ class ScreenshotPicture extends Picture {
       join_dir: key,
       html_name: `${options?.name ?? 'help'}.html`,
       // 别名
-      file_paths: this.paths,
+      file_paths: paths,
       // 别名资源
       html_files: [
         require(`../../../public/css/root-${options?.theme ?? 'dark'}.css`)
@@ -101,6 +89,8 @@ class ScreenshotPicture extends Picture {
       html_body: <MyComponent {...Props} />
     })
   }
+
+  //
 }
 //
 export const picture = new ScreenshotPicture()

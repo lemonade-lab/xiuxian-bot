@@ -2,7 +2,7 @@ import React from 'react'
 import HeaderComponent from './header.js'
 import { ThemesColor } from '../core/color.js'
 import { hash } from 'alemonjs'
-import { createRequire } from 'module'
+import { createRequire } from 'react-puppeteer'
 const require = createRequire(import.meta.url)
 export default function App({ data }) {
   // 现在的血量   血量总量
