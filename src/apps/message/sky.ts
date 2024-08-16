@@ -6,8 +6,8 @@ import { skys, user_skys } from 'xiuxian-db'
 import { Op } from 'sequelize'
 import { Users, Bag } from 'xiuxian-core'
 import { showSky } from 'xiuxian-statistics'
-
 import * as GameApi from 'xiuxian-core'
+
 const message = new Messages()
 message.response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id

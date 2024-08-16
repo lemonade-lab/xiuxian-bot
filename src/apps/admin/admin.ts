@@ -135,7 +135,6 @@ message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {
     user_bag[index].uid = bindinguid
     await DB.user_bag.create(user_bag[index])
   }
-
   await DB.user_level.update(
     { uid: switchuid + '-1' },
     { where: { uid: switchuid } }
@@ -145,7 +144,6 @@ message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {
       where: { uid: bindinguid, type: user_level[index].type }
     })
   }
-
   await DB.user_skills.update(
     { uid: switchuid + '-1' },
     { where: { uid: switchuid } }

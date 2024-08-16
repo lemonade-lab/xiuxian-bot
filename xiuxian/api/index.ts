@@ -266,29 +266,6 @@ export async function dualVerification(e: AEvent, UserData, UserDataB) {
 }
 
 /**
- *
- * @param arr "
- * @returns
- */
-const flattenArray = arr => {
-  return arr.reduce((flat, toFlatten) => {
-    return flat.concat(
-      Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten
-    )
-  }, [])
-}
-
-/**
- *
- */
-export const sendMessageArray = (e: AEvent, msg) => {
-  const message = msg.map(item =>
-    item.map(item => `【${item.label}】${item.value}\n`)
-  )
-  e.reply(flattenArray(message))
-}
-
-/**
  * 玩家交互地点判断
  * @param e
  * @param region

@@ -1,56 +1,28 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
-
 import { picture } from 'xiuxian-component'
-
 import * as GameApi from 'xiuxian-core'
 import * as Server from 'xiuxian-statistics'
-export class Ring extends APlugin {
-  constructor() {
-    super({
-      rule: [
-        {
-          reg: /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))$/,
-          fnc: 'showRing'
-        },
-        {
-          reg: /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/,
-          fnc: 'takeOut'
-        },
-        {
-          reg: /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))存入[\u4e00-\u9fa5]+\*\d+$/,
-          fnc: 'deposit'
-        }
-      ]
-    })
-  }
 
-  /**
-   * 纳|呐|那)(借|介|戒
-   * @param e
-   * @returns
-   */
-  async showRing(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const data = await Server.ringInformation(UID, e.user_avatar)
-    const img = await picture.render('RingComponent', {
-      cssName: 'new-ring',
-      props: {
-        data
-      },
-      name: UID
-    })
-    if (typeof img != 'boolean') e.reply(img)
-    return
-  }
+const message = new Messages()
 
-  /**
-   * 取出
-   * @param e
-   * @returns
-   */
-  async takeOut(e: AEvent) {
+message.response(/^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const data = await Server.ringInformation(UID, e.user_avatar)
+  const img = await picture.render('RingComponent', {
+    cssName: 'new-ring',
+    props: {
+      data
+    },
+    name: UID
+  })
+  if (typeof img != 'boolean') e.reply(img)
+})
+
+message.response(
+  /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/,
+  async e => {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const [thingName, thingAcount] = e.msg
@@ -104,13 +76,11 @@ export class Ring extends APlugin {
     })
     return
   }
+)
 
-  /**
-   * 存入
-   * @param e
-   * @returns
-   */
-  async deposit(e: AEvent) {
+message.response(
+  /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))存入[\u4e00-\u9fa5]+\*\d+$/,
+  async e => {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const [thingName, thingAcount] = e.msg
@@ -165,4 +135,6 @@ export class Ring extends APlugin {
     })
     return
   }
-}
+)
+
+export const Ring = message.ok

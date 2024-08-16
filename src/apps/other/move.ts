@@ -1,69 +1,6 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { Messages, type AEvent } from 'alemonjs'
 import { ControlByBlood, isThereAUserPresent } from 'xiuxian-api'
-
 import * as GameApi from 'xiuxian-core'
-
-export class Move extends APlugin {
-  constructor() {
-    super({
-      rule: [
-        { reg: /^(#|\/)?(坐标信息|坐標信息)$/, fnc: 'xyzaddress' },
-        { reg: /^(#|\/)?向上$/, fnc: 'mapW' },
-        { reg: /^(#|\/)?向左$/, fnc: 'mapA' },
-        { reg: /^(#|\/)?向下$/, fnc: 'mapS' },
-        { reg: /^(#|\/)?向右$/, fnc: 'mapD' }
-      ]
-    })
-  }
-
-  async xyzaddress(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    e.reply([`坐标(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`])
-    return
-  }
-
-  async mapW(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await ControlByBlood(e, UserData))) return
-    UserData.pont_y += 10
-    showAction(e, UID, UserData)
-    return
-  }
-
-  async mapA(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await ControlByBlood(e, UserData))) return
-    UserData.pont_x -= 10
-    showAction(e, UID, UserData)
-    return
-  }
-
-  async mapS(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await ControlByBlood(e, UserData))) return
-    UserData.pont_y -= 10
-    showAction(e, UID, UserData)
-    return
-  }
-
-  async mapD(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await ControlByBlood(e, UserData))) return
-    UserData.pont_x += 10
-    showAction(e, UID, UserData)
-    return
-  }
-}
 
 async function showAction(e: AEvent, UID: string, UserData) {
   const mData = await GameApi.Map.getRecordsByXYZ(
@@ -83,3 +20,55 @@ async function showAction(e: AEvent, UID: string, UserData) {
   }
   return
 }
+
+const message = new Messages()
+
+message.response(/^(#|\/)?(坐标信息|坐標信息)$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  e.reply([`坐标(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`])
+  return
+})
+
+message.response(/^(#|\/)?向上$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await ControlByBlood(e, UserData))) return
+  UserData.pont_y += 10
+  showAction(e, UID, UserData)
+  return
+})
+
+message.response(/^(#|\/)?向左$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await ControlByBlood(e, UserData))) return
+  UserData.pont_x -= 10
+  showAction(e, UID, UserData)
+  return
+})
+
+message.response(/^(#|\/)?向下$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await ControlByBlood(e, UserData))) return
+  UserData.pont_y -= 10
+  showAction(e, UID, UserData)
+  return
+})
+
+message.response(/^(#|\/)?向右$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await ControlByBlood(e, UserData))) return
+  UserData.pont_x += 10
+  showAction(e, UID, UserData)
+  return
+})
+
+export const Move = new Messages()

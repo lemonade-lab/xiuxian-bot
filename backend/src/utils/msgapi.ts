@@ -1,11 +1,7 @@
 import { type AEvent } from 'alemonjs'
-
-// 用户模型
 import { ERROE_CODE, OK_CODE } from '../config/ajax'
 import { user } from 'xiuxian-db'
-
 import Application from 'koa'
-
 import {
   Cooling,
   Method,
@@ -18,7 +14,6 @@ import {
   Bag,
   Equipment
 } from 'xiuxian-core'
-import { sendMessageArray } from 'xiuxian-api'
 
 /**
  *
@@ -240,14 +235,6 @@ export async function controlByName(e: AEvent, UserData, addressName: string) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     e.reply([`你没有在这里哦—\n————————\n[/前往${addressName}]`])
-    const msg = [
-      { label: `前往${addressName}`, value: `/前往${addressName}` },
-      {
-        label: '控制板',
-        value: '/控制板'
-      }
-    ]
-    sendMessageArray(e, msg)
     return false
   }
   return true

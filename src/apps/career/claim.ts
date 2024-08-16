@@ -1,7 +1,7 @@
-import { APlugin, type AEvent } from 'alemonjs'
+import { Messages } from 'alemonjs'
+import * as GameApi from 'xiuxian-core'
 import { isThereAUserPresent, ControlByBlood, controlByName } from 'xiuxian-api'
 
-import * as GameApi from 'xiuxian-core'
 /**
  * 职业经验够了之后
  * 需要前往协会交付灵石来考核
@@ -17,106 +17,51 @@ import * as GameApi from 'xiuxian-core'
  * 灵根多，加成的下降
  */
 
-export class ClaimCareer extends APlugin {
-  constructor() {
-    super({
-      rule: [
-        {
-          reg: /^(#|\/)?协会$/,
-          fnc: 'association'
-        },
-        {
-          reg: /^(#|\/)?炼器师学徒$/,
-          fnc: 'craftsmanApprentice'
-        },
-        {
-          reg: /^(#|\/)?炼丹师学徒$/,
-          fnc: 'alchemistApprentice'
-        },
-        {
-          reg: /^(#|\/)?阵法师学徒$/,
-          fnc: 'masterApprentice'
-        },
-        {
-          reg: /^(#|\/)?徽章信息$/,
-          fnc: 'emblemInformation'
-        }
-      ]
-    })
-  }
+const message = new Messages()
 
-  /**
-   *协会
-   * @param e
-   * @returns
-   */
-  async association(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await controlByName(e, UserData, '协会'))) return
-    e.reply([
-      '[协会执事]😳叶子凡\n',
-      '欢迎来到修仙协会\n',
-      '化神境之后,可交付灵石获得学徒身份\n',
-      '当前可领取[/炼器师学徒]'
-    ])
-    return
-  }
+message.response(/^(#|\/)?协会$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await controlByName(e, UserData, '协会'))) return
+  e.reply([
+    '[协会执事]😳叶子凡\n',
+    '欢迎来到修仙协会\n',
+    '化神境之后,可交付灵石获得学徒身份\n',
+    '当前可领取[/炼器师学徒]'
+  ])
+})
 
-  /**
-   * 炼器师学徒
-   * @param e
-   * @returns
-   */
-  async craftsmanApprentice(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await controlByName(e, UserData, '协会'))) return
-    e.reply(['[协会执事]😳叶子凡\n', '目前职业炼丹师\n'])
-    return
-  }
+message.response(/^(#|\/)?炼器师学徒$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await controlByName(e, UserData, '协会'))) return
+  e.reply(['[协会执事]😳叶子凡\n', '目前职业炼丹师\n'])
+})
 
-  /**
-   * 炼丹师学徒
-   * @param e
-   * @returns
-   */
-  async alchemistApprentice(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await controlByName(e, UserData, '协会'))) return
-    e.reply(['[协会执事]😳叶子凡\n', '待开放'])
-    return
-  }
+message.response(/^(#|\/)?炼丹师学徒$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await controlByName(e, UserData, '协会'))) return
+  e.reply(['[协会执事]😳叶子凡\n', '待开放'])
+})
 
-  /**
-   * 阵法师学徒
-   * @param e
-   * @returns
-   */
-  async masterApprentice(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await controlByName(e, UserData, '协会'))) return
-    e.reply(['[协会执事]😳叶子凡\n', '待开放'])
-    return
-  }
+message.response(/^(#|\/)?阵法师学徒$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await controlByName(e, UserData, '协会'))) return
+  e.reply(['[协会执事]😳叶子凡\n', '待开放'])
+})
 
-  /**
-   *徽章信息
-   * @param e
-   * @returns
-   */
-  async emblemInformation(e: AEvent) {
-    const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
-    if (!(await ControlByBlood(e, UserData))) return
-    e.reply('[协会执事]😳叶子凡\n暂未开放...')
-    return
-  }
-}
+message.response(/^(#|\/)?徽章信息$/, async e => {
+  const UID = e.user_id
+  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await GameApi.Users.read(UID)
+  if (!(await ControlByBlood(e, UserData))) return
+  e.reply('[协会执事]😳叶子凡\n暂未开放...')
+})
+
+export const ClaimCareer = message.ok
