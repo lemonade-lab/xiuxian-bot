@@ -1,9 +1,4 @@
-import {
-  APlugin,
-  Controllers,
-  type MessageButtonType,
-  type AEvent
-} from 'alemonjs'
+import { APlugin, type MessageButtonType, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   ControlByBlood,
@@ -274,11 +269,7 @@ export class Monster extends APlugin {
     await GameApi.Monster.reduce(UserData.point_type, Mname)
     // 发送下下哦i
     await e.reply(msgRight)
-    Controllers(e).Message.reply('', [
-      { label: '储物袋', value: '/储物袋' },
-      { label: '突破', value: '/突破' },
-      { label: '破境', value: '/破境' }
-    ])
+
     return
   }
 
@@ -327,7 +318,6 @@ export class Monster extends APlugin {
         }`
       )
     }
-    const m = Controllers(e).Message
     e.reply(msg).then(() => {
       // 分开发送。
       const arrs: MessageButtonType[][] = []
@@ -342,7 +332,6 @@ export class Monster extends APlugin {
       if (arr.length >= 1) {
         arrs.push(arr)
       }
-      m.reply('', ...arrs)
     })
     return
   }

@@ -1,9 +1,4 @@
-import {
-  APlugin,
-  Controllers,
-  type MessageButtonType,
-  type AEvent
-} from 'alemonjs'
+import { APlugin, type MessageButtonType, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   ControlByBlood,
@@ -171,7 +166,6 @@ export class Ore extends APlugin {
         }`
       )
     }
-    const m = Controllers(e).Message
     // 采集
     e.reply(msg).then(() => {
       // 分开发送。
@@ -207,7 +201,6 @@ export class Ore extends APlugin {
         }
         arrs.push(arr)
       }
-      m.reply('', ...arrs)
     })
   }
 }

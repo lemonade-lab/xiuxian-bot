@@ -1,8 +1,8 @@
 import { APlugin, type AEvent } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
-
 import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
+
 export class AssStart extends APlugin {
   constructor() {
     super({

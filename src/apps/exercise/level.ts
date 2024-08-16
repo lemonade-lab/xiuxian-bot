@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { levelUp } from 'xiuxian-api'
 export class Level extends APlugin {
   constructor() {
@@ -18,16 +18,7 @@ export class Level extends APlugin {
    */
   async breakThrough(e: AEvent) {
     levelUp(e, 6, 1, 90)
-    this.buttons(e)
     return
-  }
-
-  async buttons(e: AEvent) {
-    Controllers(e).Message.reply('', [
-      { label: '修仙帮助', value: '/修仙帮助' },
-      { label: '地图', value: '/地图' },
-      { label: '控制板', value: '/控制板' }
-    ])
   }
 
   /**
@@ -37,7 +28,6 @@ export class Level extends APlugin {
    */
   async breakingTheBoundary(e: AEvent) {
     levelUp(e, 7, 2, 80)
-    this.buttons(e)
     return
   }
 
@@ -48,7 +38,6 @@ export class Level extends APlugin {
    */
   async insight(e: AEvent) {
     levelUp(e, 19, 3, 80)
-    this.buttons(e)
     return
   }
 }

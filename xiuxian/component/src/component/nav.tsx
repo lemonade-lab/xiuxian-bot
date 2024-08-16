@@ -34,41 +34,31 @@ export default function App({ data }) {
         >
           <span
             className="nav-talent-item nav-talent-item-1"
-            style={{
-              filter: show(1, 6)
-            }}
+            style={{ filter: show(1, 6) }}
           >
             金
           </span>
           <span
             className="nav-talent-item nav-talent-item-2"
-            style={{
-              filter: show(2, 7)
-            }}
+            style={{ filter: show(2, 7) }}
           >
             木
           </span>
           <span
             className="nav-talent-item nav-talent-item-3"
-            style={{
-              filter: show(3, 8)
-            }}
+            style={{ filter: show(3, 8) }}
           >
             水
           </span>
           <span
             className="nav-talent-item nav-talent-item-4"
-            style={{
-              filter: show(4, 9)
-            }}
+            style={{ filter: show(4, 9) }}
           >
             火
           </span>
           <span
             className="nav-talent-item nav-talent-item-5"
-            style={{
-              filter: show(5, 10)
-            }}
+            style={{ filter: show(5, 10) }}
           >
             土
           </span>
@@ -117,13 +107,6 @@ export default function App({ data }) {
             />
             <span>{data.battle_power}</span>
           </div>
-          {/* <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/money.svg')} />
-            <span>{data.money}</span>{' '}
-          </div> */}
-          {
-            // 天赋
-          }
           <div className="nav-box-item">
             <img
               className="nav-box-item-img"

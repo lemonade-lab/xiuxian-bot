@@ -1,4 +1,4 @@
-import { Controllers, Messages } from 'alemonjs'
+import { Messages } from 'alemonjs'
 import { isThereAUserPresent, sendReply, victoryCooling } from 'xiuxian-api'
 import { picture } from 'xiuxian-component'
 import * as DB from 'xiuxian-db'
@@ -122,11 +122,7 @@ message.response(/^(#|\/)?进入通天塔$/, async e => {
   e.reply(['进入[通天塔]'], {
     quote: e.msg_id
   })
-  Controllers(e).Message.reply('', [
-    { label: '奖励', value: '/通天塔奖励' },
-    { label: '挑战', value: '/挑战', enter: false },
-    { label: '控制板', value: '/控制板' }
-  ])
+
   await DB.sky.create({
     uid: UID
   })
@@ -160,11 +156,6 @@ message.response(/^(#|\/)?通天塔$/, async e => {
   })
   if (typeof img != 'boolean') {
     e.reply(img)
-    Controllers(e).Message.reply('', [
-      { label: '奖励', value: '/通天塔奖励' },
-      { label: '挑战', value: '/挑战', enter: false },
-      { label: '控制板', value: '/控制板' }
-    ])
   }
 })
 message.response(/^(#|\/)?挑战\d+$/, async e => {

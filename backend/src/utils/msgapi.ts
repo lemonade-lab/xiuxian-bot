@@ -1,4 +1,4 @@
-import { Controllers, type AEvent } from 'alemonjs'
+import { type AEvent } from 'alemonjs'
 
 // 用户模型
 import { ERROE_CODE, OK_CODE } from '../config/ajax'
@@ -18,6 +18,7 @@ import {
   Bag,
   Equipment
 } from 'xiuxian-core'
+import { sendMessageArray } from 'xiuxian-api'
 
 /**
  *
@@ -89,61 +90,6 @@ export async function levelUp(
   }, 1500)
   return
 }
-
-// /**
-//  * 踏入仙途
-//  */
-// export function createUser(e: AEvent) {
-//   const UID = e.user_id
-//   user
-//     .findOne({
-//       attributes: ['uid'],
-//       where: {
-//         uid: e.user_id
-//       },
-//       raw: true
-//     })
-//     .then((res: any) => res )
-//     .then(async res => {
-//       if (!res) {
-//         // 刷新用户信息
-//         updatePlayer(UID, e.user_avatar)
-//           .then(() => {
-//             // 设置冷却
-//             Burial.set(UID, 8, Cooling.CD_Reborn)
-
-//             if (e.platform == 'ntqq') {
-//               Controllers(e).Message.reply('', [
-//                 { label: '绑定头像', value: '/绑定头像+QQ', enter: false },
-//                 { label: '修仙帮助', value: '/修仙帮助' },
-//                 { label: '修仙联盟', value: '/前往联盟' }
-//               ])
-//             } else {
-//               e.reply(
-//                 [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
-//                 {
-//                   quote: e.msg_id
-//                 }
-//               )
-//             }
-
-//             // 显示资料
-//             showUserMsg(e)
-//           })
-//           .catch(err => {
-//             e.reply(['未寻得仙缘'], {
-//               quote: e.msg_id
-//             })
-//           })
-//       } else {
-//         // 显示资料
-//         showUserMsg(e)
-//       }
-//     })
-//     .catch(err => {
-//       e.reply('数据查询错误')
-//     })
-// }
 
 /**
  * 显示个人信息
@@ -294,13 +240,14 @@ export async function controlByName(e: AEvent, UserData, addressName: string) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     e.reply([`你没有在这里哦—\n————————\n[/前往${addressName}]`])
-    Controllers(e).Message.reply('', [
+    const msg = [
       { label: `前往${addressName}`, value: `/前往${addressName}` },
       {
         label: '控制板',
         value: '/控制板'
       }
-    ])
+    ]
+    sendMessageArray(e, msg)
     return false
   }
   return true

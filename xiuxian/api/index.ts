@@ -1,4 +1,4 @@
-import { Controllers, type AEvent } from 'alemonjs'
+import { type AEvent } from 'alemonjs'
 
 import { user } from 'xiuxian-db'
 
@@ -190,11 +190,6 @@ export function createUser(e: AEvent) {
           .then(() => {
             // 设置冷却
             Burial.set(UID, 8, Cooling.CD_Reborn)
-
-            Controllers(e).Message.reply('', [
-              { label: '修仙帮助', value: '/修仙帮助' },
-              { label: '修仙联盟', value: '/前往联盟' }
-            ])
             e.reply(
               [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
               {
@@ -239,14 +234,7 @@ export function showUserMsg(e: AEvent) {
       .then(img => {
         if (typeof img != 'boolean') {
           // 图片发送
-          e.reply(img).then(() => {
-            // buttons
-            Controllers(e).Message.reply('', [
-              { label: '面板信息', value: '/面板信息' },
-              { label: '功法信息', value: '/功法信息' },
-              { label: '控制板', value: '/控制板' }
-            ])
-          })
+          e.reply(img)
         }
       })
   })
@@ -275,6 +263,29 @@ export async function dualVerification(e: AEvent, UserData, UserDataB) {
     return false
   }
   return true
+}
+
+/**
+ *
+ * @param arr "
+ * @returns
+ */
+const flattenArray = arr => {
+  return arr.reduce((flat, toFlatten) => {
+    return flat.concat(
+      Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten
+    )
+  }, [])
+}
+
+/**
+ *
+ */
+export const sendMessageArray = (e: AEvent, msg) => {
+  const message = msg.map(item =>
+    item.map(item => `【${item.label}】${item.value}\n`)
+  )
+  e.reply(flattenArray(message))
 }
 
 /**
@@ -361,13 +372,6 @@ export async function controlByName(e: AEvent, UserData, addressName: string) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     e.reply([`你没有在这里哦—\n————————\n[/前往${addressName}]`])
-    Controllers(e).Message.reply('', [
-      { label: `前往${addressName}`, value: `/前往${addressName}` },
-      {
-        label: '控制板',
-        value: '/控制板'
-      }
-    ])
     return false
   }
   return true

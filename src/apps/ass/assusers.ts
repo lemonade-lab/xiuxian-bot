@@ -1,9 +1,10 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, sendReply } from 'xiuxian-api'
+import { APlugin, type AEvent } from 'alemonjs'
 import { Op } from 'sequelize'
 
+import { isThereAUserPresent, sendMessageArray, sendReply } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
+
 export class AssSsers extends APlugin {
   constructor() {
     super({
@@ -54,8 +55,7 @@ export class AssSsers extends APlugin {
 
     sendReply(e, `___[势力]___(${page}/${totalPages})`, msg)
 
-    Controllers(e).Message.reply(
-      '',
+    const messageArray = [
       [
         { label: '信息', value: '/势力信息' },
         { label: '管理', value: '/势力管理' },
@@ -79,7 +79,10 @@ export class AssSsers extends APlugin {
           value: '/退出'
         }
       ]
-    )
+    ]
+
+    sendMessageArray(e, messageArray)
+
     return
   }
 

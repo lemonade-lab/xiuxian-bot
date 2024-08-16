@@ -1,9 +1,8 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
-import { isThereAUserPresent, sendReply } from 'xiuxian-api'
+import { APlugin, type AEvent } from 'alemonjs'
+import { isThereAUserPresent, sendMessageArray, sendReply } from 'xiuxian-api'
 import { Op } from 'sequelize'
 
 import * as DB from 'xiuxian-db'
-
 import * as GameApi from 'xiuxian-core'
 
 export class AssManage extends APlugin {
@@ -46,9 +45,13 @@ export class AssManage extends APlugin {
     })
   }
 
+  /**
+   *
+   * @param e
+   */
   async admini(e: AEvent) {
-    Controllers(e).Message.reply(
-      '',
+    //
+    sendMessageArray(e, [
       [
         { label: '审核', value: '/审核', enter: false },
         {
@@ -88,7 +91,9 @@ export class AssManage extends APlugin {
           value: '/控制板'
         }
       ]
-    )
+    ])
+
+    //
   }
 
   /**

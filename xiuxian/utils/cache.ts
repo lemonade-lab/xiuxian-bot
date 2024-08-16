@@ -1,13 +1,17 @@
 import { ABuffer, importPath } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-
 import { picture } from 'xiuxian-component'
 
 const helpData = {}
 const app = importPath(import.meta.url)
 const dir = app.cwd()
 
+/**
+ *
+ * @param name
+ * @returns
+ */
 function getJson(name: string) {
   return JSON.parse(
     readFileSync(join(dir, 'public', 'defset', `${name}.json`), 'utf-8')

@@ -45,12 +45,13 @@ export default function App({ data }) {
       <div className="box-help">
         <div className="box-help-box">
           <span className="menu-button-flat">/修仙帮助</span>
-          <span className="menu-button">/突破</span>
-          <span className="menu-button">/闭关</span>
-          <span className="menu-button">/出关</span>
-          <span className="menu-button">/储物袋</span>
-          <span className="menu-button">/万宝楼</span>
-          <span className="menu-button">/打劫@道友</span>
+          {['/突破', '/闭关', '/出关', '/储物袋', '/万宝楼', '/打劫@道友'].map(
+            (item, index) => (
+              <span key={index} className="menu-button">
+                {item}
+              </span>
+            )
+          )}
         </div>
       </div>
     </div>

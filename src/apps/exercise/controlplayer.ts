@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { isThereAUserPresent, endAllWord } from 'xiuxian-api'
 
 import * as GameApi from 'xiuxian-core'
@@ -140,20 +140,6 @@ export class ControlPlayer extends APlugin {
     if (!(await isThereAUserPresent(e, UID))) return
     const UserData = await GameApi.Users.read(UID)
     await endAllWord(e, UID, UserData)
-    if (e.platform == 'ntqq') {
-      Controllers(e).Message.reply(
-        '',
-        [
-          { label: '探索怪物', value: '/探索怪物' },
-          { label: '突破', value: '/突破' },
-          { label: '破境', value: '/破境' }
-        ],
-        [
-          { label: '地图', value: '/地图' },
-          { label: '控制板', value: '/控制板' }
-        ]
-      )
-    }
     return
   }
 }

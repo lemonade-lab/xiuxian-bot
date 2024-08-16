@@ -1,4 +1,4 @@
-import { APlugin, ClientNTQQ, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import {
   isThereAUserPresent,
   isThereAUserPresentB,
@@ -8,7 +8,6 @@ import {
   ControlByBlood,
   victoryCooling
 } from 'xiuxian-api'
-import { Config } from 'xiuxian-core'
 import { Op } from 'sequelize'
 
 import * as GameApi from 'xiuxian-core'
@@ -392,37 +391,19 @@ export class SneakAttack extends APlugin {
         limit: 10
       })
       .then(res => res.map(item => item.dataValues))
-    if (e.platform == 'ntqq') {
-      let p = ClientNTQQ.createTemplate(Config.TemplateId)
-      for (const item of AllUser) {
-        p.button({
-          start: `${item.name} 🩸${item?.battle_blood_now}\r`,
-          label: `👊 偷袭`,
-          value: `/偷袭${item?.id}`,
-          end: `${item?.battle_power}`,
-          change: true
-        })
-      }
-      const param = p.getParam()
-      if (param.markdown.params.length > 0) {
-        Controllers(e).Message.card([param])
-      } else {
-        e.reply('附近空无一人')
-      }
-      p = null
-    } else {
-      const msg: string[] = ['[附近道友]']
-      for (const item of AllUser) {
-        msg.push(
-          `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
-        )
-      }
-      if (msg.length > 1) {
-        e.reply(msg)
-      } else {
-        e.reply('附近空无一人')
-      }
+
+    const msg: string[] = ['[附近道友]']
+    for (const item of AllUser) {
+      msg.push(
+        `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
+      )
     }
+    if (msg.length > 1) {
+      e.reply(msg)
+    } else {
+      e.reply('附近空无一人')
+    }
+
     return
   }
 }

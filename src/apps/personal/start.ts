@@ -1,4 +1,4 @@
-import { APlugin, Controllers, type AEvent } from 'alemonjs'
+import { APlugin, type AEvent } from 'alemonjs'
 import { showUserMsg, isUser, createUser } from 'xiuxian-api'
 
 import * as DB from 'xiuxian-db'
@@ -35,11 +35,6 @@ export class Start extends APlugin {
             .then(() => {
               // 设置冷却
               GameApi.Burial.set(UID, 8, GameApi.Cooling.CD_Reborn)
-              Controllers(e).Message.reply(
-                '',
-                [{ label: '修仙帮助', value: '/修仙帮助' }],
-                [{ label: '修仙联盟', value: '/前往联盟' }]
-              )
               e.reply(
                 [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
                 {

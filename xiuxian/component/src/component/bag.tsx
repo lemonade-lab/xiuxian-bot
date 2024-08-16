@@ -36,14 +36,20 @@ export default function App({ data }) {
               {item['good']['dataValues']['name']}
             </div>
             <div className="user_top_right_font1 font_control lattice">
-              <div>攻击: {item['good']['dataValues']['attack']}%</div>
-              <div>防御: {item['good']['dataValues']['defense']}%</div>
-              <div>血量: {item['good']['dataValues']['blood']}%</div>
+              {[
+                `攻击: ${item['good']['dataValues']['attack']}%`,
+                `防御: ${item['good']['dataValues']['defense']}%`,
+                `血量: ${item['good']['dataValues']['blood']}%`
+              ].map((item, index) => (
+                <div key={index}>{item}</div>
+              ))}
             </div>
             <div className="user_top_right_font font_control lattice">
-              <div>天赋: {item['good']['dataValues']['size']}%</div>
-              <div>暴击: {item['good']['dataValues']['critical_hit']}%</div>
-              <div>暴伤: {item['good']['dataValues']['critical_damage']}%</div>
+              {[
+                `天赋: ${item['good']['dataValues']['size']}%`,
+                `暴击: ${item['good']['dataValues']['critical_hit']}%`,
+                `暴伤: ${item['good']['dataValues']['critical_damage']}%`
+              ]}
             </div>
             <div className="user_top_right_font1 font_control lattice">
               <div>敏捷: {item['good']['dataValues']['speed']}</div>
@@ -59,9 +65,13 @@ export default function App({ data }) {
               className="user_top_right_font2 font_control lattice"
               style={{ marginBottom: '5px' }}
             >
-              <div>等级: {item['good']['dataValues']['grade']}</div>
-              <div>数量: {item.acount}</div>
-              <div>灵石: {item['good']['dataValues']['price']}</div>
+              {[
+                `等级: ${item['good']['dataValues']['grade']}`,
+                `数量: ${item.acount}`,
+                `灵石: ${item['good']['dataValues']['price']}`
+              ].map((item, index) => (
+                <div key={index}>{item}</div>
+              ))}
             </div>
           </div>
         ))}
