@@ -6,14 +6,12 @@ node_modules
 /stats.html
 
 # Local env files
-.env
 a.login.config.ts
 a.login.test.ts
 alemon.app.js
 xiuxian-plugin.json
 
 alemon.login.ts
-alemon.env
 
 # alemon dev/config
 /data/
@@ -58,3 +56,6 @@ cache
 .yarn
 
 .html
+
+
+*.env

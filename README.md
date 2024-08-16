@@ -1,26 +1,43 @@
-## 修仙机器人
+# 修仙机器人
 
-### 基础环境
+## 环境
 
-> [https://alemonjs.com/](https://alemonjs.com/)
+- Centos Node
 
-> 必要环境 Windows>=7/Linux>=7.6 + Chrome/Chromium/Edge
+```sh
+curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
+sudo yum install -y nodejs
+node -v
+```
 
-> 必要环境 Node.js 18.20.3 + Redis 6.0.0
+- redis
+
+```sh
+sudo yum update
+sudo yum install epel-release
+# install
+sudo yum install redis
+# start
+sudo systemctl start redis
+# status
+sudo systemctl status redis
+# enable 开启自启动
+sudo systemctl enable redis
+```
+
+- mysql
+
+```sh
+
+```
 
 ### 本地调试
 
 - 源码安装
 
 ```sh
-git clone --depth=1  git@github.com:ningmengchongshui/xiuxian-bot.git
-cd xiuxian-bot
-```
-
-```sh
 git clone --depth=1  https://github.com/lemonade-lab/xiuxian.bot.git
-cd xiuxian-bot
-
+cd xiuxian.bot
 ```
 
 - 依赖加载
@@ -52,18 +69,16 @@ APP_SERVER_KEY = 'xiuxian'
 
 - MySQL80
 
-```
-数据库名 xiuxian_bak
-字符集 utf8mb4
-排序规则 utf8mb4_german2_ci
-```
+> 阅读 xiuxian/db/src/models 建表
+
+数据库名 `xiuxian_bak`
+字符集 `utf8mb4`
+排序规则 `utf8mb4_german2_ci`
 
 - 应用调试
 
 ```sh
 yarn app
-#
-yarn dev
 ```
 
 ## dev
