@@ -2,9 +2,5 @@
  *  @type {import('tailwindcss').Config}
  */
 export default {
-  content: ['./xiuxian/**/*.{js,jsx,ts,tsx}'],
-  plugins: [],
-  theme: {
-    extend: {}
-  }
+  content: ['./xiuxian/**/*.{js,jsx,ts,tsx}']
 }

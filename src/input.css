@@ -1,3 +1,121 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .user {
+    @apply w-full mx-auto text-center;
+  }
+
+  .lattice {
+    @apply grid-cols-3 text-left py-2 px-0 md:px-12;
+  }
+
+  .Horizontal_grid {
+    @apply py-2;
+  }
+
+  .font_control {
+    @apply text-5xl text-white whitespace-nowrap;
+  }
+
+  .user_top {
+    @apply grid  bg-cover;
+  }
+
+  .user_right {
+    @apply mx-auto w-full h-full;
+  }
+
+  .user_top_img_bottom {
+    @apply w-72 h-72 mx-auto bg-cover;
+  }
+
+  .user_top_img {
+    @apply w-48 h-48 rounded-full mx-auto pl-11 mt-16;
+  }
+
+  .user_top_left {
+    @apply text-left mx-auto my-0 ml-20;
+  }
+
+  .user_top_right {
+    @apply mx-auto my-0;
+  }
+
+  .user_top_right_font0 {
+    @apply text-5xl text-green-800 py-4 px-6 rounded-tl-2xl rounded-tr-2xl bg-green-500;
+  }
+
+  .user_top_right_font1 {
+    @apply text-5xl text-green-800 py-4 px-6 bg-opacity-70 bg-green-300;
+  }
+
+  .user_top_msg {
+    @apply text-5xl text-green-800 py-4 px-6 bg-green-300 grid grid-cols-2;
+  }
+
+  .user_top_right_font {
+    @apply text-5xl text-green-800 py-4 px-6 bg-green-300;
+  }
+
+  .user_top_right_font2 {
+    @apply text-5xl text-green-800 py-4 px-6 rounded-bl-2xl rounded-br-2xl bg-green-300;
+  }
+
+  .user_font_msg {
+    @apply text-left pl-20 whitespace-nowrap;
+  }
+
+  .use_data {
+    @apply pb-5;
+  }
+
+  .user_font {
+    @apply text-left my-9 text-6xl px-6 pl-16 font-semibold text-green-800 rounded-2xl bg-opacity-50 bg-gray-500;
+  }
+
+  .gonfa {
+    @apply flex flex-wrap;
+  }
+
+  .gonfa2 {
+    @apply flex-grow-2 w-1/3 shadow-md;
+  }
+
+  .user_bottom0 {
+    @apply pt-20 pb-5 rounded-2xl px-10 h-96 mx-auto;
+  }
+
+  .user_bottom1 {
+    @apply rounded-2xl px-10 mx-auto;
+  }
+
+  .user_bottom2 {
+    @apply rounded-2xl px-10 mx-auto h-20;
+  }
+}
+
+#root {
+  @apply w-full h-full;
+}
+
+.autograph {
+  @apply p-8 md:p-4;
+}
+
+.level {
+  @apply p-8 md:p-4;
+}
+
+.level-box-item {
+  @apply flex-1 flex-shrink-0;
+}
+
+.box-help {
+  @apply p-8 md:p-4;
+}
+
+.kills {
+  @apply p-8 md:p-4;
+}

@@ -9,6 +9,10 @@ const config = [
   {
     input: 'backend/main.ts',
     file: 'backend/index.js'
+  },
+  {
+    input: 'src/main.ts',
+    file: 'src/index.js'
   }
 ]
 export default config.map(item => ({

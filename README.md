@@ -91,7 +91,7 @@ yarn app
 
 数据库模型调用
 
-- xiuxian-component
+- xiuxian-img
 
 tsx组件及截图
 

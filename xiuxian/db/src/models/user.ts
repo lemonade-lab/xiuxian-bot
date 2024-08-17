@@ -14,7 +14,7 @@ export const user = sequelize.define<
     state_start_time: number // 状态开始时间
     state_end_time: number // 状态结束时间
 
-    theme: string
+    theme: 'dark' | 'red' | 'blue' | 'purple'
 
     email: string
 

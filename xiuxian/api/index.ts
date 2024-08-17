@@ -1,7 +1,5 @@
 import { type AEvent } from 'alemonjs'
-
 import { user } from 'xiuxian-db'
-
 import {
   Cooling,
   Method,
@@ -16,11 +14,8 @@ import {
   Bag,
   Equipment
 } from 'xiuxian-core'
-import { picture } from 'xiuxian-component'
-
-// 缓存
+import { picture } from 'xiuxian-img'
 import { urlHelpCache } from 'xiuxian-utils'
-// img
 import { personalInformation } from 'xiuxian-statistics'
 
 const reStart = {}
@@ -227,9 +222,7 @@ export function showUserMsg(e: AEvent) {
         name: UID,
         props: {
           data: res
-        },
-        cssName: ['new-nav', 'new-message'],
-        theme: res.theme as any
+        }
       })
       .then(img => {
         if (typeof img != 'boolean') {
