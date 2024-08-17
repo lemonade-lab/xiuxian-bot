@@ -4,12 +4,9 @@
   "description": "凡人修仙文字游戏",
   "author": "ningmengchongshui",
   "license": "GPL-2.0",
-  "main": "main.js",
+  "main": "index.js",
   "type": "module",
   "private": true,
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {},
   "engines": {
     "node": ">=16.14.0"
   }

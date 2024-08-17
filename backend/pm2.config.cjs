@@ -4,9 +4,9 @@
 module.exports = {
   apps: [
     {
-      name: 'alemonb',
-      script: './app.js',
-      args: ['--run', 'index.ts'].concat([...process.argv].slice(4)),
+      name: 'alemon-server',
+      script: 'backend/index.js',
+      args: [...process.argv].slice(4),
       // 超时时间内进程仍未终止，则 PM2 将强制终止该进程
       kill_timeout: 5000,
       // 发送意外重启
@@ -23,6 +23,7 @@ module.exports = {
       watch: false,
       // 不监听文件变化
       watch: false,
+      //
       env: {
         NODE_ENV: 'production'
       }

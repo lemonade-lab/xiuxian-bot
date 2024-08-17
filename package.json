@@ -8,8 +8,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "app": "npm run css && node app.js --run index.ts",
     "dev": "nodemon",
+    "app": "npm run css && node app.js --run index.ts",
     "build": "rollup --config rollup.config.js",
     "start": "pm2 startOrRestart pm2.config.cjs",
     "stop": "pm2 stop pm2.config.cjs",
@@ -19,8 +19,10 @@
     "monit": "pm2 monit",
     "pm2": "pm2",
     "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
-    "css:watch": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
-    "dev:server": "nodemon --config backend/nodemon.json",
+    "css-m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
+    "css-w": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
+    "server-dev": "nodemon --config backend/nodemon.json",
+    "server-start": "pm2 startOrRestart backend/pm2.config.cjs",
     "format": "prettier --write .",
     "check-format": "git diff --exit-code",
     "prepare": "husky"
