@@ -1,5 +1,7 @@
 import React from 'react'
 import { ThemesEmun } from '../core'
+import Header from './con/header'
+import Footer from './con/footer'
 
 type PropsType = {
   data: any
@@ -33,14 +35,14 @@ export default function App({ data, theme }: PropsType) {
     <div
       id="root"
       data-theme={theme}
-      className="w-full h-full text-center"
+      className="w-full h-full p-4"
       style={{
         backgroundImage: 'var(--background-image)',
         backgroundSize: '100% auto'
       }}
     >
-      <div className="min-h-20"></div>
-      <div className="w-full h-full">
+      <Header />
+      <div className="w-full h-full bg-black bg-opacity-10 my-8  text-center">
         <div className="grid grid-cols-2">
           {Object.keys(CD_MAP).map((item, index) => (
             <div key={index} className="w-80 mx-auto text-3xl p-2">
@@ -63,7 +65,8 @@ export default function App({ data, theme }: PropsType) {
           ))}
         </div>
       </div>
-      <div className="min-h-20"></div>
+      <Footer />
+      <div className="min-h-10"></div>
     </div>
   )
 }

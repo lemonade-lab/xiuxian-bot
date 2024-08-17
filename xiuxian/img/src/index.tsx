@@ -3,9 +3,15 @@ import { dirname } from 'path'
 import { createRequire } from 'react-puppeteer'
 import * as Component from './component/index.js'
 import { Picture } from 'react-puppeteer'
+
+export { Component }
+
 const require = createRequire(import.meta.url)
 
-const CacheOptions = {
+/**
+ *
+ */
+export const PictureOptions = {
   // 别名
   file_paths: {
     // 定位自身的 md文件，并获取目录地址
@@ -49,7 +55,7 @@ class ScreenshotPicture extends Picture {
       // 地址
       html_name: `${options?.name ?? 'help'}.html`,
       // ...
-      ...CacheOptions,
+      ...PictureOptions,
       // body 内容
       html_body: <MyComponent {...Props} />
     })

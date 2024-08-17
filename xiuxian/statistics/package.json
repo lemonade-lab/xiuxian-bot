@@ -7,15 +7,10 @@
   "main": "src/index.js",
   "type": "module",
   "private": true,
-  "scripts": {},
-  "dependencies": {},
   "exports": {
     ".": {
       "import": "./index.js",
       "types": "./index.d.ts"
     }
-  },
-  "engines": {
-    "node": ">=16.14.0"
   }
 }

@@ -488,7 +488,14 @@ export async function victoryCooling(
   return true
 }
 
-export async function endAllWord(e: AEvent, UID: string, UserData) {
+export async function endAllWord(
+  e: AEvent,
+  UID: string,
+  UserData: {
+    state: number
+    state_start_time: number
+  }
+) {
   const mapText = {
     1: '只是呆了一会儿',
     2: '走累了,就停一停吧',
@@ -496,7 +503,7 @@ export async function endAllWord(e: AEvent, UID: string, UserData) {
   }
   if (!mapText[UserData.state]) {
     setTimeout(() => {
-      e.reply(['哎哟', '你干嘛'])
+      e.reply('哎哟,你干嘛')
     }, 1000)
     return true
   }

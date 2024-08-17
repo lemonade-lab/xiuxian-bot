@@ -1,6 +1,8 @@
 import { hash } from 'alemonjs'
 import React from 'react'
 import { ThemesEmun } from '../core'
+import Header from './con/header'
+import Footer from './con/footer'
 
 type PropsType = {
   data: {
@@ -48,34 +50,47 @@ export default function App({ data, theme }: PropsType) {
       {
         //
       }
-      <nav className="flex justify-between w-full bg-black bg-opacity-30">
+
+      <Header list={['/装备+装备名', '/卸下+装备名']} />
+
+      <nav className="flex justify-between rounded-md w-full bg-black bg-opacity-30">
+        <div className="flex-1 flex flex-col">
+          <div className=" bg-black bg-opacity-30">
+            <div className=" bg-[#2c447594] text-white text-2xl p-3">{UID}</div>
+          </div>
+          <div className="flex-1 flex">
+            <img
+              className="size-56 rounded-full m-auto"
+              src={data.avatar}
+              alt="User Avatar"
+            />
+          </div>
+          <div className=" bg-black bg-opacity-30">
+            {[`战力 : ${data.battle_power}`].map((item, index) => (
+              <div key={index} className=" text-white text-2xl p-3">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="flex-1 bg-black bg-opacity-30">
-          <div className=" bg-[#2c447594] text-white text-2xl p-3">{UID}</div>
           {[
             `攻击 : ${data.battle_attack}`,
             `血量 : ${data.battle_blood_limit}`,
             `敏捷 : ${data.battle_speed}`,
             `防御 : ${data.battle_defense}`,
             `暴击 : ${data.battle_critical_hit}%`,
-            `暴伤 : ${data.battle_critical_damage}%`,
-            `战力 : ${data.battle_power}`
+            `暴伤 : ${data.battle_critical_damage}%`
           ].map((item, index) => (
             <div key={index} className=" text-white text-2xl p-3">
               {item}
             </div>
           ))}
         </div>
-        <div className="flex-1 flex">
-          <img
-            className="size-60 rounded-full m-auto"
-            src={data.avatar}
-            alt="User Avatar"
-          />
-        </div>
       </nav>
 
       {data.fate.length > 0 && (
-        <div className="rounded-lg px-27  my-4 mx-auto ">
+        <div className="rounded-md px-27  my-4 mx-auto ">
           <div className="pb-5">
             {data.fate.map(item => (
               <div key={item.name}>
@@ -119,7 +134,7 @@ export default function App({ data, theme }: PropsType) {
       {
         //
       }
-      <div className="rounded-lg px-27 my-4 bg-black bg-opacity-30">
+      <div className="rounded-md px-27 my-4 bg-black bg-opacity-30">
         <div className="pb-5">
           {data.equipment.map(item => (
             <div key={item['good.name']}>
@@ -155,10 +170,16 @@ export default function App({ data, theme }: PropsType) {
           ))}
         </div>
       </div>
+
       {
         //
       }
-      <div className="min-h-20"></div>
+
+      <Footer
+        list={['/功法信息', '/本命', '/勋章信息']}
+        docs={'提示：任何物品都可以装备哦～'}
+      />
+      <div className="min-h-10"></div>
     </div>
   )
 }

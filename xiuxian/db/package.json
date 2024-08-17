@@ -7,7 +7,6 @@
   "main": "src/index.js",
   "type": "module",
   "private": true,
-  "scripts": {},
   "dependencies": {
     "mysql2": "^3.6.2",
     "sequelize": "^6.33.0"
@@ -17,8 +16,5 @@
       "import": "./src/index.js",
       "types": "./src/index.d.ts"
     }
-  },
-  "engines": {
-    "node": ">=16.14.0"
   }
 }

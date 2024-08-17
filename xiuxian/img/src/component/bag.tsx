@@ -1,7 +1,7 @@
 import React from 'react'
 import { nameMap, ThemesEmun } from '../core'
 import { hash } from 'alemonjs'
-import Nav2 from './con/Nav2'
+import Nav from './con/Nav'
 
 type PropsType = {
   data: {
@@ -35,7 +35,7 @@ export default function App({ data, theme }: PropsType) {
       }}
       className="bg-cover bg-center p-4"
     >
-      <Nav2
+      <Nav
         UID={UID}
         avatar={data.avatar}
         list={[
@@ -43,7 +43,7 @@ export default function App({ data, theme }: PropsType) {
           `等级: ${data.bag_grade}`,
           `格子: ${data.length}/${data.bag_grade * 10}`
         ]}
-      ></Nav2>
+      />
       <main className="my-4">
         {data.bag.map((item, index) => (
           <div key={index} className="bg-black bg-opacity-30">

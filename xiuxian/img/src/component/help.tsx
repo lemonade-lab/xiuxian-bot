@@ -23,11 +23,11 @@ export default function App({ data, theme }: PropsType) {
       <BackgroundImage url={require('../../../../public/img/equipment.jpg')}>
         <div className="min-h-10"></div>
         <div className="text-xl m-8 px-6 p-4  rounded-md bg-black bg-opacity-20 text-center text-white relative shadow-lg font-semibold">
-          <span className="">信息服务网</span>
+          <span className=" text-blue-700">信息服务网</span>
           <span className="text-2xl  text-yellow-300 inline-block px-3 font-semibold">
             {'http://43.143.217.7/'}
           </span>
-          <span>修仙交流群</span>
+          <span className="text-blue-700">修仙交流群</span>
           <span className="text-2xl text-yellow-300 inline-block px-3 font-semibold">
             {_QQ}
           </span>

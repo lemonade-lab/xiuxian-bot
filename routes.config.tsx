@@ -1,43 +1,27 @@
 import React from 'react'
-import { dirname, join } from 'path'
-import { createRequire, defineConfig } from 'react-puppeteer'
-import * as Component from './xiuxian/img/src/component/index.js'
-import * as Cooling from './xiuxian/core/config/cooling.js'
+import { join } from 'path'
+import { defineConfig } from 'react-puppeteer'
 import { readFileSync } from 'fs'
+import { PictureOptions, Component } from 'xiuxian-img'
 import {
   personalInformation,
   backpackInformation,
   equipmentInformation
 } from 'xiuxian-statistics'
-
-const require = createRequire(import.meta.url)
-
-const options = {
-  // 别名
-  file_paths: {
-    // 定位自身的 md文件，并获取目录地址
-    '@xiuxian': dirname(require('./README.md'))
-  },
-  // 别名资源
-  html_files: [require('./public/css/root.css')],
-  // 头部插入其他资源（ 数组或字符串）
-  html_head: <link rel="stylesheet" href={require('./public/output.css')} />
-}
+import { Goods, Cooling } from 'xiuxian-core'
 
 const UID = '3230607280'
-
 const e = {
   user_id: '3230607280',
   user_avatar:
     'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796'
 }
-import { Goods } from 'xiuxian-core'
 
 export default defineConfig([
   {
     url: '/BagComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: (
         <Component.BagComponent
@@ -54,7 +38,7 @@ export default defineConfig([
   {
     url: '/Defsetcomponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: <Component.Defsetcomponent theme={'dark'} data={Cooling} />
     }
@@ -62,7 +46,7 @@ export default defineConfig([
   {
     url: '/Equipmentcomponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: (
         <Component.Equipmentcomponent
@@ -75,7 +59,7 @@ export default defineConfig([
   {
     url: '/HelpComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: (
         <Component.HelpComponent
@@ -93,7 +77,7 @@ export default defineConfig([
   {
     url: '/InformationComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: <Component.InformationComponent theme={'dark'} data={{}} />
     }
@@ -101,7 +85,7 @@ export default defineConfig([
   {
     url: '/KillComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: <Component.KillComponent theme={'dark'} data={{}} />
     }
@@ -109,7 +93,7 @@ export default defineConfig([
   {
     url: '/ListComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: <Component.ListComponent theme={'dark'} data={{}} />
     }
@@ -117,7 +101,7 @@ export default defineConfig([
   {
     url: '/MessageComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: (
         <Component.MessageComponent
@@ -130,7 +114,7 @@ export default defineConfig([
   {
     url: '/RingComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: (
         <Component.RingComponent
@@ -151,7 +135,7 @@ export default defineConfig([
   {
     url: '/SkillsComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: (
         <Component.SkillsComponent
@@ -172,7 +156,7 @@ export default defineConfig([
   {
     url: '/SkyComponent',
     options: {
-      ...options,
+      ...PictureOptions,
       // body 内容
       html_body: <Component.SkyComponent theme={'dark'} data={[]} />
     }

@@ -4,7 +4,11 @@ import React from 'react'
  *
  * @returns
  */
-export default function App() {
+export default function App({
+  list = ['/更换主题', '/改名+字符']
+}: {
+  list?: string[]
+}) {
   const Title = '凡人修仙'
   return (
     <div className="py-4">
@@ -14,7 +18,7 @@ export default function App() {
       >
         {Title}
       </span>
-      {['/更换主题', '/改名+字符'].map((item, index) => (
+      {list.map((item, index) => (
         <span
           key={index}
           className="bg-[#f9f2f2de] shadow-md text-[#635b5bfa] rounded-md text-md px-2 py-1 mx-1"
