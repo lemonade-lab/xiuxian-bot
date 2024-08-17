@@ -2,7 +2,8 @@ import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import { picture } from 'xiuxian-img'
 import * as GameApi from 'xiuxian-core'
-import * as Server from 'xiuxian-statistics'
+import { backpackInformation } from 'xiuxian-statistics'
+import { Goods } from 'xiuxian-core'
 
 const message = new Messages()
 
@@ -12,10 +13,10 @@ message.response(
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const type = e.msg.replace(/^(#|\/)?(储物袋|儲物袋|背包)/, '')
-    const data = await Server.backpackInformation(
+    const data = await backpackInformation(
       e.user_id,
       e.user_avatar,
-      GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
+      Goods.mapType[type] ?? Goods.mapType['道具']
     )
     const img = await picture.render('BagComponent', {
       props: { data },

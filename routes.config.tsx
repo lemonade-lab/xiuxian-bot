@@ -1,7 +1,14 @@
 import React from 'react'
-import { dirname } from 'path'
+import { dirname, join } from 'path'
 import { createRequire, defineConfig } from 'react-puppeteer'
 import * as Component from './xiuxian/img/src/component/index.js'
+import * as Cooling from './xiuxian/core/config/cooling.js'
+import { readFileSync } from 'fs'
+import {
+  personalInformation,
+  backpackInformation,
+  equipmentInformation
+} from 'xiuxian-statistics'
 
 const require = createRequire(import.meta.url)
 
@@ -17,6 +24,15 @@ const options = {
   html_head: <link rel="stylesheet" href={require('./public/output.css')} />
 }
 
+const UID = '3230607280'
+
+const e = {
+  user_id: '3230607280',
+  user_avatar:
+    'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796'
+}
+import { Goods } from 'xiuxian-core'
+
 export default defineConfig([
   {
     url: '/BagComponent',
@@ -26,15 +42,11 @@ export default defineConfig([
       html_body: (
         <Component.BagComponent
           theme={'dark'}
-          data={{
-            UID: '测试',
-            avatar:
-              'https://pics3.baidu.com/feed/b8389b504fc2d562d417d89c9917eae176c66cbc.jpeg@f_auto?token=cb1b616daecae01ebacf0f2b68fc75d9',
-            bag: [],
-            bag_grade: 9999,
-            length: 9999,
-            name: '测试'
-          }}
+          data={await backpackInformation(
+            e.user_id,
+            e.user_avatar,
+            Goods.mapType['道具']
+          )}
         />
       )
     }
@@ -44,7 +56,7 @@ export default defineConfig([
     options: {
       ...options,
       // body 内容
-      html_body: <Component.Defsetcomponent theme={'dark'} data={{}} />
+      html_body: <Component.Defsetcomponent theme={'dark'} data={Cooling} />
     }
   },
   {
@@ -55,20 +67,7 @@ export default defineConfig([
       html_body: (
         <Component.Equipmentcomponent
           theme={'dark'}
-          data={{
-            UID: '测试',
-            avatar:
-              'https://pics3.baidu.com/feed/b8389b504fc2d562d417d89c9917eae176c66cbc.jpeg@f_auto?token=cb1b616daecae01ebacf0f2b68fc75d9',
-            battle_attack: 9999,
-            battle_critical_damage: 9999,
-            battle_blood_limit: 9999,
-            battle_critical_hit: 9999,
-            battle_defense: 9999,
-            battle_power: 9999,
-            battle_speed: 9999,
-            equipment: [],
-            fate: []
-          }}
+          data={await equipmentInformation(UID, e.user_avatar)}
         />
       )
     }
@@ -78,7 +77,17 @@ export default defineConfig([
     options: {
       ...options,
       // body 内容
-      html_body: <Component.HelpComponent theme={'dark'} data={{}} />
+      html_body: (
+        <Component.HelpComponent
+          theme={'dark'}
+          data={JSON.parse(
+            readFileSync(
+              join(process.cwd(), 'public', 'defset', 'base_help.json'),
+              'utf-8'
+            )
+          )}
+        />
+      )
     }
   },
   {
@@ -113,45 +122,7 @@ export default defineConfig([
       html_body: (
         <Component.MessageComponent
           theme={'dark'}
-          data={{
-            UID: '测试',
-            age: '测试',
-            age_limit: '测试',
-            autograph: '测试',
-            avatar:
-              'https://pics3.baidu.com/feed/b8389b504fc2d562d417d89c9917eae176c66cbc.jpeg@f_auto?token=cb1b616daecae01ebacf0f2b68fc75d9',
-            battle_blood_limit: '测试',
-            battle_blood_now: 9999,
-            battle_power: 9999,
-            level: {
-              bodypractice: {
-                Experience: 9999,
-                ExperienceLimit: 9999,
-                Name: '测试'
-              },
-              gaspractice: {
-                Experience: 9999,
-                ExperienceLimit: 9999,
-                Name: '测试'
-              },
-              soul: {
-                Experience: 9999,
-                ExperienceLimit: 9999,
-                Name: '测试'
-              }
-            },
-            linggenName: '测试',
-            name: '测试',
-            skills: [],
-            special_prestige: 9999,
-            special_reputation: 9999,
-            special_spiritual: '',
-            special_spiritual_limit: '测试',
-            talent: [],
-            talent_show: 9999,
-            talentsize: '',
-            theme: 'dark'
-          }}
+          data={await personalInformation(UID, e.user_avatar)}
         />
       )
     }
@@ -167,7 +138,7 @@ export default defineConfig([
           data={{
             UID: '测试',
             avatar:
-              'https://pics3.baidu.com/feed/b8389b504fc2d562d417d89c9917eae176c66cbc.jpeg@f_auto?token=cb1b616daecae01ebacf0f2b68fc75d9',
+              'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796',
             bag: [],
             bag_grade: 9999,
             length: 9999,
@@ -188,7 +159,7 @@ export default defineConfig([
           data={{
             UID: '测试',
             avatar:
-              'https://pics3.baidu.com/feed/b8389b504fc2d562d417d89c9917eae176c66cbc.jpeg@f_auto?token=cb1b616daecae01ebacf0f2b68fc75d9',
+              'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796',
             linggenName: '测试',
             name: '测试',
             skills: [],

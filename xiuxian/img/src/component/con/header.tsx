@@ -1,23 +1,27 @@
 import React from 'react'
 
-const Tip = ({ children }: React.PropsWithChildren) => {
-  return (
-    <span className="bg-[#f9f2f2de] text-[#635b5bfa] rounded-md text-xl px-[2px] py-[8px] m-[6px]">
-      {children}
-    </span>
-  )
-}
-
 /**
  *
  * @returns
  */
 export default function App() {
+  const Title = '凡人修仙'
   return (
-    <div className="p-4">
-      <span className="nav-menu-title font-bold">凡人修仙</span>
-      <Tip>/更换主题</Tip>
-      <Tip>/改名+字符</Tip>
+    <div className="py-4">
+      <span
+        style={{ textShadow: 'var(--title-text-shadow)' }}
+        className="text-[var(--title-color)] text-3xl font-bold mr-3"
+      >
+        {Title}
+      </span>
+      {['/更换主题', '/改名+字符'].map((item, index) => (
+        <span
+          key={index}
+          className="bg-[#f9f2f2de] shadow-md text-[#635b5bfa] rounded-md text-md px-2 py-1 mx-1"
+        >
+          {item}
+        </span>
+      ))}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { nameMap, ThemesEmun } from '../core'
 import { hash } from 'alemonjs'
+import Nav2 from './con/Nav2'
 
 type PropsType = {
   data: {
@@ -28,40 +29,28 @@ export default function App({ data, theme }: PropsType) {
     <div
       id="root"
       data-theme={theme}
-      style={{ backgroundImage: 'var(--background-image)' }}
+      style={{
+        backgroundImage: 'var(--background-image)',
+        backgroundSize: '100% auto'
+      }}
       className="bg-cover bg-center p-4"
     >
-      <nav className="nav text-center flex m-auto w-full justify-between">
-        <div className="text-left mx-0 min-w-[430px]">
-          <div className="user_top_right_font0 bg-[#2c447594] text-white text-2xl p-3">
-            {UID}
-          </div>
-          <div className="user_top_right_font1 text-white text-2xl p-3">
-            道号: {data.name}
-          </div>
-          <div className="user_top_right_font text-white text-2xl p-3">
-            等级: {data.bag_grade}
-          </div>
-          <div
-            className="user_top_right_font2 text-white text-2xl p-3"
-            style={{ borderBottomRightRadius: '0px' }}
-          >
-            格子: {data.length}/{data.bag_grade * 10}
-          </div>
-        </div>
-        <div className="w-full h-full grid">
-          <div className="user_top_img_bottom">
-            <img className="user_top_img" src={data.avatar} alt="User Avatar" />
-          </div>
-        </div>
-      </nav>
-      <main className="main">
+      <Nav2
+        UID={UID}
+        avatar={data.avatar}
+        list={[
+          `道号: ${data.name}`,
+          `等级: ${data.bag_grade}`,
+          `格子: ${data.length}/${data.bag_grade * 10}`
+        ]}
+      ></Nav2>
+      <main className="my-4">
         {data.bag.map((item, index) => (
-          <div key={index} className="main-item">
-            <div className="user_top_right_font0 bg-[#2c447594] text-white text-2xl p-3">
+          <div key={index} className="bg-black bg-opacity-30">
+            <div className=" bg-[#2c447594] text-white text-2xl p-3">
               {item['good']['dataValues']['name']}
             </div>
-            <div className="user_top_right_font1 text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
+            <div className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
               {[
                 `攻击: ${item['good']['dataValues']['attack']}%`,
                 `防御: ${item['good']['dataValues']['defense']}%`,
@@ -70,14 +59,16 @@ export default function App({ data, theme }: PropsType) {
                 <div key={index}>{item}</div>
               ))}
             </div>
-            <div className="user_top_right_font text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
+            <div className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
               {[
                 `天赋: ${item['good']['dataValues']['size']}%`,
                 `暴击: ${item['good']['dataValues']['critical_hit']}%`,
                 `暴伤: ${item['good']['dataValues']['critical_damage']}%`
-              ]}
+              ].map((item, index) => (
+                <div key={index}>{item}</div>
+              ))}
             </div>
-            <div className="user_top_right_font1 text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
+            <div className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
               <div>敏捷: {item['good']['dataValues']['speed']}</div>
               <div>
                 {nameMap[item['good']['dataValues']['addition']]}:{' '}
@@ -88,7 +79,7 @@ export default function App({ data, theme }: PropsType) {
               <div>五行: ???</div>
             </div>
             <div
-              className="user_top_right_font2 text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2"
+              className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2"
               style={{ marginBottom: '5px' }}
             >
               {[

@@ -1,6 +1,8 @@
 import { appendFile, mkdirSync } from 'fs'
 import { join } from 'path'
 import { Sequelize } from 'sequelize'
+import { config } from 'dotenv'
+config({ path: './alemon.env' })
 
 /**
  *

@@ -32,8 +32,7 @@ export async function urlHelpCache(name: string) {
         name: 'help',
         props: {
           data: await getJson(name)
-        },
-        cssName: 'new-help'
+        }
       })
       .catch((err: any) => {
         // 发生错误
