@@ -5,9 +5,18 @@ import * as Component from './component/index.js'
 import { Picture } from 'react-puppeteer'
 const require = createRequire(import.meta.url)
 
-const paths = {
-  // 定位自身的 md文件，并获取目录地址
-  '@xiuxian': dirname(require('../../../README.md'))
+const CacheOptions = {
+  // 别名
+  file_paths: {
+    // 定位自身的 md文件，并获取目录地址
+    '@xiuxian': dirname(require('../../../README.md'))
+  },
+  // 别名资源
+  html_files: [require('../../../public/css/root.css')],
+  // 头部插入其他资源（ 数组或字符串）
+  html_head: (
+    <link rel="stylesheet" href={require('../../../public/output.css')} />
+  )
 }
 
 class ScreenshotPicture extends Picture {
@@ -39,16 +48,8 @@ class ScreenshotPicture extends Picture {
       join_dir: key,
       // 地址
       html_name: `${options?.name ?? 'help'}.html`,
-      // 别名
-      file_paths: paths,
-      // 别名资源
-      html_files: [require('../../../public/css/root.css')],
-      // 头部插入其他资源（ 数组或字符串）
-      html_head: (
-        <>
-          <link rel="stylesheet" href={require('../../../public/output.css')} />
-        </>
-      ),
+      // ...
+      ...CacheOptions,
       // body 内容
       html_body: <MyComponent {...Props} />
     })

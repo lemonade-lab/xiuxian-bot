@@ -20,7 +20,7 @@
   }
 
   .user_top {
-    @apply grid  bg-cover;
+    @apply grid bg-cover;
   }
 
   .user_right {

@@ -78,6 +78,7 @@ APP_SERVER_KEY = 'xiuxian'
 - 应用调试
 
 ```sh
+# 启动
 yarn app
 ```
 

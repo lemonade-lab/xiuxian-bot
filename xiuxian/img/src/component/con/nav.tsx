@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderComponent from './header.js'
 import { hash } from 'alemonjs'
 import { createRequire } from 'react-puppeteer'
+import { ThemesEmun } from '../../core/color.js'
 const require = createRequire(import.meta.url)
 
 const ThemesColor = {
@@ -24,9 +25,59 @@ const ThemesColor = {
 }
 
 type PropsType = {
-  data: any
+  data: {
+    UID: string
+    avatar: string
+    //
+    linggenName: string
+    talentsize: string
+    talent_show: number
+    talent: number[]
+    special_reputation: number
+    battle_power: number
+    // UserData
+    name: string
+    battle_blood_now: number
+    battle_blood_limit: string
+    age: string
+    age_limit: string
+    autograph: string
+    special_spiritual: string
+    special_spiritual_limit: string
+    special_prestige: number
+    //
+    level: {
+      gaspractice: {
+        Name: string
+        Experience: number
+        ExperienceLimit: number
+      }
+      bodypractice: {
+        Name: string
+        Experience: number
+        ExperienceLimit: number
+      }
+      soul: {
+        Name: string
+        Experience: number
+        ExperienceLimit: number
+      }
+    }
+    skills: {
+      id: number
+      uid: string
+      name: string
+      doc: string
+    }[]
+    theme: ThemesEmun
+  }
 }
 
+/**
+ *
+ * @param param0
+ * @returns
+ */
 export default function App({ data }: PropsType) {
   // 现在的血量   血量总量
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)

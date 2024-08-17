@@ -12,8 +12,18 @@ type PropsType = {
     talent: number[]
     special_reputation: number
     battle_power: number
+
+    // UserData
+    name: string
+    battle_blood_now: number
+    battle_blood_limit: string
+    age: string
+    age_limit: string
     autograph: string
+    special_spiritual: string
+    special_spiritual_limit: string
     special_prestige: number
+
     level: {
       gaspractice: {
         Name: string
