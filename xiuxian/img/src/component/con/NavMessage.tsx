@@ -77,7 +77,7 @@ type PropsType = {
  * @param param0
  * @returns
  */
-export default function App({ data }: PropsType) {
+export default function NavMessage({ data }: PropsType) {
   // 现在的血量   血量总量
   const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
   //

@@ -4,7 +4,7 @@ import React from 'react'
  *
  * @returns
  */
-export default function App({
+export default function Header({
   list = ['/更换主题', '/改名+字符']
 }: {
   list?: string[]

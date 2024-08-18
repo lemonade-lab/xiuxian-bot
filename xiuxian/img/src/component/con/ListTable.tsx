@@ -2,7 +2,7 @@ import React from 'react'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../../core/index.js'
 const require = createRequire(import.meta.url)
-export default <
+export default function ListTable<
   T extends {
     user_avatar: string
     autograph?: string
@@ -16,7 +16,7 @@ export default <
   data: T[]
   children: (props: T) => React.ReactNode
   theme: ThemesEmun
-}) => {
+}) {
   return (
     <div id="root" data-theme={theme}>
       <BackgroundImage

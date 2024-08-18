@@ -8,7 +8,8 @@ import {
   backpackInformation,
   equipmentInformation,
   getKillList,
-  showSky
+  showSky,
+  skillInformation
 } from 'xiuxian-statistics'
 import { Goods, Cooling } from 'xiuxian-core'
 
@@ -76,6 +77,19 @@ export default defineConfig([
     }
   },
   {
+    url: '/SkillsComponent',
+    options: {
+      ...PictureOptions,
+      // body 内容
+      html_body: (
+        <Component.SkillsComponent
+          theme={'dark'}
+          data={await skillInformation(e.user_id, e.user_avatar)}
+        />
+      )
+    }
+  },
+  {
     url: '/KillComponent',
     options: {
       ...PictureOptions,
@@ -106,7 +120,7 @@ export default defineConfig([
       html_body: (
         <Component.SkyComponent
           theme={'dark'}
-          data={await showSky(e.user_id, e.user_avatar)}
+          data={await showSky(e.user_id)}
         />
       )
     }

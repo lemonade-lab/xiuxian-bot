@@ -1,5 +1,5 @@
 import React from 'react'
-export default ({
+export default function Footer({
   list = [
     '/突破',
     '/闭关',
@@ -22,7 +22,7 @@ export default ({
 }: {
   list?: string[]
   docs?: string
-}) => {
+}) {
   return (
     <div className="p-4  text-white   pt-8 pr-4 pb-4 pl-4   relative">
       <div className=" bg-[var(--bg-color)] shadow-md   rounded-md p-1 relative flex flex-wrap box-help-box">

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({
+export default function Naved({
   list,
   UID,
   avatar
@@ -8,7 +8,7 @@ export default ({
   list: string[]
   UID: string | number
   avatar: string
-}) => {
+}) {
   return (
     <nav className="flex justify-between w-full">
       <div className="flex-1 bg-black bg-opacity-30">

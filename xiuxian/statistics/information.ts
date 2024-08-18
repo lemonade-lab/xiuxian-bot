@@ -253,9 +253,12 @@ export async function skillInformation(UID: string, user_avatar: string) {
     where: {
       uid: UID
     },
-    include: {
-      model: DB.goods
-    },
+    include: [
+      {
+        model: DB.goods,
+        where: {}
+      }
+    ],
     raw: true
   })) as any
 
@@ -269,7 +272,7 @@ export async function skillInformation(UID: string, user_avatar: string) {
   }
 }
 
-export type KkillInformationType =
+export type SkillInformationType =
   ReturnType<typeof skillInformation> extends Promise<infer T> ? T : never
 
 /**
