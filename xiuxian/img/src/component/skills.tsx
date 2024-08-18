@@ -2,17 +2,11 @@ import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../core'
+import { KkillInformationType } from 'xiuxian-statistics'
 const require = createRequire(import.meta.url)
 
 type PropsType = {
-  data: {
-    UID: string
-    skills: any
-    name: string
-    linggenName: string
-    talentsize: string
-    avatar: string
-  }
+  data: KkillInformationType
   theme?: ThemesEmun
 }
 

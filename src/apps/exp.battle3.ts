@@ -8,7 +8,24 @@ import {
   victoryCooling
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
+import { Redis } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?(比斗|比鬥)/, async e => {
+  /**
+   * *******
+   * lock start
+   * *******
+   */
+  const KEY = `xiuxian:open:${e.user_id}`
+  const LOCK = await Redis.get(KEY)
+  if (LOCK) {
+    e.reply('操作频繁')
+    return
+  }
+  await Redis.set(KEY, 1, 'EX', 6)
+  /**
+   * lock end
+   */
+
   const UID = e.user_id
   console.log('UID', UID)
   if (!(await isThereAUserPresent(e, UID))) return

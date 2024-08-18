@@ -94,6 +94,22 @@ async function sendLing(e: AEvent, UID: string, acount: number) {
 export default new Messages().response(
   /^(#|\/)?消耗[\u4e00-\u9fa5]+\*\d+$/,
   async e => {
+    /**
+     * *******
+     * lock start
+     * *******
+     */
+    const KEY = `xiuxian:open:${e.user_id}`
+    const LOCK = await DB.Redis.get(KEY)
+    if (LOCK) {
+      e.reply('操作频繁')
+      return
+    }
+    await DB.Redis.set(KEY, 1, 'EX', 6)
+    /**
+     * lock end
+     */
+
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const [thingName, thingAcount] = e.msg

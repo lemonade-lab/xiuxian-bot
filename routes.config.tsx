@@ -6,13 +6,14 @@ import { PictureOptions, Component } from 'xiuxian-img'
 import {
   personalInformation,
   backpackInformation,
-  equipmentInformation
+  equipmentInformation,
+  getKillList,
+  showSky
 } from 'xiuxian-statistics'
 import { Goods, Cooling } from 'xiuxian-core'
 
-const UID = '3230607280'
 const e = {
-  user_id: '3230607280',
+  user_id: '563384AF707685C9A82DA5DDFAF96D8A',
   user_avatar:
     'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796'
 }
@@ -51,7 +52,7 @@ export default defineConfig([
       html_body: (
         <Component.Equipmentcomponent
           theme={'dark'}
-          data={await equipmentInformation(UID, e.user_avatar)}
+          data={await equipmentInformation(e.user_id, e.user_avatar)}
         />
       )
     }
@@ -75,27 +76,13 @@ export default defineConfig([
     }
   },
   {
-    url: '/InformationComponent',
-    options: {
-      ...PictureOptions,
-      // body 内容
-      html_body: <Component.InformationComponent theme={'dark'} data={{}} />
-    }
-  },
-  {
     url: '/KillComponent',
     options: {
       ...PictureOptions,
       // body 内容
-      html_body: <Component.KillComponent theme={'dark'} data={{}} />
-    }
-  },
-  {
-    url: '/ListComponent',
-    options: {
-      ...PictureOptions,
-      // body 内容
-      html_body: <Component.ListComponent theme={'dark'} data={{}} />
+      html_body: (
+        <Component.KillComponent theme={'dark'} data={await getKillList()} />
+      )
     }
   },
   {
@@ -106,49 +93,7 @@ export default defineConfig([
       html_body: (
         <Component.MessageComponent
           theme={'dark'}
-          data={await personalInformation(UID, e.user_avatar)}
-        />
-      )
-    }
-  },
-  {
-    url: '/RingComponent',
-    options: {
-      ...PictureOptions,
-      // body 内容
-      html_body: (
-        <Component.RingComponent
-          theme={'dark'}
-          data={{
-            UID: '测试',
-            avatar:
-              'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796',
-            bag: [],
-            bag_grade: 9999,
-            length: 9999,
-            name: '测试'
-          }}
-        />
-      )
-    }
-  },
-  {
-    url: '/SkillsComponent',
-    options: {
-      ...PictureOptions,
-      // body 内容
-      html_body: (
-        <Component.SkillsComponent
-          theme={'dark'}
-          data={{
-            UID: '测试',
-            avatar:
-              'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796',
-            linggenName: '测试',
-            name: '测试',
-            skills: [],
-            talentsize: '测试'
-          }}
+          data={await personalInformation(e.user_id, e.user_avatar)}
         />
       )
     }
@@ -158,7 +103,12 @@ export default defineConfig([
     options: {
       ...PictureOptions,
       // body 内容
-      html_body: <Component.SkyComponent theme={'dark'} data={[]} />
+      html_body: (
+        <Component.SkyComponent
+          theme={'dark'}
+          data={await showSky(e.user_id, e.user_avatar)}
+        />
+      )
     }
   }
 ])

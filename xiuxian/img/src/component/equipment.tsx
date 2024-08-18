@@ -3,30 +3,10 @@ import React from 'react'
 import { ThemesEmun } from '../core'
 import Header from './con/header'
 import Footer from './con/footer'
+import { EquipmentInformationType } from 'xiuxian-statistics'
 
 type PropsType = {
-  data: {
-    UID: string
-    avatar: string
-    battle_attack: number
-    battle_blood_limit: number
-    battle_defense: number
-    battle_speed: number
-    battle_critical_hit: number
-    battle_critical_damage: number
-    equipment: any[]
-    fate: {
-      name: string
-      grade: number
-      attack: number
-      defense: number
-      blood: number
-      critical_hit: number
-      critical_damage: number
-      speed: number
-    }[]
-    battle_power: number
-  }
+  data: EquipmentInformationType
   theme?: ThemesEmun
 }
 

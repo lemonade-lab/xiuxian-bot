@@ -8,7 +8,7 @@ export default new Messages().response(
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
     const data = await Server.ringInformation(UID, e.user_avatar)
-    const img = await picture.render('RingComponent', {
+    const img = await picture.render('BagComponent', {
       props: {
         data
       },

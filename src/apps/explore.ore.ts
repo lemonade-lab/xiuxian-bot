@@ -6,6 +6,7 @@ import {
   victoryCooling
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
+import { Redis } from 'xiuxian-db'
 function getMoneyGrade(grade: number) {
   if (grade == 1) return '下品'
   if (grade == 2) return '中品'
@@ -13,6 +14,22 @@ function getMoneyGrade(grade: number) {
   if (grade == 4) return '极品'
 }
 export default new Messages().response(/^(#|\/)?采集\d+\*?(1|2)?$/, async e => {
+  /**
+   * *******
+   * lock start
+   * *******
+   */
+  const KEY = `xiuxian:open:${e.user_id}`
+  const LOCK = await Redis.get(KEY)
+  if (LOCK) {
+    e.reply('操作频繁')
+    return
+  }
+  await Redis.set(KEY, 1, 'EX', 6)
+  /**
+   * lock end
+   */
+
   const UID = e.user_id
 
   if (!(await isThereAUserPresent(e, UID))) return

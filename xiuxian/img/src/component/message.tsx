@@ -2,54 +2,10 @@ import React from 'react'
 import NavMessage from './con/NavMessage.js'
 import { ThemesEmun } from '../core/color.js'
 import Footer from './con/footer.js'
+import { PersonalInformationType } from 'xiuxian-statistics'
 
 type PropsType = {
-  data: {
-    UID: string
-    avatar: string
-    linggenName: string
-    talentsize: string
-    talent_show: number
-    talent: number[]
-    special_reputation: number
-    battle_power: number
-
-    // UserData
-    name: string
-    battle_blood_now: number
-    battle_blood_limit: number
-    age: number
-    age_limit: number
-    autograph: string
-    special_spiritual: number
-    special_spiritual_limit: number
-    special_prestige: number
-
-    level: {
-      gaspractice: {
-        Name: string
-        Experience: number
-        ExperienceLimit: number
-      }
-      bodypractice: {
-        Name: string
-        Experience: number
-        ExperienceLimit: number
-      }
-      soul: {
-        Name: string
-        Experience: number
-        ExperienceLimit: number
-      }
-    }
-    skills: {
-      id: number
-      uid: string
-      name: string
-      doc: string
-    }[]
-    theme: ThemesEmun
-  }
+  data: PersonalInformationType
   theme?: ThemesEmun
 }
 

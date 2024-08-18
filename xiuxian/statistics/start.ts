@@ -68,6 +68,9 @@ export async function getKillList() {
   return UserData
 }
 
+export type killInformationType =
+  ReturnType<typeof getKillList> extends Promise<infer T> ? T : never
+
 // 更新杀神榜
 export async function updataKillList() {
   // 写入缓存

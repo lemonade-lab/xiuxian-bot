@@ -3,6 +3,22 @@ import { isThereAUserPresent } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?精炼$/, async e => {
+  /**
+   * *******
+   * lock start
+   * *******
+   */
+  const KEY = `xiuxian:open:${e.user_id}`
+  const LOCK = await DB.Redis.get(KEY)
+  if (LOCK) {
+    e.reply('操作频繁')
+    return
+  }
+  await DB.Redis.set(KEY, 1, 'EX', 6)
+  /**
+   * lock end
+   */
+
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
   const thing = await DB.user_fate

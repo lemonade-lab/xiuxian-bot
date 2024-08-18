@@ -6,8 +6,25 @@ import {
   controlByName
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
+import { Redis } from 'xiuxian-db'
 const reStart = {}
 export default new Messages().response(/^(#|\/)?挑战妖塔$/, async e => {
+  /**
+   * *******
+   * lock start
+   * *******
+   */
+  const KEY = `xiuxian:open:${e.user_id}`
+  const LOCK = await Redis.get(KEY)
+  if (LOCK) {
+    e.reply('操作频繁')
+    return
+  }
+  await Redis.set(KEY, 1, 'EX', 6)
+  /**
+   * lock end
+   */
+
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
   const UserData = await GameApi.Users.read(UID)

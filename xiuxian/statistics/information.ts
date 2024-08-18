@@ -338,7 +338,7 @@ export async function ringInformation(UID: string, user_avatar: string) {
     UID,
     name: UserData.name,
     bag_grade: 1,
-    length: length,
+    length: length ?? 0,
     bag: bag,
     avatar: user_avatar
   }
@@ -377,7 +377,7 @@ export async function showSky(UID: string) {
     name: string
     power: number
     autograph: string
-    avatar: string
+    user_avatar: string
   }[] = []
   for (const item of list) {
     const data = await DB.user
@@ -410,7 +410,7 @@ export async function showSky(UID: string) {
       name: data.name,
       power: data.battle_power,
       autograph: data.autograph,
-      avatar: data.avatar
+      user_avatar: data.avatar
     })
   }
   return msg

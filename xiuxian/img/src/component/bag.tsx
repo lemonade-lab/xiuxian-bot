@@ -2,26 +2,33 @@ import React from 'react'
 import { nameMap, ThemesEmun } from '../core'
 import { hash } from 'alemonjs'
 import Nav from './con/Nav'
+import Header from './con/header'
+import { BackpackInformationType } from 'xiuxian-statistics'
+import Footer from './con/footer'
 
 type PropsType = {
-  data: {
-    UID: string
-    name: string
-    bag_grade: number
-    length: number
-    bag: {
-      id: number
-      uid: string
-      tid: number
-      type: number
-      name: string
-      acount: number
-      doc: number
-    }[]
-    avatar: string
-  }
+  data: BackpackInformationType
   theme?: ThemesEmun
 }
+
+/**
+ * 
+ * @param param0  UID: string;
+    name: string;
+    avatar: string;
+    bag_grade: number;
+    length: number;
+    bag: {
+        id: number;
+        uid: string;
+        tid: number;
+        type: number;
+        name: string;
+        acount: number;
+        doc: number;
+    }[];
+ * @returns 
+ */
 
 export default function App({ data, theme }: PropsType) {
   const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
@@ -35,6 +42,7 @@ export default function App({ data, theme }: PropsType) {
       }}
       className="bg-cover bg-center p-4"
     >
+      <Header list={['/装备+装备名', '/卸下+装备名']} />
       <Nav
         UID={UID}
         avatar={data.avatar}
@@ -92,6 +100,11 @@ export default function App({ data, theme }: PropsType) {
             </div>
           </div>
         ))}
+        <Footer
+          list={['/功法信息', '/本命', '/勋章信息']}
+          docs={'提示：任何物品都可以装备哦～'}
+        />
+        <div className="min-h-10"></div>
       </main>
     </div>
   )
