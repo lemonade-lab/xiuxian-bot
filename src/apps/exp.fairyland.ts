@@ -2,8 +2,7 @@ import { Messages } from 'alemonjs'
 import { isThereAUserPresent, punishLevel } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
-const message = new Messages()
-message.response(/^(#|\/)?渡劫$/, async e => {
+export default new Messages().response(/^(#|\/)?渡劫$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
   if (!(await GameApi.Levels.isLevelPoint(UID, 1))) {
@@ -64,8 +63,3 @@ message.response(/^(#|\/)?渡劫$/, async e => {
     }
   }, 60000) // 每分钟执行一次
 })
-
-/**
- *
- */
-export const fairyland = message.ok

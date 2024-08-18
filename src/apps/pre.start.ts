@@ -2,10 +2,7 @@ import { Messages } from 'alemonjs'
 import { showUserMsg } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
-
-const message = new Messages()
-
-message.response(/^(#|\/)?踏入仙途$/, async e => {
+export default new Messages().response(/^(#|\/)?踏入仙途$/, async e => {
   const UID = e.user_id
 
   DB.user
@@ -48,5 +45,3 @@ message.response(/^(#|\/)?踏入仙途$/, async e => {
 
   return
 })
-
-export const Start = message.ok

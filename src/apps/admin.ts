@@ -1,7 +1,6 @@
 import { Messages } from 'alemonjs'
 import * as DB from 'xiuxian-db'
-const message = new Messages()
-message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {
+export default new Messages().response(/^(#|\/)?切换绑定(.*)*$/, async e => {
   const didian = e.msg.replace(/(#|\/)?切换绑定/, '')
   const [switchuid, bindinguid] = didian.split('*') //切换前的uid,要绑定的平台uid
   if (!switchuid || !bindinguid) return
@@ -155,5 +154,3 @@ message.response(/^(#|\/)?切换绑定(.*)*$/, async e => {
   e.reply(`已切换至${bindinguid}`)
   return
 })
-
-export const Admins = message.ok

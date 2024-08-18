@@ -439,6 +439,25 @@ export async function isUser(UID: string) {
     .then(res => res?.dataValues)
 }
 
+export async function showAction(e: AEvent, UID: string, UserData) {
+  const mData = await Map.getRecordsByXYZ(
+    UserData.pont_x,
+    UserData.pont_y,
+    UserData.pont_z
+  )
+  if (mData) {
+    await Users.update(UID, {
+      point_type: mData.type,
+      pont_attribute: mData.attribute,
+      pont_x: UserData.pont_x,
+      pont_y: UserData.pont_y,
+      pont_z: UserData.pont_z
+    })
+    e.reply(`(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`)
+  }
+  return
+}
+
 /**
  * 是否存在用户
  * @param UID

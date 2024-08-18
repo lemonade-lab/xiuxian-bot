@@ -42,7 +42,7 @@ export default function App({ data, theme }: PropsType) {
       }}
     >
       <Header />
-      <div className="w-full h-full bg-black bg-opacity-10 my-8  text-center">
+      <div className="w-full h-full rounded-md bg-black bg-opacity-10 my-8  text-center">
         <div className="grid grid-cols-2">
           {Object.keys(CD_MAP).map((item, index) => (
             <div key={index} className="w-80 mx-auto text-3xl p-2">
