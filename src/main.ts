@@ -6,15 +6,15 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const dir = join(dirname(__filename), 'apps')
 // 读取文件
-const files = readdirSync(dir).filter(file => file.endsWith('.ts'))
+const files = readdirSync(dir).filter(file => /.(ts|js)$/.test(file))
 // 载入
-const promises = files.map(file => import(`./apps/${file}`))
+const promises = files.map(file => import(`file://${join(dir, file)}`))
 // 创建
 const app = createApp(import.meta.url)
 try {
   const results = await Promise.allSettled(promises)
   for (const [index, result] of results.entries()) {
-    const name = files[index].replace('.ts', '')
+    const name = files[index].replace(/.(ts|js)$/, '')
     if (result.status === 'rejected') {
       console.log('解析错误', name, result.reason)
     } else {
