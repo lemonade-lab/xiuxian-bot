@@ -1,7 +1,7 @@
 import { hash } from 'alemonjs'
 import React from 'react'
-import { ThemesEmun } from '../core'
-import ListTable from './con/ListTable'
+import { ThemesEmun } from '../core/index.js'
+import ListTable from './con/ListTable.js'
 import { killInformationType } from 'xiuxian-statistics'
 
 type PropsType = {

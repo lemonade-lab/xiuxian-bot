@@ -1,10 +1,10 @@
 import React from 'react'
-import { nameMap, ThemesEmun } from '../core'
+import { nameMap, ThemesEmun } from '../core/index.js'
 import { hash } from 'alemonjs'
 import Nav from './con/Nav'
-import Header from './con/header'
+import Header from './con/header.js'
 import { BackpackInformationType } from 'xiuxian-statistics'
-import Footer from './con/footer'
+import Footer from './con/footer.js'
 
 type PropsType = {
   data: BackpackInformationType

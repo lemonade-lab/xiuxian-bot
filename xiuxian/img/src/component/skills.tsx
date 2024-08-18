@@ -1,7 +1,7 @@
 import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
-import { ThemesEmun } from '../core'
+import { ThemesEmun } from '../core/index.js'
 import { KkillInformationType } from 'xiuxian-statistics'
 const require = createRequire(import.meta.url)
 

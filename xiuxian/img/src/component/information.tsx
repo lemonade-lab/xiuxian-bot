@@ -1,7 +1,7 @@
 import React from 'react'
 import { hash } from 'alemonjs'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
-import { ThemesEmun } from '../core'
+import { ThemesEmun } from '../core/index.js'
 const require = createRequire(import.meta.url)
 
 type PropsType = {

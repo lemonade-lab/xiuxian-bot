@@ -1,8 +1,8 @@
 import { hash } from 'alemonjs'
 import React from 'react'
-import { ThemesEmun } from '../core'
-import Header from './con/header'
-import Footer from './con/footer'
+import { ThemesEmun } from '../core/index.js'
+import Header from './con/header.js'
+import Footer from './con/footer.js'
 import { EquipmentInformationType } from 'xiuxian-statistics'
 
 type PropsType = {
