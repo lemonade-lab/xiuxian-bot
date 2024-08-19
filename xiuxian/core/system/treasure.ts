@@ -1,5 +1,4 @@
 import { map_treasure, map_position } from 'xiuxian-db'
-
 import { literal } from 'sequelize'
 
 /**

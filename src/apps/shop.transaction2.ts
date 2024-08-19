@@ -24,7 +24,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await controlByName(e, UserData, '万宝楼'))) return
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(购买|購買)/, '')

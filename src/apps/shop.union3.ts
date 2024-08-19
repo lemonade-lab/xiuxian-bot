@@ -23,7 +23,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await controlByName(e, UserData, '联盟'))) return
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(兑换|兌換)/, '')
@@ -58,15 +64,24 @@ export default new Messages().response(
     }
     UserData.special_reputation -= price
     // 更新用户
-    await GameApi.Users.update(UID, {
-      special_reputation: UserData.special_reputation
-    })
+    await DB.user.update(
+      {
+        special_reputation: UserData.special_reputation
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
+    //
     await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
       {
         name: ifexist.name,
         acount: Number(quantity)
       }
     ])
+    //
     e.reply(`[联盟]叶铭\n使用[声望]*${price}兑换了[${thingName}]*${quantity},`)
     return
   }

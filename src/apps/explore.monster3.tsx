@@ -6,7 +6,7 @@ import {
   controlByName
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 const reStart = {}
 export default new Messages().response(/^(#|\/)?挑战妖塔$/, async e => {
   /**
@@ -27,7 +27,13 @@ export default new Messages().response(/^(#|\/)?挑战妖塔$/, async e => {
 
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (!reStart[UID] || reStart[UID] + 120000 < new Date().getTime()) {
     reStart[UID] = new Date().getTime()
     e.reply([`CD中`]).catch((err: any) => {

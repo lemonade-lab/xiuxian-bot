@@ -13,9 +13,17 @@ export default new Messages().response(
      * *****
      * 境界拦截
      */
-    const gaspractice = await GameApi.Levels.read(UID, 1).then(
-      item => item.realm
-    )
+    const gaspractice = await DB.user_level
+      .findOne({
+        attributes: ['addition', 'realm', 'experience'],
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
+      .then(res => res?.dataValues)
+      .then(res => res.realm)
+
     if (gaspractice <= GameApi.Cooling.AssLevel) {
       e.reply('境界不足', {
         quote: e.msg_id

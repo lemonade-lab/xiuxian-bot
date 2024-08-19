@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user, user_skills } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?忘掉[\u4e00-\u9fa5]+$/,
   async e => {
@@ -25,7 +25,9 @@ export default new Messages().response(
     if (!(await isThereAUserPresent(e, UID))) return
 
     const thingName = e.msg.replace(/^(#|\/)?忘掉/, '')
-    const AllSorcery = await GameApi.Skills.get(UID)
+    const AllSorcery = await user_skills
+      .findAll({ where: { uid: UID } })
+      .then(res => res.map(item => item.dataValues))
     const islearned = AllSorcery.find(item => item.name == thingName)
     if (!islearned) {
       e.reply([`没学过[${thingName}]`], {
@@ -34,7 +36,13 @@ export default new Messages().response(
       return
     }
 
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     /**
      * 检查背包
      */
@@ -47,14 +55,19 @@ export default new Messages().response(
     }
 
     // 直接删
-
-    await GameApi.Skills.del(UID, thingName)
+    await user_skills.destroy({ where: { uid: UID, name: thingName } })
 
     /**
      * 更新天赋
      */
     setTimeout(async () => {
-      const UserData = await GameApi.Users.read(UID)
+      const UserData = await user
+        .findOne({
+          where: {
+            uid: UID
+          }
+        })
+        .then(res => res.dataValues)
       await GameApi.Skills.updataEfficiency(UID, UserData.talent)
     }, 500)
 

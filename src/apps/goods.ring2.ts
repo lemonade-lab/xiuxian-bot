@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/,
   async e => {
@@ -41,7 +41,13 @@ export default new Messages().response(
       return
     }
     // 检查储物袋空间
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     // 检查储物袋有没有这个物品
     const BagThing = await GameApi.Bag.searchBagByName(UID, thingName)
     // 检查储物袋空间

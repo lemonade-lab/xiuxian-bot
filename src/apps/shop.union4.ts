@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?仙石兑换.*$/, async e => {
   /**
    * *******
@@ -31,7 +31,13 @@ export default new Messages().response(/^(#|\/)?仙石兑换.*$/, async e => {
     e.reply('未开放')
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const thingName = e.msg.replace(/^(#|\/)?仙石兑换/, '')
   // 检查背包
   const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)

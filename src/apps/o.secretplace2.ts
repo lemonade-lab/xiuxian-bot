@@ -8,7 +8,13 @@ export default new Messages().response(
   async e => {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     // 闭关等长期状态自动结束
     if (UserData.state == 1 || UserData.state == 2 || UserData.state == 8) {
       await endAllWord(e, UID, UserData)
@@ -60,7 +66,15 @@ export default new Messages().response(
     }
 
     // 判断
-    const LevelsMsg = await GameApi.Levels.read(UID, 1)
+    const LevelsMsg = await DB.user_level
+      .findOne({
+        attributes: ['addition', 'realm', 'experience'],
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
+      .then(res => res?.dataValues)
 
     // 境界不足
     if (LevelsMsg.realm < point.grade - 1) {

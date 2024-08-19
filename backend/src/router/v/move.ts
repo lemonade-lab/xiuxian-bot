@@ -26,7 +26,10 @@ router.get('/xyzaddress', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
+  //
   ctx.body = {
     code: OK_CODE,
     msg: `坐标(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`,
@@ -51,7 +54,9 @@ router.get('/mapW', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
@@ -67,13 +72,16 @@ router.get('/mapW', async ctx => {
     UserData.pont_z
   )
   if (mData) {
-    await GameApi.Users.update(UID, {
-      point_type: mData.type,
-      pont_attribute: mData.attribute,
-      pont_x: UserData.pont_x,
-      pont_y: UserData.pont_y,
-      pont_z: UserData.pont_z
-    })
+    await user.update(
+      {
+        point_type: mData.type,
+        pont_attribute: mData.attribute,
+        pont_x: UserData.pont_x,
+        pont_y: UserData.pont_y,
+        pont_z: UserData.pont_z
+      },
+      { where: { uid: UID } }
+    )
   }
   ctx.body = {
     code: OK_CODE,
@@ -99,7 +107,9 @@ router.get('/mapS', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
@@ -115,13 +125,16 @@ router.get('/mapS', async ctx => {
     UserData.pont_z
   )
   if (mData) {
-    await GameApi.Users.update(UID, {
-      point_type: mData.type,
-      pont_attribute: mData.attribute,
-      pont_x: UserData.pont_x,
-      pont_y: UserData.pont_y,
-      pont_z: UserData.pont_z
-    })
+    await user.update(
+      {
+        point_type: mData.type,
+        pont_attribute: mData.attribute,
+        pont_x: UserData.pont_x,
+        pont_y: UserData.pont_y,
+        pont_z: UserData.pont_z
+      },
+      { where: { uid: UID } }
+    )
   }
   ctx.body = {
     code: OK_CODE,
@@ -147,7 +160,9 @@ router.get('/mapA', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
@@ -163,13 +178,16 @@ router.get('/mapA', async ctx => {
     UserData.pont_z
   )
   if (mData) {
-    await GameApi.Users.update(UID, {
-      point_type: mData.type,
-      pont_attribute: mData.attribute,
-      pont_x: UserData.pont_x,
-      pont_y: UserData.pont_y,
-      pont_z: UserData.pont_z
-    })
+    await user.update(
+      {
+        point_type: mData.type,
+        pont_attribute: mData.attribute,
+        pont_x: UserData.pont_x,
+        pont_y: UserData.pont_y,
+        pont_z: UserData.pont_z
+      },
+      { where: { uid: UID } }
+    )
   }
   ctx.body = {
     code: OK_CODE,
@@ -195,7 +213,9 @@ router.get('/mapD', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   const { state, msg } = await State.goByBlood(UserData)
   if (state == 4001) {
     ctx.body = {
@@ -211,13 +231,16 @@ router.get('/mapD', async ctx => {
     UserData.pont_z
   )
   if (mData) {
-    await GameApi.Users.update(UID, {
-      point_type: mData.type,
-      pont_attribute: mData.attribute,
-      pont_x: UserData.pont_x,
-      pont_y: UserData.pont_y,
-      pont_z: UserData.pont_z
-    })
+    await user.update(
+      {
+        point_type: mData.type,
+        pont_attribute: mData.attribute,
+        pont_x: UserData.pont_x,
+        pont_y: UserData.pont_y,
+        pont_z: UserData.pont_z
+      },
+      { where: { uid: UID } }
+    )
   }
   ctx.body = {
     code: OK_CODE,

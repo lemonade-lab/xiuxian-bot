@@ -21,7 +21,13 @@ export default new Messages().response(/^(#|\/)?售出所有物品$/, async e =>
 
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (!(await controlByName(e, UserData, '万宝楼'))) return
   // 累计
   let money = 0
@@ -51,7 +57,11 @@ export default new Messages().response(/^(#|\/)?售出所有物品$/, async e =>
   }
 
   // 删除所有
-  await GameApi.Bag.del(UID)
+  await DB.user_bag.destroy({
+    where: {
+      uid: UID
+    }
+  })
 
   // 获得
   await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [

@@ -42,14 +42,6 @@ export default new Messages().response(/^(#|\/)?切换绑定(.*)*$/, async e => 
       }
     })
     .then(res => res.map(item => item.dataValues))
-  const user_compensate = await DB.user_compensate
-    .findOne({
-      where: { uid: switchuid },
-      attributes: {
-        exclude: ['id', 'uid'] // 指定要排除的列名
-      }
-    })
-    .then(res => res?.dataValues)
   const user_fate = await DB.user_fate
     .findAll({
       where: { uid: switchuid },
@@ -102,13 +94,6 @@ export default new Messages().response(/^(#|\/)?切换绑定(.*)*$/, async e => 
     await DB.user_fate.create(user_fate[index])
   }
 
-  await DB.user_compensate.update(
-    { uid: switchuid + '-1' },
-    { where: { uid: switchuid } }
-  )
-  await DB.user_compensate.update(user_compensate, {
-    where: { uid: bindinguid }
-  })
   await DB.user_equipment.update(
     { uid: switchuid + '-1' },
     { where: { uid: switchuid } }

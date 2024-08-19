@@ -2,6 +2,7 @@ import { Messages } from 'alemonjs'
 import { showUserMsg, isUser, createUser } from 'xiuxian-api'
 import { Themes } from 'xiuxian-img'
 import * as GameApi from 'xiuxian-core'
+import { user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
   const UID = e.user_id
   isUser(UID)
@@ -21,19 +22,27 @@ export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
         // 不存在。返回第一个
         UserData.theme = Themes[0]
       }
-      // 更新主题后。
-      GameApi.Users.update(UID, {
-        avatar: e.user_avatar,
-        theme: UserData.theme
-      }).then(() => {
-        Promise.all([
-          GameApi.Skills.updataEfficiency(UID, UserData.talent),
-          GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
-          showUserMsg(e)
-        ]).catch(() => {
-          e.reply('数据处理错误')
+      user
+        .update(
+          {
+            avatar: e.user_avatar,
+            theme: UserData.theme
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
+        .then(() => {
+          Promise.all([
+            GameApi.Skills.updataEfficiency(UID, UserData.talent),
+            GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
+            showUserMsg(e)
+          ]).catch(() => {
+            e.reply('数据处理错误')
+          })
         })
-      })
     })
     .catch(() => {
       e.reply('数据查询错误')

@@ -50,7 +50,15 @@ export default new Messages().response(/^(#|\/)?命解$/, async e => {
   // 根据物品等级来消耗气血  1000
   const size = thing.grade * 1000
   // 看看经验
-  const LevelMsg = await GameApi.Levels.read(UID, 2)
+  const LevelMsg = await DB.user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 2
+      }
+    })
+    .then(res => res?.dataValues)
   if (LevelMsg.experience < size) {
     e.reply([`需要消耗[气血]*${size}~`], {
       quote: e.msg_id
@@ -58,7 +66,13 @@ export default new Messages().response(/^(#|\/)?命解$/, async e => {
     return
   }
   //
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
   // 背包未位置了直接返回了
   if (!BagSize) {

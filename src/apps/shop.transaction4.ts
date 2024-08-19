@@ -23,7 +23,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await controlByName(e, UserData, '万宝楼'))) return
     const type = e.msg.replace(/^(#|\/)?售出所有/, '')
 
@@ -69,7 +75,13 @@ export default new Messages().response(
     }
 
     // 直接清除一个类型,必然会空出位置
-    await GameApi.Bag.del(UID, [GameApi.Goods.mapType[type]])
+
+    await DB.user_bag.destroy({
+      where: {
+        uid: UID,
+        type: GameApi.Goods.mapType[type]
+      }
+    })
 
     // 增加下品灵石
     await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [

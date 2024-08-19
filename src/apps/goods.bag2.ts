@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?(储物袋|儲物袋|背包)(升级|升級)$/,
   async e => {
@@ -23,7 +23,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     let grade = UserData.bag_grade
     const Price = GameApi.Cooling.Price[grade]
     if (!Price) {
@@ -41,10 +47,18 @@ export default new Messages().response(
     }
     // 加1
     grade++
-    // 更新用户
-    await GameApi.Users.update(UID, {
-      bag_grade: grade
-    })
+
+    await user.update(
+      {
+        bag_grade: grade
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
+
     // 扣灵石
     await GameApi.Bag.reduceBagThing(UID, [
       {

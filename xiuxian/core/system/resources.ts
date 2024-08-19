@@ -15,6 +15,11 @@ export async function get(key: string) {
   return convert('{"time": 99, "resources": {}}')
 }
 
+/**
+ *
+ * @param data
+ * @returns
+ */
 function convert(data: string) {
   const db = JSON.parse(data)
   if (typeof db == 'string') {

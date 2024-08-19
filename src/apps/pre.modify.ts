@@ -7,12 +7,19 @@ import {
 } from 'xiuxian-api'
 import { Config } from 'xiuxian-core'
 import * as GameApi from 'xiuxian-core'
+import { user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?(改名|更改道號)[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await Control(e, UserData))) return
     const name = e.msg.replace(/^(#|\/)?(改名|更改道號)/, '')
     if (Config.IllegalCharacters.test(name)) {
@@ -29,16 +36,21 @@ export default new Messages().response(
 
       return
     }
-    const CDID = 3,
-      CDTime = GameApi.Cooling.CD_Name
-    4
+    const CDID = 3
+    const CDTime = GameApi.Cooling.CD_Name
     if (!(await victoryCooling(e, UID, CDID))) return
-
     GameApi.Burial.set(UID, CDID, CDTime)
-    // 更新用户
-    await GameApi.Users.update(UID, {
-      name: name
-    })
+    //
+    await user.update(
+      {
+        name: name
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
     setTimeout(() => {
       showUserMsg(e)
     }, 500)

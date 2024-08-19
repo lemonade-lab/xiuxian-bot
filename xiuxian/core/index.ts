@@ -2,14 +2,12 @@
 export * as State from './users/base/state.js'
 export * as Talent from './users/base/talent.js'
 export * as Life from './users/base/life.js'
-export * as Users from './users/index.js'
 // 附加模型
 export * as logs from './users/additional/logs.js'
 export * as Skills from './users/additional/skills.js'
 export * as Levels from './users/additional/levels.js'
 export * as Bag from './users/additional/bag.js'
 export * as Ring from './users/additional/ring.js'
-export * as Compensate from './users/additional/compensate.js'
 export * as Equipment from './users/additional/equipment.js'
 
 // 特殊机制

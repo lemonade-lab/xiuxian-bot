@@ -22,7 +22,13 @@ export default new Messages().response(/^(#|\/)?治炼仙石\d+$/, async e => {
   const UID = e.user_id
   let msg = []
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   let account = Number(e.msg.replace(/^(#|\/)?治炼仙石/, '')) || 1
   if (account > 10) account = 10
   const Userleve = await DB.user_level

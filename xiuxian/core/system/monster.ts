@@ -5,28 +5,30 @@ import { RedisMonster } from '../config/index.js'
  *  地点编号  最低等级  -- 最高等级
  */
 const map = {
-    '1': '1.4',
-    '2': '1.8',
-    '3': '2.11',
-    '4': '4.14',
-    '5': '7.17',
-    '6': '10.20',
-    '7': '10.23',
-    '8': '10.26',
-    '9': '10.29',
-    '10': '20.32',
-    '11': '20.35',
-    '12': '20.38',
-    '13': '30.42'
-  },
-  full: { id: number; name: string; type: number; grade: number }[] =
-    await monster
-      .findAll({})
-      .then(res => res.map(item => item.dataValues))
-      .then(res => {
-        const data: any = res
-        return data
-      })
+  '1': '1.4',
+  '2': '1.8',
+  '3': '2.11',
+  '4': '4.14',
+  '5': '7.17',
+  '6': '10.20',
+  '7': '10.23',
+  '8': '10.26',
+  '9': '10.29',
+  '10': '20.32',
+  '11': '20.35',
+  '12': '20.38',
+  '13': '30.42'
+}
+
+type FullType = { id: number; name: string; type: number; grade: number }[]
+
+const full: FullType = await monster
+  .findAll({})
+  .then(res => res.map(item => item.dataValues))
+  .then(res => {
+    const data: any = res
+    return data
+  })
 
 /**
  * 生成怪物

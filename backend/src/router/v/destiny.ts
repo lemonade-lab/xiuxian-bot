@@ -57,7 +57,14 @@ router.get('/refining', async ctx => {
   // 根据物品等级来消耗修为  1000
   const size = bagThing.grade * 1000
   // 看看经验
-  const LevelMsg = await GameApi.Levels.read(UID, 1)
+  const LevelMsg = await DB.user_level
+    .findOne({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res.dataValues)
   if (LevelMsg.experience < size) {
     ctx.body = {
       code: OK_CODE,
@@ -74,7 +81,9 @@ router.get('/refining', async ctx => {
     name: bagThing.name,
     grade: 0
   })
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   // 减少物品
   await GameApi.Bag.reduceBagThing(UID, [
     { name: thingName as string, acount: 1 }
@@ -139,13 +148,33 @@ router.get('/benming', async ctx => {
     .then(res => res?.dataValues)
 
   // 得到该境界经验
-  const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
-    res => res.experience
-  )
-  const exp_bodypractice = await GameApi.Levels.read(UID, 2).then(
-    res => res.experience
-  )
-  const exp_soul = await GameApi.Levels.read(UID, 3).then(res => res.experience)
+  const exp_gaspractice = await DB.user_level
+    .findOne({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res.dataValues)
+    .then(res => res.experience)
+  const exp_bodypractice = await DB.user_level
+    .findOne({
+      where: {
+        uid: UID,
+        type: 2
+      }
+    })
+    .then(res => res.dataValues)
+    .then(res => res.experience)
+  const exp_soul = await DB.user_level
+    .findOne({
+      where: {
+        uid: UID,
+        type: 3
+      }
+    })
+    .then(res => res.dataValues)
+    .then(res => res.experience)
 
   const goodThing = await GameApi.Goods.searchAllThing(thing.name)
 
@@ -217,7 +246,14 @@ router.get('/giveup', async ctx => {
   // 根据物品等级来消耗气血  1000
   const size = thing.grade * 1000
   // 看看经验
-  const LevelMsg = await GameApi.Levels.read(UID, 2)
+  const LevelMsg = await DB.user_level
+    .findOne({
+      where: {
+        uid: UID,
+        type: 2
+      }
+    })
+    .then(res => res.dataValues)
   if (LevelMsg.experience < size) {
     ctx.body = {
       code: OK_CODE,
@@ -227,7 +263,9 @@ router.get('/giveup', async ctx => {
     return
   }
   //
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
   // 背包未位置了直接返回了
   if (!BagSize) {

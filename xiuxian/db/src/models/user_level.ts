@@ -1,10 +1,10 @@
-import { sequelize } from '../mysql/index.js'
+import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
 export const user_level = sequelize.define<
   Model<{
     id: number
     uid: string // 编号
-    type: number // 境界类型
+    type: 1 | 2 | 3 // 境界类型
     career: number // 职业类型
     addition: number // 突破概率加成
     realm: number // 等级

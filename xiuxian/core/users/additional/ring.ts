@@ -3,46 +3,16 @@ import { searchAllThing } from '../../wrap/goods.js'
 import { literal } from 'sequelize'
 
 /**
- *
- * @param UID
- * @returns
- */
-export async function getLength(UID: string) {
-  return await user_ring.count({
-    where: {
-      uid: UID
-    }
-  })
-}
-
-/**
- * 删除背包所有东西
- * @param UID
- */
-export async function del(UID: string, type: number[] | undefined = undefined) {
-  if (type) {
-    await user_ring.destroy({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-  } else {
-    await user_ring.destroy({
-      where: {
-        uid: UID
-      }
-    })
-  }
-}
-
-/**
  * 检查戒指是否已满
  * @param UID
  * @returns
  */
 export async function backpackFull(UID: string, grade = 1) {
-  const length = await getLength(UID)
+  const length = await user_ring.count({
+    where: {
+      uid: UID
+    }
+  })
   // 等级一直是1
   const size = grade * 10
   const n = size - length

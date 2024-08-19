@@ -1,10 +1,17 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent, endAllWord } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
+import { user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?(锻体|降妖)$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (UserData.state == 2) {
     e.reply('锻体中...', {
       quote: e.msg_id

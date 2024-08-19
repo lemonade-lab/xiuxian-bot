@@ -29,7 +29,13 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
 
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const minBattleBlood = 1
   const ID = e.msg.replace(/^(#|\/)?偷袭/, '')
   const userDataB = await DB.user
@@ -70,7 +76,9 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   const UIDB = userDataB.uid
   if (!UIDB) return
   if (!(await isThereAUserPresentB(e, UIDB))) return
-  const UserDataB = await GameApi.Users.read(UIDB)
+  const UserDataB = await DB.user
+    .findOne({ where: { uid: UIDB } })
+    .then(res => res.dataValues)
   if (!(await dualVerification(e, UserData, UserDataB))) return
   if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
     return
@@ -86,11 +94,19 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   const create_time = new Date().getTime()
 
   if (UserData.point_type == 2) {
-    await GameApi.Users.update(UID, {
-      battle_blood_now: 0
-    })
+    await DB.user.update(
+      {
+        battle_blood_now: 0
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
 
-    GameApi.logs.write(UIDB, {
+    DB.user_log.create({
+      uid: UIDB,
       type: 1,
       create_time,
       message: `${UserData.name}攻击了你,被[玄玉天宫]修士拦住了~`
@@ -147,7 +163,8 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   if (UserData.pont_attribute == 1) {
     const thing = await GameApi.Bag.searchBagByName(UID, '决斗令')
     if (!thing) {
-      GameApi.logs.write(UIDB, {
+      DB.user_log.create({
+        uid: UIDB,
         type: 1,
         create_time,
         message: `${UserData.name}攻击了你,被卫兵拦住了~`
@@ -169,7 +186,15 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   /**
    * 判断灵力
    */
-  const levelsB = await GameApi.Levels.read(UIDB, 1)
+  const levelsB = await DB.user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
   if (UserData.special_spiritual < levelsB.realm) {
     e.reply(['灵力不足'], {
       quote: e.msg_id
@@ -187,16 +212,30 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
 
   const BMSG = GameApi.Fight.start(UserData, UserDataB)
 
-  await GameApi.Users.update(UID, {
-    battle_blood_now: BMSG.battle_blood_now.a,
-    special_spiritual:
-      UserData.special_spiritual - Math.floor(levelsB.realm / 2),
-    special_prestige: UserData.special_prestige
-  })
+  await DB.user.update(
+    {
+      battle_blood_now: BMSG.battle_blood_now.a,
+      special_spiritual:
+        UserData.special_spiritual - Math.floor(levelsB.realm / 2),
+      special_prestige: UserData.special_prestige
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
 
-  await GameApi.Users.update(UIDB, {
-    battle_blood_now: BMSG.battle_blood_now.b
-  })
+  await DB.user.update(
+    {
+      battle_blood_now: BMSG.battle_blood_now.b
+    },
+    {
+      where: {
+        uid: UIDB
+      }
+    }
+  )
 
   const BooldMsg = `${UserData.name}当前剩余:${BMSG.battle_blood_now.a}[血量]\n${UserDataB.name}当前剩余:${BMSG.battle_blood_now.b}[血量]`
 
@@ -207,11 +246,13 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   }
   // 平局了,保存双方存档即可
   if (BMSG.victory == '0') {
-    GameApi.logs.write(UIDB, {
+    DB.user_log.create({
+      uid: UIDB,
       type: 1,
       create_time,
       message: `${UserData.name}攻击了你,你跟他打成了平手~`
     })
+
     // 只要有一方战斗过程是开着的
     e.reply([`你跟他两打成了平手\n${BooldMsg}`], {
       quote: e.msg_id
@@ -237,11 +278,13 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
     user.prestige = UserData.special_prestige
   }
   if (!GameApi.Method.isTrueInRange(1, 100, Math.floor(user.prestige))) {
-    GameApi.logs.write(UIDB, {
+    DB.user_log.create({
+      uid: UIDB,
       type: 1,
       create_time,
       message: `[${UserData.name}]攻击了你,你重伤在地`
     })
+
     e.reply([`并未抢到他的物品~\n${BooldMsg}`], {
       quote: e.msg_id
     })
@@ -251,18 +294,22 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   // 随机删除败者储物袋的物品
   const data = await GameApi.Bag.delThing(user.PartyB)
   if (!data) {
-    GameApi.logs.write(UIDB, {
+    DB.user_log.create({
+      uid: UIDB,
       type: 2,
       create_time,
       message: `[${UserData.name}]攻击了你,你重伤在地`
     })
+
     e.reply([`穷的都吃不起灵石了`], {
       quote: e.msg_id
     })
     return
   }
 
-  const dsds = await GameApi.Users.read(user.PartyA)
+  const dsds = await DB.user
+    .findOne({ where: { uid: user.PartyA } })
+    .then(res => res.dataValues)
   /**
    * 检查背包
    */
@@ -289,21 +336,26 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
   // 结算
   if (user.PartyA == UID) {
     const msg = `[${UserData.name}]夺走了[${UserDataB.name}]的[${thine.name}]*${thine.acount}~`
-    GameApi.logs.write(UIDB, {
+    DB.user_log.create({
+      uid: UIDB,
       type: 1,
       create_time,
       message: msg
     })
+
     e.reply(`${msg}\n${BooldMsg}`, {
       quote: e.msg_id
     })
   } else {
     const msg = `[${UserDataB.name}]夺走了[${UserData.name}]的[${thine.name}]*${thine.acount}~`
-    GameApi.logs.write(UIDB, {
+
+    DB.user_log.create({
+      uid: UIDB,
       type: 1,
       create_time,
       message: msg
     })
+
     e.reply(`${msg}\n${BooldMsg}`, {
       quote: e.msg_id
     })

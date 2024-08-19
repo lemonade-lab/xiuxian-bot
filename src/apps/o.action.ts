@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?服用[\u4e00-\u9fa5]+\*\d+$/,
   async e => {
@@ -40,7 +40,13 @@ export default new Messages().response(
       return
     }
     // 得到用户数据
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
 
     switch (thing.addition) {
       case 'boolere_covery': {

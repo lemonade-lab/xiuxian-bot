@@ -67,15 +67,38 @@ export default new Messages().response(/^(#|\/)?精炼$/, async e => {
     .then(res => res?.dataValues)
 
   // 得到境界剩余经验
-  const exp_gaspractice = await GameApi.Levels.read(UID, 1).then(
-    res => res.experience
-  )
+  const exp_gaspractice = await DB.user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
+    .then(res => res.experience)
 
-  const exp_bodypractice = await GameApi.Levels.read(UID, 2).then(
-    res => res.experience
-  )
+  const exp_bodypractice = await DB.user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 2
+      }
+    })
+    .then(res => res?.dataValues)
+    .then(res => res.experience)
 
-  const exp_soul = await GameApi.Levels.read(UID, 3).then(res => res.experience)
+  const exp_soul = await DB.user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 3
+      }
+    })
+    .then(res => res?.dataValues)
+    .then(res => res.experience)
 
   if (
     exp_gaspractice < udata.exp_gaspractice ||

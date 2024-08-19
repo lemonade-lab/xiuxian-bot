@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { controlByName, isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?出售[\u4e00-\u9fa5]+\*\d+$/,
   async e => {
@@ -23,7 +23,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await controlByName(e, UserData, '万宝楼'))) return
     const [thingName, quantity] = e.msg.replace(/^(#|\/)?出售/, '').split('*')
     // 检查物品

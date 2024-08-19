@@ -1,4 +1,4 @@
-import { sequelize } from '../mysql/index.js'
+import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
 export const user_skys = sequelize.define<
   Model<{

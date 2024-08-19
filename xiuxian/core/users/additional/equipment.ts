@@ -3,50 +3,9 @@ import {
   goods,
   levels,
   user_equipment,
-  user_fate
+  user_fate,
+  user
 } from 'xiuxian-db'
-import * as Users from '../index.js'
-/**
- * 添加装备
- * @param UID
- * @param name
- */
-export async function add(UID: string, name: string) {
-  return await user_equipment.create({
-    uid: UID,
-    name
-  })
-}
-
-/**
- * 删除装备
- * @param UID
- * @param name
- */
-export async function del(UID: string, name: string, id: number) {
-  return await user_equipment.destroy({
-    where: {
-      uid: UID,
-      id,
-      name
-    }
-  })
-}
-
-/**
- * 得到装备信息
- * @param UID
- * @returns
- */
-export async function get(UID: string) {
-  return await user_equipment
-    .findAll({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.map(item => item.dataValues))
-}
 
 /**
  * 更新面板
@@ -227,8 +186,11 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
       ? panel.battle_blood_limit
       : battle_blood_now
 
-  // 写入数据
-  await Users.update(UID, panel)
+  user.update(panel, {
+    where: {
+      uid: UID
+    }
+  })
   return
 }
 
@@ -249,9 +211,16 @@ export async function addBlood(BattleData, SIZE: number) {
   if (BattleData.battle_blood_now > BattleData.battle_blood_limit) {
     BattleData.battle_blood_now = BattleData.battle_blood_limit
   }
-  await Users.update(BattleData.uid, {
-    battle_blood_now: BattleData.battle_blood_now
-  })
+  await user.update(
+    {
+      battle_blood_now: BattleData.battle_blood_now
+    },
+    {
+      where: {
+        uid: BattleData.uid
+      }
+    }
+  )
   return BattleData.battle_blood_now
 }
 
@@ -268,9 +237,16 @@ export async function reduceBlood(BattleData, SIZE: number) {
   if (BattleData.battle_blood_now < 0) {
     BattleData.battle_blood_now = 0
   }
-  await Users.update(BattleData.uid, {
-    battle_blood_now: BattleData.battle_blood_now
-  })
+  await user.update(
+    {
+      battle_blood_now: BattleData.battle_blood_now
+    },
+    {
+      where: {
+        uid: BattleData.uid
+      }
+    }
+  )
   return BattleData.battle_blood_now
 }
 

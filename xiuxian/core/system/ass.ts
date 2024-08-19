@@ -1,4 +1,11 @@
 import { ass_typing, ass, user_ass } from 'xiuxian-db'
+/**
+ *
+ * @param UID
+ * @param name
+ * @param size
+ * @returns
+ */
 export const v = async (UID: string, name: string, size = 4) => {
   /**
    * ********

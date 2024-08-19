@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { controlByName, isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/,
   async e => {
@@ -23,7 +23,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await controlByName(e, UserData, '联盟'))) return
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(贡献|貢獻)/, '')
@@ -52,9 +58,16 @@ export default new Messages().response(
     ])
     const size = Math.floor((thing.price * Number(quantity)) / 66)
     // 更新用户
-    GameApi.Users.update(UID, {
-      special_reputation: UserData.special_reputation + size
-    })
+    await user.update(
+      {
+        special_reputation: UserData.special_reputation + size
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
     e.reply(`[联盟]黄天霸\n贡献成功,奖励[声望]*${size}`)
 
     return

@@ -5,7 +5,13 @@ import * as DB from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?探索怪物$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (!(await ControlByBlood(e, UserData))) return
   if (UserData.pont_attribute == 1) {
     e.reply('[城主府]巡逻军:\n城内切莫释放神识!')

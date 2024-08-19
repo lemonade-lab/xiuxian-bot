@@ -6,7 +6,7 @@ import {
   victoryCooling
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user, user_level } from 'xiuxian-db'
 function getMoneyGrade(grade: number) {
   if (grade == 1) return '下品'
   if (grade == 2) return '中品'
@@ -33,13 +33,28 @@ export default new Messages().response(/^(#|\/)?采集\d+\*?(1|2)?$/, async e =>
   const UID = e.user_id
 
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   if (!(await ControlByBlood(e, UserData))) return
 
   const [id, size] = e.msg.replace(/^(#|\/)?采集/, '').split('*')
 
   // 看看境界
-  const gaspractice = await GameApi.Levels.read(UID, 1).then(item => item.realm)
+  const gaspractice = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
+    .then(item => item.realm)
 
   const acount = Number(
     size == '' || size == undefined || gaspractice < 25 || Number(size) > 2
@@ -105,9 +120,16 @@ export default new Messages().response(/^(#|\/)?采集\d+\*?(1|2)?$/, async e =>
   ])
 
   // 减少灵力 保存灵力信息
-  await GameApi.Users.update(UID, {
-    special_spiritual: UserData.special_spiritual - ep.spiritual * acount
-  })
+  await user.update(
+    {
+      special_spiritual: UserData.special_spiritual - ep.spiritual * acount
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
 
   // 设置冷却
   GameApi.Burial.set(UID, CDID, GameApi.Cooling.CD_Mine)

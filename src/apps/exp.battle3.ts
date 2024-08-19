@@ -8,7 +8,7 @@ import {
   victoryCooling
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user, user_level } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?(比斗|比鬥)/, async e => {
   /**
    * *******
@@ -29,11 +29,23 @@ export default new Messages().response(/^(#|\/)?(比斗|比鬥)/, async e => {
   const UID = e.user_id
   console.log('UID', UID)
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(比斗|比鬥)/, '')
   if (!UIDB) return
   if (!(await isThereAUserPresentB(e, UIDB))) return
-  const UserDataB = await GameApi.Users.read(UIDB)
+  const UserDataB = await user
+    .findOne({
+      where: {
+        uid: UIDB
+      }
+    })
+    .then(res => res.dataValues)
   if (!(await dualVerification(e, UserData, UserDataB))) return
 
   if (UserData.special_spiritual < 5) {
@@ -74,22 +86,53 @@ export default new Messages().response(/^(#|\/)?(比斗|比鬥)/, async e => {
       quote: e.msg_id
     }
   )
-  const LevelDataA = await GameApi.Levels.read(UID, 1),
-    LevelDataB = await GameApi.Levels.read(UIDB, 1)
+  const LevelDataA = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
+  const LevelDataB = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UIDB,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
 
-  const sizeA = LevelDataA.experience * 0.15,
-    sizeB = LevelDataB.experience * 0.1 // 被动的
-  const expA = sizeA > 648 ? 648 : sizeA,
-    expB = sizeB > 648 ? 648 : sizeB
+  const sizeA = LevelDataA.experience * 0.15
+  const sizeB = LevelDataB.experience * 0.1 // 被动的
+  const expA = sizeA > 648 ? 648 : sizeA
+  const expB = sizeB > 648 ? 648 : sizeB
 
-  await GameApi.Users.update(UID, {
-    battle_blood_now: BMSG.battle_blood_now.a,
-    special_spiritual: UserData.special_spiritual - 5
-  })
-  await GameApi.Users.update(UIDB, {
-    battle_blood_now: BMSG.battle_blood_now.b,
-    special_spiritual: UserDataB.special_spiritual - 5
-  })
+  await user.update(
+    {
+      battle_blood_now: BMSG.battle_blood_now.a,
+      special_spiritual: UserData.special_spiritual - 5
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
+
+  await user.update(
+    {
+      battle_blood_now: BMSG.battle_blood_now.b,
+      special_spiritual: UserDataB.special_spiritual - 5
+    },
+    {
+      where: {
+        uid: UIDB
+      }
+    }
+  )
 
   const exA = Math.floor((expA * (UserDataB.talent_size + 100)) / 100),
     exB = Math.floor((expB * (UserDataB.talent_size + 100)) / 100)

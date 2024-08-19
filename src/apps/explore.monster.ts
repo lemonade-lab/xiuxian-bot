@@ -70,7 +70,13 @@ export default new Messages().response(
 
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await ControlByBlood(e, UserData))) return
     const CDID = 10
     if (!(await victoryCooling(e, UID, CDID))) return
@@ -137,11 +143,18 @@ export default new Messages().response(
       battle_power: 0
     })
 
-    await GameApi.Users.update(UID, {
-      battle_blood_now: BMSG.battle_blood_now.a,
-      special_spiritual: UserData.special_spiritual - need_spiritual,
-      special_reputation: UserData.special_reputation + mon.level
-    })
+    await DB.user.update(
+      {
+        battle_blood_now: BMSG.battle_blood_now.a,
+        special_spiritual: UserData.special_spiritual - need_spiritual,
+        special_reputation: UserData.special_reputation + mon.level
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
 
     const BooldMsg = `\n🩸${BMSG.battle_blood_now.a}`
     if (UserData.battle_show) {

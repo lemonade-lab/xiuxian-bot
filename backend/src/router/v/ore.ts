@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router'
 
-import { Bag, Method, Users } from 'xiuxian-core'
+import { Bag, Method } from 'xiuxian-core'
 
 import * as GameApi from 'xiuxian-core'
 
@@ -240,9 +240,7 @@ const npcName = [
 async function killNPC(Mname: string, UID: string, prestige: number) {
   if (!npcName.find(item => Mname.includes(item))) return true
 
-  await Users.update(UID, {
-    battle_blood_now: 0
-  })
+  await user.update({ battle_blood_now: 0 }, { where: { uid: UID } })
 
   // 不触发
   if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {

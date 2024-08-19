@@ -1,5 +1,5 @@
 import { type AEvent } from 'alemonjs'
-import { user } from 'xiuxian-db'
+import { user, user_level } from 'xiuxian-db'
 import {
   Cooling,
   Method,
@@ -8,7 +8,6 @@ import {
   Treasure,
   Player,
   State,
-  Users,
   Skills,
   Levels,
   Bag,
@@ -120,7 +119,15 @@ export async function levelUp(
 
   if (!(await victoryCooling(e, UID, CDID))) return
 
-  const LevelMsg = await Levels.read(UID, ID)
+  const LevelMsg = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: ID
+      }
+    })
+    .then(res => res?.dataValues)
   if (LevelMsg.experience <= 100) {
     e.reply(['毫无自知之明'], {
       quote: e.msg_id
@@ -158,7 +165,9 @@ export async function levelUp(
   // 设置
   Burial.set(UID, CDID, Cooling.CD_Level_up)
   setTimeout(async () => {
-    const UserData = await Users.read(UID)
+    const UserData = await user
+      .findOne({ where: { uid: UID } })
+      .then(res => res.dataValues)
     // 更新面板
     Equipment.updatePanel(UID, UserData.battle_blood_now)
   }, 1500)
@@ -397,9 +406,16 @@ export async function killNPC(
 
   e.reply(`[${Mname}]:狂妄!`)
 
-  await Users.update(UID, {
-    battle_blood_now: 0
-  })
+  await user.update(
+    {
+      battle_blood_now: 0
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
 
   // 不触发
   if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {
@@ -446,13 +462,21 @@ export async function showAction(e: AEvent, UID: string, UserData) {
     UserData.pont_z
   )
   if (mData) {
-    await Users.update(UID, {
-      point_type: mData.type,
-      pont_attribute: mData.attribute,
-      pont_x: UserData.pont_x,
-      pont_y: UserData.pont_y,
-      pont_z: UserData.pont_z
-    })
+    await user.update(
+      {
+        point_type: mData.type,
+        pont_attribute: mData.attribute,
+        pont_x: UserData.pont_x,
+        pont_y: UserData.pont_y,
+        pont_z: UserData.pont_z
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
+
     e.reply(`(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`)
   }
   return
@@ -570,9 +594,17 @@ export async function condensateGas(
   if (special_spiritual >= limit) {
     special_spiritual = limit
   }
-  await Users.update(UID, {
-    special_spiritual: special_spiritual
-  })
+
+  await user.update(
+    {
+      special_spiritual: special_spiritual
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
 
   setTimeout(() => {
     e.reply([`聚灵成功\n当前灵力${special_spiritual}/${limit}`])
@@ -650,28 +682,51 @@ export async function punishLevel(e: AEvent, UID: string, UserData) {
    */
 
   // 得到用户数据
-  const Userexp = await Levels.read(UID, 1)
-  const Userbool = await Levels.read(UID, 2)
-  const Usershen = await Levels.read(UID, 2)
-  await Users.update(UID, {
-    battle_blood_now: 0
-  })
+  const Userexp = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
+  //
+  const Userbool = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 2
+      }
+    })
+    .then(res => res?.dataValues)
+  //
+  const Usershen = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 3
+      }
+    })
+    .then(res => res?.dataValues)
+
+  await user.update(
+    { battle_blood_now: 0 },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
 
   switch (UserData.talent.length) {
     case 1: {
       setTimeout(async () => {
-        /**
-         * 经验清空
-         */
-        Levels.write(UID, 1, {
-          experience: 0
-        })
-        Levels.write(UID, 2, {
-          experience: 0
-        })
-        Levels.write(UID, 3, {
-          experience: 0
-        })
+        user_level.update({ experience: 0 }, { where: { uid: UID, type: 1 } })
+        user_level.update({ experience: 0 }, { where: { uid: UID, type: 2 } })
+        user_level.update({ experience: 0 }, { where: { uid: UID, type: 3 } })
         e.reply(['[灭世之雷]击中了你的道韵,修为清空,化作尘埃'], {
           quote: e.msg_id
         })
@@ -680,18 +735,18 @@ export async function punishLevel(e: AEvent, UID: string, UserData) {
     }
     case 2: {
       setTimeout(async () => {
-        /**
-         * 经验清空
-         */
-        Levels.write(UID, 1, {
-          experience: Math.floor(Userexp.experience * 0.75)
-        })
-        Levels.write(UID, 2, {
-          experience: Math.floor(Userbool.experience * 0.75)
-        })
-        Levels.write(UID, 3, {
-          experience: Math.floor(Usershen.experience * 0.75)
-        })
+        user_level.update(
+          { experience: Math.floor(Userexp.experience * 0.75) },
+          { where: { uid: UID, type: 1 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Userbool.experience * 0.75) },
+          { where: { uid: UID, type: 2 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Usershen.experience * 0.75) },
+          { where: { uid: UID, type: 3 } }
+        )
         e.reply(['[灭世之雷]击中了你的命魂,损失大量修为'], {
           quote: e.msg_id
         })
@@ -700,18 +755,18 @@ export async function punishLevel(e: AEvent, UID: string, UserData) {
     }
     case 3: {
       setTimeout(async () => {
-        /**
-         * 经验清空
-         */
-        Levels.write(UID, 1, {
-          experience: Math.floor(Usershen.experience * 0.5)
-        })
-        Levels.write(UID, 2, {
-          experience: Math.floor(Usershen.experience * 0.5)
-        })
-        Levels.write(UID, 3, {
-          experience: Math.floor(Usershen.experience * 0.5)
-        })
+        user_level.update(
+          { experience: Math.floor(Userexp.experience * 0.5) },
+          { where: { uid: UID, type: 1 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Userbool.experience * 0.5) },
+          { where: { uid: UID, type: 2 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Usershen.experience * 0.5) },
+          { where: { uid: UID, type: 3 } }
+        )
         e.reply(['[灭世之雷]击中了你的命魂,损失一半修为'], {
           quote: e.msg_id
         })
@@ -720,15 +775,19 @@ export async function punishLevel(e: AEvent, UID: string, UserData) {
     }
     case 4: {
       setTimeout(async () => {
-        Levels.write(UID, 1, {
-          experience: Math.floor(Usershen.experience * 0.25)
-        })
-        Levels.write(UID, 2, {
-          experience: Math.floor(Usershen.experience * 0.25)
-        })
-        Levels.write(UID, 3, {
-          experience: Math.floor(Usershen.experience * 0.25)
-        })
+        user_level.update(
+          { experience: Math.floor(Userexp.experience * 0.25) },
+          { where: { uid: UID, type: 1 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Userbool.experience * 0.25) },
+          { where: { uid: UID, type: 2 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Usershen.experience * 0.25) },
+          { where: { uid: UID, type: 3 } }
+        )
+
         Levels.fallingRealm(UID, 1)
         e.reply([`[灭世之雷]击中了你的命魂,损失部分修为`], {
           quote: e.msg_id
@@ -738,15 +797,19 @@ export async function punishLevel(e: AEvent, UID: string, UserData) {
     }
     case 5: {
       setTimeout(async () => {
-        Levels.write(UID, 1, {
-          experience: Math.floor(Usershen.experience * 0.15)
-        })
-        Levels.write(UID, 2, {
-          experience: Math.floor(Usershen.experience * 0.15)
-        })
-        Levels.write(UID, 3, {
-          experience: Math.floor(Usershen.experience * 0.15)
-        })
+        user_level.update(
+          { experience: Math.floor(Userexp.experience * 0.15) },
+          { where: { uid: UID, type: 1 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Userbool.experience * 0.15) },
+          { where: { uid: UID, type: 2 } }
+        )
+        user_level.update(
+          { experience: Math.floor(Usershen.experience * 0.15) },
+          { where: { uid: UID, type: 3 } }
+        )
+
         Levels.fallingRealm(UID, 1)
         e.reply([`[灭世之雷]击中了你的命魂,损失修为`], {
           quote: e.msg_id

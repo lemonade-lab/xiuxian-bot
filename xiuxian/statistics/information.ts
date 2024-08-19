@@ -1,6 +1,6 @@
 import * as DB from 'xiuxian-db'
 import { Op } from 'sequelize'
-import { Talent, Ring, Users, Bag, Equipment } from 'xiuxian-core'
+import { Talent, Equipment } from 'xiuxian-core'
 
 /**
  * 个人信息
@@ -9,7 +9,13 @@ import { Talent, Ring, Users, Bag, Equipment } from 'xiuxian-core'
  * @returns
  */
 export async function personalInformation(UID: string, user_avatar: string) {
-  const UserData = await Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
 
   // 灵根名
   let size = '未知'
@@ -151,7 +157,13 @@ export type PersonalInformationType =
  */
 export async function equipmentInformation(UID: string, user_avatar: string) {
   // 得到用户数据
-  const UserData = await Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const equipment = (await DB.user_equipment.findAll({
     where: {
       uid: UID
@@ -241,7 +253,13 @@ export type EquipmentInformationType =
  */
 export async function skillInformation(UID: string, user_avatar: string) {
   // 得到用户数据
-  const UserData = await Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   // 灵根名
   let size = '未知'
   let name = '未知'
@@ -288,8 +306,18 @@ export async function backpackInformation(
   type: number | number[]
 ) {
   // 得到用户数据
-  const UserData = await Users.read(UID)
-  const length = await Bag.getLength(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
+  const length = await DB.user_bag.count({
+    where: {
+      uid: UID
+    }
+  })
 
   const bag = await DB.user_bag
     .findAll({
@@ -325,8 +353,18 @@ export type BackpackInformationType =
  * @returns
  */
 export async function ringInformation(UID: string, user_avatar: string) {
-  const UserData = await Users.read(UID)
-  const length = await Ring.getLength(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
+  const length = await DB.user_ring.count({
+    where: {
+      uid: UID
+    }
+  })
   const bag = await DB.user_ring
     .findAll({
       where: {

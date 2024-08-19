@@ -3,46 +3,16 @@ import { literal } from 'sequelize'
 import { searchAllThing } from '../../wrap/goods.js'
 
 /**
- *
- * @param UID
- * @returns
- */
-export async function getLength(UID: string) {
-  return await user_bag.count({
-    where: {
-      uid: UID
-    }
-  })
-}
-
-/**
- * 删除背包所有东西
- * @param UID
- */
-export async function del(UID: string, type: number[] | undefined = undefined) {
-  if (type) {
-    await user_bag.destroy({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-  } else {
-    await user_bag.destroy({
-      where: {
-        uid: UID
-      }
-    })
-  }
-}
-
-/**
  * 检查储物袋是否已满
  * @param UID
  * @returns
  */
 export async function backpackFull(UID: string, grade: number) {
-  const length = await getLength(UID)
+  const length = await user_bag.count({
+    where: {
+      uid: UID
+    }
+  })
   const size = grade * 10
   const n = size - length
   // 至少有空位置的时候返回n

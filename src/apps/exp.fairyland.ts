@@ -28,7 +28,13 @@ export default new Messages().response(/^(#|\/)?渡劫$/, async e => {
     return
   }
   // 获取用户信息
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   //雷劫次数
   let num = 0
   // 概率

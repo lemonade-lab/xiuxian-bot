@@ -1,5 +1,5 @@
 import koaRouter from 'koa-router'
-import { user } from 'xiuxian-db'
+import { user, user_equipment } from 'xiuxian-db'
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 
 import * as GameApi from 'xiuxian-core'
@@ -35,7 +35,9 @@ router.get('/addEquipment', async ctx => {
   /**
    * 读取装备数据
    */
-  const equipment = await GameApi.Equipment.get(UID)
+  const equipment = await user_equipment
+    .findAll({ where: { uid: UID } })
+    .then(res => res.map(item => item.dataValues))
   /**
    * 装备数上限
    */
@@ -48,7 +50,8 @@ router.get('/addEquipment', async ctx => {
     return
   }
   // 装备
-  await GameApi.Equipment.add(UID, thing.name)
+  await user_equipment.create({ uid: UID, name: thing.name })
+
   // 扣除物品
   await GameApi.Bag.reduceBagThing(UID, [
     {
@@ -58,7 +61,9 @@ router.get('/addEquipment', async ctx => {
   ])
   // 响应消息
 
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   // 更新
   await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
   // 响应
@@ -91,7 +96,9 @@ router.get('/deleteEquipment', async ctx => {
     }
     return
   }
-  const equipment = await GameApi.Equipment.get(UID)
+  const equipment = await user_equipment
+    .findAll({ where: { uid: UID } })
+    .then(res => res.map(item => item.dataValues))
   const islearned = equipment.find(item => item.name == thingName)
   if (!islearned) {
     ctx.body = {
@@ -100,7 +107,9 @@ router.get('/deleteEquipment', async ctx => {
       data: null
     }
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   // 检查背包
   const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
   if (!BagSize) {
@@ -111,7 +120,11 @@ router.get('/deleteEquipment', async ctx => {
     }
     return
   }
-  await GameApi.Equipment.del(UID, thingName, islearned.id)
+
+  await user_equipment.destroy({
+    where: { uid: UID, name: thingName, id: islearned.id }
+  })
+
   await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
     {
       name: thingName,

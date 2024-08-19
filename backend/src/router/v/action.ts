@@ -59,7 +59,9 @@ router.get('/take', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
 
   switch (thing.addition) {
     case 'boolere_covery': {
@@ -157,8 +159,9 @@ router.get('/study', async ctx => {
     }
     return
   }
-  const AllSorcery = await GameApi.Skills.get(UID)
-
+  const AllSorcery = await DB.user_skills
+    .findAll({ where: { uid: UID } })
+    .then(res => res.map(item => item.dataValues))
   const islearned = AllSorcery.find(item => item.name == thing.name)
   if (islearned) {
     ctx.body = {
@@ -180,10 +183,13 @@ router.get('/study', async ctx => {
   /**
    * 新增功法
    */
-  await GameApi.Skills.add(UID, thing.name)
+  DB.user_skills.create({ uid: UID, name: thing.name })
+
   // 更新天赋
   setTimeout(async () => {
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({ where: { uid: UID } })
+      .then(res => res.dataValues)
     await GameApi.Skills.updataEfficiency(UID, UserData.talent)
   }, 1000)
   await GameApi.Bag.reduceBagThing(UID, [
@@ -214,7 +220,9 @@ router.get('/forget', async ctx => {
     return
   }
   const thingName = ctx.query.thingName
-  const AllSorcery = await GameApi.Skills.get(UID)
+  const AllSorcery = await DB.user_skills
+    .findAll({ where: { uid: UID } })
+    .then(res => res.map(item => item.dataValues))
   const islearned = AllSorcery.find(item => item.name == thingName)
   if (!islearned) {
     ctx.body = {
@@ -224,7 +232,9 @@ router.get('/forget', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   /**
    * 检查背包
    */
@@ -239,13 +249,15 @@ router.get('/forget', async ctx => {
   }
   // 直接删
 
-  await GameApi.Skills.del(UID, thingName)
+  DB.user_skills.destroy({ where: { uid: UID, name: thingName } })
 
   /**
    * 更新天赋
    */
   setTimeout(async () => {
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({ where: { uid: UID } })
+      .then(res => res.dataValues)
     await GameApi.Skills.updataEfficiency(UID, UserData.talent)
   }, 500)
 
@@ -310,7 +322,9 @@ router.get('/consumption', async ctx => {
     }
     return
   }
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await DB.user
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
   switch (thing.id) {
     case 600201: {
       addExperience(
@@ -372,7 +386,14 @@ router.get('/consumption', async ctx => {
      * 洗灵根
      */
     case 600301: {
-      const LevelData = await GameApi.Levels.read(UID, 1)
+      const LevelData = await DB.user_level
+        .findOne({
+          where: {
+            uid: UID,
+            type: 1
+          }
+        })
+        .then(res => res.dataValues)
       if (!LevelData) {
         break
       }
@@ -386,9 +407,13 @@ router.get('/consumption', async ctx => {
       }
       UserData.talent = GameApi.Talent.getTalent()
 
-      await GameApi.Users.update(UID, {
-        talent: UserData.talent
-      })
+      await DB.user.update(
+        {
+          talent: UserData.talent
+        },
+        { where: { uid: UID } }
+      )
+
       /**
        * 更新天赋
        */
@@ -417,9 +442,14 @@ router.get('/consumption', async ctx => {
      */
     case 600302: {
       UserData.talent_show = 1
-      await GameApi.Users.update(UID, {
-        talent_show: UserData.talent_show
-      })
+
+      await DB.user.update(
+        {
+          talent_show: UserData.talent_show
+        },
+        { where: { uid: UID } }
+      )
+
       /**
        * 扣物品
        */
@@ -501,9 +531,12 @@ router.get('/consumption', async ctx => {
       if (UserData.special_prestige <= 0) {
         UserData.special_prestige = 0
       }
-      await GameApi.Users.update(UID, {
-        special_prestige: UserData.special_prestige
-      })
+      await DB.user.update(
+        {
+          special_prestige: UserData.special_prestige
+        },
+        { where: { uid: UID } }
+      )
 
       /**
        * 扣物品
@@ -564,13 +597,16 @@ router.get('/consumption', async ctx => {
         }
       }
 
-      await GameApi.Users.update(UID, {
-        pont_x: point.x,
-        pont_y: point.y,
-        pont_z: point.z,
-        point_type: point.type,
-        pont_attribute: point.attribute
-      })
+      await DB.user.update(
+        {
+          pont_x: point.x,
+          pont_y: point.y,
+          pont_z: point.z,
+          point_type: point.type,
+          pont_attribute: point.attribute
+        },
+        { where: { uid: UID } }
+      )
 
       ctx.body = {
         code: OK_CODE,
@@ -706,7 +742,14 @@ async function sendLing(
 
   GameApi.Burial.set(UID, CDID, CDTime)
 
-  const LevelData = await GameApi.Levels.read(UID, 1)
+  const LevelData = await DB.user_level
+    .findOne({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res.dataValues)
   /**
    * 到了筑基,灵石收益成倍削弱
    */

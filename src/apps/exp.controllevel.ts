@@ -6,7 +6,7 @@ import {
   dualVerificationAction
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user, user_level } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?(传功|傳功).*$/, async e => {
   /**
    * *******
@@ -26,11 +26,23 @@ export default new Messages().response(/^(#|\/)?(传功|傳功).*$/, async e => 
 
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await GameApi.Users.read(UID)
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(传功|傳功)/, '')
   if (!UIDB) return
   if (!(await isThereAUserPresentB(e, UIDB))) return
-  const UserDataB = await GameApi.Users.read(UIDB)
+  const UserDataB = await user
+    .findOne({
+      where: {
+        uid: UIDB
+      }
+    })
+    .then(res => res.dataValues)
   if (!(await dualVerification(e, UserData, UserDataB))) return
   if (UserData.special_spiritual < 5) {
     e.reply(['灵力不足'], {
@@ -46,8 +58,24 @@ export default new Messages().response(/^(#|\/)?(传功|傳功).*$/, async e => 
   }
   if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
     return
-  const LevelDataA = await GameApi.Levels.read(UID, 1),
-    LevelDataB = await GameApi.Levels.read(UIDB, 1)
+  const LevelDataA = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
+  const LevelDataB = await user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UIDB,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
   if (!LevelDataA || !LevelDataB) return
   if (LevelDataA.realm < 21) {
     e.reply(['未到元婴期'], {
@@ -73,14 +101,28 @@ export default new Messages().response(/^(#|\/)?(传功|傳功).*$/, async e => 
     })
     return
   }
-  //
 
-  await GameApi.Users.update(UID, {
-    special_spiritual: UserData.special_spiritual - 5
-  })
-  await GameApi.Users.update(UIDB, {
-    special_spiritual: UserDataB.special_spiritual - 5
-  })
+  await user.update(
+    {
+      special_spiritual: UserData.special_spiritual - 5
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
+
+  await user.update(
+    {
+      special_spiritual: UserDataB.special_spiritual - 5
+    },
+    {
+      where: {
+        uid: UIDB
+      }
+    }
+  )
 
   if (!GameApi.Method.isTrueInRange(1, 100, 85)) {
     // 清空经验

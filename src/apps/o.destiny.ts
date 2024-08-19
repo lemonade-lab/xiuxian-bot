@@ -49,7 +49,15 @@ export default new Messages().response(
     // 根据物品等级来消耗修为  1000
     const size = bagThing.grade * 1000
     // 看看经验
-    const LevelMsg = await GameApi.Levels.read(UID, 1)
+    const LevelMsg = await DB.user_level
+      .findOne({
+        attributes: ['addition', 'realm', 'experience'],
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
+      .then(res => res?.dataValues)
     if (LevelMsg.experience < size) {
       e.reply([`需要消耗[修为]*${size}~`], {
         quote: e.msg_id
@@ -64,7 +72,13 @@ export default new Messages().response(
       name: bagThing.name,
       grade: 0
     })
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     // 减少物品
     await GameApi.Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
     // 更新面板?

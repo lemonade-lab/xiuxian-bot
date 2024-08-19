@@ -77,7 +77,15 @@ async function sendLing(e: AEvent, UID: string, acount: number) {
 
   GameApi.Burial.set(UID, CDID, CDTime)
 
-  const LevelData = await GameApi.Levels.read(UID, 1)
+  const LevelData = await DB.user_level
+    .findOne({
+      attributes: ['addition', 'realm', 'experience'],
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    .then(res => res?.dataValues)
   /**
    * 到了筑基,灵石收益成倍削弱
    */
@@ -143,7 +151,13 @@ export default new Messages().response(
       return
     }
     // 用户数据集成
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
 
     switch (thing.id) {
       case 600201: {
@@ -206,7 +220,15 @@ export default new Messages().response(
        * 洗灵根
        */
       case 600301: {
-        const LevelData = await GameApi.Levels.read(UID, 1)
+        const LevelData = await DB.user_level
+          .findOne({
+            attributes: ['addition', 'realm', 'experience'],
+            where: {
+              uid: UID,
+              type: 1
+            }
+          })
+          .then(res => res?.dataValues)
         if (!LevelData) {
           break
         }
@@ -218,9 +240,17 @@ export default new Messages().response(
         }
         UserData.talent = GameApi.Talent.getTalent()
 
-        await GameApi.Users.update(UID, {
-          talent: UserData.talent
-        })
+        await DB.user.update(
+          {
+            talent: UserData.talent
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
+
         /**
          * 更新天赋
          */
@@ -249,9 +279,18 @@ export default new Messages().response(
        */
       case 600302: {
         UserData.talent_show = 1
-        await GameApi.Users.update(UID, {
-          talent_show: UserData.talent_show
-        })
+
+        await DB.user.update(
+          {
+            talent_show: UserData.talent_show
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
+
         /**
          * 扣物品
          */
@@ -323,9 +362,17 @@ export default new Messages().response(
         if (UserData.special_prestige <= 0) {
           UserData.special_prestige = 0
         }
-        await GameApi.Users.update(UID, {
-          special_prestige: UserData.special_prestige
-        })
+
+        await DB.user.update(
+          {
+            special_prestige: UserData.special_prestige
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
 
         /**
          * 扣物品
@@ -382,13 +429,20 @@ export default new Messages().response(
           }
         }
 
-        await GameApi.Users.update(UID, {
-          pont_x: point.x,
-          pont_y: point.y,
-          pont_z: point.z,
-          point_type: point.type,
-          pont_attribute: point.attribute
-        })
+        await DB.user.update(
+          {
+            pont_x: point.x,
+            pont_y: point.y,
+            pont_z: point.z,
+            point_type: point.type,
+            pont_attribute: point.attribute
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
 
         e.reply([`${UserData.name}成功传送至${point.name}`], {
           quote: e.msg_id

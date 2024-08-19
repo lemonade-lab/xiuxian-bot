@@ -1,29 +1,7 @@
 import { user_log } from 'xiuxian-db'
 import { timeChange } from '../../wrap/method.js'
 
-/**
- * 写入
- * @param UID
- * @param DATA
- */
-export async function write(UID: string, DATA) {
-  await user_log.create({
-    ...DATA,
-    uid: UID
-  })
-}
-
-/**
- * 删除
- * @param UID
- */
-export async function del(UID: string) {
-  await user_log.destroy({
-    where: {
-      uid: UID
-    }
-  })
-}
+type DataType = { type: number; create_time: string; message: string }[]
 
 /**
  * 读取
@@ -43,7 +21,7 @@ export async function read(UID: string) {
       limit: 10
     })
     .then(res => res.map(item => item.dataValues))
-  const arr: { type: number; create_time: string; message: string }[] = []
+  const arr: DataType = []
   for await (const item of da) {
     arr.push({
       type: item.type,

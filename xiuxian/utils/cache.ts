@@ -25,23 +25,23 @@ function getJson(name: string) {
  */
 export async function urlHelpCache(name: string) {
   // 缓存不存在
-  if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
-    // 得数据
-    helpData[name] = await picture
-      .render('HelpComponent', {
-        name: 'help',
-        props: {
-          data: await getJson(name)
-        }
-      })
-      .catch((err: any) => {
-        // 发生错误
-        console.error(err)
-        return false
-      })
+  if (Object.prototype.hasOwnProperty.call(helpData, name)) {
+    // 返回
+    return helpData[name]
   }
-  // 返回
-  return helpData[name]
+  // 得数据
+  helpData[name] = await picture
+    .render('HelpComponent', {
+      name: 'help',
+      props: {
+        data: await getJson(name)
+      }
+    })
+    .catch((err: any) => {
+      // 发生错误
+      console.error(err)
+      return false
+    })
 }
 
 /**

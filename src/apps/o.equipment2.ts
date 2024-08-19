@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
+import { Redis, user, user_equipment } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?(装备|裝備)[\u4e00-\u9fa5]+$/,
   async e => {
@@ -37,7 +37,10 @@ export default new Messages().response(
     /**
      * 读取装备数据
      */
-    const equipment = await GameApi.Equipment.get(UID)
+    const equipment = await user_equipment
+      .findAll({ where: { uid: UID } })
+      .then(res => res.map(item => item.dataValues))
+
     /**
      * 装备数上限
      */
@@ -48,7 +51,8 @@ export default new Messages().response(
       return
     }
     // 装备
-    await GameApi.Equipment.add(UID, thing.name)
+    await user_equipment.create({ uid: UID, name: thing.name })
+
     // 扣除物品
     await GameApi.Bag.reduceBagThing(UID, [
       {
@@ -56,9 +60,16 @@ export default new Messages().response(
         acount: 1
       }
     ])
+
     // 响应消息
     setTimeout(async () => {
-      const UserData = await GameApi.Users.read(UID)
+      const UserData = await user
+        .findOne({
+          where: {
+            uid: UID
+          }
+        })
+        .then(res => res.dataValues)
       // 更新
       await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
       // 响应

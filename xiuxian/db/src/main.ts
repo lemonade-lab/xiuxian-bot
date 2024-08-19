@@ -12,7 +12,7 @@ import { user } from './models/user.js'
 import { transactions } from './models/transactions.js'
 import { transactions_logs } from './models/transactions_logs.js'
 import { user_buy_log } from './models/user_buy_log.js'
-import { sequelize } from './mysql/index.js'
+import { sequelize } from './connect.js'
 
 const belongsTo = () => {
   /**
@@ -76,13 +76,3 @@ await sequelize
     console.log('数据库连接失败.')
     process.cwd()
   })
-
-// await sequelize.sync({
-//   alter: true
-// }).then(() => {
-//   console.log('数据库同步成功.')
-//   // 开始
-//   belongsTo()
-// }).catch(() => {
-//   console.log('数据库同步失败.')
-// })

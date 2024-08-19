@@ -7,7 +7,13 @@ export default new Messages().response(
   async e => {
     const UID = e.user_id
     if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await GameApi.Users.read(UID)
+    const UserData = await DB.user
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res.dataValues)
     if (!(await ControlByBlood(e, UserData))) return
     const address = e.msg.replace(/^(#|\/)?(传送|傳送)/, '')
     const position = await DB.map_position
@@ -23,7 +29,15 @@ export default new Messages().response(
       })
       return
     }
-    const LevelData = await GameApi.Levels.read(UID, 1)
+    const LevelData = await DB.user_level
+      .findOne({
+        attributes: ['addition', 'realm', 'experience'],
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
+      .then(res => res?.dataValues)
     if (!LevelData) return
     if (LevelData.realm < position.grade - 1) {
       e.reply('[修仙联盟]守阵老者\n道友请留步', {
@@ -83,13 +97,20 @@ export default new Messages().response(
       setTimeout(async () => {
         // 这里清除行为
         await GameApi.State.del(UID)
-        await GameApi.Users.update(UID, {
-          pont_x: mx,
-          pont_y: my,
-          pont_z: mz,
-          point_type: position.type, // 地点
-          pont_attribute: position.attribute // 属性
-        })
+        await DB.user.update(
+          {
+            pont_x: mx,
+            pont_y: my,
+            pont_z: mz,
+            point_type: position.type, // 地点
+            pont_attribute: position.attribute // 属性
+          },
+          {
+            where: {
+              uid: UID
+            }
+          }
+        )
         e.reply([`成功传送至${address}`], {
           quote: e.msg_id
         })

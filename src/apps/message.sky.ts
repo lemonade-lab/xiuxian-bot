@@ -3,7 +3,7 @@ import { isThereAUserPresent } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import { skys, user_skys } from 'xiuxian-db'
 import { Op } from 'sequelize'
-import { Users, Bag } from 'xiuxian-core'
+import { Bag } from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id
   if (!(await isThereAUserPresent(e, UID))) return
@@ -67,7 +67,13 @@ export default new Messages().response(/^(#|\/)?通天塔奖励$/, async e => {
     name: item.name,
     acount: item.count
   }))
-  const UserData = await Users.read(UID)
+  const UserData = await DB.user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const BagSize = await Bag.backpackFull(UID, UserData.bag_grade)
   // 背包未位置了直接返回了
   if (!BagSize) {
