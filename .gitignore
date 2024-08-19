@@ -45,6 +45,7 @@ logs
 main.js
 
 public/html
+public/output.css
 
 
 yarn.lock
@@ -59,3 +60,4 @@ cache
 
 
 *.env
+

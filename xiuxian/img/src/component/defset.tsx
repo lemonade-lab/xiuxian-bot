@@ -41,16 +41,18 @@ export default function App({ data, theme }: PropsType) {
         backgroundSize: '100% auto'
       }}
     >
-      <Header />
-      <div className="w-full h-full rounded-md bg-black bg-opacity-10 my-8  text-center">
-        <div className="grid grid-cols-2">
+      <div className="px-4">
+        <Header />
+      </div>
+      <div className="w-full h-full my-8 px-4  text-center">
+        <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">
           {Object.keys(CD_MAP).map((item, index) => (
             <div key={index} className="w-80 mx-auto text-3xl p-2">
               {CD_MAP[item]}: {data[item]}m
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">
           {[
             `闭关倍率: ${data.biguan_size}`,
             `锻体倍率:  ${data.work_size}`,

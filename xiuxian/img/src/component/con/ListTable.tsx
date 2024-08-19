@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../../core/index.js'
+import Header from './header.js'
 const require = createRequire(import.meta.url)
 export default function ListTable<
   T extends {
@@ -23,9 +24,11 @@ export default function ListTable<
         className="w-full"
         url={require('../../../../../public/img/information.jpg')}
       >
-        <div className="min-h-10"></div>
+        <div className="p-4">
+          <Header list={['/通天塔', '/杀神榜']} />
+        </div>
         {data.map((item, index) => (
-          <div key={index} className="flex flex-col my-8">
+          <div key={index} className="flex flex-col ">
             {
               // 人物信息
             }
@@ -52,7 +55,7 @@ export default function ListTable<
               // 个性签名
             }
             {item?.autograph && (
-              <div className="w-full my-8 px-8 text-white text-2xl">
+              <div className="w-full  px-8 text-white text-2xl">
                 <div className="pb-5    ">
                   <div className="bg-black rounded-t-xl bg-opacity-40 p-3">
                     {'[修心道宣]'}

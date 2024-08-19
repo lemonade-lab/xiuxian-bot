@@ -1,4 +1,6 @@
 import redisClient, { Redis as RedisClient } from 'ioredis'
+import { config } from 'dotenv'
+config({ path: './alemon.env' })
 function createRedis() {
   const ALRedis = new redisClient({
     host: process.env?.ALEMONJS_REDIS_HOST ?? 'localhost',
