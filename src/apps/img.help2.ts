@@ -33,7 +33,7 @@ export default new Messages().response(
     //
     helpData[name] = await picture
       .render('HelpComponent', {
-        name: 'help',
+        name: 'help' + name,
         props: { data: [db] }
       })
       .catch(console.error)

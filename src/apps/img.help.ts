@@ -17,7 +17,7 @@ export default new Messages().response(
     // 得 buffer
     helpData[name] = await picture
       .render('HelpComponent', {
-        name: 'help',
+        name: name,
         props: { data: data }
       })
       .catch(console.error)

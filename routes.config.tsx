@@ -77,6 +77,24 @@ export default defineConfig([
     }
   },
   {
+    url: '/UpdateComponent',
+    options: {
+      ...PictureOptions,
+      // body 内容
+      html_body: (
+        <Component.UpdateComponent
+          theme={'dark'}
+          data={JSON.parse(
+            readFileSync(
+              join(process.cwd(), 'public', 'defset', 'update.json'),
+              'utf-8'
+            )
+          )}
+        />
+      )
+    }
+  },
+  {
     url: '/SkillsComponent',
     options: {
       ...PictureOptions,

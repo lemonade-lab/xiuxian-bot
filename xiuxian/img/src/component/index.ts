@@ -6,6 +6,7 @@ import KillComponent from './kill.js'
 import MessageComponent from './message.js'
 import SkillsComponent from './skills.js'
 import SkyComponent from './sky.js'
+import UpdateComponent from './update.js'
 export {
   BagComponent,
   Defsetcomponent,
@@ -14,5 +15,6 @@ export {
   KillComponent,
   MessageComponent,
   SkillsComponent,
-  SkyComponent
+  SkyComponent,
+  UpdateComponent
 }

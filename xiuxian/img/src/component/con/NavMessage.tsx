@@ -1,8 +1,8 @@
 import React from 'react'
 import Header from './header.js'
-import { hash } from 'alemonjs'
 import { ThemesEmun } from '../../core/color.js'
 import classNames from 'classnames'
+import { createUID } from '../../core/public.js'
 
 const ThemesColor = {
   dark: {
@@ -100,7 +100,7 @@ export default function NavMessage({ data }: PropsType) {
       return 'grayscale(100%)'
     }
   }
-  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
+  const UID = createUID(data.UID)
   const List = [
     {
       title: '金',
@@ -138,7 +138,6 @@ export default function NavMessage({ data }: PropsType) {
       }
     }
   ]
-
   return (
     <div className="p-4 text-white">
       <Header />
