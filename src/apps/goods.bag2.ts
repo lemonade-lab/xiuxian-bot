@@ -1,7 +1,8 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis, user_bag_message } from 'xiuxian-db'
+import { operationLock } from 'xiuxian-core'
+import { user_bag_message } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?(储物袋|儲物袋|背包)(升级|升級)$/,
   async e => {
@@ -10,13 +11,11 @@ export default new Messages().response(
      * lock start
      * *******
      */
-    const KEY = `xiuxian:open:${e.user_id}`
-    const LOCK = await Redis.get(KEY)
-    if (LOCK) {
+    const T = await operationLock(e.user_id)
+    if (!T) {
       e.reply('操作频繁')
       return
     }
-    await Redis.set(KEY, 1, 'EX', 6)
     /**
      * lock end
      */

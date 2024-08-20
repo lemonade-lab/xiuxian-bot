@@ -1,20 +1,18 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { Redis, user } from 'xiuxian-db'
+import { operationLock } from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?仙石兑换.*$/, async e => {
   /**
    * *******
    * lock start
    * *******
    */
-  const KEY = `xiuxian:open:${e.user_id}`
-  const LOCK = await Redis.get(KEY)
-  if (LOCK) {
+  const T = await operationLock(e.user_id)
+  if (!T) {
     e.reply('操作频繁')
     return
   }
-  await Redis.set(KEY, 1, 'EX', 6)
   /**
    * lock end
    */
@@ -31,16 +29,9 @@ export default new Messages().response(/^(#|\/)?仙石兑换.*$/, async e => {
     e.reply('未开放')
     return
   }
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
   const thingName = e.msg.replace(/^(#|\/)?仙石兑换/, '')
   // 检查背包
-  const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+  const BagSize = await GameApi.Bag.backpackFull(UID)
   // 背包未位置了直接返回了
   if (!BagSize) {
     e.reply(['储物袋空间不足'], {
@@ -62,7 +53,7 @@ export default new Messages().response(/^(#|\/)?仙石兑换.*$/, async e => {
       { name: '仙石', acount: 4 },
       { name: '沉香', acount: 50 }
     ])
-    GameApi.Bag.addBagThing(UID, 99, [{ name: '天道剑', acount: 1 }])
+    GameApi.Bag.addBagThing(UID, [{ name: '天道剑', acount: 1 }])
   } else if (thingName == '天罡神盾袍') {
     const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
     if (!bag || bag.acount < 4) {
@@ -78,7 +69,7 @@ export default new Messages().response(/^(#|\/)?仙石兑换.*$/, async e => {
       { name: '仙石', acount: 4 },
       { name: '沉香', acount: 40 }
     ])
-    GameApi.Bag.addBagThing(UID, 50, [{ name: '天罡神盾袍', acount: 1 }])
+    GameApi.Bag.addBagThing(UID, [{ name: '天罡神盾袍', acount: 1 }])
   } else {
     e.reply(`哪来的${thingName}`)
   }

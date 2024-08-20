@@ -1,19 +1,18 @@
 import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
+import { operationLock } from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?设置邮箱/, async e => {
   /**
    * *******
    * lock start
    * *******
    */
-  const KEY = `xiuxian:open:${e.user_id}`
-  const LOCK = await DB.Redis.get(KEY)
-  if (LOCK) {
+  const T = await operationLock(e.user_id)
+  if (!T) {
     e.reply('操作频繁')
     return
   }
-  await DB.Redis.set(KEY, 1, 'EX', 6)
   /**
    * lock end
    */

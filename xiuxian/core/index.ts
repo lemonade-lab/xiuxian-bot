@@ -31,3 +31,7 @@ export * as move from './wrap/move.js'
 // 配置
 export * as Cooling from './config/cooling.js'
 export * as Config from './config/index.js'
+
+//
+
+export * from './wrap/lock.js'

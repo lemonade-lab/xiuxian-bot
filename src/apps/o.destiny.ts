@@ -2,6 +2,7 @@ import { Messages } from 'alemonjs'
 import { isThereAUserPresent } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
+import { operationLock } from 'xiuxian-core'
 export default new Messages().response(
   /^(#|\/)?炼化[\u4e00-\u9fa5]+$/,
   async e => {
@@ -10,13 +11,11 @@ export default new Messages().response(
      * lock start
      * *******
      */
-    const KEY = `xiuxian:open:${e.user_id}`
-    const LOCK = await DB.Redis.get(KEY)
-    if (LOCK) {
+    const TT = await operationLock(e.user_id)
+    if (!TT) {
       e.reply('操作频繁')
       return
     }
-    await DB.Redis.set(KEY, 1, 'EX', 6)
     /**
      * lock end
      */
