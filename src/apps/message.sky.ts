@@ -67,14 +67,8 @@ export default new Messages().response(/^(#|\/)?通天塔奖励$/, async e => {
     name: item.name,
     acount: item.count
   }))
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
-  const BagSize = await Bag.backpackFull(UID, UserData.bag_grade)
+
+  const BagSize = await Bag.backpackFull(UID)
   // 背包未位置了直接返回了
   if (!BagSize) {
     e.reply(['储物袋空间不足'], {
@@ -93,7 +87,7 @@ export default new Messages().response(/^(#|\/)?通天塔奖励$/, async e => {
     })
     msg.push(`[${item.name}]*${item.acount}`)
   }
-  await Bag.addBagThing(UID, UserData.bag_grade, goods)
+  await Bag.addBagThing(UID, goods)
   if (msg.length <= 1) {
     e.reply('此排名奖励本月已无法领取')
   } else {

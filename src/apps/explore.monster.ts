@@ -103,7 +103,7 @@ export default new Messages().response(
     }
 
     // 判断储物袋大小,不够的就不推送
-    const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+    const BagSize = await GameApi.Bag.backpackFull(UID)
 
     // 背包未位置了直接返回了
     if (!BagSize) {
@@ -304,7 +304,7 @@ export default new Messages().response(
       })
     }
     // 添加物品
-    await GameApi.Bag.addBagThing(UID, UserData.bag_grade, ThingArr)
+    await GameApi.Bag.addBagThing(UID, ThingArr)
 
     // 随机文案
     msgRight.push(`\n${randomTxt()}`)

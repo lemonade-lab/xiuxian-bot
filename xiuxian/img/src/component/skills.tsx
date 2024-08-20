@@ -1,7 +1,6 @@
-import { hash } from 'alemonjs'
 import React from 'react'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
-import { ThemesEmun } from '../core/index.js'
+import { createUID, ThemesEmun } from '../core/index.js'
 import { SkillInformationType } from 'xiuxian-statistics'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
@@ -13,10 +12,7 @@ type PropsType = {
 }
 
 export default function App({ data, theme }: PropsType) {
-  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
-
-  // console.log("data.skills", data)
-
+  const UID = createUID(data.UID)
   return (
     <div
       id="root"

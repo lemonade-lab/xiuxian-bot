@@ -22,13 +22,7 @@ export default new Messages().response(/^(#|\/)?治炼仙石\d+$/, async e => {
   const UID = e.user_id
   let msg = []
   if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
   let account = Number(e.msg.replace(/^(#|\/)?治炼仙石/, '')) || 1
   if (account > 10) account = 10
   const Userleve = await DB.user_level
@@ -46,7 +40,7 @@ export default new Messages().response(/^(#|\/)?治炼仙石\d+$/, async e => {
     return
   }
 
-  const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+  const BagSize = await GameApi.Bag.backpackFull(UID)
   // 背包未位置了直接返回了
   if (!BagSize) {
     e.reply(['储物袋空间不足'], {
@@ -58,7 +52,7 @@ export default new Messages().response(/^(#|\/)?治炼仙石\d+$/, async e => {
     const P1 = GameApi.Method.isProbability(60)
     if (P1) {
       msg.push('炼制成功获得仙石*1\n')
-      await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+      await GameApi.Bag.addBagThing(UID, [
         {
           name: '仙石',
           acount: 1

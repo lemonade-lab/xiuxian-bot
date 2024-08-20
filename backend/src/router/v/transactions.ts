@@ -414,7 +414,6 @@ router.post('/delete', async ctx => {
   TransactionMap.set(body.id, 0)
 
   const UID = ctx.state.user.uid
-  const bag_grade = ctx.state.user.bag_grade
 
   const data = (await transactions.findOne({
     where: {
@@ -437,7 +436,7 @@ router.post('/delete', async ctx => {
       console.log('res', res)
       if (res == 1) {
         // 还回来。
-        Bag.addBagThing(UID, bag_grade, [
+        Bag.addBagThing(UID, [
           {
             name: data.name,
             acount: data.count
@@ -523,7 +522,6 @@ router.post('/buy', async ctx => {
 
   // 得到该物品的uid
   const UID = ctx.state.user.uid
-  const bag_grade = ctx.state.user.bag_grade
 
   if (data.uid == UID) {
     ctx.body = {
@@ -591,7 +589,7 @@ router.post('/buy', async ctx => {
   ])
 
   // 加物品
-  await Bag.addBagThing(UID, bag_grade, [
+  await Bag.addBagThing(UID, [
     {
       name: data.name,
       acount: data.count
@@ -599,7 +597,7 @@ router.post('/buy', async ctx => {
   ])
 
   // 得到收益
-  await Bag.addBagThing(data.uid, data['user.bag_grade'], [
+  await Bag.addBagThing(data.uid, [
     {
       name: TypingItem[body.typing],
       acount: getMoeny

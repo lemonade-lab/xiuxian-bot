@@ -232,13 +232,11 @@ router.get('/forget', async ctx => {
     }
     return
   }
-  const UserData = await DB.user
-    .findOne({ where: { uid: UID } })
-    .then(res => res.dataValues)
+
   /**
    * 检查背包
    */
-  const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+  const BagSize = await GameApi.Bag.backpackFull(UID)
   if (!BagSize) {
     ctx.body = {
       code: OK_CODE,
@@ -261,9 +259,7 @@ router.get('/forget', async ctx => {
     await GameApi.Skills.updataEfficiency(UID, UserData.talent)
   }, 500)
 
-  await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
-    { name: islearned.name, acount: 1 }
-  ])
+  await GameApi.Bag.addBagThing(UID, [{ name: islearned.name, acount: 1 }])
 
   ctx.body = {
     code: OK_CODE,

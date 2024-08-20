@@ -51,7 +51,7 @@ export default new Messages().response(
     // 检查储物袋有没有这个物品
     const BagThing = await GameApi.Bag.searchBagByName(UID, thingName)
     // 检查储物袋空间
-    const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+    const BagSize = await GameApi.Bag.backpackFull(UID)
     // 背包满位置了直接返回了
     if (!BagThing && !BagSize) {
       e.reply(['储物袋空间不足'], {
@@ -69,7 +69,7 @@ export default new Messages().response(
     ])
 
     // 储物袋增加
-    await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+    await GameApi.Bag.addBagThing(UID, [
       {
         name: thingName,
         acount: Number(thingAcount)

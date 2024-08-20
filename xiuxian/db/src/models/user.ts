@@ -48,6 +48,9 @@ export const user = sequelize.define<
     talent_size: number // 天赋_默认0
     talent_show: number // 是否显示天赋_默认0
 
+    /**
+     * 废弃
+     */
     bag_grade: number // 背包等级_默认1
 
     sign_day: number // 签到天数_默认0

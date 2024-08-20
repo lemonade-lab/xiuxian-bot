@@ -1,4 +1,4 @@
-import { user_bag } from 'xiuxian-db'
+import { user_bag, user_bag_message } from 'xiuxian-db'
 import { literal } from 'sequelize'
 import { searchAllThing } from '../../wrap/goods.js'
 
@@ -7,13 +7,20 @@ import { searchAllThing } from '../../wrap/goods.js'
  * @param UID
  * @returns
  */
-export async function backpackFull(UID: string, grade: number) {
+export async function backpackFull(UID: string) {
+  const bag_message = await user_bag_message
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   const length = await user_bag.count({
     where: {
       uid: UID
     }
   })
-  const size = grade * 10
+  const size = bag_message.grade * 10
   const n = size - length
   // 至少有空位置的时候返回n
   return n >= 1 ? n : false
@@ -27,12 +34,18 @@ export async function backpackFull(UID: string, grade: number) {
  */
 export async function addBagThing(
   UID: string,
-  grade: number,
   arr: {
     name: string
     acount: number
   }[]
 ) {
+  const bag_message = await user_bag_message
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
   for (const { name, acount } of arr) {
     const THING = await searchAllThing(name)
     if (!THING) continue
@@ -43,7 +56,7 @@ export async function addBagThing(
       }
     })
     // 当前储物袋格子已到极限
-    if (length >= grade * 10) break
+    if (length >= bag_message.grade * 10) break
     // 查找物品
     const existingItem = await user_bag
       .findOne({

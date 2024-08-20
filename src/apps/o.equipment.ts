@@ -32,15 +32,9 @@ export default new Messages().response(
     const islearned = equipment.find(item => item.name == thingName)
 
     if (!islearned) return
-    const UserData = await user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
     // 检查背包
-    const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+    const BagSize = await GameApi.Bag.backpackFull(UID)
     if (!BagSize) {
       e.reply(['储物袋空间不足'], {
         quote: e.msg_id
@@ -54,7 +48,7 @@ export default new Messages().response(
     })
 
     // 收回装备
-    await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+    await GameApi.Bag.addBagThing(UID, [
       {
         name: thingName,
         acount: 1

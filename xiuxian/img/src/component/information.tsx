@@ -1,7 +1,6 @@
 import React from 'react'
-import { hash } from 'alemonjs'
 import { createRequire, BackgroundImage } from 'react-puppeteer'
-import { ThemesEmun } from '../core/index.js'
+import { createUID, ThemesEmun } from '../core/index.js'
 const require = createRequire(import.meta.url)
 
 type PropsType = {
@@ -10,7 +9,7 @@ type PropsType = {
 }
 
 export default function App({ data, theme }: PropsType) {
-  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
+  const UID = createUID(data.UID)
   return (
     <div id="root" data-theme={theme}>
       <BackgroundImage

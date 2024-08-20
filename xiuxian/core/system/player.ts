@@ -8,7 +8,8 @@ import {
   user,
   user_log,
   user_fate,
-  user_ring
+  user_ring,
+  user_bag_message
 } from 'xiuxian-db'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
@@ -80,6 +81,11 @@ export async function setPlayer(UID: string, user_avatar: string) {
               talent: Talent.getTalent(), // 灵根
               create_time: new Date().getTime() // 创建时间搓
             }),
+            // 创建背包信息
+            user_bag_message.create({
+              uid: UID,
+              grade: 1
+            }),
             // 创建境界信息1
             user_level.create({
               uid: UID,
@@ -142,6 +148,12 @@ export async function updatePlayer(UID: string, user_avatar: string) {
     }),
     // 删除背包
     user_bag.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    // 删除背包信息
+    user_bag_message.destroy({
       where: {
         uid: UID
       }

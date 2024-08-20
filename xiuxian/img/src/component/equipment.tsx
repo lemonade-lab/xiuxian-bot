@@ -1,6 +1,5 @@
-import { hash } from 'alemonjs'
 import React from 'react'
-import { ThemesEmun } from '../core/index.js'
+import { createUID, ThemesEmun } from '../core/index.js'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
 import { EquipmentInformationType } from 'xiuxian-statistics'
@@ -16,7 +15,7 @@ type PropsType = {
  * @returns
  */
 export default function App({ data, theme }: PropsType) {
-  const UID = isNaN(Number(data.UID)) ? hash(data.UID) : data.UID
+  const UID = createUID(data.UID)
   return (
     <div
       id="root"

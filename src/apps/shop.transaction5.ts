@@ -64,7 +64,7 @@ export default new Messages().response(/^(#|\/)?售出所有物品$/, async e =>
   })
 
   // 获得
-  await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+  await GameApi.Bag.addBagThing(UID, [
     {
       name: '下品灵石',
       acount: money

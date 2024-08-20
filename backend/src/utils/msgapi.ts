@@ -1,6 +1,6 @@
 import { type AEvent } from 'alemonjs'
 import { ERROE_CODE, OK_CODE } from '../config/ajax'
-import { user } from 'xiuxian-db'
+import { user, user_level } from 'xiuxian-db'
 import Application from 'koa'
 import {
   Cooling,
@@ -9,7 +9,6 @@ import {
   Burial,
   Treasure,
   State,
-  Users,
   Levels,
   Bag,
   Equipment
@@ -35,7 +34,9 @@ export async function levelUp(
 
   if (!(await victoryCooling(ctx, UID, CDID))) return
 
-  const LevelMsg = await Levels.read(UID, ID)
+  const LevelMsg = await user_level
+    .findOne({ where: { uid: UID, type: ID } })
+    .then(res => res.dataValues)
   if (LevelMsg.experience <= 100) {
     ctx.body = {
       code: OK_CODE,
@@ -79,7 +80,9 @@ export async function levelUp(
   // 设置
   Burial.set(UID, CDID, Cooling.CD_Level_up)
   setTimeout(async () => {
-    const UserData = await Users.read(UID)
+    const UserData = await user
+      .findOne({ where: { uid: UID } })
+      .then(res => res.dataValues)
     // 更新面板
     Equipment.updatePanel(UID, UserData.battle_blood_now)
   }, 1500)
@@ -275,9 +278,12 @@ export async function killNPC(
 
   e.reply(`[${Mname}]:狂妄!`)
 
-  await Users.update(UID, {
-    battle_blood_now: 0
-  })
+  await user.update(
+    {
+      battle_blood_now: 0
+    },
+    { where: { uid: UID } }
+  )
 
   // 不触发
   if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {
@@ -424,9 +430,13 @@ export async function condensateGas(
   if (special_spiritual >= limit) {
     special_spiritual = limit
   }
-  await Users.update(UID, {
-    special_spiritual: special_spiritual
-  })
+
+  await user.update(
+    {
+      special_spiritual: special_spiritual
+    },
+    { where: { uid: UID } }
+  )
 
   setTimeout(() => {
     e.reply([`聚灵成功\n当前灵力${special_spiritual}/${limit}`])

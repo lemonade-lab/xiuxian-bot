@@ -333,10 +333,14 @@ export async function backpackInformation(
     })
     .then(res => res.map(item => item.dataValues))
 
+  const bag_message = await DB.user_bag_message
+    .findOne({ where: { uid: UID } })
+    .then(res => res.dataValues)
+
   return {
     UID,
     name: UserData.name,
-    bag_grade: UserData.bag_grade,
+    bag_grade: bag_message.grade,
     length: length,
     bag: bag,
     avatar: user_avatar

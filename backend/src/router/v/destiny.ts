@@ -262,11 +262,7 @@ router.get('/giveup', async ctx => {
     }
     return
   }
-  //
-  const UserData = await user
-    .findOne({ where: { uid: UID } })
-    .then(res => res.dataValues)
-  const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+  const BagSize = await GameApi.Bag.backpackFull(UID)
   // 背包未位置了直接返回了
   if (!BagSize) {
     ctx.body = {
@@ -283,7 +279,7 @@ router.get('/giveup', async ctx => {
   // 减少气血
   await GameApi.Levels.reduceExperience(UID, 1, size)
   // 返回物品
-  await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+  await GameApi.Bag.addBagThing(UID, [
     {
       name: thing.name,
       acount: thing.grade + 1

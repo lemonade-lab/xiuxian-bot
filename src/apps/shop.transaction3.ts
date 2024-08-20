@@ -62,7 +62,7 @@ export default new Messages().response(
     )
 
     // 添加物品
-    await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+    await GameApi.Bag.addBagThing(UID, [
       {
         name: '下品灵石',
         acount: commoditiesPrice

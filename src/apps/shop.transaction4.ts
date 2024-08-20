@@ -84,9 +84,7 @@ export default new Messages().response(
     })
 
     // 增加下品灵石
-    await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
-      { name: '下品灵石', acount: money }
-    ])
+    await GameApi.Bag.addBagThing(UID, [{ name: '下品灵石', acount: money }])
 
     // 反馈
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)

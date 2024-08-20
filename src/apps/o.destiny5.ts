@@ -65,15 +65,8 @@ export default new Messages().response(/^(#|\/)?命解$/, async e => {
     })
     return
   }
-  //
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
-  const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+
+  const BagSize = await GameApi.Bag.backpackFull(UID)
   // 背包未位置了直接返回了
   if (!BagSize) {
     e.reply(['储物袋空间不足'], {
@@ -88,7 +81,7 @@ export default new Messages().response(/^(#|\/)?命解$/, async e => {
   // 减少气血
   await GameApi.Levels.reduceExperience(UID, 1, size)
   // 返回物品
-  await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+  await GameApi.Bag.addBagThing(UID, [
     {
       name: thing.name,
       acount: thing.grade + 1

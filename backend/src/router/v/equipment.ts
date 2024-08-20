@@ -111,7 +111,7 @@ router.get('/deleteEquipment', async ctx => {
     .findOne({ where: { uid: UID } })
     .then(res => res.dataValues)
   // 检查背包
-  const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+  const BagSize = await GameApi.Bag.backpackFull(UID)
   if (!BagSize) {
     ctx.body = {
       code: ERROE_CODE,
@@ -125,7 +125,7 @@ router.get('/deleteEquipment', async ctx => {
     where: { uid: UID, name: thingName, id: islearned.id }
   })
 
-  await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+  await GameApi.Bag.addBagThing(UID, [
     {
       name: thingName,
       acount: 1

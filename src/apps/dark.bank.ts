@@ -96,7 +96,7 @@ export default new Messages().response(
       e.reply(`[金银坊]金老三\n少于${2500}不换`)
       return
     }
-    const BagSize = await GameApi.Bag.backpackFull(UID, UserData.bag_grade)
+    const BagSize = await GameApi.Bag.backpackFull(UID)
     // 背包未位置了直接返回了
     if (!BagSize) {
       e.reply(['储物袋空间不足'], {
@@ -113,7 +113,7 @@ export default new Messages().response(
       }
     ])
     // 再增加
-    await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+    await GameApi.Bag.addBagThing(UID, [
       {
         name: RightName,
         acount: quantity

@@ -82,7 +82,7 @@ router.get('/in', async ctx => {
         const count = 5 + Math.floor(size / 3)
 
         // 增加灵石
-        Bag.addBagThing(UID, res.bag_grade, [
+        Bag.addBagThing(UID, [
           {
             name: '极品灵石',
             acount: count

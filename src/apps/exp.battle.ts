@@ -294,19 +294,7 @@ export default new Messages().response(/^(#|\/)?打劫/, async e => {
     })
   }
 
-  /**
-   * 检查背包
-   */
-
-  const dada = await DB.user
-    .findOne({
-      where: {
-        uid: user.PartyA
-      }
-    })
-    .then(res => res.dataValues)
-
-  const BagSize = await GameApi.Bag.backpackFull(user.PartyA, dada.bag_grade)
+  const BagSize = await GameApi.Bag.backpackFull(user.PartyA)
   if (!BagSize) {
     e.reply(['储物袋空间不足'], {
       quote: e.msg_id
@@ -328,7 +316,7 @@ export default new Messages().response(/^(#|\/)?打劫/, async e => {
   /**
    * 交互物品
    */
-  await GameApi.Bag.addBagThing(user.PartyA, dada.bag_grade, [
+  await GameApi.Bag.addBagThing(user.PartyA, [
     {
       name: data[0].name,
       acount: data[0].acount

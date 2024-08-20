@@ -44,6 +44,7 @@ export * from './models/user_fate.js'
 export * from './models/user_buy_log.js'
 export * from './models/skys.js'
 export * from './models/user_skys.js'
+export * from './models/user_bag_message.js'
 /**
  * 交易
  */

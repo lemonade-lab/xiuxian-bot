@@ -112,7 +112,7 @@ export default new Messages().response(/^(#|\/)?采集\d+\*?(1|2)?$/, async e =>
   const name = `${getMoneyGrade(ep.grade)}灵石`
 
   // 增加物品
-  await GameApi.Bag.addBagThing(UID, UserData.bag_grade, [
+  await GameApi.Bag.addBagThing(UID, [
     {
       name: name,
       acount: ep.money * acount
