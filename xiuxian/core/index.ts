@@ -3,7 +3,6 @@ export * as State from './users/base/state.js'
 export * as Talent from './users/base/talent.js'
 export * as Life from './users/base/life.js'
 // 附加模型
-export * as logs from './users/additional/logs.js'
 export * as Skills from './users/additional/skills.js'
 export * as Levels from './users/additional/levels.js'
 export * as Bag from './users/additional/bag.js'
