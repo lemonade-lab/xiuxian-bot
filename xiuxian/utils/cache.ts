@@ -1,4 +1,4 @@
-import { ABuffer, importPath } from 'alemonjs'
+import { ABuffer, hash, importPath } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { picture } from 'xiuxian-img'
@@ -58,4 +58,13 @@ export function lcalCacheImage(name: string) {
   }
   // 返回
   return helpData[name]
+}
+
+/**
+ * 重新生产UID
+ * @param UID
+ * @returns
+ */
+export const createUID = (UID: string) => {
+  return isNaN(Number(UID)) || UID.length > 11 ? hash(UID) : UID
 }
