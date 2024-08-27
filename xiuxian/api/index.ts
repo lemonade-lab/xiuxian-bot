@@ -30,6 +30,7 @@ export async function reCreateMsg(e: AEvent) {
   // 确保是用户
   isUser(UID)
     .then(res => {
+      // 不存在
       if (!res) {
         createUser(e)
         return
@@ -52,6 +53,8 @@ export async function reCreateMsg(e: AEvent) {
 
       const CDID = 8
       const CDTime = Cooling.CD_Reborn
+
+      // Burial.del(UID, CDID)
 
       /**
        * 检查冷却s
@@ -93,7 +96,8 @@ export async function reCreateMsg(e: AEvent) {
           })
       })
     })
-    .catch(() => {
+    .catch(err => {
+      console.error(err)
       e.reply('数据查询失败')
     })
   return
@@ -204,7 +208,8 @@ export function createUser(e: AEvent) {
             // 显示资料
             showUserMsg(e)
           })
-          .catch(_ => {
+          .catch(err => {
+            console.error(err)
             e.reply(['未寻得仙缘'], {
               quote: e.msg_id
             })

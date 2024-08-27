@@ -48,7 +48,6 @@ export default new Messages().response(
     const price = Math.floor(ifexist.price * Number(quantity))
     if (UserData.special_reputation < price) {
       e.reply(`[联盟]叶铭\n你似乎没有${price}*[声望]`)
-
       return
     }
     // 检查背包

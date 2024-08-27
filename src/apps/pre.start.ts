@@ -42,8 +42,8 @@ export default new Messages().response(/^(#|\/)?踏入仙途$/, async e => {
             // 显示资料
             showUserMsg(e)
           })
-          .catch(() => {
-            //
+          .catch(err => {
+            console.error('err', err)
             e.reply(['未寻得仙缘'], { quote: e.msg_id })
           })
       } else {
@@ -51,7 +51,8 @@ export default new Messages().response(/^(#|\/)?踏入仙途$/, async e => {
         showUserMsg(e)
       }
     })
-    .catch(_ => {
+    .catch(err => {
+      console.error('err', err)
       e.reply('数据查询错误')
     })
 

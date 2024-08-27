@@ -1,13 +1,8 @@
-import koaRouter from 'koa-router'
-import { ERROE_CODE, OK_CODE } from '../../config/ajax'
-import { user } from 'xiuxian-db'
+import { Messages } from 'alemonjs'
 import { Bag, Method } from 'xiuxian-core'
-
-const router = new koaRouter({ prefix: '/api/v1/signs' })
-
-// 签到
-router.get('/in', async ctx => {
-  const UID = ctx.state.user.uid
+import { user } from 'xiuxian-db'
+export default new Messages().response(/^(#|\/)签到$/, async e => {
+  const UID = e.user_id
   await user
     .findOne({
       where: {
@@ -22,11 +17,7 @@ router.get('/in', async ctx => {
         let size = 0
         if (res.sign_in_time) {
           if (Method.isSameDay(res.sign_in_time, time)) {
-            ctx.body = {
-              code: OK_CODE,
-              msg: '今日已签到',
-              data: 0
-            }
+            e.reply('今日已签到')
             return
           }
           if (Method.isSameYearAndMonth(res.sign_in_time, time)) {
@@ -77,9 +68,7 @@ router.get('/in', async ctx => {
             }
           )
         }
-
         const count = 5 + Math.floor(size / 3)
-
         // 增加灵石
         Bag.addBagThing(UID, [
           {
@@ -87,30 +76,14 @@ router.get('/in', async ctx => {
             acount: count
           }
         ])
-        res.sign_in_month_count += 1
-        res.sign_in_count += 1
-        res.sign_in_time = time
-        ctx.body = {
-          code: OK_CODE,
-          msg: `极品灵石+${count}`,
-          data: res
-        }
+        e.reply(`极品灵石+${count}`)
         return
       }
-      ctx.body = {
-        code: ERROE_CODE,
-        msg: '查询错误',
-        data: null
-      }
+      e.reply('查询错误')
     })
     .catch(err => {
       console.log(err)
-      ctx.body = {
-        code: ERROE_CODE,
-        msg: '服务器错误',
-        data: null
-      }
+      e.reply('服务器错误')
     })
+  return
 })
-
-export default router

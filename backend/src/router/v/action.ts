@@ -285,7 +285,6 @@ router.get('/consumption', async ctx => {
   const thingName = ctx.query.thingName as string
   const thingAcount = ctx.query.thingAcount
   const thing = await GameApi.Bag.searchBagByName(UID, thingName)
-  console.log(thing)
 
   if (!thing) {
     ctx.body = {

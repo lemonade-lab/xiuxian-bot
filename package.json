@@ -39,6 +39,7 @@
     "jsonwebtoken": "^9.0.2",
     "koa-body": "^6.0.1",
     "mysql2": "^3.6.2",
+    "ollama": "^0.5.8",
     "postcss": "^8.4.38",
     "puppeteer": "^22.13.0",
     "react": "^18.2.0",

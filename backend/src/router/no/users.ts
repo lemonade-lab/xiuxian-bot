@@ -15,8 +15,6 @@ router.post('/login', async ctx => {
     password: string
   }
 
-  console.log('body', body)
-
   /**
    * 拦截非法请求
    */

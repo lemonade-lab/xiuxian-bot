@@ -9,7 +9,10 @@ import {
   user_log,
   user_fate,
   user_ring,
-  user_bag_message
+  user_bag_message,
+  user_skys,
+  user_buy_log,
+  user_ass
 } from 'xiuxian-db'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
@@ -128,20 +131,7 @@ export async function updatePlayer(UID: string, user_avatar: string) {
         uid: UID
       }
     }),
-    // 删除境界
-    user_level.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除装备
-    user_equipment.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除功法
-    user_skills.destroy({
+    user_ass.destroy({
       where: {
         uid: UID
       }
@@ -158,8 +148,13 @@ export async function updatePlayer(UID: string, user_avatar: string) {
         uid: UID
       }
     }),
-    // 删除记录
-    user_log.destroy({
+    user_buy_log.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    // 删除装备
+    user_equipment.destroy({
       where: {
         uid: UID
       }
@@ -170,8 +165,32 @@ export async function updatePlayer(UID: string, user_avatar: string) {
         uid: UID
       }
     }),
+    // 删除境界
+    user_level.destroy({
+      where: {
+        uid: UID
+      }
+    }),
     // 删除戒指
     user_ring.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    // 删除记录
+    user_log.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    // 删除功法
+    user_skills.destroy({
+      where: {
+        uid: UID
+      }
+    }),
+    // 删除
+    user_skys.destroy({
       where: {
         uid: UID
       }
