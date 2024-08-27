@@ -1,11 +1,6 @@
 import koaRouter from 'koa-router'
-
-import { Bag, Method } from 'xiuxian-core'
-
 import * as GameApi from 'xiuxian-core'
-
 import { State } from 'xiuxian-core'
-
 import { ERROE_CODE, OK_CODE } from '../../config/ajax'
 import { user } from 'xiuxian-db'
 const router = new koaRouter({ prefix: '/api/v1/ore' })
@@ -220,36 +215,6 @@ function getMoneyGrade(grade: number) {
   if (grade == 2) return '中品'
   if (grade == 3) return '上品'
   if (grade == 4) return '极品'
-}
-
-const npcName = [
-  '巡逻军',
-  '城主',
-  '柠檬冲水',
-  '百里寻晴',
-  '联盟',
-  '修仙联盟',
-  '联盟商会',
-  '玄玉天宫',
-  '玉贞子',
-  '玉炎子',
-  '天机门',
-  '东方无极'
-]
-
-async function killNPC(Mname: string, UID: string, prestige: number) {
-  if (!npcName.find(item => Mname.includes(item))) return true
-
-  await user.update({ battle_blood_now: 0 }, { where: { uid: UID } })
-
-  // 不触发
-  if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {
-    return false
-  }
-
-  // 随机去掉一个物品
-  await Bag.delThing(UID)
-  return false
 }
 
 export default router
