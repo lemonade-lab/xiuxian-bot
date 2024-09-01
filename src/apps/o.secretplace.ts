@@ -1,17 +1,13 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, sendReply } from 'xiuxian-api'
+import { isUser, sendReply } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 
 export default new Messages().response(/^(#|\/)?位置信息$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   const PositionData = await DB.map_point
     .findAll({})
     .then(res => res.map(item => item.dataValues))

@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
@@ -21,7 +21,10 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     // 检查是否已有卡槽
     const T = await DB.user_fate
       .findOne({
@@ -71,13 +74,7 @@ export default new Messages().response(
       name: bagThing.name,
       grade: 0
     })
-    const UserData = await DB.user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
     // 减少物品
     await GameApi.Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
     // 更新面板?

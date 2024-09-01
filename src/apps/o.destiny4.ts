@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
@@ -19,7 +19,10 @@ export default new Messages().response(/^(#|\/)?精炼$/, async e => {
    */
 
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   const thing = await DB.user_fate
     .findOne({
       where: {

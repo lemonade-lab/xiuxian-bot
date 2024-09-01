@@ -1,6 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, controlByName } from 'xiuxian-api'
-import { user } from 'xiuxian-db'
+import { isUser, controlByName } from 'xiuxian-api'
 /**
  * 职业经验够了之后
  * 需要前往协会交付灵石来考核
@@ -17,14 +16,9 @@ import { user } from 'xiuxian-db'
  */
 export default new Messages().response(/^(#|\/)?协会$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   if (!(await controlByName(e, UserData, '协会'))) return
   e.reply([
     '[协会执事]😳叶子凡\n',

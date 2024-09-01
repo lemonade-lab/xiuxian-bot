@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, punishLevel } from 'xiuxian-api'
+import { isUser, punishLevel } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
@@ -19,21 +19,17 @@ export default new Messages().response(/^(#|\/)?渡劫$/, async e => {
    */
 
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   if (!(await GameApi.Levels.isLevelPoint(UID, 1))) {
     e.reply(['尚未感知到雷劫'], {
       quote: e.msg_id
     })
     return
   }
-  // 获取用户信息
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
   //雷劫次数
   let num = 0
   // 概率

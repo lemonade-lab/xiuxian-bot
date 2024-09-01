@@ -1,10 +1,5 @@
 import { Messages } from 'alemonjs'
-import {
-  Control,
-  showUserMsg,
-  victoryCooling,
-  isThereAUserPresent
-} from 'xiuxian-api'
+import { Control, showUserMsg, victoryCooling, isUser } from 'xiuxian-api'
 import { Config } from 'xiuxian-core'
 import * as GameApi from 'xiuxian-core'
 import { user } from 'xiuxian-db'
@@ -12,14 +7,10 @@ export default new Messages().response(
   /^(#|\/)?签名[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     if (!(await Control(e, UserData))) return
     const autograph = e.msg.replace(/^(#|\/)?签名/, '')
     if (Config.IllegalCharacters.test(autograph)) {

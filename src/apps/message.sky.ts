@@ -1,12 +1,15 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import { skys, user_skys } from 'xiuxian-db'
 import { Op } from 'sequelize'
 import { Bag } from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?通天塔奖励$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   // 查看数据是否存在
   const data = await DB.sky
     .findOne({

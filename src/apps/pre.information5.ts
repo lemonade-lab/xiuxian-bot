@@ -22,6 +22,8 @@ export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
       }
       // 得到配置
       const index = Themes.indexOf(UserData.theme)
+
+      console.log('index', index)
       // 如果存在
       if (Themes[index + 1]) {
         // 切换
@@ -31,6 +33,9 @@ export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
         // 不存在。返回第一个
         UserData.theme = Themes[0]
       }
+
+      console.log('UserData.theme', UserData.theme)
+
       user
         .update(
           {

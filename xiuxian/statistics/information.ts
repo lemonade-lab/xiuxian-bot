@@ -164,15 +164,16 @@ export async function equipmentInformation(UID: string, user_avatar: string) {
       }
     })
     .then(res => res.dataValues)
-  const equipment = (await DB.user_equipment.findAll({
-    where: {
-      uid: UID
-    },
-    include: {
-      model: DB.goods
-    },
-    raw: true
-  })) as any
+  const equipment = await DB.user_equipment
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: {
+        model: DB.goods
+      }
+    })
+    .then(res => res.map(item => item.dataValues))
 
   const fdata = await DB.user_fate
     .findOne({
@@ -267,18 +268,19 @@ export async function skillInformation(UID: string, user_avatar: string) {
     size = `+${Math.trunc(UserData.talent_size)}%`
     name = await Talent.getTalentName(UserData.talent)
   }
-  const skills = (await DB.user_skills.findAll({
-    where: {
-      uid: UID
-    },
-    include: [
-      {
-        model: DB.goods,
-        where: {}
-      }
-    ],
-    raw: true
-  })) as any
+  const skills = await DB.user_skills
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: [
+        {
+          model: DB.goods,
+          where: {}
+        }
+      ]
+    })
+    .then(res => res.map(item => item.dataValues))
 
   return {
     UID,

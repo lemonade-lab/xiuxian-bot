@@ -1,7 +1,6 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, controlByName } from 'xiuxian-api'
+import { isUser, controlByName } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { user } from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
 
 const stones = ['下品灵石', '中品灵石', '上品灵石', '极品灵石']
@@ -53,16 +52,9 @@ export default new Messages().response(
     /**
      * lock end
      */
-
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
     if (!(await controlByName(e, UserData, '金银坊'))) return
     const [account, LeftName, RightName] = e.msg
       .replace(/^(#|\/)?(金银置换|金銀置換)/, '')

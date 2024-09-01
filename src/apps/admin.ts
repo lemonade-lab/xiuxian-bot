@@ -30,8 +30,7 @@ export default new Messages().response(/^(#|\/)?切换绑定(.*)*$/, async e => 
       where: { uid: switchuid },
       attributes: {
         exclude: ['id', 'uid'] // 指定要排除的列名
-      },
-      raw: true
+      }
     })
     .then(res => res.map(item => item.dataValues))
   const user_equipment = await DB.user_equipment

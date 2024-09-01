@@ -1,16 +1,20 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import { picture } from 'xiuxian-img'
 import * as Server from 'xiuxian-statistics'
 export default new Messages().response(
   /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     const data = await Server.ringInformation(UID, e.user_avatar)
     const img = await picture.render('BagComponent', {
       props: {
-        data
+        data,
+        theme: UserData?.theme ?? 'dark'
       },
       name: UID
     })

@@ -1,19 +1,15 @@
 import { Messages } from 'alemonjs'
-import { controlByName, sendReply, isThereAUserPresent } from 'xiuxian-api'
+import { controlByName, sendReply, isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 export default new Messages().response(
   /^(#|\/)?(万宝楼|萬寶樓)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await DB.user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     if (!(await controlByName(e, UserData, '万宝楼'))) return
     const start_msg = []
     start_msg.push('\n欢迎关顾本店')

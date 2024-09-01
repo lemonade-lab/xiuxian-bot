@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
 import { user_bag_message } from 'xiuxian-db'
@@ -21,15 +21,19 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await user_bag_message
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
+    const UserBgData = await user_bag_message
       .findOne({
         where: {
           uid: UID
         }
       })
       .then(res => res.dataValues)
-    let grade = UserData.grade
+
+    let grade = UserBgData.grade
     const Price = GameApi.Cooling.Price[grade]
     if (!Price) {
       e.reply(['已是极品储物袋'], {

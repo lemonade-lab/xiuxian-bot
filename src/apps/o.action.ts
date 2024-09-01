@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { user } from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
@@ -21,7 +21,10 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     const [thingName, thingAcount] = e.msg
       .replace(/^(#|\/)?服用/, '')
       .split('*')
@@ -38,14 +41,8 @@ export default new Messages().response(
       })
       return
     }
+
     // 得到用户数据
-    const UserData = await user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
 
     switch (thing.addition) {
       case 'boolere_covery': {

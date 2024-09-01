@@ -24,7 +24,8 @@ export default new Messages().response(/^(#|\/)?面板信息$/, async e => {
             .render('Equipmentcomponent', {
               name: UID,
               props: {
-                data: res
+                data: res,
+                theme: UserData?.theme ?? 'dark'
               }
             })
             .then(img => {

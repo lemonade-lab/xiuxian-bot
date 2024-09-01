@@ -1,11 +1,12 @@
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import { Op } from 'sequelize'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { Messages } from 'alemonjs'
 export default new Messages().response(/^(#|\/)?通过\d+$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
 
   const id = Number(e.msg.replace(/^(#|\/)?通过/, ''))
 

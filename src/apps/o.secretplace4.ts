@@ -1,19 +1,15 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, ControlByBlood } from 'xiuxian-api'
+import { isUser, ControlByBlood } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 export default new Messages().response(
   /^(#|\/)?(传送|傳送)[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await DB.user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     if (!(await ControlByBlood(e, UserData))) return
     const address = e.msg.replace(/^(#|\/)?(传送|傳送)/, '')
     const position = await DB.map_position

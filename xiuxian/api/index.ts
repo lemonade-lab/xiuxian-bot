@@ -131,7 +131,8 @@ export async function levelUp(
 ) {
   const UID = e.user_id
 
-  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
 
   if (!(await victoryCooling(e, UID, CDID))) return
 
@@ -242,12 +243,13 @@ export function createUser(e: AEvent) {
  */
 export function showUserMsg(e: AEvent) {
   const UID = e.user_id
-  personalInformation(UID, e.user_avatar).then(res => {
+  personalInformation(UID, e.user_avatar).then(UserData => {
     picture
       .render('MessageComponent', {
         name: UID,
         props: {
-          data: res
+          data: UserData,
+          theme: UserData?.theme ?? 'dark'
         }
       })
       .then(img => {
@@ -488,15 +490,16 @@ export async function showAction(e: AEvent, UID: string, UserData) {
  * @param UID
  * @returns
  */
-export async function isThereAUserPresent(e: AEvent, UID: string) {
-  const UserData = (await user.findOne({
-    attributes: ['uid'],
-    where: {
-      uid: UID
-    },
-    raw: true
-  })) as any
-  if (UserData) return true
+export async function isUser(e: AEvent, UID: string) {
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
+    .catch(_ => false)
+  if (typeof UserData !== 'boolean') return UserData
   createUser(e)
   return false
 }
@@ -506,15 +509,17 @@ export async function isThereAUserPresent(e: AEvent, UID: string) {
  * @param UID
  * @returns
  */
-export async function isThereAUserPresentB(e: AEvent, UID: string) {
-  const UserData = await user.findOne({
-    attributes: ['uid'],
-    where: {
-      uid: UID
-    },
-    raw: true
-  })
-  if (UserData) return true
+export async function isSideUser(e: AEvent, UID: string) {
+  const UserData = await user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res.dataValues)
+    .catch(_ => false)
+  if (typeof UserData !== 'boolean') return UserData
+  //
   e.reply('查无此人')
   return false
 }

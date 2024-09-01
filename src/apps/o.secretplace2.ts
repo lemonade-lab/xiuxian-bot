@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, ControlByBlood, endAllWord } from 'xiuxian-api'
+import { isUser, ControlByBlood, endAllWord } from 'xiuxian-api'
 import { Op, literal } from 'sequelize'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
@@ -7,14 +7,10 @@ export default new Messages().response(
   /^(#|\/)?前往[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await DB.user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     // 闭关等长期状态自动结束
     if (UserData.state == 1 || UserData.state == 2 || UserData.state == 8) {
       await endAllWord(e, UID, UserData)

@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, sendReply, victoryCooling } from 'xiuxian-api'
+import { isUser, sendReply, victoryCooling } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
@@ -19,7 +19,10 @@ export default new Messages().response(/^(#|\/)?挑战\d+$/, async e => {
    */
 
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   const CDID = 23
   const CDTime = GameApi.Cooling.CD_B
   if (!(await victoryCooling(e, UID, CDID))) return
@@ -90,13 +93,7 @@ export default new Messages().response(/^(#|\/)?挑战\d+$/, async e => {
     e.reply('位置占领成功')
     return
   }
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+
   const BMSG = GameApi.Fight.start(UserData, UserDataB)
   // 是否显示战斗结果
   if (UserData.battle_show || UserDataB.battle_show) {

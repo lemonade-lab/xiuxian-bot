@@ -1,10 +1,11 @@
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { Messages } from 'alemonjs'
 export default new Messages().response(/^(#|\/)?扩建宝库$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
   const UIDData = await DB.user_ass
     .findOne({
       where: {

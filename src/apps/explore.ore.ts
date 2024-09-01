@@ -1,10 +1,5 @@
 import { Messages } from 'alemonjs'
-import {
-  isThereAUserPresent,
-  ControlByBlood,
-  killNPC,
-  victoryCooling
-} from 'xiuxian-api'
+import { isUser, ControlByBlood, killNPC, victoryCooling } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
 import { user, user_level } from 'xiuxian-db'
@@ -28,14 +23,9 @@ export default new Messages().response(/^(#|\/)?采集\d+\*?(1|2)?$/, async e =>
 
   const UID = e.user_id
 
-  if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   if (!(await ControlByBlood(e, UserData))) return
 
   const [id, size] = e.msg.replace(/^(#|\/)?采集/, '').split('*')

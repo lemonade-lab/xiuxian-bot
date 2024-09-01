@@ -1,4 +1,4 @@
-import { isThereAUserPresent, sendReply } from 'xiuxian-api'
+import { isUser, sendReply } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { Messages } from 'alemonjs'
@@ -6,7 +6,8 @@ export default new Messages().response(
   /^(#|\/)?审核[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
     const name = e.msg.replace(/^(#|\/)?审核/, '')
     const v = await GameApi.Ass.v(UID, name)
     if (v === false) return

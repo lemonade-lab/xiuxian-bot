@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { controlByName, isThereAUserPresent } from 'xiuxian-api'
+import { controlByName, isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
@@ -19,14 +19,10 @@ export default new Messages().response(/^(#|\/)?售出所有物品$/, async e =>
    */
 
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   if (!(await controlByName(e, UserData, '万宝楼'))) return
   // 累计
   let money = 0

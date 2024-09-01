@@ -1,10 +1,11 @@
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
 import { Messages } from 'alemonjs'
 export default new Messages().response(/^(#|\/)?势力信息$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
 
   // 需要关联外键
   const UserAss = await DB.user_ass

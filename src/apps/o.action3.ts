@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { user, user_skills } from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
@@ -21,7 +21,9 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
 
     const thingName = e.msg.replace(/^(#|\/)?忘掉/, '')
     const AllSorcery = await user_skills

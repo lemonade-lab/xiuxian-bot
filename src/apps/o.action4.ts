@@ -1,10 +1,5 @@
 import { Messages, type AEvent } from 'alemonjs'
-import {
-  showUserMsg,
-  victoryCooling,
-  isThereAUserPresent,
-  reCreateMsg
-} from 'xiuxian-api'
+import { showUserMsg, victoryCooling, isUser, reCreateMsg } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
@@ -118,7 +113,10 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     const [thingName, thingAcount] = e.msg
       .replace(/^(#|\/)?消耗/, '')
       .split('*')
@@ -149,14 +147,6 @@ export default new Messages().response(
       })
       return
     }
-    // 用户数据集成
-    const UserData = await DB.user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
 
     switch (thing.id) {
       case 600201: {

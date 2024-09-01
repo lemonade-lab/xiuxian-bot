@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?设置邮箱/, async e => {
@@ -18,7 +18,10 @@ export default new Messages().response(/^(#|\/)?设置邮箱/, async e => {
    */
 
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   const email = e.msg.replace(/^(#|\/)?设置邮箱/, '')
   var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -32,9 +35,9 @@ export default new Messages().response(/^(#|\/)?设置邮箱/, async e => {
       .findOne({
         where: {
           email: email
-        },
-        raw: true
+        }
       })
+      .then(res => res.dataValues)
       .then(res => {
         if (res) {
           e.reply('已被使用')

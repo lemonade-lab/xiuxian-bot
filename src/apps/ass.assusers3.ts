@@ -1,10 +1,11 @@
-import { isThereAUserPresent, sendReply } from 'xiuxian-api'
+import { isUser, sendReply } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
 import { Messages } from 'alemonjs'
 export default new Messages().response(/^(#|\/)?势力\d*$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
   const p = e.msg.replace(/^(#|\/)?势力/, '')
   const page = p == '' ? 1 : Number(p)
   const pageSize = GameApi.Cooling.pageSize

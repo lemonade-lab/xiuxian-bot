@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import {
-  isThereAUserPresent,
-  isThereAUserPresentB,
+  isUser,
+  isSideUser,
   dualVerification,
   dualVerificationAction
 } from 'xiuxian-api'
@@ -24,24 +24,14 @@ export default new Messages().response(/^(#|\/)?(传功|傳功).*$/, async e => 
    */
 
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   const UIDB = e?.at_user?.id || e.msg.replace(/^(#|\/)?(传功|傳功)/, '')
   if (!UIDB) return
-  if (!(await isThereAUserPresentB(e, UIDB))) return
-  const UserDataB = await user
-    .findOne({
-      where: {
-        uid: UIDB
-      }
-    })
-    .then(res => res.dataValues)
+  const UserDataB = await isSideUser(e, UIDB)
+  if (typeof UserDataB === 'boolean') return
   if (!(await dualVerification(e, UserData, UserDataB))) return
   if (UserData.special_spiritual < 5) {
     e.reply(['灵力不足'], {

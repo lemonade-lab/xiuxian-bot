@@ -1,19 +1,13 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, endAllWord } from 'xiuxian-api'
+import { isUser, endAllWord } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?(闭关|閉關)$/, async e => {
   const UID = e.user_id
   //
-  if (!(await isThereAUserPresent(e, UID))) return
-  //
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   // 已经是闭关了
   if (UserData.state == 1) {
     e.reply('闭关中...', {

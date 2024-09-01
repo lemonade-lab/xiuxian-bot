@@ -1,10 +1,13 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import { user_log } from 'xiuxian-db'
 import { Method } from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?状态记录$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   const logsData = await user_log
     .findAll({
       attributes: ['type', 'create_time', 'message'],

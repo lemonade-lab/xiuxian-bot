@@ -24,7 +24,8 @@ export default new Messages().response(/^(#|\/)?功法信息$/, async e => {
             .render('SkillsComponent', {
               name: UID,
               props: {
-                data: res
+                data: res,
+                theme: UserData?.theme ?? 'dark'
               }
             })
             .then(img => {

@@ -48,6 +48,9 @@ class ScreenshotPicture extends Picture {
     const MyComponent = Component[key]
     // 使用参数
     const Props = (options.props ?? {}) as any
+
+    console.log(Props)
+
     // 截图
     return this.screenshot({
       // 地址

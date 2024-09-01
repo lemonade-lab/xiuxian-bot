@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
@@ -20,7 +20,9 @@ export default new Messages().response(/^(#|\/)?治炼仙石\d+$/, async e => {
 
   const UID = e.user_id
   let msg = []
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
 
   let account = Number(e.msg.replace(/^(#|\/)?治炼仙石/, '')) || 1
   if (account > 10) account = 10

@@ -1,4 +1,4 @@
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import * as DB from 'xiuxian-db'
 import { Messages } from 'alemonjs'
@@ -7,7 +7,8 @@ export default new Messages().response(
   /^(#|\/)?退出[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
 
     const name = e.msg.replace(/^(#|\/)?退出/, '')
 

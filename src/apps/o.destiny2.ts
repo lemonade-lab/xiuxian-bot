@@ -1,10 +1,13 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import * as DB from 'xiuxian-db'
 import * as GameApi from 'xiuxian-core'
 export default new Messages().response(/^(#|\/)?本命$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   // 查看本命信息：武器名/等级/属性/精炼需要消耗提示
   const thing = await DB.user_fate
     .findOne({

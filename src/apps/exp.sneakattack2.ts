@@ -1,17 +1,13 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent, ControlByBlood } from 'xiuxian-api'
+import { isUser, ControlByBlood } from 'xiuxian-api'
 import { Op } from 'sequelize'
 import * as DB from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?释放神识$/, async e => {
   const UID = e.user_id
-  if (!(await isThereAUserPresent(e, UID))) return
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.dataValues)
+
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
   if (!(await ControlByBlood(e, UserData))) return
   if (UserData.pont_attribute == 1) {
     e.reply('[城主府]巡逻军:\n城内切莫释放神识!')

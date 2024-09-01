@@ -1,18 +1,14 @@
 import { Messages } from 'alemonjs'
-import { isThereAUserPresent } from 'xiuxian-api'
+import { isUser } from 'xiuxian-api'
 import { user } from 'xiuxian-db'
 export default new Messages().response(
   /^(#|\/)?战斗过程(开启|关闭)$/,
   async e => {
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     if (new RegExp(/战斗过程开启/).test(e.msg)) {
       UserData.battle_show = 1
     } else {

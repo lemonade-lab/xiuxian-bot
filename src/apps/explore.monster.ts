@@ -1,6 +1,6 @@
 import { Messages } from 'alemonjs'
 import {
-  isThereAUserPresent,
+  isUser,
   ControlByBlood,
   sendReply,
   killNPC,
@@ -68,14 +68,10 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await DB.user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     if (!(await ControlByBlood(e, UserData))) return
     const CDID = 10
     if (!(await victoryCooling(e, UID, CDID))) return

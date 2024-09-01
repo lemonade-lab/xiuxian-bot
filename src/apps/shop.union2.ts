@@ -1,5 +1,5 @@
 import { Messages } from 'alemonjs'
-import { controlByName, isThereAUserPresent } from 'xiuxian-api'
+import { controlByName, isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { user } from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
@@ -21,14 +21,10 @@ export default new Messages().response(
      */
 
     const UID = e.user_id
-    if (!(await isThereAUserPresent(e, UID))) return
-    const UserData = await user
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.dataValues)
+
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+
     if (!(await controlByName(e, UserData, '联盟'))) return
     const [thingName, quantity] = e.msg
       .replace(/^(#|\/)?(贡献|貢獻)/, '')
