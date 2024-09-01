@@ -5,7 +5,7 @@ module.exports = {
   apps: [
     {
       name: 'alemonb',
-      args: `npx tsx index.ts ${[...process.argv].slice(4).join('')}`,
+      script: `npx tsx index.ts ${[...process.argv].slice(4).join('')}`,
       // 超时时间内进程仍未终止，则 PM2 将强制终止该进程
       kill_timeout: 5000,
       // 发送意外重启
