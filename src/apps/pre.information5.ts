@@ -3,7 +3,7 @@ import { showUserMsg, createUser } from 'xiuxian-api'
 import { Themes } from 'xiuxian-img'
 import * as GameApi from 'xiuxian-core'
 import { user } from 'xiuxian-db'
-export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
+export default new Messages().response(/^(#|\/)?(更改|更换)主题$/, async e => {
   //
   const UID = e.user_id
 
@@ -23,7 +23,6 @@ export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
       // 得到配置
       const index = Themes.indexOf(UserData.theme)
 
-      console.log('index', index)
       // 如果存在
       if (Themes[index + 1]) {
         // 切换
@@ -33,8 +32,6 @@ export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
         // 不存在。返回第一个
         UserData.theme = Themes[0]
       }
-
-      console.log('UserData.theme', UserData.theme)
 
       user
         .update(

@@ -4,7 +4,7 @@ import { Config } from 'xiuxian-core'
 import * as GameApi from 'xiuxian-core'
 import { user } from 'xiuxian-db'
 export default new Messages().response(
-  /^(#|\/)?(改名|更改道號)[\u4e00-\u9fa5]+$/,
+  /^(#|\/)?(改名|(更改|更换)道號)[\u4e00-\u9fa5]+$/,
   async e => {
     const UID = e.user_id
 
@@ -12,7 +12,7 @@ export default new Messages().response(
     if (typeof UserData === 'boolean') return
 
     if (!(await Control(e, UserData))) return
-    const name = e.msg.replace(/^(#|\/)?(改名|更改道號)/, '')
+    const name = e.msg.replace(/^(#|\/)?(改名|(更改|更换)道號)/, '')
     if (Config.IllegalCharacters.test(name)) {
       e.reply(['异常名称'], {
         quote: e.msg_id

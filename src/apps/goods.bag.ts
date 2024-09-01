@@ -18,8 +18,6 @@ export default new Messages().response(
       Goods.mapType[type] ?? Goods.mapType['道具']
     )
 
-    console.log(UserData.theme)
-
     const img = await picture.render('BagComponent', {
       props: { data, theme: UserData?.theme ?? 'dark' },
       name: UID
