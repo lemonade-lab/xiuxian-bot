@@ -32,21 +32,14 @@ export default new Messages().response(/^(#|\/)?天道裁决/, async e => {
     return
   }
 
-  const isOk = await Bag.addBagThing(UID, [
+  await Bag.addBagThing(UID, [
     {
       name: ifexist.name,
       acount: Number(Count) ?? 1
     }
   ])
 
-  if (!isOk) {
-    e.reply(['添加失败'], {
-      quote: e.msg_id
-    })
-    return
-  }
-
-  e.reply(['添加成功'], {
+  e.reply(['操作完成'], {
     quote: e.msg_id
   })
 
