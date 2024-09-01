@@ -59,7 +59,7 @@ export default function App({ data, theme }: PropsType) {
             `最多功法持有数:  ${data.myconfig_gongfa}`,
             `最多装备持有数:  ${data.myconfig_equipment}`,
             `年龄每小时增加:  ${data.Age_size}`,
-            `储物袋最高等级:  ${data.Price.length - 1}`
+            `储物袋最高等级:  ${data.Price.length}`
           ].map((item, index) => (
             <div key={index} className="w-80 mx-auto text-3xl p-2">
               {item}

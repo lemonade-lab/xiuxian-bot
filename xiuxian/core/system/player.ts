@@ -24,9 +24,9 @@ import * as Talent from '../users/base/talent.js'
  * @returns
  */
 export async function setPlayer(UID: string, user_avatar: string) {
-  return levels
+  //
+  const levelist = await levels
     .findAll({
-      attributes: ['blood'],
       where: {
         grade: 0,
         type: [1, 2]
@@ -34,87 +34,90 @@ export async function setPlayer(UID: string, user_avatar: string) {
       order: [['type', 'DESC']]
     })
     .then(res => res.map(item => item.dataValues))
-    .then(async levelist => {
-      if (!levelist || levelist.length == 0) return false
-      const [gaspractice, bodypractice] = levelist
-      return map_point
-        .findOne({
-          where: {
-            name: '天山'
-          }
-        })
-        .then(res => res?.dataValues)
-        .then(async point => {
-          if (!point || !point?.type) return false
-          return Promise.all([
-            // 创建基础信息
-            user.create({
-              uid: UID,
-              name: Method.Anyarray([
-                '甲',
-                '乙',
-                '丙',
-                '丁',
-                '戊',
-                '己',
-                '庚',
-                '辛',
-                '壬',
-                '癸'
-              ]), // 道号
-              avatar: user_avatar, // 头像地址
-              state: 0, // 用户状态_默认0
-              state_start_time: 9999999999, // 状态开始时间
-              state_end_time: 9999999999, // 状态结束时间
-              age: 1, // 寿龄_默认1
-              theme: 'dark', // 主题
-              age_limit: 100, // 最高寿龄_默认100
-              point_type: point.type, // 地点类型_默认0
-              pont_attribute: point.attribute, // 地点属性_默认0
-              pont_x: point.x, // 地点x轴_默认0
-              pont_y: point.y, // 地点y轴_默认0
-              pont_z: point.z, // 地点z轴_默认0
-              battle_blood_now: gaspractice.blood + bodypractice.blood, // 当前血量_默认0
-              battle_blood_limit: gaspractice.blood + bodypractice.blood, // 血量上限_默认0
-              // 计算战力
-              battle_attack: 0, // 攻击_默认0
-              battle_defense: 0, // 防御_默认0
-              battle_speed: 0, // 敏捷_默认0
-              battle_power: 0, // 战力_默认0
-              talent: Talent.getTalent(), // 灵根
-              create_time: new Date().getTime() // 创建时间搓
-            }),
-            // 创建背包信息
-            user_bag_message.create({
-              uid: UID,
-              grade: 1
-            }),
-            // 创建境界信息1
-            user_level.create({
-              uid: UID,
-              type: 1,
-              addition: 0,
-              realm: 0,
-              experience: 0
-            }),
-            // 创建境界信息2
-            user_level.create({
-              uid: UID,
-              type: 2,
-              addition: 0,
-              realm: 0,
-              experience: 0
-            }),
-            user_level.create({
-              uid: UID,
-              type: 3,
-              addition: 0,
-              realm: 0,
-              experience: 0
-            })
-          ])
-        })
+
+  //
+  if (!levelist || levelist.length == 0) return false
+
+  const [gaspractice, bodypractice] = levelist
+
+  const MapPointData = await map_point
+    .findOne({
+      where: {
+        name: '天山'
+      }
     })
+    .then(res => res?.dataValues)
+
+  if (!MapPointData || !MapPointData?.type) return false
+
+  Promise.all([
+    // 创建基础信息
+    user.create({
+      uid: UID,
+      name: Method.Anyarray([
+        '甲',
+        '乙',
+        '丙',
+        '丁',
+        '戊',
+        '己',
+        '庚',
+        '辛',
+        '壬',
+        '癸'
+      ]), // 道号
+      avatar: user_avatar, // 头像地址
+      state: 0, // 用户状态_默认0
+      state_start_time: 9999999999, // 状态开始时间
+      state_end_time: 9999999999, // 状态结束时间
+      age: 1, // 寿龄_默认1
+      theme: 'dark', // 主题
+      age_limit: 100, // 最高寿龄_默认100
+      point_type: MapPointData.type, // 地点类型_默认0
+      pont_attribute: MapPointData.attribute, // 地点属性_默认0
+      pont_x: MapPointData.x, // 地点x轴_默认0
+      pont_y: MapPointData.y, // 地点y轴_默认0
+      pont_z: MapPointData.z, // 地点z轴_默认0
+      battle_blood_now: gaspractice.blood + bodypractice.blood, // 当前血量_默认0
+      battle_blood_limit: gaspractice.blood + bodypractice.blood, // 血量上限_默认0
+      // 计算战力
+      battle_attack: 0, // 攻击_默认0
+      battle_defense: 0, // 防御_默认0
+      battle_speed: 0, // 敏捷_默认0
+      battle_power: 0, // 战力_默认0
+      talent: Talent.getTalent(), // 灵根
+      create_time: new Date().getTime() // 创建时间搓
+    }),
+    // 创建背包信息
+    user_bag_message.create({
+      uid: UID,
+      grade: 1
+    }),
+    // 创建境界信息1
+    user_level.create({
+      uid: UID,
+      type: 1,
+      addition: 0,
+      realm: 0,
+      experience: 0
+    }),
+    // 创建境界信息2
+    user_level.create({
+      uid: UID,
+      type: 2,
+      addition: 0,
+      realm: 0,
+      experience: 0
+    }),
+    // 创建境界信息3
+    user_level.create({
+      uid: UID,
+      type: 3,
+      addition: 0,
+      realm: 0,
+      experience: 0
+    })
+  ])
 }
 
 /**
@@ -124,7 +127,7 @@ export async function setPlayer(UID: string, user_avatar: string) {
  * @returns
  */
 export async function updatePlayer(UID: string, user_avatar: string) {
-  return Promise.all([
+  Promise.all([
     // 删除用户
     user.destroy({
       where: {

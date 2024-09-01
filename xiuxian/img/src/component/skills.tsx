@@ -65,7 +65,7 @@ export default function App({ data, theme }: PropsType) {
               className=" my-4   bg-black bg-opacity-40 rounded-xl"
             >
               <div className="flex-1  px-4 py-2 bg-black bg-opacity-40 text-white text-2xl text-left">
-                {item['good.name']}
+                {item.name}
               </div>
               <div className="flex  px-4 py-2 text-white text-2xl latgrid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2tice">
                 <div className="flex-1">天赋: {item['good.size']}%</div>

@@ -71,8 +71,8 @@ export default function App({ data, theme }: PropsType) {
 
       {data.fate.length > 0 && (
         <div className="rounded-md px-27  px-4 my-4 mx-auto ">
-          {data.fate.map(item => (
-            <div key={item.name}>
+          {data.fate.map((item, index) => (
+            <div key={index}>
               <div
                 className=" text-white text-2xl p-3 bg-black bg-opacity-30"
                 style={{ backgroundColor: 'rgb(61 18 12 / 84%)' }}
@@ -113,10 +113,10 @@ export default function App({ data, theme }: PropsType) {
       <div className="px-4">
         <div className="rounded-md px-27 my-4 bg-black bg-opacity-30">
           <div className="pb-5">
-            {data.equipment.map(item => (
-              <div key={item['good.name']}>
+            {data.equipment.map((item, index) => (
+              <div key={index}>
                 <div className=" text-white text-2xl p-3 bg-black bg-opacity-30">
-                  {item['good.name']}
+                  {item.name}
                 </div>
                 <div className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
                   <div className="whitespace-nowrap">

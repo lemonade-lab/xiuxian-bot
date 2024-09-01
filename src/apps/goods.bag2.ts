@@ -33,8 +33,13 @@ export default new Messages().response(
       })
       .then(res => res.dataValues)
 
+    // 等级
     let grade = UserBgData.grade
+
+    // 等级
     const Price = GameApi.Cooling.Price[grade]
+
+    //
     if (!Price) {
       e.reply(['已是极品储物袋'], {
         quote: e.msg_id
@@ -48,6 +53,7 @@ export default new Messages().response(
       })
       return
     }
+
     // 加1
     grade++
 
@@ -69,6 +75,8 @@ export default new Messages().response(
         acount: Price
       }
     ])
+
+    //
     e.reply([`花了${Price}*[下品灵石]升级\n目前储物袋等级为${grade}`], {
       quote: e.msg_id
     })

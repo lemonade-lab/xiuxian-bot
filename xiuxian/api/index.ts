@@ -196,44 +196,23 @@ export async function levelUp(
  */
 export function createUser(e: AEvent) {
   const UID = e.user_id
-  user
-    .findOne({
-      attributes: ['uid'],
-      where: {
-        uid: e.user_id
-      }
+  // 刷新用户信息
+  Player.updatePlayer(UID, e.user_avatar)
+    .then(() => {
+      // 设置冷却
+      Burial.set(UID, 8, Cooling.CD_Reborn)
+      //
+      e.reply([`欢迎萌新`, '\n发送[/修仙帮助]了解更多'], {
+        quote: e.msg_id
+      })
+      // 显示资料
+      showUserMsg(e)
     })
-    .then(res => res?.dataValues)
-    .then(async res => {
-      if (!res) {
-        // 刷新用户信息
-        Player.updatePlayer(UID, e.user_avatar)
-          .then(() => {
-            // 设置冷却
-            Burial.set(UID, 8, Cooling.CD_Reborn)
-            e.reply(
-              [`修仙大陆第${res.id}位萌新`, '\n发送[/修仙帮助]了解更多'],
-              {
-                quote: e.msg_id
-              }
-            )
-
-            // 显示资料
-            showUserMsg(e)
-          })
-          .catch(err => {
-            console.error(err)
-            e.reply(['未寻得仙缘'], {
-              quote: e.msg_id
-            })
-          })
-      } else {
-        // 显示资料
-        showUserMsg(e)
-      }
-    })
-    .catch(_ => {
-      e.reply('数据查询错误')
+    .catch(err => {
+      console.error(err)
+      e.reply(['未寻得仙缘'], {
+        quote: e.msg_id
+      })
     })
 }
 
