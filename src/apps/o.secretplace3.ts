@@ -1,7 +1,6 @@
 import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
-import { user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?返回$/, async e => {
   const UID = e.user_id
 

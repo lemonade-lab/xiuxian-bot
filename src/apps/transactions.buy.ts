@@ -19,11 +19,11 @@ const TypingValue = {
 const TransactionMap = new Map()
 
 export default new Messages().response(/^(#|\/)测试$/, async e => {
-  // const T = await operationLock(e.user_id)
-  // if (!T) {
-  //     e.reply('操作频繁')
-  //     return
-  // }
+  const T = await operationLock(e.user_id)
+  if (!T) {
+    e.reply('操作频繁')
+    return
+  }
   // //
   // const body = ctx.request.body as {
   //     id: number

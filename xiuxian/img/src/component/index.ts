@@ -7,7 +7,9 @@ import MessageComponent from './message.js'
 import SkillsComponent from './skills.js'
 import SkyComponent from './sky.js'
 import UpdateComponent from './update.js'
+import GoodMessage from './GoodMessage.js'
 export {
+  GoodMessage,
   BagComponent,
   Defsetcomponent,
   Equipmentcomponent,
