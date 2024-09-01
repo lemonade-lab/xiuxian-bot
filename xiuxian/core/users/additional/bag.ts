@@ -70,8 +70,10 @@ export async function addBagThing(
         })
       }
     }
+    return true
   } finally {
     await releaseLock(resource, lockValue)
+    return false
   }
 }
 
