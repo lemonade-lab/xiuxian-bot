@@ -1,4 +1,10 @@
 {
-  "include": ["backend", "src", "xiuxian", "index.ts", "alemon.*.ts"],
+  "include": [
+    "src/**/*",
+    "xiuxian",
+    "index.ts",
+    "alemon.*.ts",
+    "__tests__/**/*"
+  ],
   "extends": "alemonjs/config/tsconfig.json"
 }

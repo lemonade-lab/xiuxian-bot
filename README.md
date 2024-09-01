@@ -25,12 +25,6 @@ sudo systemctl status redis
 sudo systemctl enable redis
 ```
 
-- mysql
-
-```sh
-
-```
-
 ### 本地调试
 
 - 源码安装

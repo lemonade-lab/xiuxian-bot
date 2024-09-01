@@ -1,11 +1,18 @@
 import { Messages } from 'alemonjs'
-import { isUser, createUser } from 'xiuxian-api'
+import { createUser } from 'xiuxian-api'
 import { picture } from 'xiuxian-img'
 import * as GameApi from 'xiuxian-core'
 import * as Server from 'xiuxian-statistics'
+import { user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?面板信息$/, async e => {
   const UID = e.user_id
-  isUser(UID)
+  user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res?.dataValues)
     .then(UserData => {
       if (!UserData) {
         createUser(e)

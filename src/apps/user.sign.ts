@@ -1,7 +1,10 @@
 import { Messages } from 'alemonjs'
 import { Bag, Method } from 'xiuxian-core'
 import { user } from 'xiuxian-db'
-export default new Messages().response(/^(#|\/)签到$/, async e => {
+
+const MoenySize = 10
+
+export default new Messages().response(/^(#|\/)(签到|联盟签到)$/, async e => {
   const UID = e.user_id
   await user
     .findOne({
@@ -68,7 +71,7 @@ export default new Messages().response(/^(#|\/)签到$/, async e => {
             }
           )
         }
-        const count = 5 + Math.floor(size / 3)
+        const count = MoenySize + Math.floor(size / 3)
         // 增加灵石
         Bag.addBagThing(UID, [
           {

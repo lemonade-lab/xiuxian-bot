@@ -2,30 +2,41 @@ import { createApp } from 'alemonjs'
 import { readdirSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-// 获取当前目录
+
 const __filename = fileURLToPath(import.meta.url)
 const dir = join(dirname(__filename), 'apps')
-// 读取文件
-const files = readdirSync(dir).filter(file => /.(ts|js)$/.test(file))
-// 载入
-const promises = files.map(file => import(`file://${join(dir, file)}`))
-// 创建
+
+// 读取并过滤文件
+const files = readdirSync(dir).filter(file => /\.(ts|js)$/.test(file))
+
+// 创建应用
 const app = createApp(import.meta.url)
-try {
-  const results = await Promise.allSettled(promises)
-  for (const [index, result] of results.entries()) {
-    const name = files[index].replace(/.(ts|js)$/, '')
-    if (result.status === 'rejected') {
-      console.log('解析错误', name, result.reason)
-    } else {
-      if (result.value.default) {
-        app.use(result.value.default.ok)
+
+// 异步加载模块
+async function loadModules() {
+  for (const file of files) {
+    const name = file.replace(/\.(ts|js)$/, '')
+    try {
+      const module = await import(`file://${join(dir, file)}`)
+      if (module.default && module.default.ok) {
+        app.use(module.default.ok)
       } else {
-        console.log('未进行默认导出', name)
+        console.log(`未进行默认导出或缺少 'ok' 属性: ${name}`)
       }
+    } catch (error) {
+      console.error(`加载模块 ${name} 时出错:`, error)
     }
   }
-} catch (error) {
-  console.error('加载时出错:', error)
 }
-app.mount()
+
+// 主函数
+async function main() {
+  try {
+    await loadModules()
+    app.mount()
+  } catch (error) {
+    console.error('应用启动失败:', error)
+  }
+}
+
+await main()

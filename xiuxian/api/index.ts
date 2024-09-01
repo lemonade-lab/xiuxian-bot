@@ -28,7 +28,13 @@ export async function reCreateMsg(e: AEvent) {
   const UID = e.user_id
 
   // 确保是用户
-  isUser(UID)
+  user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res?.dataValues)
     .then(res => {
       // 不存在
       if (!res) {
@@ -71,7 +77,13 @@ export async function reCreateMsg(e: AEvent) {
             Burial.set(UID, CDID, CDTime)
 
             // 重新查询用户
-            isUser(UID)
+            user
+              .findOne({
+                where: {
+                  uid: UID
+                }
+              })
+              .then(res => res?.dataValues)
               .then(UserData => {
                 /**
                  * 并发
@@ -442,22 +454,6 @@ export async function killNPC(
     e.reply([`被[${Mname}]重伤倒地!`])
   }
   return false
-}
-
-/**
- * 是否是用户
- * 是用户则返回用户数据
- * @param UID
- * @returns
- */
-export async function isUser(UID: string) {
-  return user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
 }
 
 export async function showAction(e: AEvent, UID: string, UserData) {

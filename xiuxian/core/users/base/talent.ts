@@ -1,6 +1,5 @@
 // 数据框架
 import { talent } from 'xiuxian-db'
-
 /**
  * 计算天赋大小
  * @param data

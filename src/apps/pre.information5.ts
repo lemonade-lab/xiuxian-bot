@@ -1,11 +1,20 @@
 import { Messages } from 'alemonjs'
-import { showUserMsg, isUser, createUser } from 'xiuxian-api'
+import { showUserMsg, createUser } from 'xiuxian-api'
 import { Themes } from 'xiuxian-img'
 import * as GameApi from 'xiuxian-core'
 import { user } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
+  //
   const UID = e.user_id
-  isUser(UID)
+
+  //
+  user
+    .findOne({
+      where: {
+        uid: UID
+      }
+    })
+    .then(res => res?.dataValues)
     .then(UserData => {
       if (!UserData) {
         createUser(e)
@@ -47,4 +56,6 @@ export default new Messages().response(/^(#|\/)?更换主题$/, async e => {
     .catch(() => {
       e.reply('数据查询错误')
     })
+
+  //
 })
