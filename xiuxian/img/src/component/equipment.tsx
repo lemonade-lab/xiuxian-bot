@@ -16,6 +16,7 @@ type PropsType = {
  */
 export default function App({ data, theme }: PropsType) {
   const UID = createUID(data.UID)
+  console.log('data.bag', data.equipment)
   return (
     <div
       id="root"
@@ -113,38 +114,41 @@ export default function App({ data, theme }: PropsType) {
       <div className="px-4">
         <div className="rounded-md px-27 my-4 bg-black bg-opacity-30">
           <div className="pb-5">
-            {data.equipment.map((item, index) => (
-              <div key={index}>
-                <div className=" text-white text-2xl p-3 bg-black bg-opacity-30">
-                  {item.name}
+            {data.equipment.map((item, index) => {
+              const good = item['good']['dataValues']
+              return (
+                <div key={index}>
+                  <div className=" text-white text-2xl p-3 bg-black bg-opacity-30">
+                    {item.name}
+                  </div>
+                  <div className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
+                    <div className="whitespace-nowrap">
+                      攻击 : {good['attack']}%
+                    </div>
+                    <div className="whitespace-nowrap">
+                      防御 : {good['defense']}%
+                    </div>
+                    <div className="whitespace-nowrap">
+                      血量 : {good['blood']}%
+                    </div>
+                  </div>
+                  <div
+                    className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2"
+                    style={{ marginBottom: '5px' }}
+                  >
+                    <div className="whitespace-nowrap">
+                      暴击 : {good['critical_hit']}%
+                    </div>
+                    <div className="whitespace-nowrap">
+                      暴伤 : {good['critical_damage']}%
+                    </div>
+                    <div className="whitespace-nowrap">
+                      敏捷 : {good['speed']}
+                    </div>
+                  </div>
                 </div>
-                <div className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2">
-                  <div className="whitespace-nowrap">
-                    攻击 : {item['good.attack']}%
-                  </div>
-                  <div className="whitespace-nowrap">
-                    防御 : {item['good.defense']}%
-                  </div>
-                  <div className="whitespace-nowrap">
-                    血量 : {item['good.blood']}%
-                  </div>
-                </div>
-                <div
-                  className=" text-white text-2xl grid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2"
-                  style={{ marginBottom: '5px' }}
-                >
-                  <div className="whitespace-nowrap">
-                    暴击 : {item['good.critical_hit']}%
-                  </div>
-                  <div className="whitespace-nowrap">
-                    暴伤 : {item['good.critical_damage']}%
-                  </div>
-                  <div className="whitespace-nowrap">
-                    敏捷 : {item['good.speed']}
-                  </div>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

@@ -59,23 +59,24 @@ export default function App({ data, theme }: PropsType) {
         }
 
         <div className="rounded-lg w-full px-4 py-4">
-          {data.skills.map((item, index) => (
-            <div
-              key={index}
-              className=" my-4   bg-black bg-opacity-40 rounded-xl"
-            >
-              <div className="flex-1  px-4 py-2 bg-black bg-opacity-40 text-white text-2xl text-left">
-                {item.name}
-              </div>
-              <div className="flex  px-4 py-2 text-white text-2xl latgrid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2tice">
-                <div className="flex-1">天赋: {item['good.size']}%</div>
-                <div className="flex-1">
-                  修为: +{item['good.exp_gaspractice']}
+          {data.skills.map((item, index) => {
+            const good = item['good']['dataValues']
+            return (
+              <div
+                key={index}
+                className=" my-4   bg-black bg-opacity-40 rounded-xl"
+              >
+                <div className="flex-1  px-4 py-2 bg-black bg-opacity-40 text-white text-2xl text-left">
+                  {item.name}
                 </div>
-                <div className="flex-1">灵石: {item['good.price']}</div>
+                <div className="flex  px-4 py-2 text-white text-2xl latgrid grid-cols-3 text-left grid-flow-col gap-0 pl-14 py-2tice">
+                  <div className="flex-1">天赋: {good['size']}%</div>
+                  <div className="flex-1">修为: +{good['exp_gaspractice']}</div>
+                  <div className="flex-1">灵石: {good['price']}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {

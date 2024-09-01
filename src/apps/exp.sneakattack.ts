@@ -33,17 +33,9 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
 
   const minBattleBlood = 1
   const ID = e.msg.replace(/^(#|\/)?偷袭/, '')
-  const userDataB = await DB.user
+  //
+  const UserDataB = await DB.user
     .findOne({
-      attributes: [
-        'id',
-        'uid',
-        'state',
-        'battle_blood_now',
-        'point_type',
-        'battle_power',
-        'name'
-      ],
       where: {
         id: ID,
         uid: {
@@ -62,30 +54,33 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
       }
     })
     .then(res => res?.dataValues)
-  if (!userDataB) {
+    .catch(_ => false)
+
+  //
+  if (typeof UserDataB === 'boolean') {
     e.reply('对方消失了', {
       quote: e.msg_id
     })
     return
   }
-  const UIDB = userDataB.uid
-  if (!UIDB) return
-  const UserDataB = await isSideUser(e, UIDB)
-  if (typeof UserDataB === 'boolean') return
+
+  //
+  const UIDB = UserDataB.uid
+
   if (!(await dualVerification(e, UserData, UserDataB))) return
   if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
     return
 
-  const CDID = 20,
-    CDTime = GameApi.Cooling.CD_Sneak
+  const CDID = 20
+  const CDTime = GameApi.Cooling.CD_Sneak
+
+  //
   if (!(await victoryCooling(e, UID, CDID))) return
 
-  /**
-   * 增加玄玉天宫
-   */
-
+  // 增加玄玉天宫
   const create_time = new Date().getTime()
 
+  //
   if (UserData.point_type == 2) {
     await DB.user.update(
       {
@@ -141,6 +136,7 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
     }, 4000)
 
     if (thing.length != 0) {
+      //
       setTimeout(() => {
         if (thing.length != 0) {
           e.reply([`[玄玉天宫]的众修士击碎了你的[${thing[0].name}]`], {
@@ -153,32 +149,35 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
     return
   }
 
+  // 决斗令
+
   if (UserData.pont_attribute == 1) {
     const thing = await GameApi.Bag.searchBagByName(UID, '决斗令')
     if (!thing) {
+      //
       DB.user_log.create({
         uid: UIDB,
         type: 1,
         create_time,
         message: `${UserData.name}攻击了你,被卫兵拦住了~`
       })
-
       e.reply('[城主府]普通卫兵:\n城内不可出手!', {
         quote: e.msg_id
       })
       return
     }
+    //
     await GameApi.Bag.reduceBagThing(UID, [
       {
         name: thing.name,
         acount: 1
       }
     ])
+    //
   }
 
-  /**
-   * 判断灵力
-   */
+  //判断灵力
+
   const levelsB = await DB.user_level
     .findOne({
       attributes: ['addition', 'realm', 'experience'],
@@ -188,6 +187,9 @@ export default new Messages().response(/^(#|\/)?偷袭\d+$/, async e => {
       }
     })
     .then(res => res?.dataValues)
+
+  //
+
   if (UserData.special_spiritual < levelsB.realm) {
     e.reply(['灵力不足'], {
       quote: e.msg_id
