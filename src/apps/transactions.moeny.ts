@@ -35,6 +35,8 @@ export default new Messages().response(/^(#|\/)?交易所得/, async e => {
 
   const [name, count] = log.split('*')
 
+  await Redis.del(KEY)
+
   // 加物品
   await Bag.addBagThing(UID, [
     {
