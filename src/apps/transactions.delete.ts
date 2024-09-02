@@ -2,7 +2,7 @@ import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
 import { Bag, operationLock, order } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
-export default new Messages().response(/^(#|\/)下架/, async e => {
+export default new Messages().response(/^(#|\/)?下架/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
     e.reply('操作频繁')
@@ -13,7 +13,7 @@ export default new Messages().response(/^(#|\/)下架/, async e => {
   const UserData = await isUser(e, UID)
   if (typeof UserData === 'boolean') return
 
-  const id = e.msg.replace(/^(#|\/)下架/, '').trim()
+  const id = e.msg.replace(/^(#|\/)?下架/, '').trim()
   if (!id || id == '' || isNaN(Number(id))) {
     e.reply('请输入正确的编号')
     return

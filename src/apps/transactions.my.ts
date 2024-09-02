@@ -3,7 +3,7 @@ import { isUser } from 'xiuxian-api'
 import { operationLock } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
 import { picture } from 'xiuxian-img'
-export default new Messages().response(/^(#|\/)我(出售|售出)的$/, async e => {
+export default new Messages().response(/^(#|\/)?我(出售|售出)的$/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
     e.reply('操作频繁')

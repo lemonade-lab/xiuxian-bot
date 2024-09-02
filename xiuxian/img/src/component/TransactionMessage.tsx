@@ -28,7 +28,7 @@ export default function TransactionMessage({ data, theme }: PropsType) {
         <div className="p-4">
           <Header
             Title={`虚空镜-第${data.page}页`}
-            list={['/虚空镜*1', , '/选购XXX']}
+            list={['/虚空镜*1', '/选购XXX', '/下架XXX']}
           />
         </div>
         <div className="rounded-lg w-full px-4 py-4">

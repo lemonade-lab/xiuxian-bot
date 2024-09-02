@@ -2,7 +2,7 @@ import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
 import { Bag, Cooling, operationLock } from 'xiuxian-core'
 import { goods, transactions, user_bag } from 'xiuxian-db'
-export default new Messages().response(/^(#|\/)上架/, async e => {
+export default new Messages().response(/^(#|\/)?上架/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
     e.reply('操作频繁')
@@ -15,7 +15,7 @@ export default new Messages().response(/^(#|\/)上架/, async e => {
 
   //  /上架物品名*数量*价格
   let [name, count, price] = e.msg
-    .replace(/^(#|\/)上架/, '')
+    .replace(/^(#|\/)?上架/, '')
     .trim()
     .split('*')
 

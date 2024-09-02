@@ -4,7 +4,7 @@ import { Bag, operationLock, order } from 'xiuxian-core'
 import { Redis, transactions, user_bag } from 'xiuxian-db'
 import { createUID } from 'xiuxian-img'
 
-export default new Messages().response(/^(#|\/)选购/, async e => {
+export default new Messages().response(/^(#|\/)?选购/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
     e.reply('操作频繁')
@@ -15,7 +15,7 @@ export default new Messages().response(/^(#|\/)选购/, async e => {
   const UserData = await isUser(e, UID)
   if (typeof UserData === 'boolean') return
 
-  const id = e.msg.replace(/^(#|\/)选购/, '').trim()
+  const id = e.msg.replace(/^(#|\/)?选购/, '').trim()
   if (!id || id == '' || isNaN(Number(id))) {
     e.reply('请输入正确的编号')
     return

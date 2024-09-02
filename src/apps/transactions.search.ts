@@ -4,7 +4,7 @@ import { operationLock } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
 import { picture } from 'xiuxian-img'
 export default new Messages().response(
-  /^(#|\/)(虚空镜|虚空灯|虚空板)/,
+  /^(#|\/)?(虚空镜|虚空灯|虚空板)/,
   async e => {
     const T = await operationLock(e.user_id)
     if (!T) {
@@ -16,7 +16,7 @@ export default new Messages().response(
     if (typeof UserData === 'boolean') return
     //
     const [xpage = '1', name] = e.msg
-      .replace(/^(#|\/)虚空镜/, '')
+      .replace(/^(#|\/)?虚空镜/, '')
       .trim()
       .split('*')
 

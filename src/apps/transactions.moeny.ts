@@ -3,7 +3,7 @@ import { isUser } from 'xiuxian-api'
 import { Bag, operationLock } from 'xiuxian-core'
 import { Redis } from 'xiuxian-db'
 import { createUID } from 'xiuxian-img'
-export default new Messages().response(/^(#|\/)交易所得/, async e => {
+export default new Messages().response(/^(#|\/)?交易所得/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
     e.reply('操作频繁')
