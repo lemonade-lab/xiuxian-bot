@@ -65,7 +65,12 @@ export default new Messages().response(/^(#|\/)上架/, async e => {
     })
     .then(res => res?.dataValues)
 
-  if (!thing || thing.acount < Number(count)) {
+  if (!thing) {
+    e.reply('物品不存在')
+    return
+  }
+
+  if (thing.acount < Number(count)) {
     e.reply(`[${thing.name}]*${thing.acount}物品不足`)
     return
   }
