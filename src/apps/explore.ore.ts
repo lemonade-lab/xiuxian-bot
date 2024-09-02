@@ -60,7 +60,7 @@ export default new Messages().response(/^(#|\/)?采集\d+\*?(1|2)?$/, async e =>
   const CDID = 22
   if (!(await victoryCooling(e, UID, CDID))) return
 
-  if (!killNPC(e, id, UID, UserData.special_prestige)) return
+  if (!(await killNPC(e, id, UID, UserData.special_prestige))) return
 
   // 得到灵矿
   const explore = await GameApi.explore.explorecache(UserData.point_type)

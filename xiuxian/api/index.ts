@@ -415,6 +415,8 @@ export async function killNPC(
     }
   )
 
+  e.reply([`你被[${Mname}]重伤倒地!`])
+
   // 不触发
   if (!Method.isTrueInRange(1, 100, Math.floor(prestige + 10))) {
     return false
@@ -422,18 +424,17 @@ export async function killNPC(
 
   // 随机去掉一个物品
   const data = await Bag.delThing(UID)
+
+  // 存在物品
   if (data[0]) {
     // 击碎标记
     await Treasure.add(data[0].name, data[0].type, data[0].acount)
-    e.reply(
-      [`[${Mname}]击碎了你的的[${data[0].name}]`, `\n你重伤倒地,奄奄一息~`],
-      {
-        quote: e.msg_id
-      }
-    )
-  } else {
-    e.reply([`被[${Mname}]重伤倒地!`])
+    e.reply([`[${Mname}]击碎了你的的[${data[0].name}]`], {
+      quote: e.msg_id
+    })
   }
+
+  //
   return false
 }
 
