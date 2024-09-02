@@ -1,20 +1,53 @@
 import { Messages } from 'alemonjs'
+import { isUser } from 'xiuxian-api'
+import { operationLock } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
-export default new Messages().response(/^(#|\/)我出售的$/, async e => {
+import { picture } from 'xiuxian-img'
+export default new Messages().response(/^(#|\/)我(出售|售出)的$/, async e => {
+  const T = await operationLock(e.user_id)
+  if (!T) {
+    e.reply('操作频繁')
+    return
+  }
+  //
   const UID = e.user_id
-  await transactions
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
+  transactions
     .findAll({
       where: {
         uid: UID
       }
     })
-    .then(res => res.map(r => r.dataValues))
-    .then(res => {
+    .then(res => res.map(item => item.dataValues))
+    .then(async res => {
       if (res.length === 0) {
-        e.reply('你还没有出售任何物品')
+        e.reply('没有找到数据')
         return
       }
-      const msg = res.map(r => `物品:${r.name}, 数量:${r.count}`)
-      e.reply(msg.join('\n'))
+
+      // 返回物品信息
+      const img = await picture.render('TransactionMessage', {
+        name: 'TransactionMessage',
+        props: {
+          data: {
+            page: 1,
+            goods: res
+          },
+          theme: UserData.theme
+        }
+      })
+
+      //
+      if (Buffer.isBuffer(img)) {
+        e.reply(img)
+      } else {
+        e.reply('截图错误')
+      }
+    })
+    .catch(err => {
+      console.error(err)
+      e.reply('数据错误')
     })
 })

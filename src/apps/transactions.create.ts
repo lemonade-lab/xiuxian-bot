@@ -1,9 +1,7 @@
 import { Messages } from 'alemonjs'
-import { where } from 'sequelize'
 import { isUser } from 'xiuxian-api'
 import { Bag, Cooling, operationLock } from 'xiuxian-core'
 import { goods, transactions, user_bag } from 'xiuxian-db'
-
 export default new Messages().response(/^(#|\/)上架/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
@@ -21,7 +19,8 @@ export default new Messages().response(/^(#|\/)上架/, async e => {
     .trim()
     .split('*')
 
-  price = String(Math.floor(Number(price)))
+  count = String(Math.floor(isNaN(Number(count)) ? 1 : Number(count)))
+  price = String(Math.floor(isNaN(Number(price)) ? 1 : Number(price)))
 
   // 查询物品
   const data = await transactions
