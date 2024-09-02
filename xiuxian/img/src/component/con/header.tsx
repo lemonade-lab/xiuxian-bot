@@ -5,11 +5,12 @@ import React from 'react'
  * @returns
  */
 export default function Header({
+  Title = '凡人修仙',
   list = ['/更换主题', '/改名+字符']
 }: {
+  Title?: string
   list?: string[]
 }) {
-  const Title = '凡人修仙'
   return (
     <div className="py-4">
       <span

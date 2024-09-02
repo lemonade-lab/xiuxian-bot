@@ -8,7 +8,9 @@ import SkillsComponent from './skills.js'
 import SkyComponent from './sky.js'
 import UpdateComponent from './update.js'
 import GoodMessage from './GoodMessage.js'
+import TransactionMessage from './TransactionMessage.js'
 export {
+  TransactionMessage,
   GoodMessage,
   BagComponent,
   Defsetcomponent,

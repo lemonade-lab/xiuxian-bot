@@ -1,127 +1,108 @@
 import { Messages } from 'alemonjs'
-import { acquireLock, Bag, operationLock } from 'xiuxian-core'
-import { transactions, transactions_logs, user, user_bag } from 'xiuxian-db'
+import { isUser } from 'xiuxian-api'
+import { Bag, operationLock, order } from 'xiuxian-core'
+import { Redis, transactions, user_bag } from 'xiuxian-db'
+import { createUID } from 'xiuxian-img'
 
-const TypingItem = {
-  '1': '下品灵石',
-  '2': '中品灵石',
-  '3': '上品灵石',
-  '4': '极品灵石'
-}
-
-const TypingValue = {
-  '1': 1,
-  '2': 10,
-  '3': 100,
-  '4': 1000
-}
-
-const TransactionMap = new Map()
-
-export default new Messages().response(/^(#|\/)测试$/, async e => {
+export default new Messages().response(/^(#|\/)选购/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
     e.reply('操作频繁')
     return
   }
-  // //
-  // const body = ctx.request.body as {
-  //     id: number
-  //     typing: number
-  // }
-  // // console.log('body-delete', body)
-  // if (!body.id) {
-  //     e.reply('非法请求')
-  //     return
-  // }
-  // const key = `transactions:${body.id}`
-  // acquireLock(key)
-  // if (TransactionMap.has(body.id)) {
-  //     e.reply('请求频繁')
-  //     return
-  // }
-  // //
-  // //
-  // TransactionMap.set(body.id, 0)
-  // // 顺便得到该物品的主人信息
-  // const data = await transactions
-  //     .findOne({
-  //         where: {
-  //             id: body.id
-  //         },
-  //         include: [
-  //             {
-  //                 model: user
-  //             }
-  //         ]
-  //     })
-  //     .then(res => res?.dataValues)
-  // // 得到该物品的uid
-  // const UID = e.user_id
-  // if (data.uid == UID) {
-  //     e.reply('不可购买')
-  //     TransactionMap.delete(body.id)
-  //     return
-  // }
-  // // 矫正类型
-  // if (
-  //     !body?.typing ||
-  //     !Object.prototype.hasOwnProperty.call(TypingItem, body.typing)
-  // ) {
-  //     body.typing = 1
-  // }
-  // // 查询下品灵石
-  // const money = await user_bag
-  //     .findOne({
-  //         where: {
-  //             uid: UID,
-  //             name: TypingItem[body.typing]
-  //         }
-  //     })
-  //     .then(res => res?.dataValues)
-  // const needMoeny = Math.floor((data.price * 1.1) / TypingValue[body.typing])
-  // const getMoeny = Math.floor((data.price * 0.9) / TypingValue[body.typing])
-  // if (money.acount < needMoeny) {
-  //     e.reply('灵石不足')
-  //     TransactionMap.delete(body.id)
-  //     return
-  // }
-  // await transactions
-  //     .destroy({
-  //         where: {
-  //             id: data.id
-  //         }
-  //     })
-  //     .finally(() => {
-  //         transactions_logs.create({
-  //             ...data,
-  //             updateAt: new Date(),
-  //             deleteAt: new Date()
-  //         })
-  //     })
-  //     .catch(() => { })
-  // // 扣钱
-  // await Bag.reduceBagThing(UID, [
-  //     {
-  //         name: TypingItem[body.typing],
-  //         acount: needMoeny
-  //     }
-  // ])
-  // // 加物品
-  // await Bag.addBagThing(UID, [
-  //     {
-  //         name: data.name,
-  //         acount: data.count
-  //     }
-  // ])
-  // // 得到收益
-  // await Bag.addBagThing(data.uid, [
-  //     {
-  //         name: TypingItem[body.typing],
-  //         acount: getMoeny
-  //     }
-  // ])
-  // e.reply('购买成功')
-  // TransactionMap.delete(body.id)
-  // return
+  //
+  const UID = e.user_id
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
+
+  const id = e.msg.replace(/^(#|\/)选购/, '').trim()
+  if (!id || id == '' || isNaN(Number(id))) {
+    e.reply('请输入正确的编号')
+    return
+  }
+
+  // 查询物品
+  const data = await transactions
+    .findOne({
+      where: {
+        id: Number(id)
+      }
+    })
+    .then(res => res?.dataValues)
+
+  if (!data) {
+    e.reply('没有找到该物品')
+    return
+  }
+
+  if (data.uid == UID) {
+    e.reply('不能购买自己的物品')
+    return
+  }
+
+  // 查询下品灵石
+  const money = await user_bag
+    .findOne({
+      where: {
+        uid: UID,
+        name: '下品灵石'
+      }
+    })
+    .then(res => res?.dataValues)
+
+  //
+  if (!money) {
+    e.reply('没有找到下品灵石')
+    return
+  }
+
+  const Value = Math.floor(data.price * 0.1)
+  const needMoeny = data.price + Value
+  const getMoeny = data.price - Value
+
+  if (data.price > money.acount) {
+    e.reply(`下品灵石不足${needMoeny}(+${Value})`)
+    return
+  }
+
+  const BagSize = await Bag.backpackFull(UID)
+  // 背包未位置了直接返回了
+  if (!BagSize) {
+    e.reply(['储物袋空间不足'], {
+      quote: e.msg_id
+    })
+    return
+  }
+
+  // 交易
+  const Del = await order.delThing(data.id)
+
+  if (!Del) {
+    e.reply('交易频繁')
+    return
+  }
+
+  // 扣钱
+  await Bag.reduceBagThing(UID, [
+    {
+      name: '下品灵石',
+      acount: needMoeny
+    }
+  ])
+
+  // 加物品
+  await Bag.addBagThing(UID, [
+    {
+      name: data.name,
+      acount: data.count
+    }
+  ])
+
+  // 存入
+  const KEY = `xiuxian:money:${createUID(data.uid)}`
+  await Redis.set(KEY, `下品灵石*${getMoeny}`)
+
+  e.reply('购买成功')
+
+  return
 })

@@ -16,6 +16,7 @@ export * as Fight from './system/fight.js'
 export * as Monster from './system/monster.js'
 export * as Treasure from './system/treasure.js'
 export * as explore from './system/explore.js'
+export * as order from './system/order.js'
 
 // 势力模型
 export * as Ass from './system/ass.js'

@@ -1,6 +1,8 @@
 import { Messages } from 'alemonjs'
+import { isUser } from 'xiuxian-api'
 import { operationLock } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
+import { picture } from 'xiuxian-img'
 /**
  *
  */
@@ -10,8 +12,11 @@ export default new Messages().response(/^(#|\/)虚空镜/, async e => {
     e.reply('操作频繁')
     return
   }
+  const UID = e.user_id
+  const UserData = await isUser(e, UID)
+  if (typeof UserData === 'boolean') return
   //
-  const [xpage, name] = e.msg
+  const [xpage = '1', name] = e.msg
     .replace(/^(#|\/)虚空镜/, '')
     .trim()
     .split('*')
@@ -20,7 +25,7 @@ export default new Messages().response(/^(#|\/)虚空镜/, async e => {
     name?: string
   } = {}
 
-  if (name === undefined) {
+  if (name !== undefined) {
     where.name = name
   }
 
@@ -39,20 +44,33 @@ export default new Messages().response(/^(#|\/)虚空镜/, async e => {
       offset: offset
     })
     .then(res => res.map(item => item.dataValues))
-    .then(res => {
+    .then(async res => {
       if (res.length === 0) {
         e.reply('没有找到数据')
         return
       }
-      e.reply(
-        res
-          .map(
-            item => `物品名:${item.name},价格:${item.price},数量:${item.count}`
-          )
-          .join('\n')
-      )
+
+      // 返回物品信息
+      const img = await picture.render('TransactionMessage', {
+        name: 'TransactionMessage',
+        props: {
+          data: {
+            page: page,
+            goods: res
+          },
+          theme: UserData.theme
+        }
+      })
+
+      //
+      if (Buffer.isBuffer(img)) {
+        e.reply(img)
+      } else {
+        e.reply('截图错误')
+      }
     })
-    .catch(() => {
+    .catch(err => {
+      console.error(err)
       e.reply('数据错误')
     })
 
