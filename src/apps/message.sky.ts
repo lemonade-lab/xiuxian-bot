@@ -94,6 +94,6 @@ export default new Messages().response(/^(#|\/)?通天塔奖励$/, async e => {
   if (msg.length <= 1) {
     e.reply('此排名奖励本月已无法领取')
   } else {
-    e.reply(msg.join(''))
+    e.reply(msg.join('\n'))
   }
 })
