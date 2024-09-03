@@ -12,6 +12,7 @@ import {
   skillInformation
 } from 'xiuxian-statistics'
 import { Goods, Cooling } from 'xiuxian-core'
+import { ass, ass_typing, user_ass } from 'xiuxian-db'
 
 const e = {
   user_id: '563384AF707685C9A82DA5DDFAF96D8A',
@@ -20,6 +21,32 @@ const e = {
 }
 
 export default defineConfig([
+  {
+    url: '/AssMessage',
+    options: {
+      ...PictureOptions,
+      // body 内容
+      html_body: (
+        <Component.AssMessage
+          theme={'dark'}
+          data={await user_ass
+            .findAll({
+              include: [
+                {
+                  model: ass,
+                  include: [
+                    {
+                      model: ass_typing
+                    }
+                  ]
+                }
+              ]
+            })
+            .then(res => res.map(item => item.dataValues))}
+        />
+      )
+    }
+  },
   {
     url: '/BagComponent',
     options: {

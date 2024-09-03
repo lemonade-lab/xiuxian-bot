@@ -9,7 +9,10 @@ import SkyComponent from './sky.js'
 import UpdateComponent from './update.js'
 import GoodMessage from './GoodMessage.js'
 import TransactionMessage from './TransactionMessage.js'
+import AssMessage from './AssMessage.js'
+import AssList from './AssList.js'
 export {
+  AssList,
   TransactionMessage,
   GoodMessage,
   BagComponent,
@@ -20,5 +23,6 @@ export {
   MessageComponent,
   SkillsComponent,
   SkyComponent,
+  AssMessage,
   UpdateComponent
 }
