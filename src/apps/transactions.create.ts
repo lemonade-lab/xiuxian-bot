@@ -14,13 +14,13 @@ export default new Messages().response(/^(#|\/)?上架/, async e => {
   if (typeof UserData === 'boolean') return
 
   //  /上架物品名*数量*价格
-  let [name, count, price] = e.msg
+  const [name, countx, pricex] = e.msg
     .replace(/^(#|\/)?上架/, '')
     .trim()
     .split('*')
 
-  count = String(Math.floor(isNaN(Number(count)) ? 1 : Number(count)))
-  price = String(Math.floor(isNaN(Number(price)) ? 1 : Number(price)))
+  const count = Math.floor(isNaN(Number(countx)) ? 1 : Number(countx))
+  const price = Math.floor(isNaN(Number(pricex)) ? 1 : Number(pricex))
 
   // 查询物品
   const data = await transactions
@@ -50,7 +50,7 @@ export default new Messages().response(/^(#|\/)?上架/, async e => {
     return
   }
 
-  if (Number(price) > gData.price * Cooling.MAX_PRICE_P * Number(count)) {
+  if (Number(price) > gData.price * Cooling.MAX_PRICE_P * count) {
     e.reply('你在尝试违规定价,操作已取消')
     return
   }
@@ -70,7 +70,7 @@ export default new Messages().response(/^(#|\/)?上架/, async e => {
     return
   }
 
-  if (thing.acount < Number(count)) {
+  if (thing.acount < count) {
     e.reply(`[${thing.name}]*${thing.acount}物品不足`)
     return
   }
@@ -91,9 +91,10 @@ export default new Messages().response(/^(#|\/)?上架/, async e => {
       await Bag.reduceBagThing(UID, [
         {
           name: thing.name,
-          acount: thing.acount
+          acount: count
         }
       ])
+      //
       e.reply('上架成功')
     })
     .catch(() => {
