@@ -1,8 +1,8 @@
 import { isUser } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { Messages } from 'alemonjs'
-import { picture } from 'xiuxian-img'
 import { ass } from 'xiuxian-db'
+import { pictureRender } from 'xiuxian-img'
 export default new Messages().response(/^(#|\/)?势力\d*$/, async e => {
   const UID = e.user_id
   const UserData = await isUser(e, UID)
@@ -26,7 +26,7 @@ export default new Messages().response(/^(#|\/)?势力\d*$/, async e => {
         return
       }
       // 返回物品信息
-      const img = await picture.render('AssList', {
+      const img = await pictureRender('AssList', {
         name: 'AssList',
         props: {
           data: res,

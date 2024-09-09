@@ -1,14 +1,11 @@
 import { isUser } from 'xiuxian-api'
 import { Messages } from 'alemonjs'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 import { ass, ass_typing, user_ass } from 'xiuxian-db'
 export default new Messages().response(/^(#|\/)?势力信息$/, async e => {
   const UID = e.user_id
   const UserData = await isUser(e, UID)
   if (typeof UserData === 'boolean') return
-
-  //
-
   user_ass
     .findAll({
       where: {
@@ -34,7 +31,7 @@ export default new Messages().response(/^(#|\/)?势力信息$/, async e => {
         return
       }
       // 返回物品信息
-      const img = await picture.render('AssMessage', {
+      const img = await pictureRender('AssMessage', {
         name: 'AssMessage',
         props: {
           data: res

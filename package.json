@@ -37,7 +37,7 @@
     "mysql2": "^3.6.2",
     "ollama": "^0.5.8",
     "postcss": "^8.4.38",
-    "react-puppeteer": "^1.0.4",
+    "react-puppeteer": "^1.0.7-rc.0",
     "sequelize": "^6.33.0",
     "xiuxian-api": "link:xiuxian/api",
     "xiuxian-core": "link:xiuxian/core",

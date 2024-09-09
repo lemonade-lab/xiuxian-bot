@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
-import { picture } from 'xiuxian-img'
 import * as DB from 'xiuxian-db'
+import { pictureRender } from 'xiuxian-img'
 import { showSky } from 'xiuxian-statistics'
 export default new Messages().response(
   /^(#|\/)?(通天塔|至尊榜|天命榜)$/,
@@ -29,7 +29,7 @@ export default new Messages().response(
 
     const sData = await showSky(UID)
 
-    const img = await picture.render('SkyComponent', {
+    const img = await pictureRender('SkyComponent', {
       props: {
         data: sData,
         theme: UserData?.theme ?? 'dark'

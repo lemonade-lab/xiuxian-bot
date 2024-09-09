@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
 import { goods } from 'xiuxian-db'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 export default new Messages().response(
   /^(#|\/)查询物品[\u4e00-\u9fa5]+/,
   async e => {
@@ -20,7 +20,7 @@ export default new Messages().response(
           return
         }
         // 返回物品信息
-        const img = await picture.render('GoodMessage', {
+        const img = await pictureRender('GoodMessage', {
           name: 'GoodMessage',
           props: { data: res, theme: UserData.theme }
         })

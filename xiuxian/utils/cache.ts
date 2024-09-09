@@ -1,7 +1,7 @@
 import { ABuffer, hash, importPath } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 
 const helpData = {}
 const app = importPath(import.meta.url)
@@ -30,18 +30,16 @@ export async function urlHelpCache(name: string) {
     return helpData[name]
   }
   // 得数据
-  helpData[name] = await picture
-    .render('HelpComponent', {
-      name: 'help',
-      props: {
-        data: await getJson(name)
-      }
-    })
-    .catch((err: any) => {
-      // 发生错误
-      console.error(err)
-      return false
-    })
+  helpData[name] = await pictureRender('HelpComponent', {
+    name: 'help',
+    props: {
+      data: await getJson(name)
+    }
+  }).catch((err: any) => {
+    // 发生错误
+    console.error(err)
+    return false
+  })
 }
 
 /**

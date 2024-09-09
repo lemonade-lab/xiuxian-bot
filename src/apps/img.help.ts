@@ -1,7 +1,7 @@
 import { Messages } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 const helpData = {}
 const dir = join(process.cwd(), 'public', 'defset', 'base_help.json')
 export default new Messages().response(
@@ -15,12 +15,10 @@ export default new Messages().response(
     //
     const data = JSON.parse(readFileSync(dir, 'utf-8'))
     // 得 buffer
-    helpData[name] = await picture
-      .render('HelpComponent', {
-        name: name,
-        props: { data: data }
-      })
-      .catch(console.error)
+    helpData[name] = await pictureRender('HelpComponent', {
+      name: name,
+      props: { data: data }
+    }).catch(console.error)
     //
     e.reply(helpData[name])
     return

@@ -13,9 +13,9 @@ import {
   Bag,
   Equipment
 } from 'xiuxian-core'
-import { picture } from 'xiuxian-img'
 import { urlHelpCache } from 'xiuxian-utils'
 import { personalInformation } from 'xiuxian-statistics'
+import { pictureRender } from 'xiuxian-img'
 
 const reStart = {}
 
@@ -223,20 +223,18 @@ export function createUser(e: AEvent) {
 export function showUserMsg(e: AEvent) {
   const UID = e.user_id
   personalInformation(UID, e.user_avatar).then(UserData => {
-    picture
-      .render('MessageComponent', {
-        name: UID,
-        props: {
-          data: UserData,
-          theme: UserData?.theme ?? 'dark'
-        }
-      })
-      .then(img => {
-        if (typeof img != 'boolean') {
-          // 图片发送
-          e.reply(img)
-        }
-      })
+    pictureRender('MessageComponent', {
+      name: UID,
+      props: {
+        data: UserData,
+        theme: UserData?.theme ?? 'dark'
+      }
+    }).then(img => {
+      if (typeof img != 'boolean') {
+        // 图片发送
+        e.reply(img)
+      }
+    })
   })
 }
 

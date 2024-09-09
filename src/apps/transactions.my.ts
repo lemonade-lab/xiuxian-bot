@@ -2,7 +2,7 @@ import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
 import { operationLock } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 export default new Messages().response(/^(#|\/)?我(出售|售出)的$/, async e => {
   const T = await operationLock(e.user_id)
   if (!T) {
@@ -28,7 +28,7 @@ export default new Messages().response(/^(#|\/)?我(出售|售出)的$/, async e
       }
 
       // 返回物品信息
-      const img = await picture.render('TransactionMessage', {
+      const img = await pictureRender('TransactionMessage', {
         name: 'TransactionMessage',
         props: {
           data: {

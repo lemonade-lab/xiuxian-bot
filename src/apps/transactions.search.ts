@@ -2,7 +2,7 @@ import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
 import { operationLock } from 'xiuxian-core'
 import { transactions } from 'xiuxian-db'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 export default new Messages().response(
   /^(#|\/)?(虚空镜|虚空灯|虚空板)/,
   async e => {
@@ -50,7 +50,7 @@ export default new Messages().response(
         }
 
         // 返回物品信息
-        const img = await picture.render('TransactionMessage', {
+        const img = await pictureRender('TransactionMessage', {
           name: 'TransactionMessage',
           props: {
             data: {

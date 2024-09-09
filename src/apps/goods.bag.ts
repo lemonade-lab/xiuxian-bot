@@ -1,6 +1,6 @@
 import { Messages } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
-import { picture } from 'xiuxian-img'
+import { pictureRender } from 'xiuxian-img'
 import { backpackInformation } from 'xiuxian-statistics'
 import { Goods } from 'xiuxian-core'
 export default new Messages().response(
@@ -18,7 +18,7 @@ export default new Messages().response(
       Goods.mapType[type] ?? Goods.mapType['道具']
     )
 
-    const img = await picture.render('BagComponent', {
+    const img = await pictureRender('BagComponent', {
       props: { data, theme: UserData?.theme ?? 'dark' },
       name: UID
     })
