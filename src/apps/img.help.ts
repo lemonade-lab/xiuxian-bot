@@ -5,9 +5,11 @@ import { pictureRender } from 'xiuxian-img'
 const helpData = {}
 const dir = join(process.cwd(), 'public', 'defset', 'base_help.json')
 export default new Messages().response(
-  /^(#|\/)?(修仙(帮|幫)助|帮助)$/,
+  /^(#|\/)?(修仙(帮|幫)助|帮助)/,
   async e => {
-    const name = 'help'
+    const size = Number(e.msg.replace(/^(#|\/)?(修仙(帮|幫)助|帮助)/, ''))
+    const n = isNaN(size) ? 0 : size
+    const name = `help${n}`
     if (Object.prototype.hasOwnProperty.call(helpData, name)) {
       e.reply(helpData[name])
       return
@@ -17,7 +19,7 @@ export default new Messages().response(
     // 得 buffer
     helpData[name] = await pictureRender('HelpComponent', {
       name: name,
-      props: { data: data }
+      props: { data: n == 0 ? data : ([data[n - 1]] ?? data) }
     }).catch(console.error)
     //
     e.reply(helpData[name])
