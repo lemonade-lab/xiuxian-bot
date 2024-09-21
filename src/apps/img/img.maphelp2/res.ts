@@ -1,0 +1,22 @@
+import { Image, useSend } from 'alemonjs'
+import { Cooling } from 'xiuxian-core'
+import { pictureRender } from 'xiuxian-img'
+export default OnResponse(
+  async e => {
+    const img = await pictureRender('Defsetcomponent', {
+      name: 'boxDefset',
+      props: {
+        data: Cooling
+      }
+    })
+    const Send = useSend(e)
+    if (typeof img != 'boolean') {
+      Send(Image(img, 'buffer'))
+    } else {
+      //
+    }
+    return
+  },
+  'message.create',
+  /^(#|\/)?修仙配置$/
+)
