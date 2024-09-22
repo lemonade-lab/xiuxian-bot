@@ -15,8 +15,8 @@ import { Goods, Cooling } from 'xiuxian-core'
 import { ass, ass_typing, user_ass } from 'xiuxian-db'
 
 const e = {
-  user_id: '563384AF707685C9A82DA5DDFAF96D8A',
-  user_avatar:
+  UserId: '563384AF707685C9A82DA5DDFAF96D8A',
+  UserAvatar:
     'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796'
 }
 
@@ -56,8 +56,8 @@ export default defineConfig([
         <Component.BagComponent
           theme={'dark'}
           data={await backpackInformation(
-            e.user_id,
-            e.user_avatar,
+            e.UserId,
+            e.UserAvatar,
             Goods.mapType['道具']
           )}
         />
@@ -80,7 +80,7 @@ export default defineConfig([
       html_body: (
         <Component.Equipmentcomponent
           theme={'dark'}
-          data={await equipmentInformation(e.user_id, e.user_avatar)}
+          data={await equipmentInformation(e.UserId, e.UserAvatar)}
         />
       )
     }
@@ -129,7 +129,7 @@ export default defineConfig([
       html_body: (
         <Component.SkillsComponent
           theme={'dark'}
-          data={await skillInformation(e.user_id, e.user_avatar)}
+          data={await skillInformation(e.UserId, e.UserAvatar)}
         />
       )
     }
@@ -152,7 +152,7 @@ export default defineConfig([
       html_body: (
         <Component.MessageComponent
           theme={'dark'}
-          data={await personalInformation(e.user_id, e.user_avatar)}
+          data={await personalInformation(e.UserId, e.UserAvatar)}
         />
       )
     }
@@ -163,10 +163,7 @@ export default defineConfig([
       ...PictureOptions,
       // body 内容
       html_body: (
-        <Component.SkyComponent
-          theme={'dark'}
-          data={await showSky(e.user_id)}
-        />
+        <Component.SkyComponent theme={'dark'} data={await showSky(e.UserId)} />
       )
     }
   }

@@ -1,10 +1,11 @@
 {
-  "include": [
-    "src/**/*",
-    "xiuxian",
-    "index.ts",
-    "alemon.*.ts",
-    "__tests__/**/*"
-  ],
-  "extends": "alemonjs/config/tsconfig.json"
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+  "extends": "alemonjs/tsconfig.json"
 }
