@@ -7,7 +7,6 @@ import {
 } from 'xiuxian-api'
 import * as GameApi from 'xiuxian-core'
 import { user, user_level } from 'xiuxian-db'
-import { operationLock } from 'xiuxian-core'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {
@@ -24,9 +23,15 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
 
-    const text = useParse(e.Megs, 'Text')
+    const ats = useParse(e.Megs, 'At')
+    let UIDB = null
+    if (!ats || ats.length === 0) {
+      const text = useParse(e.Megs, 'Text')
+      UIDB = text.replace(/^(#|\/)?(雙修|双修)/, '')
+    } else {
+      UIDB = ats.find(item => item?.typing === 'user' && item!.bot)?.value
+    }
 
-    const UIDB = e?.at_user?.id || text.replace(/^(#|\/)?(雙修|双修)/, '')
     if (!UIDB) return
     const UserDataB = await isSideUser(e, UIDB)
     if (typeof UserDataB === 'boolean') return

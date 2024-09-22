@@ -23,10 +23,15 @@ export default OnResponse(
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-    const text = useParse(e.Megs, 'Text')
-    //
-    const UIDB = e?.at_user?.id || text.replace(/^(#|\/)?打劫/, '')
-    if (!UIDB) return
+    const ats = useParse(e.Megs, 'At')
+    let UIDB = null
+    if (!ats || ats.length === 0) {
+      const text = useParse(e.Megs, 'Text')
+      UIDB = text.replace(/^(#|\/)?打劫/, '')
+    } else {
+      UIDB = ats.find(item => item?.typing === 'user' && item!.bot)?.value
+    }
+    if (!UIDB || UIDB == '') return
     const UserDataB = await isSideUser(e, UIDB)
     if (typeof UserDataB === 'boolean') return
     if (!(await dualVerification(e, UserData, UserDataB))) return

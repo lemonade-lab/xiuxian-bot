@@ -24,9 +24,15 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
 
-    const text = useParse(e.Megs, 'Text')
+    const ats = useParse(e.Megs, 'At')
+    let UIDB = null
+    if (!ats || ats.length === 0) {
+      const text = useParse(e.Megs, 'Text')
+      UIDB = text.replace(/^(#|\/)?(比斗|比鬥)/, '')
+    } else {
+      UIDB = ats.find(item => item?.typing === 'user' && item!.bot)?.value
+    }
 
-    const UIDB = e?.at_user?.id || text.replace(/^(#|\/)?(比斗|比鬥)/, '')
     if (!UIDB) return
     const UserDataB = await isSideUser(e, UIDB)
     if (typeof UserDataB === 'boolean') return

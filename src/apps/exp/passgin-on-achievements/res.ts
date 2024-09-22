@@ -22,9 +22,14 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
 
-    const text = useParse(e.Megs, 'Text')
-
-    const UIDB = e?.at_user?.id || text.replace(/^(#|\/)?(传功|傳功)/, '')
+    const ats = useParse(e.Megs, 'At')
+    let UIDB = null
+    if (!ats || ats.length === 0) {
+      const text = useParse(e.Megs, 'Text')
+      UIDB = text.replace(/^(#|\/)?(传功|傳功)/, '')
+    } else {
+      UIDB = ats.find(item => item?.typing === 'user' && item!.bot)?.value
+    }
 
     if (!UIDB) return
 

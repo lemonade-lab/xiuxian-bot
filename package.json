@@ -27,8 +27,11 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@alemonjs/kook": "link:/Users/xiejihuang/Desktop/lemonade/alemonjs/packages/kook",
-    "alemonjs": "link:/Users/xiejihuang/Desktop/lemonade/alemonjs/packages/alemonjs",
+    "@alemonjs/kook": "^0.0.1",
+    "@alemonjs/discord": "^0.0.1",
+    "@alemonjs/qq-group-bot": "^0.0.1",
+    "@alemonjs/qq-guild-bot": "^0.0.1",
+    "alemonjs": "2.0.0-rc.1",
     "axios": "^1.6.5",
     "bullmq": "^4.12.7",
     "classnames": "^2.5.1",
