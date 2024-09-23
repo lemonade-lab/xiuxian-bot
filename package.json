@@ -29,7 +29,7 @@
   "dependencies": {
     "@alemonjs/discord": "^0.0.2",
     "@alemonjs/kook": "^0.0.2",
-    "@alemonjs/qq-group-bot": "^0.0.3",
+    "@alemonjs/qq-group-bot": "^0.0.4",
     "@alemonjs/qq-guild-bot": "^0.0.3",
     "alemonjs": "2.0.0-rc.4",
     "axios": "^1.6.5",

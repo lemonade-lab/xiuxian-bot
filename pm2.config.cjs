@@ -1,11 +1,14 @@
+const fs = require('fs')
+const yaml = require('yaml')
+const data = fs.readFileSync('./alemon.config.yaml', 'utf8')
+const config = yaml.parse(data)
+const app = config?.pm2 ?? {}
 /**
  * @type {{ apps: import("pm2").StartOptions[] }}
  */
 module.exports = {
   apps: [
     {
-      name: 'alemonb',
-      script: `npx tsx index.ts ${[...process.argv].slice(4).join('')}`,
       // 超时时间内进程仍未终止，则 PM2 将强制终止该进程
       kill_timeout: 5000,
       // 发送意外重启
@@ -24,7 +27,8 @@ module.exports = {
       watch: false,
       env: {
         NODE_ENV: 'production'
-      }
+      },
+      ...app
     }
   ]
 }
