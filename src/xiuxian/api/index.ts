@@ -342,7 +342,7 @@ export async function controlByName(e: {}, UserData, addressName: string) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     const Send = useSend(e)
-    Send(Text(`你没有在这里哦—\n————————\n[/前往${addressName}]`))
+    Send(Text(`你没有在这里哦！\n————————\n[/前往${addressName}]`))
     return false
   }
   return true
