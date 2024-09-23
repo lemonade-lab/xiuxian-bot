@@ -66,7 +66,8 @@ export default OnResponse(
       .then(() => {
         Send(Text('审核通过'))
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('审核失败'))
       })
 

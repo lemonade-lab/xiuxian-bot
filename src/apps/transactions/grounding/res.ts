@@ -97,7 +97,8 @@ export default OnResponse(
         ])
         Send(Text('上架成功'))
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         // 确保物品被删除
         transactions.destroy({
           where: {

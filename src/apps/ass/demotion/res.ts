@@ -52,7 +52,8 @@ export default OnResponse(
       .then(() => {
         Send(Text('贬职成功'))
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('贬职失败'))
       })
     return

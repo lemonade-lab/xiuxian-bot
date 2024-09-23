@@ -55,7 +55,8 @@ export default OnResponse(
       .then(() => {
         Send(Text('升级完成'))
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('升级失败'))
       })
     return

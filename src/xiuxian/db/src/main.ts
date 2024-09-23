@@ -72,7 +72,8 @@ await sequelize
 
     belongsTo()
   })
-  .catch(() => {
+  .catch(err => {
+    console.error(err)
     console.log('数据库连接失败.')
     process.cwd()
   })

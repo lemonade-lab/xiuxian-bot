@@ -38,7 +38,8 @@ export default OnResponse(
             Send(Text('设置成功'))
           }
         })
-        .catch(() => {
+        .catch(err => {
+          console.error(err)
           Send(Text('设置错误'))
         })
     }

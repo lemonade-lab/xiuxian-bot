@@ -51,13 +51,15 @@ export default OnResponse(
               GameApi.Skills.updataEfficiency(UID, UserData.talent),
               GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
               showUserMsg(e)
-            ]).catch(() => {
+            ]).catch(err => {
+              console.error(err)
               const Send = useSend(e)
               Send(Text('数据处理错误'))
             })
           })
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         const Send = useSend(e)
         Send(Text('数据处理错误'))
       })

@@ -42,7 +42,8 @@ export default OnResponse(
           }
           return true
         })
-        .catch(() => {
+        .catch(err => {
+          console.error(err)
           Send(Text('数据错误'))
           return false
         })
@@ -68,7 +69,8 @@ export default OnResponse(
             Send(Text('设置成功'))
           }
         })
-        .catch(() => {
+        .catch(err => {
+          console.error(err)
           Send(Text('数据错误'))
         })
     }

@@ -42,7 +42,8 @@ export default OnResponse(
             })
           })
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         const Send = useSend(e)
         Send(Text('数据处理错误'))
       })

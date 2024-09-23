@@ -40,7 +40,8 @@ export default OnResponse(
           }
         )
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('数据处理错误'))
       })
     return

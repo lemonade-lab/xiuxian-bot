@@ -99,11 +99,13 @@ export async function reCreateMsg(e) {
                 // 清除询问
                 delete reStart[UID]
               })
-              .catch(() => {
+              .catch(err => {
+                console.error(err)
                 Send(Text('数据查询失败'))
               })
           })
-          .catch(_ => {
+          .catch(err => {
+            console.error(err)
             Send(Text('未寻得仙缘'))
           })
       })
@@ -355,7 +357,7 @@ export async function controlByName(e: {}, UserData, addressName: string) {
  * @returns
  */
 export async function postHelp(e: {}, name: string) {
-  const img = await urlHelpCache(name).catch((err: any) => {
+  const img = await urlHelpCache(name).catch(err => {
     console.error(err)
     return '图片缓存错误'
   })

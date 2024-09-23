@@ -37,7 +37,8 @@ export default OnResponse(
           Send(Text('截图错误'))
         }
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('未找到该物品'))
       })
   },

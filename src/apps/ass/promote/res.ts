@@ -51,7 +51,8 @@ export default OnResponse(
       .then(() => {
         Send(Text('提拔成功'))
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('提拔失败'))
       })
 

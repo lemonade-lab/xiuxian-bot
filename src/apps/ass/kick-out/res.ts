@@ -49,7 +49,8 @@ export default OnResponse(
       .then(() => {
         Send(Text('踢出成功'))
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err)
         Send(Text('踢出失败'))
       })
 
