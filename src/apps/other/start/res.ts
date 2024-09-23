@@ -44,7 +44,7 @@ export default OnResponse(
             })
             .catch(err => {
               console.error('err', err)
-              Send('数据查询错误')
+              Send(Text('数据查询错误'))
             })
         } else {
           // 显示资料
@@ -53,7 +53,7 @@ export default OnResponse(
       })
       .catch(err => {
         console.error('err', err)
-        Send('数据查询错误')
+        Send(Text('数据查询错误'))
       })
 
     return

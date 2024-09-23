@@ -316,7 +316,7 @@ export default OnResponse(
         message: msg
       })
 
-      Send(`${msg}\n${BooldMsg}`)
+      Send(Text(`${msg}\n${BooldMsg}`))
     } else {
       const msg = `[${UserDataB.name}]夺走了[${UserData.name}]的[${thine.name}]*${thine.acount}~`
 
@@ -327,7 +327,7 @@ export default OnResponse(
         message: msg
       })
 
-      Send(`${msg}\n${BooldMsg}`)
+      Send(Text(`${msg}\n${BooldMsg}`))
     }
 
     return

@@ -1,11 +1,13 @@
 import { isUser } from 'xiuxian-api'
 import { pictureRender } from 'xiuxian-img'
 import { ass, ass_typing, user_ass } from 'xiuxian-db'
+import { Image, Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
+    const Send = useSend(e)
     user_ass
       .findAll({
         where: {
@@ -25,9 +27,7 @@ export default OnResponse(
       .then(res => res.map(item => item.dataValues))
       .then(async res => {
         if (res.length === 0) {
-          e.reply('未加入任何势力', {
-            quote: e.msg_id
-          })
+          Send(Text('未加入任何势力'))
           return
         }
         // 返回物品信息
@@ -39,9 +39,9 @@ export default OnResponse(
         })
         //
         if (Buffer.isBuffer(img)) {
-          e.reply(img)
+          Send(Image(img))
         } else {
-          e.reply('截图错误')
+          Send(Text('截图错误'))
         }
       })
 
