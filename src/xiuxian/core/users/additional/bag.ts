@@ -25,7 +25,7 @@ export async function addBagThing(
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     for (const { name, acount } of arr) {
       const THING = await searchAllThing(name)
       if (!THING) continue
@@ -137,7 +137,7 @@ export async function backpackFull(UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const length = await user_bag.count({
     where: {
       uid: UID

@@ -37,7 +37,7 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
         type: [1, 2, 3] // 只要123
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   // 计算数值
   for await (const item of userLevelData) {

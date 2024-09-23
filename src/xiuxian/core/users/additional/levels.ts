@@ -74,7 +74,7 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
       order: [['grade', 'DESC']],
       limit: 3
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   const data = LevelListMax[1]
   if (!data || UserLevel.realm == data.grade) {
     return {
@@ -93,7 +93,7 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
       order: [['grade', 'DESC']],
       limit: 3
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   const next = LevelList[0]
   const now = LevelList[1]
   if (!next || !now) {
@@ -322,7 +322,7 @@ export async function isLevelPoint(UID: string, type: 1 | 2 | 3) {
       order: [['grade', 'DESC']],
       limit: 3
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   // 选最高的第二个就是渡劫期
   const data = LevelList[1]
   // 境界不存在,出去

@@ -20,7 +20,7 @@ export default OnResponse(
         ],
         limit: 10
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
 
     /**
      * 查询后
@@ -38,7 +38,7 @@ export default OnResponse(
           ['create_time', 'DESC'] // 降序排列
         ]
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
       .then(res => {
         // 删除多余的记录
         for (const item of res) {

@@ -28,7 +28,7 @@ export default OnResponse(
 
     const AllSorcery = await user_skills
       .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const islearned = AllSorcery.find(item => item.name == thingName)
     if (islearned) {
       Send(Text('学过了'))
@@ -55,7 +55,7 @@ export default OnResponse(
             uid: UID
           }
         })
-        .then(res => res.dataValues)
+        .then(res => res?.dataValues)
       await GameApi.Skills.updataEfficiency(UID, UserData.talent)
     }, 1000)
     await GameApi.Bag.reduceBagThing(UID, [

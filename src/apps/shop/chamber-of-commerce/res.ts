@@ -23,7 +23,7 @@ export default OnResponse(
           type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const end_msg = GameApi.Goods.getListMsg(commoditiesList, '声望')
     const msg = [...start_msg, ...end_msg]
     sendReply(e, '___[联盟商会]___', msg)

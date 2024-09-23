@@ -19,7 +19,7 @@ export default OnResponse(
           type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const end_msg = GameApi.Goods.getListMsg(
       commoditiesList,
       '灵石',

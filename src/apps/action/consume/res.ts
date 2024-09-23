@@ -365,7 +365,7 @@ export default OnResponse(
               attribute: [1, 6]
             }
           })
-          .then(res => res.map(item => item.dataValues))
+          .then(res => res.map(item => item?.dataValues))
         const point = {
           type: 0,
           attribute: 0,

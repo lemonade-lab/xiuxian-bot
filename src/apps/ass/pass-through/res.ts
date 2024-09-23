@@ -45,7 +45,7 @@ export default OnResponse(
           identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
 
     if (data.length >= (aData.grade + 1) * 5) {
       Send(Text('人数已达上限'))

@@ -24,7 +24,7 @@ export default OnResponse(
           }
         ]
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
       .then(async res => {
         if (res.length === 0) {
           Send(Text('未加入任何势力'))

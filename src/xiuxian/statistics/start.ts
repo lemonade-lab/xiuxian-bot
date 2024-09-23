@@ -52,7 +52,7 @@ export async function getKillList() {
       ],
       limit: 5
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   //
   const UserData: KillListType[] = ALLData.map(item => {
     return {

@@ -33,7 +33,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
       },
       order: [['type', 'DESC']]
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   //
   if (!levelist || levelist.length == 0) return false

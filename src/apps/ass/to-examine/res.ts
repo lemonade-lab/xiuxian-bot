@@ -29,7 +29,7 @@ export default OnResponse(
           }
         ]
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     if (!uData || uData.length == 0) {
       Send(Text('暂无申请'))
       return

@@ -24,7 +24,7 @@ export default OnResponse(
         limit: GameApi.Cooling.pageSize,
         offset: (page - 1) * GameApi.Cooling.pageSize
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
       .then(async res => {
         if (res.length === 0) {
           Send(Text('没有找到数据'))

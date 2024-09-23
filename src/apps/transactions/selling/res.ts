@@ -21,7 +21,7 @@ export default OnResponse(
           uid: UID
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
       .then(async res => {
         if (res.length === 0) {
           Send(Text('没有找到数据'))

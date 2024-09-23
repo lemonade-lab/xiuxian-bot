@@ -85,7 +85,7 @@ export default OnResponse(
         // 只显示十个玩家
         limit: 10
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
 
     const msg: string[] = ['[附近道友]']
     for (const item of AllUser) {

@@ -179,7 +179,7 @@ export async function levelUp(
   setTimeout(async () => {
     const UserData = await user
       .findOne({ where: { uid: UID } })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
     // 更新面板
     Equipment.updatePanel(UID, UserData.battle_blood_now)
   }, 1500)
@@ -476,7 +476,7 @@ export async function isUser(e: {}, UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .catch(_ => false)
   if (typeof UserData !== 'boolean') return UserData
   createUser(e)
@@ -495,7 +495,7 @@ export async function isSideUser(e: {}, UID: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
     .catch(_ => false)
   if (typeof UserData !== 'boolean') return UserData
   const Send = useSend(e)

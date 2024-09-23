@@ -44,7 +44,7 @@ export default OnResponse(
           time: currentDate
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
 
     // 领取记录
     const ids = uDAta.map(item => item.sid)
@@ -57,7 +57,7 @@ export default OnResponse(
           }
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const sData2 = sData.filter(item => {
       // 存在
       if (ids.includes(item.id)) {

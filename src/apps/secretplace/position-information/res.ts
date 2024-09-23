@@ -8,7 +8,7 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
     const PositionData = await DB.map_point
       .findAll({})
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const msg: string[] = []
     for await (const item of PositionData) {
       if (

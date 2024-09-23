@@ -18,7 +18,7 @@ export async function updataEfficiency(UID: string, talent: number[]) {
         model: goods
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   for await (const item of skills) {
     skill += item['good']['dataValues']['size']
   }

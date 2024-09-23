@@ -40,7 +40,7 @@ export default OnResponse(
           }
         ]
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const msg = []
     for (const item of uData) {
       console.log(item)

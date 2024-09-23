@@ -42,7 +42,7 @@ export default defineConfig([
                 }
               ]
             })
-            .then(res => res.map(item => item.dataValues))}
+            .then(res => res.map(item => item?.dataValues))}
         />
       )
     }

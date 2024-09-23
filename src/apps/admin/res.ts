@@ -27,7 +27,7 @@ export default OnResponse(
           exclude: ['id'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const user_ass = await DB.user_ass
       .findAll({
         where: { uid: switchuid },
@@ -35,7 +35,7 @@ export default OnResponse(
           exclude: ['id', 'uid'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const user_equipment = await DB.user_equipment
       .findAll({
         where: { uid: switchuid },
@@ -43,7 +43,7 @@ export default OnResponse(
           exclude: ['id', 'uid'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const user_fate = await DB.user_fate
       .findAll({
         where: { uid: switchuid },
@@ -51,7 +51,7 @@ export default OnResponse(
           exclude: ['id', 'uid'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const user_ring = await DB.user_ring
       .findAll({
         where: { uid: switchuid },
@@ -59,7 +59,7 @@ export default OnResponse(
           exclude: ['id', 'uid'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const user_level = await DB.user_level
       .findAll({
         where: { uid: switchuid },
@@ -67,7 +67,7 @@ export default OnResponse(
           exclude: ['id', 'uid'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const user_skill = await DB.user_skills
       .findAll({
         where: { uid: switchuid },
@@ -75,7 +75,7 @@ export default OnResponse(
           exclude: ['id'] // 指定要排除的列名
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     //然后切换
     await DB.user.update(
       { uid: switchuid + '-1' },

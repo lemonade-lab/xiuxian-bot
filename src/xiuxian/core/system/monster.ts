@@ -24,7 +24,7 @@ type FullType = { id: number; name: string; type: number; grade: number }[]
 
 const full: FullType = await monster
   .findAll({})
-  .then(res => res.map(item => item.dataValues))
+  .then(res => res.map(item => item?.dataValues))
   .then(res => {
     const data: any = res
     return data

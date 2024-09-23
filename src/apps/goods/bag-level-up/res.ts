@@ -21,7 +21,7 @@ export default OnResponse(
           uid: UID
         }
       })
-      .then(res => res.dataValues)
+      .then(res => res?.dataValues)
 
     // 等级
     let grade = UserBgData.grade

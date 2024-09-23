@@ -22,7 +22,7 @@ export default OnResponse(
     // 得到数据
     const equipment = await user_equipment
       .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const islearned = equipment.find(item => item.name == thingName)
     if (!islearned) return
 
@@ -54,7 +54,7 @@ export default OnResponse(
             uid: UID
           }
         })
-        .then(res => res.dataValues)
+        .then(res => res?.dataValues)
       // 更新
       await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
 

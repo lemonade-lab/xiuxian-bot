@@ -22,7 +22,7 @@ export default OnResponse(
     const thingName = text.replace(/^(#|\/)?忘掉/, '')
     const AllSorcery = await user_skills
       .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     const islearned = AllSorcery.find(item => item.name == thingName)
     if (!islearned) {
       Send(Text(`没学过[${thingName}]`))
@@ -44,7 +44,7 @@ export default OnResponse(
             uid: UID
           }
         })
-        .then(res => res.dataValues)
+        .then(res => res?.dataValues)
       await GameApi.Skills.updataEfficiency(UID, UserData.talent)
     }, 500)
     await GameApi.Bag.addBagThing(UID, [{ name: islearned.name, acount: 1 }])

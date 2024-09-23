@@ -15,7 +15,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   // 灵根名
   let size = '未知'
@@ -36,7 +36,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
       },
       order: [['type', 'DESC']]
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   // 境界数据
   const GaspracticeList = await DB.levels
@@ -47,7 +47,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
         type: 1
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   // 境界数据
   const BodypracticeList = await DB.levels
@@ -58,7 +58,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
         type: 2
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   // 境界数据
   const SoulList = await DB.levels
     .findAll({
@@ -68,7 +68,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
         type: 3
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   /**
    * 境界数据要关联起来
@@ -88,7 +88,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
         model: DB.goods
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   //
   const equipment = await DB.user_equipment
@@ -100,7 +100,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
         model: DB.goods
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   return {
     UID: UID,
@@ -163,7 +163,7 @@ export async function equipmentInformation(UID: string, UserAvatar: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const equipment = await DB.user_equipment
     .findAll({
       where: {
@@ -173,7 +173,7 @@ export async function equipmentInformation(UID: string, UserAvatar: string) {
         model: DB.goods
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   const fdata = await DB.user_fate
     .findOne({
@@ -260,7 +260,7 @@ export async function skillInformation(UID: string, UserAvatar: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   // 灵根名
   let size = '未知'
   let name = '未知'
@@ -280,7 +280,7 @@ export async function skillInformation(UID: string, UserAvatar: string) {
         }
       ]
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   return {
     UID,
@@ -314,7 +314,7 @@ export async function backpackInformation(
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const length = await DB.user_bag.count({
     where: {
       uid: UID
@@ -333,11 +333,11 @@ export async function backpackInformation(
         }
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
 
   const bag_message = await DB.user_bag_message
     .findOne({ where: { uid: UID } })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
 
   return {
     UID,
@@ -365,7 +365,7 @@ export async function ringInformation(UID: string, UserAvatar: string) {
         uid: UID
       }
     })
-    .then(res => res.dataValues)
+    .then(res => res?.dataValues)
   const length = await DB.user_ring.count({
     where: {
       uid: UID
@@ -380,7 +380,7 @@ export async function ringInformation(UID: string, UserAvatar: string) {
         model: DB.goods
       }
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   return {
     UID,
     name: UserData.name,
@@ -417,7 +417,7 @@ export async function showSky(UID: string) {
       //
       limit: 5
     })
-    .then(res => res.map(item => item.dataValues))
+    .then(res => res.map(item => item?.dataValues))
   const msg: {
     id: number
     UID: string

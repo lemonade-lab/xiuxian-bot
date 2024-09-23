@@ -34,7 +34,7 @@ export default OnResponse(
             email: email
           }
         })
-        .then(res => res.dataValues)
+        .then(res => res?.dataValues)
         .then(res => {
           if (res) {
             Send(Text('已被使用'))

@@ -30,7 +30,7 @@ export default OnResponse(
           model: DB.goods
         }
       })
-      .then(res => res.map(item => item.dataValues))
+      .then(res => res.map(item => item?.dataValues))
     // 计算金额
     for await (const item of bag) {
       money += item.acount * item['good']['dataValues']['price']
