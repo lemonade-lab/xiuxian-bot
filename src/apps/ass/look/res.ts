@@ -43,7 +43,6 @@ export default OnResponse(
       .then(res => res.map(item => item?.dataValues))
     const msg = []
     for (const item of uData) {
-      console.log(item)
       msg.push(
         `\n🔹标记:${item.id}_道号[${item['user.name']}]\n身份:${
           aData[`ass_typing.${item.identity}`]

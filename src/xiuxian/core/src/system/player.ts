@@ -50,7 +50,8 @@ export async function setPlayer(UID: string, UserAvatar: string) {
 
   if (!MapPointData || !MapPointData?.type) return false
 
-  Promise.all([
+  //
+  return Promise.all([
     // 创建基础信息
     user.create({
       uid: UID,
@@ -127,7 +128,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
  * @returns
  */
 export async function updatePlayer(UID: string, UserAvatar: string) {
-  Promise.all([
+  return Promise.all([
     // 删除用户
     user.destroy({
       where: {

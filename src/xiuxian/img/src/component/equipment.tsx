@@ -16,7 +16,6 @@ type PropsType = {
  */
 export default function App({ data, theme }: PropsType) {
   const UID = createUID(data.UID)
-  console.log('data.bag', data.equipment)
   return (
     <div
       id="root"

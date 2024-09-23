@@ -8,13 +8,12 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
     const Send = useSend(e)
     // 已经是打坐了
-    if (UserData.state == 8) {
+    if (UserData?.state == 8) {
       Send(Text('打坐中...'))
-
       return
     }
     // 如果是 闭关 和 降妖
-    if (UserData.state == 1 || UserData.state == 2) {
+    if (UserData?.state == 1 || UserData?.state == 2) {
       // 调用计算
       await endAllWord(e, UID, UserData)
     }

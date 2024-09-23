@@ -480,7 +480,7 @@ export async function isUser(e: {}, UID: string) {
     })
     .then(res => res?.dataValues)
     .catch(_ => false)
-  if (typeof UserData !== 'boolean') return UserData
+  if (UserData && typeof UserData !== 'boolean') return UserData
   createUser(e)
   return false
 }

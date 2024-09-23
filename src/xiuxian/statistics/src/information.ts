@@ -59,6 +59,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
       }
     })
     .then(res => res.map(item => item?.dataValues))
+
   // 境界数据
   const SoulList = await DB.levels
     .findAll({
