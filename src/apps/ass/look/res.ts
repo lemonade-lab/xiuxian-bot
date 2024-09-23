@@ -22,10 +22,10 @@ export default OnResponse(
       Text(
         [
           `🏹[${aData['name']}]-${aData['grade']}`,
-          `\n灵池:${aData[`property`]}`,
-          `\n活跃:${aData['activation']}`,
-          `\n名气:${aData['fame']}`
-        ].join('')
+          `灵池:${aData[`property`]}`,
+          `活跃:${aData['activation']}`,
+          `名气:${aData['fame']}`
+        ].join('\n')
       )
     )
     const uData = await DB.user_ass

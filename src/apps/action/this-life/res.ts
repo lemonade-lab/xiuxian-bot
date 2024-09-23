@@ -74,15 +74,15 @@ export default OnResponse(
     Send(
       Text(
         [
-          `\n本命物:${thing.name}`,
-          `\n等级:${thing.grade}`,
-          `\n属性:${await GameApi.Talent.getTalentName(thing['good']['dataValues']['talent'])}`,
-          `\n精炼所需物品:${thing.name}`,
-          `\n精炼所需灵石:${size}`,
-          `\n精炼所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,
-          `\n精炼所需气血:${exp_bodypractice}/${data.exp_bodypractice}`,
-          `\n精炼所需魂念:${exp_soul}/${data.exp_soul}`
-        ].join('')
+          `本命物:${thing.name}`,
+          `等级:${thing.grade}`,
+          `属性:${await GameApi.Talent.getTalentName(thing['good']['dataValues']['talent'])}`,
+          `精炼所需物品:${thing.name}`,
+          `精炼所需灵石:${size}`,
+          `精炼所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,
+          `精炼所需气血:${exp_bodypractice}/${data.exp_bodypractice}`,
+          `精炼所需魂念:${exp_soul}/${data.exp_soul}`
+        ].join('\n')
       )
     )
 

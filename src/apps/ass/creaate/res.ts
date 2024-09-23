@@ -89,8 +89,7 @@ export default OnResponse(
 
     // // 灵石不够
     if (!lingshi || lingshi.acount < number) {
-      Send(Text(`\n需要确保拥有[下品灵石]*${number}`))
-
+      Send(Text(`需要确保拥有[下品灵石]*${number}`))
       return
     } else {
       Send(Text(`扣除[下品灵石]*${number}`))

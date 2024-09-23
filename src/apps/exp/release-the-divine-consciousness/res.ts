@@ -90,11 +90,11 @@ export default OnResponse(
     const msg: string[] = ['[附近道友]']
     for (const item of AllUser) {
       msg.push(
-        `\n🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
+        `🔹标记:${item?.id},道号:${item.name}\n🩸${item?.battle_blood_now},战力:${item?.battle_power}`
       )
     }
     if (msg.length > 1) {
-      Send(Text(msg.join('')))
+      Send(Text(msg.join('\n')))
     } else {
       Send(Text('附近空无一人'))
     }

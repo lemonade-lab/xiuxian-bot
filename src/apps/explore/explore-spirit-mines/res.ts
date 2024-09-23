@@ -34,12 +34,12 @@ export default OnResponse(
     const explore = await GameApi.explore.explorecache(UserData.point_type)
     for (const item in explore) {
       msg.push(
-        `\n🔹标记:${item}(${getMoneyGrade(explore[item].grade)}灵矿)*${
+        `🔹标记:${item}(${getMoneyGrade(explore[item].grade)}灵矿)*${
           explore[item].acount
         }`
       )
     }
-    Send(Text(msg.join('')))
+    Send(Text(msg.join('\n')))
   },
   'message.create',
   /^(#|\/)?探索灵矿$/
