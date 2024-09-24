@@ -17,16 +17,10 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-
     const UID = e.UserId
-
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-
     const ats = useParse(e.Megs, 'At')
-
-    console.log('ats', ats)
-
     let UIDB = null
     if (!ats || ats.length === 0) {
       const text = useParse(e.Megs, 'Text')
@@ -35,15 +29,14 @@ export default OnResponse(
       const d = ats.find(item => item?.typing === 'user' && !item.bot)
       UIDB = d?.value
     }
-
+    //
     if (!UIDB) return
+    //
     const UserDataB = await isSideUser(e, UIDB)
     if (typeof UserDataB === 'boolean') return
     if (!(await dualVerification(e, UserData, UserDataB))) return
-
     if (UserData.special_spiritual < 5) {
       Send(Text('灵力不足'))
-
       return
     }
     if (UserDataB.special_spiritual < 5) {
@@ -52,7 +45,6 @@ export default OnResponse(
     }
     if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
       return
-
     const CDID = 14
     const CDTime = GameApi.Cooling.CD_transmissionPower
     if (!(await victoryCooling(e, UID, CDID))) return

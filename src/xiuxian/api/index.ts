@@ -499,7 +499,7 @@ export async function isSideUser(e: {}, UID: string) {
     })
     .then(res => res?.dataValues)
     .catch(_ => false)
-  if (typeof UserData !== 'boolean') return UserData
+  if (UserData && typeof UserData !== 'boolean') return UserData
   const Send = useSend(e)
   Send(Text('查无此人'))
   return false
