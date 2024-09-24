@@ -29,7 +29,8 @@ export default OnResponse(
       const text = useParse(e.Megs, 'Text')
       UIDB = text.replace(/^(#|\/)?打劫/, '')
     } else {
-      UIDB = ats.find(item => item?.typing === 'user' && item!.bot)?.value
+      const d = ats.find(item => item?.typing === 'user' && !item.bot)
+      UIDB = d?.value
     }
     if (!UIDB || UIDB == '') return
     const UserDataB = await isSideUser(e, UIDB)

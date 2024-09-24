@@ -24,12 +24,16 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
 
     const ats = useParse(e.Megs, 'At')
+
+    console.log('ats', ats)
+
     let UIDB = null
     if (!ats || ats.length === 0) {
       const text = useParse(e.Megs, 'Text')
       UIDB = text.replace(/^(#|\/)?(雙修|双修)/, '')
     } else {
-      UIDB = ats.find(item => item?.typing === 'user' && item!.bot)?.value
+      const d = ats.find(item => item?.typing === 'user' && !item.bot)
+      UIDB = d?.value
     }
 
     if (!UIDB) return
