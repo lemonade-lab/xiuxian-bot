@@ -4,7 +4,7 @@ import { Bag } from 'xiuxian-core'
 import { goods } from 'xiuxian-db'
 export default OnResponse(
   async e => {
-    if (!e.isMaster) return
+    if (!e.IsMaster) return
     const text = useParse(e.Megs, 'Text')
     if (!text) return
     const [UID, Name, Count] = text.replace(/(#|\/)?天道裁决/, '').split('*')
