@@ -89,5 +89,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^#服用[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)?服用[\u4e00-\u9fa5]+\*\d+$/
 )

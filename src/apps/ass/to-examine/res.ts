@@ -44,5 +44,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^#审核[\u4e00-\u9fa5]+$/
+  /^(#|\/)?审核[\u4e00-\u9fa5]+$/
 )

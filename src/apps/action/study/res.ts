@@ -68,5 +68,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^#(学习|學習)[\u4e00-\u9fa5]+$/
+  /^(#|\/)?(学习|學習)[\u4e00-\u9fa5]+$/
 )

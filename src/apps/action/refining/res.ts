@@ -68,5 +68,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^#炼化[\u4e00-\u9fa5]+$/
+  /^(#|\/)?炼化[\u4e00-\u9fa5]+$/
 )

@@ -51,5 +51,5 @@ export default OnResponse(
     Send(Text(`忘掉[${thingName}]`))
   },
   'message.create',
-  /^#?忘掉[\u4e00-\u9fa5]+$/
+  /^(#|\/)?忘掉[\u4e00-\u9fa5]+$/
 )
