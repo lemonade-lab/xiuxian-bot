@@ -1,6 +1,5 @@
 import React from 'react'
 import { ThemesEmun } from '../core/index.js'
-import Footer from './con/footer.js'
 import { AttributesType, goods } from 'xiuxian-db'
 
 type PropsType = {

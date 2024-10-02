@@ -1,5 +1,5 @@
 import { sequelize } from '../connect.js'
-import { DataTypes, Model, ModelCtor } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 // 定义User属性接口
 
 export const user = sequelize.define<

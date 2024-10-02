@@ -23,12 +23,11 @@ module.exports = {
       autodump: true,
       // 不监听文件变化
       watch: false,
-      // 不监听文件变化
-      watch: false,
+      ...app,
       env: {
-        NODE_ENV: 'production'
-      },
-      ...app
+        NODE_ENV: 'production',
+        ...(app?.env ?? {})
+      }
     }
   ]
 }
