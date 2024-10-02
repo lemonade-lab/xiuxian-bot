@@ -1,6 +1,6 @@
 import { showUserMsg, victoryCooling, isUser, reCreateMsg } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
+import { map_position, user, user_level } from 'xiuxian-db'
+import { Bag, Burial, Cooling, Levels, Skills, Talent } from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
 import { Text, useParse, useSend } from 'alemonjs'
 
@@ -37,14 +37,14 @@ async function addExperience(
     (acount * thing.experience * (talentsize + 100)) / 100 / dividend
   )
   // 扣物品
-  await GameApi.Bag.reduceBagThing(UID, [
+  await Bag.reduceBagThing(UID, [
     {
       name: thing.name,
       acount: acount
     }
   ])
   // 反馈
-  const { msg } = await GameApi.Levels.addExperience(UID, 1, size)
+  const { msg } = await Levels.addExperience(UID, 1, size)
   Send(Text(msg))
   return
 }
@@ -64,13 +64,13 @@ async function sendLing(e, UID: string, acount: number) {
     return false
   }
   const CDID = 12,
-    CDTime = GameApi.Cooling.CD_Pconst_ractice
+    CDTime = Cooling.CD_Pconst_ractice
 
   if (!(await victoryCooling(e, UID, CDID))) return false
 
-  GameApi.Burial.set(UID, CDID, CDTime)
+  Burial.set(UID, CDID, CDTime)
 
-  const LevelData = await DB.user_level
+  const LevelData = await user_level
     .findOne({
       attributes: ['addition', 'realm', 'experience'],
       where: {
@@ -109,7 +109,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     if (!text) return
     const [thingName, thingAcount] = text.replace(/^(#|\/)?消耗/, '').split('*')
-    const thing = await GameApi.Bag.searchBagByName(UID, thingName)
+    const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))
       return
@@ -121,7 +121,7 @@ export default OnResponse(
     }
     // 不是道具
     if (thing.type != 6) {
-      await GameApi.Bag.reduceBagThing(UID, [
+      await Bag.reduceBagThing(UID, [
         {
           name: thing.name,
           acount: Number(thingAcount)
@@ -192,7 +192,7 @@ export default OnResponse(
        * 洗灵根
        */
       case 600301: {
-        const LevelData = await DB.user_level
+        const LevelData = await user_level
           .findOne({
             attributes: ['addition', 'realm', 'experience'],
             where: {
@@ -208,8 +208,8 @@ export default OnResponse(
           Send(Text('灵根已定\n此生不可再洗髓'))
           break
         }
-        UserData.talent = GameApi.Talent.getTalent()
-        await DB.user.update(
+        UserData.talent = Talent.getTalent()
+        await user.update(
           {
             talent: UserData.talent
           },
@@ -224,12 +224,12 @@ export default OnResponse(
          * 更新天赋
          */
         setTimeout(async () => {
-          await GameApi.Skills.updataEfficiency(UID, UserData.talent)
+          await Skills.updataEfficiency(UID, UserData.talent)
         }, 500)
         /**
          * 扣物品
          */
-        await GameApi.Bag.reduceBagThing(UID, [
+        await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: Number(thingAcount)
@@ -249,7 +249,7 @@ export default OnResponse(
       case 600302: {
         UserData.talent_show = 1
 
-        await DB.user.update(
+        await user.update(
           {
             talent_show: UserData.talent_show
           },
@@ -263,7 +263,7 @@ export default OnResponse(
         /**
          * 扣物品
          */
-        await GameApi.Bag.reduceBagThing(UID, [
+        await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: Number(thingAcount)
@@ -285,7 +285,7 @@ export default OnResponse(
         /**
          * 扣物品
          */
-        await GameApi.Bag.reduceBagThing(UID, [
+        await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: Number(thingAcount)
@@ -294,7 +294,7 @@ export default OnResponse(
         /**
          * 增加经验
          */
-        const { msg } = await GameApi.Levels.addExperience(UID, 3, soul)
+        const { msg } = await Levels.addExperience(UID, 3, soul)
         Send(Text(msg))
         break
       }
@@ -306,7 +306,7 @@ export default OnResponse(
         /**
          * 扣物品
          */
-        await GameApi.Bag.reduceBagThing(UID, [
+        await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: Number(thingAcount)
@@ -315,7 +315,7 @@ export default OnResponse(
         /**
          * 增加经验
          */
-        const { msg } = await GameApi.Levels.addExperience(UID, 3, soul)
+        const { msg } = await Levels.addExperience(UID, 3, soul)
         Send(Text(msg))
         break
       }
@@ -329,7 +329,7 @@ export default OnResponse(
         if (UserData.special_prestige <= 0) {
           UserData.special_prestige = 0
         }
-        await DB.user.update(
+        await user.update(
           {
             special_prestige: UserData.special_prestige
           },
@@ -343,7 +343,7 @@ export default OnResponse(
         /**
          * 扣物品
          */
-        await GameApi.Bag.reduceBagThing(UID, [
+        await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: Number(thingAcount)
@@ -359,7 +359,7 @@ export default OnResponse(
         /**
          * 传送符用来回城池的
          */
-        const PositionData = await DB.map_position
+        const PositionData = await map_position
           .findAll({
             where: {
               attribute: [1, 6]
@@ -395,7 +395,7 @@ export default OnResponse(
           }
         }
 
-        await DB.user.update(
+        await user.update(
           {
             pont_x: point.x,
             pont_y: point.y,
@@ -415,7 +415,7 @@ export default OnResponse(
         /**
          * 扣物品
          */
-        await GameApi.Bag.reduceBagThing(UID, [
+        await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: Number(thingAcount)
@@ -427,7 +427,7 @@ export default OnResponse(
        * 引魂灯
        */
       case 600403: {
-        // await GameApi.Bag.reduceBagThing(UID, [
+        // await Bag.reduceBagThing(UID, [
         //   {
         //     name: thing.name,
         //     acount: Number(thingAcount)
