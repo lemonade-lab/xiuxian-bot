@@ -1,6 +1,11 @@
 import React from 'react'
 import { join } from 'path'
-import { defineConfig } from 'react-puppeteer'
+import {
+  BackgroundImage,
+  defineConfig,
+  LinkCSS,
+  LinkESM
+} from 'react-puppeteer'
 import { readFileSync } from 'fs'
 import { PictureOptions, Component } from 'xiuxian-img'
 import {
@@ -13,6 +18,19 @@ import {
 } from 'xiuxian-statistics'
 import { Goods, Cooling } from 'xiuxian-core'
 import { ass, ass_typing, user_ass } from 'xiuxian-db'
+
+const Img = () => {
+  return (
+    <>
+      <BackgroundImage url={require('./text.png')}>
+        <div>背景图</div>
+      </BackgroundImage>
+      <img src={require('./text.jpg')} />
+      <LinkCSS src={require('./text.css')} />
+      <LinkESM src={require('./text.js')} />
+    </>
+  )
+}
 
 const e = {
   UserId: '563384AF707685C9A82DA5DDFAF96D8A',
