@@ -19,7 +19,7 @@ export default OnResponse(
     const data = JSON.parse(readFileSync(dir, 'utf-8'))
     helpData[name] = await pictureRender('HelpComponent', {
       name: name,
-      props: { data: n == 0 ? data : ([data[n - 1]] ?? data) }
+      props: { data: [data[n - 1] ?? data[0]] }
     }).catch(console.error)
     Send(Image(helpData[name], 'buffer'))
     return

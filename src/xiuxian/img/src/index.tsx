@@ -1,6 +1,6 @@
 import React from 'react'
 import { dirname } from 'path'
-import { createRequire, render } from 'react-puppeteer'
+import { createRequire, render, LinkCSS } from 'react-puppeteer'
 import * as Component from './component/index.js'
 const require = createRequire(import.meta.url)
 export const PictureOptions = {
@@ -10,10 +10,13 @@ export const PictureOptions = {
     '@xiuxian': dirname(require('../../../../README.md'))
   },
   // 别名资源
-  html_files: [require('../../../../public/css/root.css')],
+  html_files: [require('../../../../public/css/root-path.css')],
   // 头部插入其他资源（ 数组或字符串）
   html_head: (
-    <link rel="stylesheet" href={require('../../../../public/output.css')} />
+    <>
+      <LinkCSS src={require('../../../../public/output.css')} />
+      <LinkCSS src={require('../../../../public/css/root.css')} />
+    </>
   )
 }
 /**

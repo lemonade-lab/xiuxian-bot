@@ -19,6 +19,7 @@ export * as Monster from './src/system/monster.js'
 export * as Treasure from './src/system/treasure.js'
 export * as explore from './src/system/explore.js'
 export * as order from './src/system/order.js'
+export * as Boss from './src/system/boss.js'
 
 // 势力模型
 export * as Ass from './src/system/ass.js'

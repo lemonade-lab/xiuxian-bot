@@ -1,62 +1,61 @@
-import { Text, useSend } from 'alemonjs'
+import { Text, useParse, useSend } from 'alemonjs'
+import { console } from 'inspector'
 import { isUser } from 'xiuxian-api'
-import { operationLock } from 'xiuxian-core'
-import { Redis } from 'xiuxian-db'
-
-/**
- *
- */
-const rules = [
-  { dayOfWeek: [2, 4], hour: 12, minute: 0 }, // 二四 12:00
-  { dayOfWeek: [2, 4], hour: 13, minute: 59 }, // 二四 14:00
-  { dayOfWeek: [1, 3, 5], hour: 18, minute: 0 }, // 一三五 18:00
-  { dayOfWeek: [1, 3, 5], hour: 19, minute: 59 }, // 一三五 20:00
-  { dayOfWeek: 6, hour: 20, minute: 0 }, // 周六 20:00
-  { dayOfWeek: 6, hour: 21, minute: 59 } // 周六 21:00
-]
-
-/**
- *
- * @returns
- */
-const isActivityOpen = () => {
-  const now = new Date()
-  return rules.some(
-    rule =>
-      (Array.isArray(rule.dayOfWeek)
-        ? rule.dayOfWeek.includes(now.getDay())
-        : rule.dayOfWeek === now.getDay()) &&
-      rule.hour === now.getHours() &&
-      now.getMinutes() <= rule.minute
-  )
-}
-
+import { Boss } from 'xiuxian-core'
 export default OnResponse(
   async e => {
-    // const UID = e.UserId
-    // // lock
-    // const T = await operationLock(UID)
-    // const Send = useSend(e)
-    // if (!T) {
-    //   Send(Text('操作频繁'))
+    const UID = e.UserId
+    const Send = useSend(e)
+    // 检查活动时间
+    // if (!Boss.isBossActivityOpen()) {
+    //   Send(Text('BOSS已经逃跑....'))
     //   return
     // }
-    // //
-    // if (!isActivityOpen()) {
-    //   Send(Text('当前时间不在活动时间内'))
-    //   return
-    // }
-    // const UserData = await isUser(e, UID)
-    // if (typeof UserData === 'boolean') return
-    // // 查看boss信息
-    // const boss = await Redis.get('xiuxian:boss:info')
-    // if (!boss) {
-    //   Send(Text('BOSS正在降临,请稍后再试'))
-    //   return
-    // }
-    // const Now = new Date()
+    const UserData = await isUser(e, UID)
+    if (typeof UserData === 'boolean') return
+    const text = useParse(e.Megs, 'Text')
+    let key: '1' | '2' = '1'
+    if (/银角/.test(text)) {
+      key = '2'
+    }
+    // 查看boss信息
+    const bossInfo = await Boss.getBossData(key)
+    // 如果没有boss信息,则创建
+    if (!bossInfo) {
+      Send(Text('BOSS正在降临...'))
+      Boss.updateBossData(key)
+      return
+    }
+
     //
+    try {
+      const Now = new Date()
+      // 如果创建时间超过2h,则重新创建
+      if (Now.getTime() - bossInfo.createAt > 12 * 60 * 60 * 1000) {
+        Send(Text('BOSS已经逃跑....'))
+        Boss.updateBossData(key)
+        return
+      }
+      Send(
+        Text(
+          [
+            `[${key == '1' ? '金角' : '银角'}]`,
+            `境界:${bossInfo.level}`,
+            `攻击:${bossInfo.data.battle_attack}`,
+            `防御:${bossInfo.data.battle_defense}`,
+            `血量:${bossInfo.data.battle_blood_now}/${bossInfo.data.battle_blood_limit}`,
+            `暴击:${bossInfo.data.battle_critical_hit}`,
+            `暴伤:${bossInfo.data.battle_critical_damage}`,
+            `速度:${bossInfo.data.battle_speed}`
+          ].join('\n')
+        )
+      )
+      //
+    } catch (e) {
+      console.error(e)
+      Send(Text('BOSS信息异常'))
+    }
   },
   'message.create',
-  /^(#|\/)?(BOSS|boss|Boss)信息/
+  /^(#|\/)?(金角|银角)信息/
 )
