@@ -31,9 +31,9 @@ export default OnResponse(
 
     if (
       bossInfo.data.battle_blood_now <= 1 ||
-      Now.getTime() - bossInfo.createAt > 60 * 1000 * (key == '1' ? 5 : 10)
+      Now.getTime() - bossInfo.createAt > 60 * 1000 * (key == '1' ? 10 : 5)
     ) {
-      Send(Text(`BOSS将在${key == '1' ? 5 : 10}分钟内复活....`))
+      Send(Text(`BOSS将在${key == '1' ? 10 : 5}分钟内复活....`))
       Boss.updateBossData(key)
       return
     }
