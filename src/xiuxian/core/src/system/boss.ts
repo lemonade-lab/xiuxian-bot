@@ -65,7 +65,8 @@ export const delBossData = (key: '1' | '2') => {
 export const updateBossData = (key: '1' | '2') => {
   setTimeout(async () => {
     const level = key === '1' ? 41 : 28
-    const size = 1000
+    const b_size = 1000
+    const a_size = 10
     const LevelMax = await levels
       .findOne({
         where: {
@@ -78,15 +79,16 @@ export const updateBossData = (key: '1' | '2') => {
       uid: '1',
       name: key === '1' ? '金角' : '银角',
       battle_show: 0,
-      // 血量重新计算 * size
-      battle_blood_now: Math.floor(
-        LevelMax.blood * ((level + 1) * 0.01 + 1) * size
-      ),
-      battle_attack: Math.floor(LevelMax.attack * ((level + 1) * 0.05 + 1)),
+      battle_attack:
+        Math.floor(LevelMax.attack * ((level + 1) * 0.05 + 1)) * a_size,
       battle_defense: Math.floor(LevelMax.defense * ((level + 1) * 0.01 + 1)),
       // 血量重新计算 * size
+      battle_blood_now: Math.floor(
+        LevelMax.blood * ((level + 1) * 0.01 + 1) * b_size
+      ),
+      // 血量重新计算 * size
       battle_blood_limit: Math.floor(
-        LevelMax.blood * ((level + 1) * 0.01 + 1) * size
+        LevelMax.blood * ((level + 1) * 0.01 + 1) * b_size
       ),
       battle_critical_hit: level + 30,
       battle_critical_damage: LevelMax.critical_damage + level,

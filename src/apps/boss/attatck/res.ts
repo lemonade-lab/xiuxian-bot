@@ -40,12 +40,12 @@ export default OnResponse(
       return
     }
 
+    //
+    const CDID = 25
+    if (!(await victoryCooling(e, UID, CDID))) return
+
     // 一定时间解锁
     await Redis.set('lock:boss', Date.now())
-
-    //
-    const CDID = 10
-    if (!(await victoryCooling(e, UID, CDID))) return
 
     // 查看boss信息
     const bossInfo = await Boss.getBossData(key)
@@ -70,15 +70,21 @@ export default OnResponse(
       // 怪物没有那么多的字段
       const BMSG = Fight.startBoss(UserData, bossInfo.data)
 
-      // 更新怪物数据
-      await Boss.setBossData(key, {
-        createAt: bossInfo.createAt,
-        level: bossInfo.level,
-        data: {
-          ...bossInfo.data,
-          battle_blood_now: BMSG.battle_blood_now.b
-        }
-      })
+      //
+      if (BMSG.battle_blood_now.b <= 0) {
+        // 刷新怪物
+        Boss.updateBossData(key)
+      } else {
+        // 更新怪物数据
+        await Boss.setBossData(key, {
+          createAt: bossInfo.createAt,
+          level: bossInfo.level,
+          data: {
+            ...bossInfo.data,
+            battle_blood_now: BMSG.battle_blood_now.b
+          }
+        })
+      }
 
       // 更新玩家数据
       await user.update(
