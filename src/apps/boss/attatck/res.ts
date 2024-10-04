@@ -21,8 +21,15 @@ export default OnResponse(
       return
     }
 
+    //
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
+
+    //
+    if (UserData.special_spiritual < 1) {
+      Send(Text('你的灵力不足'))
+      return
+    }
 
     // 血量不足
     if (!(await ControlByBlood(e, UserData))) return
@@ -98,7 +105,8 @@ export default OnResponse(
       // 更新玩家数据
       await user.update(
         {
-          battle_blood_now: BMSG.battle_blood_now.a
+          battle_blood_now: BMSG.battle_blood_now.a,
+          special_spiritual: UserData.special_spiritual - 1
         },
         {
           where: {
