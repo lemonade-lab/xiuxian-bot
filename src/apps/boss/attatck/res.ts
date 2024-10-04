@@ -56,7 +56,7 @@ export default OnResponse(
       return
     }
 
-    if (bossInfo.data.battle_blood_now <= 0) {
+    if (bossInfo.data.battle_blood_now <= 1) {
       Send(Text('BOSS复活中....'))
       Boss.updateBossData(key)
       return
@@ -77,7 +77,7 @@ export default OnResponse(
       const BMSG = Fight.startBoss(UserData, bossInfo.data)
 
       //
-      if (BMSG.battle_blood_now.b <= 0) {
+      if (bossInfo.data.battle_blood_now <= 1) {
         // 刷新怪物
         Boss.updateBossData(key)
       } else {
