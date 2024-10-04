@@ -1,5 +1,4 @@
 import { levels, Redis } from 'xiuxian-db'
-import { acquireLock, releaseLock } from '../wrap/lock'
 
 /**
  *
@@ -13,6 +12,28 @@ const rules = [
   { dayOfWeek: 6, hour: 21, minute: 59 } // 周六 21:00
 ]
 
+/**
+ *
+ * @returns
+ */
+export const isBossActivityOpen = () => {
+  const now = new Date()
+  const currentDay = now.getDay()
+  const currentHour = now.getHours()
+  const currentMinute = now.getMinutes()
+
+  return rules.some(rule => {
+    const isDayMatch = Array.isArray(rule.dayOfWeek)
+      ? rule.dayOfWeek.includes(currentDay)
+      : rule.dayOfWeek === currentDay
+
+    const isTimeMatch =
+      (rule.hour === currentHour && currentMinute <= rule.minute) ||
+      rule.hour > currentHour
+
+    return isDayMatch && isTimeMatch
+  })
+}
 //
 export const BOSS_DATA_KEY = 'xiuxian:boss:info'
 
@@ -100,7 +121,7 @@ export const updateBossData = (key: '1' | '2') => {
       `${BOSS_DATA_KEY}:${key}`,
       JSON.stringify({
         // 创建时间
-        createAt: new Date().getTime(),
+        createAt: Date.now(),
         // 境界名
         level: LevelMax.name,
         // boss数据
@@ -109,20 +130,4 @@ export const updateBossData = (key: '1' | '2') => {
     )
     //
   })
-}
-
-/**
- *
- * @returns
- */
-export const isBossActivityOpen = () => {
-  const now = new Date()
-  return rules.some(
-    rule =>
-      (Array.isArray(rule.dayOfWeek)
-        ? rule.dayOfWeek.includes(now.getDay())
-        : rule.dayOfWeek === now.getDay()) &&
-      rule.hour === now.getHours() &&
-      now.getMinutes() <= rule.minute
-  )
 }

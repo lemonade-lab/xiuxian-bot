@@ -16,10 +16,10 @@ export default OnResponse(
     }
 
     // 检查活动时间
-    // if (!Boss.isBossActivityOpen()) {
-    //   Send(Text('BOSS已经逃跑....'))
-    //   return
-    // }
+    if (!Boss.isBossActivityOpen()) {
+      Send(Text('BOSS已经逃跑....'))
+      return
+    }
 
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
@@ -56,16 +56,19 @@ export default OnResponse(
       return
     }
 
-    if (bossInfo.data.battle_blood_now <= 1) {
-      Send(Text('BOSS复活中....'))
+    const Now = new Date()
+
+    if (
+      bossInfo.data.battle_blood_now <= 1 ||
+      Now.getTime() - bossInfo.createAt > 60 * 1000 * (key == '1' ? 5 : 10)
+    ) {
+      Send(Text(`BOSS将在${key == '1' ? 5 : 10}分钟内复活....`))
       Boss.updateBossData(key)
       return
     }
 
     //
     try {
-      const Now = new Date()
-
       // 如果创建时间超过2h,则重新创建
       if (Now.getTime() - bossInfo.createAt > 12 * 60 * 60 * 1000) {
         Send(Text('BOSS已经逃跑....'))
