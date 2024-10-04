@@ -1,8 +1,10 @@
 import React from 'react'
-import { createRequire, BackgroundImage } from 'react-puppeteer'
+import { BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../../core/index.js'
 import Header from './header.js'
-const require = createRequire(import.meta.url)
+import img_information from '../../../../../../public/img/information.jpg'
+import img_left from '../../../../../../public/img/left.jpg'
+import img_right from '../../../../../../public/img/right.jpg'
 export default function ListTable<
   T extends {
     UserAvatar: string
@@ -20,10 +22,7 @@ export default function ListTable<
 }) {
   return (
     <div id="root" data-theme={theme}>
-      <BackgroundImage
-        className="w-full"
-        url={require('../../../../../../public/img/information.jpg')}
-      >
+      <BackgroundImage className="w-full" url={img_information}>
         <div className="p-4">
           <Header list={['/通天塔', '/杀神榜']} />
         </div>
@@ -32,17 +31,13 @@ export default function ListTable<
             {
               // 人物信息
             }
-            <BackgroundImage
-              className="flex"
-              url={require('../../../../../../public/img/left.jpg')}
-              size={'100% 100%'}
-            >
+            <BackgroundImage className="flex" url={img_left} size={'100% 100%'}>
               {children(item)}
               <div className="size-80">
                 <BackgroundImage
                   className="flex w-full  h-full"
                   size={'100% 100%'}
-                  url={require('../../../../../../public/img/right.jpg')}
+                  url={img_right}
                 >
                   <img
                     className="rounded-full size-48 m-auto"

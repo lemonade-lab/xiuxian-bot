@@ -1,16 +1,14 @@
 import React from 'react'
-import { createRequire, BackgroundImage } from 'react-puppeteer'
+import { BackgroundImage } from 'react-puppeteer'
 import { createUID, ThemesEmun } from '../core/index.js'
 import { SkillInformationType } from 'xiuxian-statistics'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
-const require = createRequire(import.meta.url)
-
+import img_equipment from '../../../../../public/img/equipment.jpg'
 type PropsType = {
   data: SkillInformationType
   theme?: ThemesEmun
 }
-
 export default function App({ data, theme }: PropsType) {
   const UID = createUID(data.UID)
   return (
@@ -22,17 +20,10 @@ export default function App({ data, theme }: PropsType) {
         backgroundSize: '100% auto'
       }}
     >
-      <BackgroundImage
-        className="w-full p-4"
-        url={require('../../../../../public/img/equipment.jpg')}
-      >
+      <BackgroundImage className="w-full p-4" url={img_equipment}>
         <div className="p-4">
           <Header list={['/学习+功法名', '/忘掉+功法名']} />
         </div>
-        {
-          //
-        }
-
         <div className="rounded-lg w-full px-4 py-4">
           <div className="flex flex-row bg-black bg-opacity-30">
             <div className="flex-1 text-left mx-auto my-0 bg-black bg-opacity-20">
@@ -54,10 +45,6 @@ export default function App({ data, theme }: PropsType) {
             </div>
           </div>
         </div>
-        {
-          //
-        }
-
         <div className="rounded-lg w-full px-4 py-4">
           {data.skills.map((item, index) => {
             const good = item['good']['dataValues']
@@ -78,10 +65,6 @@ export default function App({ data, theme }: PropsType) {
             )
           })}
         </div>
-
-        {
-          //
-        }
         <Footer
           list={['/面板信息', '/本命', '/勋章信息']}
           docs={'提示：任何物品都可以装备哦～'}

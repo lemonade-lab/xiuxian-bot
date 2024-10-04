@@ -1,9 +1,9 @@
 import React from 'react'
-import { createRequire, BackgroundImage } from 'react-puppeteer'
+import { BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../core/index.js'
 import Header from './con/header.js'
 import { AttributesType, transactions } from 'xiuxian-db'
-const require = createRequire(import.meta.url)
+import img_equipment from '../../../../../public/img/equipment.jpg'
 type PropsType = {
   data: {
     page: number
@@ -21,10 +21,7 @@ export default function TransactionMessage({ data, theme }: PropsType) {
         backgroundSize: '100% auto'
       }}
     >
-      <BackgroundImage
-        className="w-full p-4"
-        url={require('../../../../../public/img/equipment.jpg')}
-      >
+      <BackgroundImage className="w-full p-4" url={img_equipment}>
         <div className="p-4">
           <Header
             Title={`虚空镜-第${data.page}页`}

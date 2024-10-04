@@ -1,7 +1,9 @@
 import React from 'react'
-import { createRequire, BackgroundImage } from 'react-puppeteer'
+import { BackgroundImage } from 'react-puppeteer'
 import { createUID, ThemesEmun } from '../core/index.js'
-const require = createRequire(import.meta.url)
+import img_information from '../../../../../public/img/information.jpg'
+import img_left from '../../../../../public/img/left.jpg'
+import img_right from '../../../../../public/img/right.jpg'
 
 type PropsType = {
   data: any
@@ -14,15 +16,11 @@ export default function App({ data, theme }: PropsType) {
     <div id="root" data-theme={theme}>
       <BackgroundImage
         className="w-full m-auto text-center"
-        url={require('../../../../../public/img/information.jpg')}
+        url={img_information}
       >
         {/* 头部 */}
         <div className="grid">
-          <BackgroundImage
-            className=""
-            size={'100% 100%'}
-            url={require('../../../../../public/img/left.jpg')}
-          >
+          <BackgroundImage className="" size={'100% 100%'} url={img_left}>
             <div className="">
               <div className=" text-white text-2xl p-[5px]">{UID}</div>
               <div className=" text-white text-2xl p-[5px]">
@@ -36,11 +34,7 @@ export default function App({ data, theme }: PropsType) {
               </div>
             </div>
             <div className="">
-              <BackgroundImage
-                className=""
-                size={'100% 100%'}
-                url={require('../../../../../public/img/right.jpg')}
-              >
+              <BackgroundImage className="" size={'100% 100%'} url={img_right}>
                 <img className="" src={data.avatar} />
               </BackgroundImage>
             </div>

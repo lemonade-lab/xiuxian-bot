@@ -2,10 +2,12 @@ import React from 'react'
 import { ThemesEmun } from '../core/index.js'
 import { ShowSkyType } from 'xiuxian-statistics'
 import ListTable from './con/ListTable.js'
+//
 type PropsType = {
   data: ShowSkyType
   theme?: ThemesEmun
 }
+
 export default function App({ data, theme }: PropsType) {
   return (
     <>

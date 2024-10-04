@@ -1,9 +1,7 @@
 import React from 'react'
-import { createRequire, BackgroundImage } from 'react-puppeteer'
+import { BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../core/index.js'
-
-const require = createRequire(import.meta.url)
-
+import img_equipment from '../../../../../public/img/equipment.jpg'
 type PropsType = {
   data: {
     group: string
@@ -15,14 +13,13 @@ type PropsType = {
   }[]
   theme?: ThemesEmun
 }
-
 export default function App({ data, theme }: PropsType) {
   const _email = 'ningmengchongshui@gmail.com'
   const docs = 'https://docs.qq.com/doc/DSGFURU9IZmR4bUxK'
   const _QQ = '887314350'
   return (
     <div id="root" data-theme={theme}>
-      <BackgroundImage url={require('../../../../../public/img/equipment.jpg')}>
+      <BackgroundImage url={img_equipment}>
         <div className="min-h-10"></div>
         <div className="text-xl m-8 px-6 p-4  rounded-md bg-black bg-opacity-20 text-center text-white relative shadow-lg font-semibold">
           <div className="text-red-500 text-left bg-white py-1 px-3 my-2 rounded-md bg-opacity-30">

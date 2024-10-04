@@ -11,24 +11,10 @@ type PropsType = {
 }
 
 /**
- * 
- * @param param0  UID: string;
-    name: string;
-    avatar: string;
-    bag_grade: number;
-    length: number;
-    bag: {
-        id: number;
-        uid: string;
-        tid: number;
-        type: number;
-        name: string;
-        acount: number;
-        doc: number;
-    }[];
- * @returns 
+ *
+ * @param param0
+ * @returns
  */
-
 export default function App({ data, theme }: PropsType) {
   const UID = createUID(data.UID)
   return (

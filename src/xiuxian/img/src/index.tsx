@@ -1,21 +1,22 @@
 import React from 'react'
-import { dirname } from 'path'
-import { createRequire, render, LinkCSS } from 'react-puppeteer'
+import { render, LinkCSS } from 'react-puppeteer'
 import * as Component from './component/index.js'
-const require = createRequire(import.meta.url)
+import css_output from '../../../../public/output.css'
+import css_root from '../../../../public/css/root.css'
+import css_root_path from '../../../../public/css/root-path.css'
 export const PictureOptions = {
   // 别名
   file_paths: {
     // 定位自身的 md文件，并获取目录地址
-    '@xiuxian': dirname(require('../../../../README.md'))
+    '@xiuxian': process.cwd()
   },
   // 别名资源
-  html_files: [require('../../../../public/css/root-path.css')],
+  html_files: [css_root_path],
   // 头部插入其他资源（ 数组或字符串）
   html_head: (
     <>
-      <LinkCSS src={require('../../../../public/output.css')} />
-      <LinkCSS src={require('../../../../public/css/root.css')} />
+      <LinkCSS src={css_output} />
+      <LinkCSS src={css_root} />
     </>
   )
 }
