@@ -56,6 +56,12 @@ export default OnResponse(
       return
     }
 
+    if (bossInfo.data.battle_blood_now <= 0) {
+      Send(Text('BOSS复活中....'))
+      Boss.updateBossData(key)
+      return
+    }
+
     //
     try {
       const Now = new Date()
