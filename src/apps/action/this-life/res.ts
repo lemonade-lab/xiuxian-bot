@@ -1,7 +1,7 @@
 import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
 import { Text, useSend } from 'alemonjs'
+import { fate_level, goods, user_fate, user_level } from 'xiuxian-db'
+import { Goods, Talent } from 'xiuxian-core'
 export default OnResponse(
   async e => {
     // 操作锁
@@ -9,13 +9,13 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     // 查看本命信息：武器名/等级/属性/精炼需要消耗提示
-    const thing = await DB.user_fate
+    const thing = await user_fate
       .findOne({
         where: {
           uid: UID
         },
         include: {
-          model: DB.goods
+          model: goods
         }
       })
       .then(res => res?.dataValues)
@@ -25,7 +25,7 @@ export default OnResponse(
       return
     }
     // 查看消耗所需
-    const data = await DB.fate_level
+    const data = await fate_level
       .findOne({
         where: {
           grade: thing.grade
@@ -33,7 +33,7 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
     // 得到该境界经验
-    const exp_gaspractice = await DB.user_level
+    const exp_gaspractice = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -44,7 +44,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.experience)
     //
-    const exp_bodypractice = await DB.user_level
+    const exp_bodypractice = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -55,7 +55,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.experience)
     //
-    const exp_soul = await DB.user_level
+    const exp_soul = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -66,7 +66,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.experience)
 
-    const goodThing = await GameApi.Goods.searchAllThing(thing.name)
+    const goodThing = await Goods.searchAllThing(thing.name)
 
     // 精炼等级*1000*物品等级
     const size = 1000 * goodThing.grade
@@ -76,7 +76,7 @@ export default OnResponse(
         [
           `本命物:${thing.name}`,
           `等级:${thing.grade}`,
-          `属性:${await GameApi.Talent.getTalentName(thing['good']['dataValues']['talent'])}`,
+          `属性:${await Talent.getTalentName(thing['good']['dataValues']['talent'])}`,
           `精炼所需物品:${thing.name}`,
           `精炼所需灵石:${size}`,
           `精炼所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,

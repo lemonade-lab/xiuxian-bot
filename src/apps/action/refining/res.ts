@@ -1,6 +1,6 @@
 import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
+import { user_fate, user_level } from 'xiuxian-db'
+import { Bag, Equipment, Levels } from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
@@ -16,7 +16,7 @@ export default OnResponse(
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-    const T = await DB.user_fate
+    const T = await user_fate
       .findOne({
         where: {
           uid: UID
@@ -30,7 +30,7 @@ export default OnResponse(
     // 解析
     const text = useParse(e.Megs, 'Text')
     const thingName = text.replace(/^(#|\/)?炼化/, '')
-    const bagThing = await GameApi.Bag.searchBagByName(UID, thingName)
+    const bagThing = await Bag.searchBagByName(UID, thingName)
     if (!bagThing) {
       Send(Text(`没[${thingName}]`))
       return
@@ -38,7 +38,7 @@ export default OnResponse(
     // 根据物品等级来消耗修为  1000
     const size = bagThing.grade * 1000
     // 看看经验
-    const LevelMsg = await DB.user_level
+    const LevelMsg = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -52,17 +52,17 @@ export default OnResponse(
       return
     }
     // 减少修为
-    await GameApi.Levels.reduceExperience(UID, 1, size)
+    await Levels.reduceExperience(UID, 1, size)
     // 新增数据
-    await DB.user_fate.create({
+    await user_fate.create({
       uid: UID,
       name: bagThing.name,
       grade: 0
     })
     // 减少物品
-    await GameApi.Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
+    await Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
     // 更新面板?
-    await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
+    await Equipment.updatePanel(UID, UserData.battle_blood_now)
     // 返回
     Send(Text(`炼化[${bagThing.name}]`))
     return

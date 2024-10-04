@@ -1,7 +1,6 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
+import { Bag, Equipment, Levels, operationLock } from 'xiuxian-core'
 export default OnResponse(
   async e => {
     // lock
@@ -19,7 +18,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     if (!text) return
     const [thingName, thingAcount] = text.replace(/^(#|\/)?服用/, '').split('*')
-    const thing = await GameApi.Bag.searchBagByName(UID, thingName)
+    const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))
       return
@@ -34,7 +33,7 @@ export default OnResponse(
       case 'boolere_covery': {
         let size = thing.boolere_covery * Number(thingAcount)
         size = size > 100 ? 100 : size
-        const blood = await GameApi.Equipment.addBlood(UserData, size)
+        const blood = await Equipment.addBlood(UserData, size)
         Send(Text(`💊${thingName}\n恢复了${size}%的血量\n🩸${blood}`))
         break
       }
@@ -49,7 +48,7 @@ export default OnResponse(
             (UserData.talent_size + 100)) /
             100
         )
-        const { msg } = await GameApi.Levels.addExperience(UID, 1, size)
+        const { msg } = await Levels.addExperience(UID, 1, size)
         Send(Text(msg))
         break
       }
@@ -60,7 +59,7 @@ export default OnResponse(
             (UserData.talent_size + 100)) /
             100
         )
-        const { msg } = await GameApi.Levels.addExperience(UID, 2, size)
+        const { msg } = await Levels.addExperience(UID, 2, size)
         Send(Text(msg))
 
         break
@@ -72,7 +71,7 @@ export default OnResponse(
             (UserData.talent_size + 100)) /
             100
         )
-        const { msg } = await GameApi.Levels.addExperience(UID, 3, size)
+        const { msg } = await Levels.addExperience(UID, 3, size)
         Send(Text(msg))
         break
       }
@@ -80,7 +79,7 @@ export default OnResponse(
         Send(Text(`啥也不是的东东,丢了~`))
       }
     }
-    await GameApi.Bag.reduceBagThing(UID, [
+    await Bag.reduceBagThing(UID, [
       {
         name: thing.name,
         acount: Number(thingAcount)

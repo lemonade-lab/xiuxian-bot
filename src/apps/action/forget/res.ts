@@ -1,5 +1,5 @@
 import { isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
+import { Bag, Skills } from 'xiuxian-core'
 import { user, user_skills } from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
 import { Text, useParse, useSend } from 'alemonjs'
@@ -29,7 +29,7 @@ export default OnResponse(
       return
     }
     // 检查背包
-    const BagSize = await GameApi.Bag.backpackFull(UID)
+    const BagSize = await Bag.backpackFull(UID)
     if (!BagSize) {
       Send(Text('储物袋空间不足'))
       return
@@ -45,9 +45,9 @@ export default OnResponse(
           }
         })
         .then(res => res?.dataValues)
-      await GameApi.Skills.updataEfficiency(UID, UserData.talent)
+      await Skills.updataEfficiency(UID, UserData.talent)
     }, 500)
-    await GameApi.Bag.addBagThing(UID, [{ name: islearned.name, acount: 1 }])
+    await Bag.addBagThing(UID, [{ name: islearned.name, acount: 1 }])
     Send(Text(`忘掉[${thingName}]`))
   },
   'message.create',

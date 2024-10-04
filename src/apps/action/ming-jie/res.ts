@@ -1,8 +1,7 @@
 import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
+import { Bag, Levels, operationLock } from 'xiuxian-core'
 import { Text, useSend } from 'alemonjs'
+import { user_fate, user_level } from 'xiuxian-db'
 const reGiveup = {}
 export default OnResponse(
   async e => {
@@ -17,7 +16,7 @@ export default OnResponse(
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-    const thing = await DB.user_fate
+    const thing = await user_fate
       .findOne({
         where: {
           uid: UID
@@ -42,7 +41,7 @@ export default OnResponse(
     // 根据物品等级来消耗气血  1000
     const size = thing.grade * 1000
     // 看看经验
-    const LevelMsg = await DB.user_level
+    const LevelMsg = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -56,7 +55,7 @@ export default OnResponse(
       return
     }
 
-    const BagSize = await GameApi.Bag.backpackFull(UID)
+    const BagSize = await Bag.backpackFull(UID)
     // 背包未位置了直接返回了
     if (!BagSize) {
       Send(Text('储物袋空间不足'))
@@ -67,16 +66,16 @@ export default OnResponse(
     delete reGiveup[UID]
 
     // 减少气血
-    await GameApi.Levels.reduceExperience(UID, 1, size)
+    await Levels.reduceExperience(UID, 1, size)
     // 返回物品
-    await GameApi.Bag.addBagThing(UID, [
+    await Bag.addBagThing(UID, [
       {
         name: thing.name,
         acount: thing.grade + 1
       }
     ])
     // 删除数据
-    await DB.user_fate.destroy({
+    await user_fate.destroy({
       where: {
         uid: UID
       }

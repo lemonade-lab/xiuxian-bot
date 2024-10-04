@@ -1,5 +1,5 @@
 import { isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
+import { Bag, Cooling, Skills } from 'xiuxian-core'
 import { user, user_skills } from 'xiuxian-db'
 import { operationLock } from 'xiuxian-core'
 import { Text, useParse, useSend } from 'alemonjs'
@@ -20,7 +20,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     if (!text) return
     const thingName = text.replace(/^(#|\/)?(学习|學習)/, '')
-    const thing = await GameApi.Bag.searchBagByName(UID, thingName)
+    const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))
       return
@@ -36,7 +36,7 @@ export default OnResponse(
       return
     }
 
-    if (AllSorcery.length >= GameApi.Cooling.myconfig_gongfa) {
+    if (AllSorcery.length >= Cooling.myconfig_gongfa) {
       Send(Text('反复看了又看\n却怎么也学不进'))
 
       return
@@ -56,9 +56,9 @@ export default OnResponse(
           }
         })
         .then(res => res?.dataValues)
-      await GameApi.Skills.updataEfficiency(UID, UserData.talent)
+      await Skills.updataEfficiency(UID, UserData.talent)
     }, 1000)
-    await GameApi.Bag.reduceBagThing(UID, [
+    await Bag.reduceBagThing(UID, [
       {
         name: thing.name,
         acount: 1

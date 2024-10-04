@@ -1,6 +1,6 @@
 import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
+import { fate_level, user_fate, user_level } from 'xiuxian-db'
+import { Bag, Levels } from 'xiuxian-core'
 import { operationLock } from 'xiuxian-core'
 import { Text, useSend } from 'alemonjs'
 export default OnResponse(
@@ -16,7 +16,7 @@ export default OnResponse(
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-    const thing = await DB.user_fate
+    const thing = await user_fate
       .findOne({
         where: {
           uid: UID
@@ -33,7 +33,7 @@ export default OnResponse(
       return
     }
     // 精炼是否有同名
-    const bagThing = await GameApi.Bag.searchBagByName(UID, thing.name)
+    const bagThing = await Bag.searchBagByName(UID, thing.name)
     if (!bagThing) {
       Send(Text(`没[${thing.name}]`))
       return
@@ -41,14 +41,14 @@ export default OnResponse(
     // 精炼等级*1000*物品等级
     const size = 1000 * bagThing.grade
     // 是否拥有固定灵石
-    const lingshi = await GameApi.Bag.searchBagByName(UID, '下品灵石')
+    const lingshi = await Bag.searchBagByName(UID, '下品灵石')
     if (!lingshi || lingshi.acount < size) {
       Send(Text(`需要[下品灵石]*${size}`))
       return
     }
 
     // 得到门槛所需
-    const udata = await DB.fate_level
+    const udata = await fate_level
       .findOne({
         where: {
           grade: thing.grade
@@ -57,7 +57,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
 
     // 得到境界剩余经验
-    const exp_gaspractice = await DB.user_level
+    const exp_gaspractice = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -68,7 +68,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.experience)
 
-    const exp_bodypractice = await DB.user_level
+    const exp_bodypractice = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -79,7 +79,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.experience)
 
-    const exp_soul = await DB.user_level
+    const exp_soul = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
         where: {
@@ -100,7 +100,7 @@ export default OnResponse(
     }
 
     // 减少物品 | 灵石
-    await GameApi.Bag.reduceBagThing(UID, [
+    await Bag.reduceBagThing(UID, [
       {
         name: thing.name,
         acount: 1
@@ -112,14 +112,14 @@ export default OnResponse(
     ])
 
     // 减少经验
-    await GameApi.Levels.reduceExperience(UID, 1, udata.exp_gaspractice)
-    await GameApi.Levels.reduceExperience(UID, 2, udata.exp_bodypractice)
-    await GameApi.Levels.reduceExperience(UID, 3, udata.exp_soul)
+    await Levels.reduceExperience(UID, 1, udata.exp_gaspractice)
+    await Levels.reduceExperience(UID, 2, udata.exp_bodypractice)
+    await Levels.reduceExperience(UID, 3, udata.exp_soul)
 
     const grade = thing.grade + 1
 
     // 更新精炼等级
-    await DB.user_fate.update(
+    await user_fate.update(
       {
         grade: grade
       },
