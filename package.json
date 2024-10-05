@@ -10,10 +10,9 @@
   "scripts": {
     "dev": "alemonjs dev",
     "build": "alemonjs build",
-    "open": "alemonjs start --input ./lib/src/index.js",
+    "review": "alemonjs start --input ./lib/src/index.js",
     "img-dev": "NODE_OPTIONS='--loader alemonjs/loader --no-warnings' tsxp dev",
-    "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
-    "css-m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
+    "css": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
     "css-dev": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
     "start": "pm2 startOrRestart pm2.config.cjs",
     "stop": "pm2 stop pm2.config.cjs",
