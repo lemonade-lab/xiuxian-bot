@@ -1,14 +1,14 @@
 import React from 'react'
 import { render, LinkCSS } from 'react-puppeteer'
-import * as Component from './component/index.js'
-import css_output from '../../../../public/output.css'
-import css_root from '../../../../public/css/root.css'
-import css_root_path from '../../../../public/css/root-path.css'
+import * as Component from './src/component/index.js'
+import css_output from '@public/output.css'
+import css_root from '@public/css/root.css'
+import css_root_path from '@public/css/root-path.css'
+import { join } from 'path'
 export const PictureOptions = {
   // 别名
   file_paths: {
-    // 定位自身的 md文件，并获取目录地址
-    '@xiuxian': process.cwd()
+    '@public': join(process.cwd(), 'public')
   },
   // 别名资源
   html_files: [css_root_path],
@@ -49,5 +49,5 @@ export const pictureRender = <TKey extends keyof typeof Component>(
     html_body: <MyComponent {...Props} />
   })
 }
-export * from './core/index.js'
+export * from './src/core/index.js'
 export { Component }

@@ -2,7 +2,7 @@ import React from 'react'
 import NavMessage from './con/NavMessage.js'
 import { ThemesEmun } from '../core/color.js'
 import Footer from './con/footer.js'
-import { PersonalInformationType } from 'xiuxian-statistics'
+import { PersonalInformationType } from '@xiuxian/statistics/index'
 
 type PropsType = {
   data: PersonalInformationType

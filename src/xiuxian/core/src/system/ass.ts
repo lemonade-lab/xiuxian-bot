@@ -1,4 +1,4 @@
-import { ass_typing, ass, user_ass } from 'xiuxian-db'
+import { ass_typing, ass, user_ass } from '@xiuxian/db/index'
 /**
  *
  * @param UID

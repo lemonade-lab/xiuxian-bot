@@ -1,6 +1,6 @@
-import * as DB from 'xiuxian-db'
+import * as DB from '@xiuxian/db/index'
 import { type KillListType } from './types.js'
-import { Redis } from 'xiuxian-db'
+import { Redis } from '@xiuxian/db/index'
 
 // 启动刷新时间   // 一小时刷新一次  // 响应控制
 const start_time = 30000

@@ -1,8 +1,8 @@
 import { Image, Text, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import { pictureRender } from 'xiuxian-img'
-import { showSky } from 'xiuxian-statistics'
+import { isUser } from '@xiuxian/api/index'
+import * as DB from '@xiuxian/db/index'
+import { pictureRender } from '@xiuxian/img/index'
+import { showSky } from '@xiuxian/statistics/index'
 export default OnResponse(
   async e => {
     const UID = e.UserId

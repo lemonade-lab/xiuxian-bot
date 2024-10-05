@@ -1,7 +1,7 @@
-import { isUser } from 'xiuxian-api'
+import { isUser } from '@xiuxian/api/index'
 import { Op } from 'sequelize'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
+import * as DB from '@xiuxian/db/index'
+import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

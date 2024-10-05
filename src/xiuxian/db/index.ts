@@ -1,7 +1,7 @@
-export * from './connect.js'
-export * from './models.js'
+export * from './src/connect.js'
+export * from './src/models.js'
 import { Model, ModelCtor } from 'sequelize'
-import './main.js'
+import './src/main.js'
 
 /**
  * 获取模型的属性类型

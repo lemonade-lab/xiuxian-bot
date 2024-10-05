@@ -2,8 +2,8 @@ import React from 'react'
 import { BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../core/index.js'
 import Header from './con/header.js'
-import { AttributesType, transactions } from 'xiuxian-db'
-import img_equipment from '../../../../../public/img/equipment.jpg'
+import { AttributesType, transactions } from '@xiuxian/db/index'
+import img_equipment from '@public/img/equipment.jpg'
 type PropsType = {
   data: {
     page: number

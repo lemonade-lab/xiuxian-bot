@@ -1,7 +1,12 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { isUser, ControlByBlood, killNPC, victoryCooling } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { user, user_level } from 'xiuxian-db'
+import {
+  isUser,
+  ControlByBlood,
+  killNPC,
+  victoryCooling
+} from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import { user, user_level } from '@xiuxian/db/index'
 /**
  *
  * @param grade

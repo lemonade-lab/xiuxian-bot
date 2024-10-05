@@ -1,5 +1,5 @@
-import { user } from 'xiuxian-db'
-import { Redis } from 'xiuxian-db'
+import { user } from '@xiuxian/db/index'
+import { Redis } from '@xiuxian/db/index'
 import { RedisBull, RedisBullAction } from '../config/index.js'
 import * as State from '../users/base/state.js'
 import * as Map from './map.js'

@@ -2,7 +2,7 @@ import { getHash as hash } from 'chat-space'
 import React from 'react'
 import { ThemesEmun } from '../core/index.js'
 import ListTable from './con/ListTable.js'
-import { killInformationType } from 'xiuxian-statistics'
+import { killInformationType } from '@xiuxian/statistics/index'
 
 type PropsType = {
   data: killInformationType

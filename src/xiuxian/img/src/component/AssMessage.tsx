@@ -1,8 +1,8 @@
 import React from 'react'
 import { ThemesEmun } from '../core/color.js'
 import Footer from './con/footer.js'
-import { AttributesType, user_ass } from 'xiuxian-db'
-import { Config } from 'xiuxian-core'
+import { AttributesType, user_ass } from '@xiuxian/db/index'
+import { Config } from '@xiuxian/core/index'
 import Header from './con/header.js'
 
 type PropsType = {

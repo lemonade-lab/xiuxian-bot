@@ -1,4 +1,4 @@
-import { levels, Redis } from 'xiuxian-db'
+import { levels, Redis } from '@xiuxian/db/index'
 
 /**
  *

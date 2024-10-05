@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemesEmun } from '../core/index.js'
-import { ShowSkyType } from 'xiuxian-statistics'
+import { ShowSkyType } from '@xiuxian/statistics/index'
 import ListTable from './con/ListTable.js'
 //
 type PropsType = {

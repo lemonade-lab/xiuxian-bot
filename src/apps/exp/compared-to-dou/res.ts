@@ -5,9 +5,9 @@ import {
   dualVerificationAction,
   isSideUser,
   victoryCooling
-} from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { user, user_level } from 'xiuxian-db'
+} from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import { user, user_level } from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

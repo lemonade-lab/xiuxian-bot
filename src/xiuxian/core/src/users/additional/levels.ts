@@ -1,4 +1,4 @@
-import { levels, user, user_level } from 'xiuxian-db'
+import { levels, user, user_level } from '@xiuxian/db/index'
 export const LEVELMAP = {
   1: 'gaspractice',
   2: 'bodypractice',

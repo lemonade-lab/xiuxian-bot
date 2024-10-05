@@ -1,6 +1,6 @@
-import { isUser, sendReply, victoryCooling } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
+import { isUser, sendReply, victoryCooling } from '@xiuxian/api/index'
+import * as DB from '@xiuxian/db/index'
+import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

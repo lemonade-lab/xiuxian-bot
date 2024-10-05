@@ -1,8 +1,8 @@
-import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import { skys, user_skys } from 'xiuxian-db'
+import { isUser } from '@xiuxian/api/index'
+import * as DB from '@xiuxian/db/index'
+import { skys, user_skys } from '@xiuxian/db/index'
 import { Op } from 'sequelize'
-import { Bag } from 'xiuxian-core'
+import { Bag } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

@@ -1,4 +1,4 @@
-import { user_skills, goods, user } from 'xiuxian-db'
+import { user_skills, goods, user } from '@xiuxian/db/index'
 import { talentSize } from '../base/talent.js'
 
 /**

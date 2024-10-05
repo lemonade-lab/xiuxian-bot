@@ -2,7 +2,7 @@ import { getHash as hash, BufferData } from 'chat-space'
 
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { pictureRender } from 'xiuxian-img'
+import { pictureRender } from '@xiuxian/img/index'
 
 const helpData = {}
 

@@ -1,7 +1,7 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import { Bag, operationLock, order } from 'xiuxian-core'
-import { transactions } from 'xiuxian-db'
+import { isUser } from '@xiuxian/api/index'
+import { Bag, operationLock, order } from '@xiuxian/core/index'
+import { transactions } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     const T = await operationLock(e.UserId)

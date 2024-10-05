@@ -1,5 +1,5 @@
-import { Redis } from 'xiuxian-db'
-import { createUID } from 'xiuxian-utils'
+import { Redis } from '@xiuxian/db/index'
+import { createUID } from '@xiuxian/utils/index'
 import { v4 as uuidv4 } from 'uuid'
 /**
  *

@@ -1,6 +1,6 @@
-import { isUser } from 'xiuxian-api'
-import { user_log } from 'xiuxian-db'
-import { Method } from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import { user_log } from '@xiuxian/db/index'
+import { Method } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

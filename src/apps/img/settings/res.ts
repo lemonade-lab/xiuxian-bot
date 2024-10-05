@@ -1,6 +1,6 @@
 import { Image, useSend } from 'alemonjs'
-import { Cooling } from 'xiuxian-core'
-import { pictureRender } from 'xiuxian-img'
+import { Cooling } from '@xiuxian/core/index'
+import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
     const img = await pictureRender('Defsetcomponent', {

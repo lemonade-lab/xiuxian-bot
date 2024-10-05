@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { user_bag_message } from 'xiuxian-db'
+import { isUser } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import { user_bag_message } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     // lock start

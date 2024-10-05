@@ -1,6 +1,11 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser, ControlByBlood, sendReply, controlByName } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
+import {
+  isUser,
+  ControlByBlood,
+  sendReply,
+  controlByName
+} from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
 const reStart = {}
 export default OnResponse(
   async e => {

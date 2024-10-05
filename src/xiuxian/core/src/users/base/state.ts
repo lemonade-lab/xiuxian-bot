@@ -1,4 +1,4 @@
-import { user } from 'xiuxian-db'
+import { user } from '@xiuxian/db/index'
 const ACTIONMAP = {
   0: '空闲',
   1: '闭关',

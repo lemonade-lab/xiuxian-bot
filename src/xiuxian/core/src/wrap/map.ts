@@ -1,5 +1,5 @@
 import { Op } from 'sequelize'
-import { map_point, map_position } from 'xiuxian-db'
+import { map_point, map_position } from '@xiuxian/db/index'
 /**
  * 模糊搜索名字并判断是否在此地
  * @param action

@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import { Bag, Method } from 'xiuxian-core'
-import { user } from 'xiuxian-db'
+import { isUser } from '@xiuxian/api/index'
+import { Bag, Method } from '@xiuxian/core/index'
+import { user } from '@xiuxian/db/index'
 const MoenySize = 10
 export default OnResponse(
   async e => {

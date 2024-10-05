@@ -78,27 +78,27 @@ yarn app
 
 ## dev
 
-- xiuxian-api
+- @xiuxian/api/index.ts
 
 针对于 alemonjs 做消息处理函数的抽简
 
-- xiuxian-db
+- @xiuxian/db/src/index
 
 数据库模型调用
 
-- xiuxian-img
+- @xiuxian/img/src/index
 
 tsx组件及截图
 
-- xiuxian-core
+- @xiuxian/core/index.ts
 
 游戏核心处理模型
 
-- xiuxian-statistics
+- @xiuxian/statistics/index.js
 
 数据统计函数
 
-- xiuxian-utils
+- @xiuxian/utils/index.js
 
 工具类
 

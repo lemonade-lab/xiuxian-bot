@@ -1,7 +1,7 @@
-import { showUserMsg } from 'xiuxian-api'
-import { user } from 'xiuxian-db'
-import { Player, Burial, Cooling } from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
+import { showUserMsg } from '@xiuxian/api/index'
+import { user } from '@xiuxian/db/index'
+import { Player, Burial, Cooling } from '@xiuxian/core/index'
+import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

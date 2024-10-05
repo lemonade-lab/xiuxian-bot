@@ -1,8 +1,8 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import { Bag, operationLock, order } from 'xiuxian-core'
-import { Redis, transactions, user_bag } from 'xiuxian-db'
-import { createUID } from 'xiuxian-img'
+import { isUser } from '@xiuxian/api/index'
+import { Bag, operationLock, order } from '@xiuxian/core/index'
+import { Redis, transactions, user_bag } from '@xiuxian/db/index'
+import { createUID } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
     // 锁定

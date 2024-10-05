@@ -1,6 +1,6 @@
-import * as DB from 'xiuxian-db'
+import * as DB from '@xiuxian/db/index'
 import { Op } from 'sequelize'
-import { Talent, Equipment } from 'xiuxian-core'
+import { Talent, Equipment } from '@xiuxian/core/index'
 
 /**
  * 个人信息

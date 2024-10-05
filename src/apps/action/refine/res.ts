@@ -1,7 +1,7 @@
-import { isUser } from 'xiuxian-api'
-import { fate_level, user_fate, user_level } from 'xiuxian-db'
-import { Bag, Levels } from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import { fate_level, user_fate, user_level } from '@xiuxian/db/index'
+import { Bag, Levels } from '@xiuxian/core/index'
+import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

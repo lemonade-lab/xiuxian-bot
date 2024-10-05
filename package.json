@@ -8,8 +8,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--loader ./loader.mjs --no-warnings' alemonjs dev --input src/index.ts",
-    "build": "alemonjs build --input src/index.ts",
+    "dev": "alemonjs dev",
+    "build": "alemonjs build",
+    "open": "alemonjs start --input ./lib/src/index.js",
     "img-dev": "NODE_OPTIONS='--loader alemonjs/loader --no-warnings' tsxp dev",
     "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
     "css-m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
@@ -27,7 +28,7 @@
     "@alemonjs/qq": "^0.0.3",
     "@alemonjs/qq-group-bot": "^0.0.4",
     "@alemonjs/qq-guild-bot": "^0.0.4",
-    "alemonjs": "2.0.0-rc.13",
+    "alemonjs": "2.0.0-rc.14",
     "axios": "^1.6.5",
     "bullmq": "^4.12.7",
     "chat-space": "0.0.4",
@@ -39,13 +40,7 @@
     "puppeteer": "22",
     "react-puppeteer": "^1.1.0",
     "sequelize": "^6.33.0",
-    "uuid": "^10.0.0",
-    "xiuxian-api": "link:src/xiuxian/api",
-    "xiuxian-core": "link:src/xiuxian/core",
-    "xiuxian-db": "link:src/xiuxian/db",
-    "xiuxian-img": "link:src/xiuxian/img",
-    "xiuxian-statistics": "link:src/xiuxian/statistics",
-    "xiuxian-utils": "link:src/xiuxian/utils"
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/css-modules": "^1.0.5",
@@ -54,7 +49,6 @@
     "@types/qs": "^6.9.9",
     "@types/uuid": "^10.0.0",
     "@types/ws": "^8.5.5",
-    "esbuild-plugin-file-path-extensions": "^2.1.3",
     "husky": "^9.0.11",
     "pm2": "^5.3.0",
     "prettier": "^3.0.3",

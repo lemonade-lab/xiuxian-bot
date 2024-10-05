@@ -1,5 +1,5 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
+import { isUser } from '@xiuxian/api/index'
 export default OnResponse(
   async e => {
     const UID = e.UserId

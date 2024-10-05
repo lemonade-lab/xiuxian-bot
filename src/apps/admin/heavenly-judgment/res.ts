@@ -1,7 +1,7 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { isSideUser } from 'xiuxian-api'
-import { Bag } from 'xiuxian-core'
-import { goods } from 'xiuxian-db'
+import { isSideUser } from '@xiuxian/api/index'
+import { Bag } from '@xiuxian/core/index'
+import { goods } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     if (!e.IsMaster) return

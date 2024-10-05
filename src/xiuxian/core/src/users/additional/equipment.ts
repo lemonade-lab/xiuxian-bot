@@ -5,7 +5,7 @@ import {
   user_equipment,
   user_fate,
   user
-} from 'xiuxian-db'
+} from '@xiuxian/db/index'
 
 /**
  * 更新面板

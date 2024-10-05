@@ -1,4 +1,4 @@
-import { user_bag, user_bag_message } from 'xiuxian-db'
+import { user_bag, user_bag_message } from '@xiuxian/db/index'
 import { literal } from 'sequelize'
 import { searchAllThing } from '../../wrap/goods.js'
 import { acquireLock, releaseLock } from '../../wrap/lock.js'

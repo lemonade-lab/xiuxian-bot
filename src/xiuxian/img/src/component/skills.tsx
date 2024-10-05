@@ -1,10 +1,10 @@
 import React from 'react'
 import { BackgroundImage } from 'react-puppeteer'
 import { createUID, ThemesEmun } from '../core/index.js'
-import { SkillInformationType } from 'xiuxian-statistics'
+import { SkillInformationType } from '@xiuxian/statistics/index'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
-import img_equipment from '../../../../../public/img/equipment.jpg'
+import img_equipment from '@public/img/equipment.jpg'
 type PropsType = {
   data: SkillInformationType
   theme?: ThemesEmun

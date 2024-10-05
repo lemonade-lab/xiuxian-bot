@@ -1,4 +1,4 @@
-import { monster } from 'xiuxian-db'
+import { monster } from '@xiuxian/db/index'
 import { cache, get, set } from './resources.js'
 import { RedisMonster } from '../config/index.js'
 /**

@@ -2,9 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@src/*": ["src/*"],
+      "@xiuxian/*": ["src/xiuxian/*"],
+      "@public/*": ["public/*"]
     }
   },
-  "include": ["src/**/*", "tsxp.config.tsx"],
+  "include": ["src/**/*", "public/**/*", "alemon.config.ts", "tsxp.config.tsx"],
   "extends": "alemonjs/tsconfig.json"
 }

@@ -6,10 +6,10 @@ import {
   dualVerificationAction,
   isSideUser,
   victoryCooling
-} from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
-import * as DB from 'xiuxian-db'
+} from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import { operationLock } from '@xiuxian/core/index'
+import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     // lock

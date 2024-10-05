@@ -1,4 +1,4 @@
-import { ControlByBlood, isUser, showAction } from 'xiuxian-api'
+import { ControlByBlood, isUser, showAction } from '@xiuxian/api/index'
 export default OnResponse(
   async e => {
     const UID = e.UserId

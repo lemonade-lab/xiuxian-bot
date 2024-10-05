@@ -1,4 +1,4 @@
-import { goods } from 'xiuxian-db'
+import { goods } from '@xiuxian/db/index'
 import { literal } from 'sequelize'
 
 /**

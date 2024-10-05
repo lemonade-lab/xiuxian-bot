@@ -1,6 +1,6 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
     const UID = e.UserId

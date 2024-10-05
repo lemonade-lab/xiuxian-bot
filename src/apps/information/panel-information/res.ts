@@ -1,8 +1,8 @@
-import { createUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import * as Server from 'xiuxian-statistics'
-import { user } from 'xiuxian-db'
-import { pictureRender } from 'xiuxian-img'
+import { createUser } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import * as Server from '@xiuxian/statistics/index'
+import { user } from '@xiuxian/db/index'
+import { pictureRender } from '@xiuxian/img/index'
 import { Image, Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

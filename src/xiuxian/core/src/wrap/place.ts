@@ -1,4 +1,4 @@
-import { Redis } from 'xiuxian-db'
+import { Redis } from '@xiuxian/db/index'
 import { ReadiName } from '../config'
 export async function get(key: string | number) {
   return await Redis.get(`${ReadiName}:${key}:lace`)

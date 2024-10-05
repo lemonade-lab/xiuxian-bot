@@ -1,4 +1,4 @@
-import { user, user_level } from 'xiuxian-db'
+import { user, user_level } from '@xiuxian/db/index'
 import {
   Cooling,
   Method,
@@ -11,10 +11,10 @@ import {
   Levels,
   Bag,
   Equipment
-} from 'xiuxian-core'
-import { urlHelpCache } from 'xiuxian-utils'
-import { personalInformation } from 'xiuxian-statistics'
-import { pictureRender } from 'xiuxian-img'
+} from '@xiuxian/core/index'
+import { urlHelpCache } from '@xiuxian/utils/index'
+import { personalInformation } from '@xiuxian/statistics/index'
+import { pictureRender } from '@xiuxian/img/index'
 import { Image, Text, useSend } from 'alemonjs'
 
 const reStart = {}

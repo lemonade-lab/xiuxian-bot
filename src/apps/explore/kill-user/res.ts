@@ -4,9 +4,9 @@ import {
   sendReply,
   killNPC,
   victoryCooling
-} from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import * as DB from 'xiuxian-db'
+} from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import * as DB from '@xiuxian/db/index'
 
 import { Text, useParse, useSend } from 'alemonjs'
 

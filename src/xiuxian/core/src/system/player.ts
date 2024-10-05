@@ -13,7 +13,7 @@ import {
   user_skys,
   user_buy_log,
   user_ass
-} from 'xiuxian-db'
+} from '@xiuxian/db/index'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
 

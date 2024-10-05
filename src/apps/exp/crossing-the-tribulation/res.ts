@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser, punishLevel } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import * as DB from 'xiuxian-db'
+import { isUser, punishLevel } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     // lock start

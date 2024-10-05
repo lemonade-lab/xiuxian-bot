@@ -2,7 +2,7 @@ import React from 'react'
 import { createUID, ThemesEmun } from '../core/index.js'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
-import { EquipmentInformationType } from 'xiuxian-statistics'
+import { EquipmentInformationType } from '@xiuxian/statistics/index'
 
 type PropsType = {
   data: EquipmentInformationType

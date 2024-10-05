@@ -1,7 +1,7 @@
 import { Image, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import { pictureRender } from 'xiuxian-img'
-import * as Server from 'xiuxian-statistics'
+import { isUser } from '@xiuxian/api/index'
+import { pictureRender } from '@xiuxian/img/index'
+import * as Server from '@xiuxian/statistics/index'
 export default OnResponse(
   async e => {
     //

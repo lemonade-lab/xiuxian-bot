@@ -1,8 +1,13 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { Control, showUserMsg, victoryCooling, isUser } from 'xiuxian-api'
-import { Config } from 'xiuxian-core'
-import * as GameApi from 'xiuxian-core'
-import { user } from 'xiuxian-db'
+import {
+  Control,
+  showUserMsg,
+  victoryCooling,
+  isUser
+} from '@xiuxian/api/index'
+import { Config } from '@xiuxian/core/index'
+import * as GameApi from '@xiuxian/core/index'
+import { user } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     //

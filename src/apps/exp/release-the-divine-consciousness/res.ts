@@ -1,6 +1,6 @@
-import { isUser, ControlByBlood } from 'xiuxian-api'
+import { isUser, ControlByBlood } from '@xiuxian/api/index'
 import { Op } from 'sequelize'
-import * as DB from 'xiuxian-db'
+import * as DB from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

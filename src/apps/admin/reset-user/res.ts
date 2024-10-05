@@ -1,6 +1,6 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { showUserMsg } from 'xiuxian-api'
-import { Player } from 'xiuxian-core'
+import { showUserMsg } from '@xiuxian/api/index'
+import { Player } from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
     if (!e.IsMaster) return

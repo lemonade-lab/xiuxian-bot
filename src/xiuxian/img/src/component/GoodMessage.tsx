@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemesEmun } from '../core/index.js'
-import { AttributesType, goods } from 'xiuxian-db'
+import { AttributesType, goods } from '@xiuxian/db/index'
 
 type PropsType = {
   data: AttributesType<typeof goods>

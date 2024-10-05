@@ -1,7 +1,7 @@
-import { isUser } from 'xiuxian-api'
-import { Bag, Levels, operationLock } from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import { Bag, Levels, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { user_fate, user_level } from 'xiuxian-db'
+import { user_fate, user_level } from '@xiuxian/db/index'
 const reGiveup = {}
 export default OnResponse(
   async e => {

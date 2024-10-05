@@ -1,4 +1,4 @@
-import { map_treasure, map_position } from 'xiuxian-db'
+import { map_treasure, map_position } from '@xiuxian/db/index'
 import { literal } from 'sequelize'
 
 /**

@@ -1,7 +1,7 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { isUser, controlByName } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
+import { isUser, controlByName } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import { operationLock } from '@xiuxian/core/index'
 
 const stones = ['下品灵石', '中品灵石', '上品灵石', '极品灵石']
 

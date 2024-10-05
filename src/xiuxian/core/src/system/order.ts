@@ -1,4 +1,4 @@
-import { transactions, transactions_logs } from 'xiuxian-db'
+import { transactions, transactions_logs } from '@xiuxian/db/index'
 import { acquireLock, releaseLock } from '../wrap/lock.js'
 
 /**

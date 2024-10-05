@@ -1,6 +1,6 @@
-import { isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import { operationLock } from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import * as DB from '@xiuxian/db/index'
+import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

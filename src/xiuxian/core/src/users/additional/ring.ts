@@ -1,4 +1,4 @@
-import { user_ring } from 'xiuxian-db'
+import { user_ring } from '@xiuxian/db/index'
 import { searchAllThing } from '../../wrap/goods.js'
 import { literal } from 'sequelize'
 import { acquireLock, releaseLock } from '../../wrap/lock.js'

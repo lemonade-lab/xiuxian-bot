@@ -1,7 +1,7 @@
 import React from 'react'
 import { BackgroundImage } from 'react-puppeteer'
 import { ThemesEmun } from '../core/index.js'
-import img_equipment from '../../../../../public/img/equipment.jpg'
+import img_equipment from '@public/img/equipment.jpg'
 type PropsType = {
   data: {
     group: string

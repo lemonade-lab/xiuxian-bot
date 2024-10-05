@@ -1,5 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import * as DB from 'xiuxian-db'
+import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     const text = useParse(e.Megs, 'Text')

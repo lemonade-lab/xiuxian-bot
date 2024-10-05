@@ -1,5 +1,5 @@
 import { Image, useSend } from 'alemonjs'
-import { lcalCacheImage } from 'xiuxian-utils'
+import { lcalCacheImage } from '@xiuxian/utils/index'
 export default OnResponse(
   async e => {
     // 不变的图片做缓存处理

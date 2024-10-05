@@ -1,7 +1,7 @@
-import { isUser } from 'xiuxian-api'
+import { isUser } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
-import { fate_level, goods, user_fate, user_level } from 'xiuxian-db'
-import { Goods, Talent } from 'xiuxian-core'
+import { fate_level, goods, user_fate, user_level } from '@xiuxian/db/index'
+import { Goods, Talent } from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
     // 操作锁

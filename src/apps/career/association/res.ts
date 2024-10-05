@@ -1,5 +1,5 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser, controlByName } from 'xiuxian-api'
+import { isUser, controlByName } from '@xiuxian/api/index'
 /**
  * 职业经验够了之后
  * 需要前往协会交付灵石来考核

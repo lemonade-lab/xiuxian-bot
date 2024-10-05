@@ -2,7 +2,7 @@ import React from 'react'
 import { createUID, nameMap, ThemesEmun } from '../core/index.js'
 import Nav from './con/Naved.js'
 import Header from './con/header.js'
-import { BackpackInformationType } from 'xiuxian-statistics'
+import { BackpackInformationType } from '@xiuxian/statistics/index'
 import Footer from './con/footer.js'
 
 type PropsType = {

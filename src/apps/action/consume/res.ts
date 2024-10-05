@@ -1,7 +1,19 @@
-import { showUserMsg, victoryCooling, isUser, reCreateMsg } from 'xiuxian-api'
-import { map_position, user, user_level } from 'xiuxian-db'
-import { Bag, Burial, Cooling, Levels, Skills, Talent } from 'xiuxian-core'
-import { operationLock } from 'xiuxian-core'
+import {
+  showUserMsg,
+  victoryCooling,
+  isUser,
+  reCreateMsg
+} from '@xiuxian/api/index'
+import { map_position, user, user_level } from '@xiuxian/db/index'
+import {
+  Bag,
+  Burial,
+  Cooling,
+  Levels,
+  Skills,
+  Talent
+} from '@xiuxian/core/index'
+import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 
 /**

@@ -1,8 +1,8 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
-import { ass } from 'xiuxian-db'
-import { pictureRender } from 'xiuxian-img'
+import { isUser } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
+import { ass } from '@xiuxian/db/index'
+import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
     const UID = e.UserId

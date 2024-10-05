@@ -1,6 +1,6 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { controlByName, isUser } from 'xiuxian-api'
-import * as GameApi from 'xiuxian-core'
+import { controlByName, isUser } from '@xiuxian/api/index'
+import * as GameApi from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
     // lock start

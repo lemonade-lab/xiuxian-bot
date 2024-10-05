@@ -1,4 +1,4 @@
-import { user } from 'xiuxian-db'
+import { user } from '@xiuxian/db/index'
 
 /**
  * 得到用户名称

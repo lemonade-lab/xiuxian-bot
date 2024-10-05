@@ -1,7 +1,7 @@
-import { isUser } from 'xiuxian-api'
-import { pictureRender } from 'xiuxian-img'
-import { backpackInformation } from 'xiuxian-statistics'
-import { Goods } from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import { pictureRender } from '@xiuxian/img/index'
+import { backpackInformation } from '@xiuxian/statistics/index'
+import { Goods } from '@xiuxian/core/index'
 import { Image, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

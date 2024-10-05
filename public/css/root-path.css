@@ -1,15 +1,15 @@
 :root {
-  --background-image: url('@xiuxian/public/img/24.jpg');
+  --background-image: url('@public/img/24.jpg');
 }
 
 #root[data-theme='blue'] {
-  --background-image: url('@xiuxian/public/img/28.jpg');
+  --background-image: url('@public/img/28.jpg');
 }
 
 #root[data-theme='purple'] {
-  --background-image: url('@xiuxian/public/img/03.jpg');
+  --background-image: url('@public/img/03.jpg');
 }
 
 #root[data-theme='red'] {
-  --background-image: url('@xiuxian/public/img/00.jpg');
+  --background-image: url('@public/img/00.jpg');
 }

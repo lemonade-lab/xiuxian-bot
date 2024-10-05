@@ -1,8 +1,8 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import { operationLock } from 'xiuxian-core'
-import { transactions } from 'xiuxian-db'
-import { pictureRender } from 'xiuxian-img'
+import { isUser } from '@xiuxian/api/index'
+import { operationLock } from '@xiuxian/core/index'
+import { transactions } from '@xiuxian/db/index'
+import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
     // lock

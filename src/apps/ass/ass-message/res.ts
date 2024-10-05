@@ -1,6 +1,6 @@
-import { isUser } from 'xiuxian-api'
-import { pictureRender } from 'xiuxian-img'
-import { ass, ass_typing, user_ass } from 'xiuxian-db'
+import { isUser } from '@xiuxian/api/index'
+import { pictureRender } from '@xiuxian/img/index'
+import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import { Image, Text, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {

@@ -1,7 +1,7 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { ControlByBlood, isUser, victoryCooling } from 'xiuxian-api'
-import { Boss, Fight, operationLock } from 'xiuxian-core'
-import { Redis, user } from 'xiuxian-db'
+import { ControlByBlood, isUser, victoryCooling } from '@xiuxian/api/index'
+import { Boss, Fight, operationLock } from '@xiuxian/core/index'
+import { Redis, user } from '@xiuxian/db/index'
 // 攻击
 export default OnResponse(
   async e => {

@@ -1,7 +1,7 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { pictureRender } from 'xiuxian-img'
+import { pictureRender } from '@xiuxian/img/index'
 const helpData = {}
 const dir = join(process.cwd(), 'public', 'defset', 'base_help.json')
 export default OnResponse(

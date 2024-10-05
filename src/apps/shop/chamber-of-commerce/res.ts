@@ -1,6 +1,6 @@
-import { controlByName, sendReply, isUser } from 'xiuxian-api'
-import * as DB from 'xiuxian-db'
-import * as GameApi from 'xiuxian-core'
+import { controlByName, sendReply, isUser } from '@xiuxian/api/index'
+import * as DB from '@xiuxian/db/index'
+import * as GameApi from '@xiuxian/core/index'
 import { useParse } from 'alemonjs'
 export default OnResponse(
   async e => {

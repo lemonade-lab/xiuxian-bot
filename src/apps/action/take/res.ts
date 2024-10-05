@@ -1,6 +1,6 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { isUser } from 'xiuxian-api'
-import { Bag, Equipment, Levels, operationLock } from 'xiuxian-core'
+import { isUser } from '@xiuxian/api/index'
+import { Bag, Equipment, Levels, operationLock } from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
     // lock
