@@ -1,9 +1,7 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import { pictureRender } from '@xiuxian/img/index'
+import josn_base_help from '@public/defset/base_help.json'
 const helpData = {}
-const dir = join(process.cwd(), 'public', 'defset', 'base_help.json')
 export default OnResponse(
   async e => {
     const text = useParse(e.Megs, 'Text')
@@ -20,7 +18,7 @@ export default OnResponse(
       return
     }
     //
-    const data = JSON.parse(readFileSync(dir, 'utf-8'))
+    const data = josn_base_help
     //
     if (!Array.isArray(data)) {
       Send(Text('数据读取错误'))
@@ -35,7 +33,7 @@ export default OnResponse(
     //
     helpData[name] = await pictureRender('HelpComponent', {
       name: 'help' + name,
-      props: { data: [db] }
+      props: { data: [db as any] }
     }).catch(console.error)
     Send(Image(helpData[name], 'buffer'))
   },

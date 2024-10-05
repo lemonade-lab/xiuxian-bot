@@ -1,9 +1,7 @@
 import { Image, useSend } from 'alemonjs'
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import { pictureRender } from '@xiuxian/img/index'
+import json_update from '@public/defset/update.json'
 const helpData = {}
-const dir = join(process.cwd(), 'public', 'defset', 'update.json')
 export default OnResponse(
   async e => {
     const name = 'help-update'
@@ -12,7 +10,7 @@ export default OnResponse(
       Send(Image(helpData[name], 'buffer'))
       return
     }
-    const data = JSON.parse(readFileSync(dir, 'utf-8'))
+    const data = json_update
     // 得 buffer
     helpData[name] = await pictureRender('UpdateComponent', {
       name: name,

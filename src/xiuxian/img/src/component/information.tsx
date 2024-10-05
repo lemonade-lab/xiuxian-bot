@@ -19,7 +19,7 @@ export default function App({ data, theme }: PropsType) {
         url={img_information}
       >
         {/* 头部 */}
-        <div className="grid">
+        <div className="gridv">
           <BackgroundImage className="" size={'100% 100%'} url={img_left}>
             <div className="">
               <div className=" text-white text-2xl p-[5px]">{UID}</div>

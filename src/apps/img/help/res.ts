@@ -1,9 +1,7 @@
 import { Image, useParse, useSend } from 'alemonjs'
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import { pictureRender } from '@xiuxian/img/index'
+import josn_base_help from '@public/defset/base_help.json'
 const helpData = {}
-const dir = join(process.cwd(), 'public', 'defset', 'base_help.json')
 export default OnResponse(
   async e => {
     const text = useParse(e.Megs, 'Text')
@@ -16,10 +14,10 @@ export default OnResponse(
       Send(Image(helpData[name], 'buffer'))
       return
     }
-    const data = JSON.parse(readFileSync(dir, 'utf-8'))
+    const data = josn_base_help
     helpData[name] = await pictureRender('HelpComponent', {
       name: name,
-      props: { data: [data[n - 1] ?? data[0]] }
+      props: { data: [data[n - 1] ?? (data[0] as any)] }
     }).catch(console.error)
     Send(Image(helpData[name], 'buffer'))
     return

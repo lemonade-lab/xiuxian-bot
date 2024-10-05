@@ -7,8 +7,8 @@ module.exports = {
     // 增加浏览器前缀
     'autoprefixer': {},
     // 压缩css
-    'cssnano': {
-      preset: 'default'
-    }
+    ...(process.argv.includes('--minify')
+      ? { cssnano: { preset: 'default' } }
+      : {})
   }
 }

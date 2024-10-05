@@ -1,3 +1,4 @@
+import './src/postcss.js'
 import { defineConfig } from 'alemonjs'
 import { alias, files } from 'alemonjs/plugins'
 import { fileURLToPath } from 'url'

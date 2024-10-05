@@ -1,31 +1,18 @@
 import { getHash as hash, BufferData } from 'chat-space'
-
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import { pictureRender } from '@xiuxian/img/index'
-
+import json_update from '@public/defset/update.json'
+import json_base_help from '@public/defset/base_help.json'
 const helpData = {}
-
-/**
- *
- * @param name
- * @returns
- */
-function getJson(name: string) {
-  return JSON.parse(
-    readFileSync(
-      join(process.cwd(), 'public', 'defset', `${name}.json`),
-      'utf-8'
-    )
-  )
-}
-
 /**
  * 帮助图缓存
  * @param name
  * @returns
  */
 export async function urlHelpCache(name: string) {
+  const names = {
+    base_help: json_base_help,
+    update: json_update
+  }
   // 缓存不存在
   if (Object.prototype.hasOwnProperty.call(helpData, name)) {
     // 返回
@@ -35,7 +22,7 @@ export async function urlHelpCache(name: string) {
   helpData[name] = await pictureRender('HelpComponent', {
     name: 'help',
     props: {
-      data: await getJson(name)
+      data: names[name]
     }
   }).catch((err: any) => {
     // 发生错误
@@ -54,7 +41,7 @@ const ABuffer = new BufferData()
 export function lcalCacheImage(name: string) {
   // 缓存不存在
   if (!Object.prototype.hasOwnProperty.call(helpData, name)) {
-    const img = ABuffer.getPath(join(process.cwd(), name))
+    const img = ABuffer.getPath(name)
     if (!img) return
     helpData[name] = img
   }

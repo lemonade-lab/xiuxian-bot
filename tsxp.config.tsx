@@ -1,8 +1,6 @@
 import React from 'react'
-import { join } from 'path'
 import { defineConfig } from 'react-puppeteer'
-import { readFileSync } from 'fs'
-import { PictureOptions, Component } from '@xiuxian/img/src/index.tsx'
+import { PictureOptions, Component } from '@xiuxian/img/index'
 import {
   personalInformation,
   backpackInformation,
@@ -12,14 +10,10 @@ import {
   skillInformation
 } from '@xiuxian/statistics/index.ts'
 import { Goods, Cooling } from '@xiuxian/core/index.ts'
-import { ass, ass_typing, user_ass } from '@xiuxian/db/src/index.ts'
-
-const e = {
-  UserId: '563384AF707685C9A82DA5DDFAF96D8A',
-  UserAvatar:
-    'http://thirdqq.qlogo.cn/g?b=oidb&k=Gc4MLAaGWH3cV3Fxg9vTqQ&kti=ZJ2Q5gAAAAA&s=0&t=1687682796'
-}
-
+import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
+import update_josn from '@public/defset/update.json'
+import json_base_help from '@public/defset/base_help.json'
+import e from '@public/defset/user.json'
 export default defineConfig([
   {
     url: '/AssMessage',
@@ -91,15 +85,7 @@ export default defineConfig([
       ...PictureOptions,
       // body 内容
       html_body: (
-        <Component.HelpComponent
-          theme={'dark'}
-          data={JSON.parse(
-            readFileSync(
-              join(process.cwd(), 'public', 'defset', 'base_help.json'),
-              'utf-8'
-            )
-          )}
-        />
+        <Component.HelpComponent theme={'dark'} data={json_base_help as any} />
       )
     }
   },
@@ -108,17 +94,7 @@ export default defineConfig([
     options: {
       ...PictureOptions,
       // body 内容
-      html_body: (
-        <Component.UpdateComponent
-          theme={'dark'}
-          data={JSON.parse(
-            readFileSync(
-              join(process.cwd(), 'public', 'defset', 'update.json'),
-              'utf-8'
-            )
-          )}
-        />
-      )
+      html_body: <Component.UpdateComponent theme={'dark'} data={update_josn} />
     }
   },
   {
