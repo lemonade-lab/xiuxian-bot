@@ -74,7 +74,6 @@ export const esBuildNodeImage = ({
     }
   }
 }
-
 const inputFiles = getFiles(join(process.cwd(), 'src'))
 esbuild.build({
   entryPoints: inputFiles,

@@ -21,50 +21,53 @@ export default function ListTable<
   theme: ThemesEmun
 }) {
   return (
-    <div id="root" data-theme={theme}>
-      <BackgroundImage className="w-full" url={img_information}>
-        <div className="p-4">
-          <Header list={['/通天塔', '/杀神榜']} />
-        </div>
-        {data.map((item, index) => (
-          <div key={index} className="flex flex-col ">
-            {
-              // 人物信息
-            }
-            <BackgroundImage className="flex" url={img_left} size={'100% 100%'}>
-              {children(item)}
-              <div className="size-80">
-                <BackgroundImage
-                  className="flex w-full  h-full"
-                  size={'100% 100%'}
-                  url={img_right}
-                >
-                  <img
-                    className="rounded-full size-48 m-auto"
-                    src={item.UserAvatar}
-                  />
-                </BackgroundImage>
-              </div>
-            </BackgroundImage>
-            {
-              // 个性签名
-            }
-            {item?.autograph && (
-              <div className="w-full  px-8 text-white text-2xl">
-                <div className="pb-5    ">
-                  <div className="bg-black rounded-t-xl bg-opacity-40 p-3">
-                    {'[修心道宣]'}
-                  </div>
-                  <div className="bg-black rounded-b-xl   bg-opacity-20  p-3">
-                    {item.autograph}
-                  </div>
+    <BackgroundImage
+      id="root"
+      data-theme={theme}
+      className="w-full"
+      url={img_information}
+    >
+      <div className="p-4">
+        <Header list={['/通天塔', '/杀神榜']} />
+      </div>
+      {data.map((item, index) => (
+        <div key={index} className="flex flex-col ">
+          {
+            // 人物信息
+          }
+          <BackgroundImage className="flex" url={img_left} size={'100% 100%'}>
+            {children(item)}
+            <div className="size-80">
+              <BackgroundImage
+                className="flex w-full  h-full"
+                size={'100% 100%'}
+                url={img_right}
+              >
+                <img
+                  className="rounded-full size-48 m-auto"
+                  src={item.UserAvatar}
+                />
+              </BackgroundImage>
+            </div>
+          </BackgroundImage>
+          {
+            // 个性签名
+          }
+          {item?.autograph && (
+            <div className="w-full  px-8 text-white text-2xl">
+              <div className="pb-5    ">
+                <div className="bg-black rounded-t-xl bg-opacity-40 p-3">
+                  {'[修心道宣]'}
+                </div>
+                <div className="bg-black rounded-b-xl   bg-opacity-20  p-3">
+                  {item.autograph}
                 </div>
               </div>
-            )}
-          </div>
-        ))}
-        <div className="min-h-10"></div>
-      </BackgroundImage>
-    </div>
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="min-h-10"></div>
+    </BackgroundImage>
   )
 }

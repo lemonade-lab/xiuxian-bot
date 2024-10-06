@@ -8,11 +8,6 @@
       "@assets/*": ["src/assets/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "alemon.config.ts",
-    "jsxp.config.tsx",
-    "packages/**/*"
-  ],
+  "include": ["src/**/*", "alemon.config.ts", "jsxp.config.tsx"],
   "extends": "alemonjs/tsconfig.json"
 }

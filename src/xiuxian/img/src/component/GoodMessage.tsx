@@ -15,12 +15,7 @@ export default function GoodMessage({ data, theme }: PropsType) {
         <LinkStyleSheet src={css_output} />
       </head>
       <body>
-        <ThemeBackground
-          id="root"
-          className="bg-cover p-4"
-          data-theme={theme}
-          theme={theme}
-        >
+        <ThemeBackground className="bg-cover p-4" theme={theme}>
           <main className="p-4">
             <div className="bg-black bg-opacity-30 rounded-xl">
               <div className=" bg-[#2c447594] text-white text-2xl p-2">

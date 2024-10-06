@@ -27,12 +27,7 @@ export default function App({ data, theme }: PropsType) {
         <LinkStyleSheet src={css_output} />
       </head>
       <body>
-        <ThemeBackground
-          id="root"
-          className="bg-cover p-4"
-          data-theme={theme}
-          theme={theme}
-        >
+        <ThemeBackground className="bg-cover p-4" theme={theme}>
           <div className="px-4">
             <Header list={['/修仙帮助', '/修仙配置']} />
           </div>

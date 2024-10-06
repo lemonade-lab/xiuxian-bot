@@ -1,10 +1,10 @@
 import { getHash as hash } from 'chat-space'
 import React from 'react'
-import { ThemesEmun } from '../core/index.js'
 import ListTable from './con/ListTable.js'
 import { killInformationType } from '@xiuxian/statistics/index'
 import css_output from '@public/output.css'
 import { LinkStyleSheet } from 'jsxp'
+import { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {
   data: killInformationType
   theme?: ThemesEmun

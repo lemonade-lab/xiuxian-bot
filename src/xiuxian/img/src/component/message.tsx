@@ -17,7 +17,7 @@ export default function App({ data, theme }: PropsType) {
         <LinkStyleSheet src={css_output} />
       </head>
       <body>
-        <ThemeBackground id="root" data-theme={theme} theme={theme}>
+        <ThemeBackground theme={theme}>
           <NavMessage data={data} />
           {
             //

@@ -6,9 +6,9 @@ module.exports = {
     'tailwindcss': {},
     // 增加浏览器前缀
     'autoprefixer': {},
-    // 内敛png、jpg、gif、svg
+    // 内联url资源
     'postcss-url': {
-      url: 'copy' // 'inline'
+      url: 'inline' // 'copy'
     },
     // 压缩css
     ...(process.argv.includes('--minify')

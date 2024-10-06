@@ -21,7 +21,7 @@ export default function TransactionMessage({ data, theme }: PropsType) {
         <LinkStyleSheet src={css_output} />
       </head>
       <body>
-        <ThemeBackground id="root" data-theme={theme} theme={theme}>
+        <ThemeBackground theme={theme}>
           <BackgroundImage className="w-full p-4" url={img_equipment}>
             <div className="p-4">
               <Header

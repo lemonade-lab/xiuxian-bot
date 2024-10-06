@@ -27,7 +27,7 @@
     "@alemonjs/qq-group-bot": "^0.0.4",
     "@alemonjs/qq-guild-bot": "^0.0.4",
     "alemonjs": "2.0.0-rc.16",
-    "jsxp": "file:packages/jsxp",
+    "jsxp": "1.0.0-rc.0",
     "axios": "^1.6.5",
     "bullmq": "^4.12.7",
     "chat-space": "0.0.4",

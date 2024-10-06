@@ -32,7 +32,7 @@ export default function ThemeBackground({
   ...props
 }: DivBackgroundImageProps) {
   return (
-    <BackgroundImage url={getBG(theme)} {...props}>
+    <BackgroundImage id="root" data-theme={theme} url={getBG(theme)} {...props}>
       {children}
     </BackgroundImage>
   )

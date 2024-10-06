@@ -23,12 +23,7 @@ export default function App({ data, theme }: PropsType) {
         <LinkStyleSheet src={css_output} />
       </head>
       <body>
-        <ThemeBackground
-          id="root"
-          className="bg-cover p-4"
-          data-theme={theme}
-          theme={theme}
-        >
+        <ThemeBackground className="bg-cover p-4" theme={theme}>
           <div className="px-4">
             <Header list={['/装备+装备名', '/卸下+装备名']} />
           </div>

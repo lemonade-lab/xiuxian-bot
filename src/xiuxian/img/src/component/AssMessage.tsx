@@ -19,7 +19,7 @@ export default function AssMessage({ data, theme }: PropsType) {
         <LinkStyleSheet src={css_output} />
       </head>
       <body>
-        <ThemeBackground id="root" data-theme={theme} theme={theme}>
+        <ThemeBackground theme={theme}>
           <div className="px-4">
             <Header list={['/势力信息', '/更新公告']} />
           </div>
