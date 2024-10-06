@@ -1,10 +1,10 @@
 import React from 'react'
-import { BackgroundImage } from 'react-puppeteer'
-import { ThemesEmun } from '../../core/index.js'
+import { BackgroundImage } from 'jsxp'
+import { ThemesEmun } from './ThemeBackground.js'
 import Header from './header.js'
-import img_information from '@public/img/information.jpg'
-import img_left from '@public/img/left.jpg'
-import img_right from '@public/img/right.jpg'
+import img_information from '@src/assets/img/information.jpg'
+import img_left from '@src/assets/img/left.jpg'
+import img_right from '@src/assets/img/right.jpg'
 export default function ListTable<
   T extends {
     UserAvatar: string

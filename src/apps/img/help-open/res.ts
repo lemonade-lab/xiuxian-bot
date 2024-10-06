@@ -1,6 +1,6 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
-import josn_base_help from '@public/defset/base_help.json'
+import josn_base_help from '@src/assets/defset/base_help.json'
 const helpData = {}
 export default OnResponse(
   async e => {

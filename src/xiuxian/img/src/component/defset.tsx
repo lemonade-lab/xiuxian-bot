@@ -1,7 +1,9 @@
 import React from 'react'
-import { ThemesEmun } from '../core/index.js'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
+import css_output from '@public/output.css'
+import { LinkStyleSheet } from 'jsxp'
+import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 
 type PropsType = {
   data: any
@@ -32,43 +34,47 @@ const CD_MAP = {
 
 export default function App({ data, theme }: PropsType) {
   return (
-    <div
-      id="root"
-      data-theme={theme}
-      className="w-full h-full p-4"
-      style={{
-        backgroundImage: 'var(--background-image)',
-        backgroundSize: '100% auto'
-      }}
-    >
-      <div className="px-4">
-        <Header list={['/修仙帮助', '/更新公告']} />
-      </div>
-      <div className="w-full h-full my-8 px-4  text-center">
-        <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">
-          {Object.keys(CD_MAP).map((item, index) => (
-            <div key={index} className="w-80 mx-auto text-3xl p-2">
-              {CD_MAP[item]}: {data[item]}m
+    <html>
+      <head>
+        <LinkStyleSheet src={css_output} />
+      </head>
+      <body>
+        <ThemeBackground
+          id="root"
+          className="w-full h-full p-4"
+          data-theme={theme}
+          theme={theme}
+        >
+          <div className="px-4">
+            <Header list={['/修仙帮助', '/更新公告']} />
+          </div>
+          <div className="w-full h-full my-8 px-4  text-center">
+            <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">
+              {Object.keys(CD_MAP).map((item, index) => (
+                <div key={index} className="w-80 mx-auto text-3xl p-2">
+                  {CD_MAP[item]}: {data[item]}m
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">
-          {[
-            `闭关倍率: ${data.biguan_size}`,
-            `锻体倍率:  ${data.work_size}`,
-            `最多功法持有数:  ${data.myconfig_gongfa}`,
-            `最多装备持有数:  ${data.myconfig_equipment}`,
-            `年龄每小时增加:  ${data.Age_size}`,
-            `储物袋最高等级:  ${data.Price.length}`
-          ].map((item, index) => (
-            <div key={index} className="w-80 mx-auto text-3xl p-2">
-              {item}
+            <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">
+              {[
+                `闭关倍率: ${data.biguan_size}`,
+                `锻体倍率:  ${data.work_size}`,
+                `最多功法持有数:  ${data.myconfig_gongfa}`,
+                `最多装备持有数:  ${data.myconfig_equipment}`,
+                `年龄每小时增加:  ${data.Age_size}`,
+                `储物袋最高等级:  ${data.Price.length}`
+              ].map((item, index) => (
+                <div key={index} className="w-80 mx-auto text-3xl p-2">
+                  {item}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <Footer />
-      <div className="min-h-10"></div>
-    </div>
+          </div>
+          <Footer />
+          <div className="min-h-10"></div>
+        </ThemeBackground>
+      </body>
+    </html>
   )
 }

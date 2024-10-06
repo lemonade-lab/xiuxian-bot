@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './header.js'
 import { ThemesEmun } from '../../core/color.js'
 import classNames from 'classnames'
-import { createUID } from '../../core/public.js'
+import { createUID } from '../../core/index.js'
 
 const ThemesColor = {
   dark: {

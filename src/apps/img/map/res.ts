@@ -1,6 +1,6 @@
 import { Image, useSend } from 'alemonjs'
 import { lcalCacheImage } from '@xiuxian/utils/index'
-import img_map from '@public/img/map.jpg'
+import img_map from '@src/assets/img/map.jpg'
 export default OnResponse(
   async e => {
     // 不变的图片做缓存处理

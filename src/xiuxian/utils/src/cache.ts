@@ -1,7 +1,7 @@
 import { getHash as hash, BufferData } from 'chat-space'
 import { pictureRender } from '@xiuxian/img/index'
-import json_update from '@public/defset/update.json'
-import json_base_help from '@public/defset/base_help.json'
+import json_update from '@src/assets/defset/update.json'
+import json_base_help from '@src/assets/defset/base_help.json'
 const helpData = {}
 /**
  * 帮助图缓存

@@ -1,6 +1,6 @@
 import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
-import json_update from '@public/defset/update.json'
+import json_update from '@src/assets/defset/update.json'
 const helpData = {}
 export default OnResponse(
   async e => {
