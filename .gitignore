@@ -1,66 +1,10 @@
 # Node dependencies
 node_modules
-
-# build
-/components.d.ts
-/stats.html
-
-# Local env files
-a.login.config.ts
-a.login.test.ts
-alemon.app.js
-xiuxian-plugin.json
-
-alemon.login.ts
-
-# alemon dev/config
 /data/
-
-# Nuxt dev/build outputs
-.data
-.nuxt
-.nitro
-.cache
-.apps
-dist
-.output
-
-/assets/.*
-/pages/.*
-/public/.*
-/plugins/.*
-/server/.*
-
-# Logs
-logs
+/lib/
+/logs/
 *.log
-
-# Misc
-.DS_Store
-.fleet
-.idea
-
-.image
-
-main.js
-
-public/html
-public/output.css
-
-
-yarn.lock
-
-index.js
-
-cache
-
-.yarn
-
-.html
-
-*.env
-
+.env.*
+alemon.env
 alemon.config.yaml
-lib
-
-/public
+yarn.lock

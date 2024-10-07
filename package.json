@@ -7,8 +7,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "alemonjs dev  --css-watch",
-    "build": "alemonjs build --minify",
+    "dev": "alemonjs dev",
+    "build": "alemonjs build",
     "review": "alemonjs start --input ./lib/index.js",
     "server": "npx jsxp dev --node-options alemonjs/loader",
     "start": "pm2 startOrRestart pm2.config.cjs",

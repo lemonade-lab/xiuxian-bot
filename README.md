@@ -9,8 +9,8 @@ NodeJS > 18, Redis > 5, MySQL 8
 - 源码安装
 
 ```sh
-git clone --depth=1  https://github.com/lemonade-lab/xiuxian.bot.git
-cd xiuxian.bot
+git clone --depth=1  https://github.com/lemonade-lab/xiuxian-bot.git
+cd xiuxian-bot
 ```
 
 - 依赖加载

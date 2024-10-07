@@ -10,8 +10,6 @@ export default defineConfig({
       alias({
         entries: [
           { find: '@xiuxian', replacement: join(__dirname, 'src', 'xiuxian') },
-          { find: '@public', replacement: join(__dirname, 'public') },
-          { find: '@assets', replacement: join(__dirname, 'assets') },
           { find: '@src', replacement: join(__dirname, 'src') }
         ]
       }),
