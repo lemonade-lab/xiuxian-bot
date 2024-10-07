@@ -2,28 +2,7 @@
 
 ## 环境
 
-- Centos Node
-
-```sh
-curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
-sudo yum install -y nodejs
-node -v
-```
-
-- redis
-
-```sh
-sudo yum update
-sudo yum install epel-release
-# install
-sudo yum install redis
-# start
-sudo systemctl start redis
-# status
-sudo systemctl status redis
-# enable 开启自启动
-sudo systemctl enable redis
-```
+NodeJS > 18, Redis > 5, MySQL 8
 
 ### 本地调试
 
@@ -72,36 +51,34 @@ APP_SERVER_KEY = 'xiuxian'
 - 应用调试
 
 ```sh
-# 启动
-yarn app
+yarn dev
 ```
 
-## dev
+- 打包
 
-- @xiuxian/api/index.ts
+```sh
+yarn build
+```
 
-针对于 alemonjs 做消息处理函数的抽简
+- 图片调试
 
-- @xiuxian/db/src/index
+```sh
+yarn server
+```
 
-数据库模型调用
+## 目录结构
 
-- @xiuxian/img/src/index
-
-tsx组件及截图
-
-- @xiuxian/core/index.ts
-
-游戏核心处理模型
-
-- @xiuxian/statistics/index.js
-
-数据统计函数
-
-- @xiuxian/utils/index.js
-
-工具类
-
-## Centos
-
-- redis
+```ts
+src/                // 源代码目录
+    |--apps/        // 开发应用
+    |--assets/
+    |--xiuxian/
+        |--api/
+        |--core/
+        |--db/
+        |--img/
+        |--statistics/
+        |--utils/
+index.ts            // 文件入口
+package.json   // 工程配置文件
+```
