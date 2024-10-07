@@ -31,10 +31,13 @@ export default OnResponse(
       return
     }
     //
-    helpData[name] = await pictureRender('HelpComponent', {
-      name: 'help' + name,
-      props: { data: [db as any] }
-    }).catch(console.error)
+    helpData[name] = await pictureRender(
+      'HelpComponent',
+      {
+        data: [db as any]
+      },
+      name
+    ).catch(console.error)
     Send(Image(helpData[name], 'buffer'))
   },
   'message.create',

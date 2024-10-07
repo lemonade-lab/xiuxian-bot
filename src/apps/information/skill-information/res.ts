@@ -23,11 +23,8 @@ export default OnResponse(
         GameApi.Skills.updataEfficiency(UID, UserData.talent).then(() => {
           Server.skillInformation(UID, e.UserAvatar).then(res => {
             pictureRender('SkillsComponent', {
-              name: UID,
-              props: {
-                data: res,
-                theme: UserData?.theme ?? 'dark'
-              }
+              data: res,
+              theme: UserData?.theme ?? 'dark'
             }).then(img => {
               if (typeof img != 'boolean') {
                 Send(Image(img))

@@ -9,11 +9,8 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
     const data = await Server.getKillList()
     const img = await pictureRender('KillComponent', {
-      name: UID,
-      props: {
-        data,
-        theme: UserData?.theme ?? 'dark'
-      }
+      data,
+      theme: UserData?.theme ?? 'dark'
     })
     const Send = useSend(e)
     if (typeof img != 'boolean') {

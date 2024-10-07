@@ -13,8 +13,7 @@ export default OnResponse(
     const data = json_update
     // 得 buffer
     helpData[name] = await pictureRender('UpdateComponent', {
-      name: name,
-      props: { data: data }
+      data: data
     }).catch(console.error)
     Send(Image(helpData[name], 'buffer'))
     return

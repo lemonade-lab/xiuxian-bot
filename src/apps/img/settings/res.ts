@@ -4,10 +4,7 @@ import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
     const img = await pictureRender('Defsetcomponent', {
-      name: 'boxDefset',
-      props: {
-        data: Cooling
-      }
+      data: Cooling
     })
     const Send = useSend(e)
     if (typeof img != 'boolean') {

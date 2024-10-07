@@ -32,10 +32,7 @@ export default OnResponse(
         }
         // 返回物品信息
         const img = await pictureRender('AssMessage', {
-          name: 'AssMessage',
-          props: {
-            data: res
-          }
+          data: res
         })
         //
         if (Buffer.isBuffer(img)) {

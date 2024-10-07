@@ -23,11 +23,8 @@ export default OnResponse(
     }
     const sData = await showSky(UID)
     const img = await pictureRender('SkyComponent', {
-      props: {
-        data: sData,
-        theme: UserData?.theme ?? 'dark'
-      },
-      name: UID
+      data: sData,
+      theme: UserData?.theme ?? 'dark'
     })
     if (typeof img != 'boolean') {
       Send(Image(img))

@@ -26,11 +26,8 @@ export default OnResponse(
           () => {
             Server.equipmentInformation(UID, e.UserAvatar).then(res => {
               pictureRender('Equipmentcomponent', {
-                name: UID,
-                props: {
-                  data: res,
-                  theme: UserData?.theme ?? 'dark'
-                }
+                data: res,
+                theme: UserData?.theme ?? 'dark'
               }).then(img => {
                 if (typeof img != 'boolean') {
                   Send(Image(img))

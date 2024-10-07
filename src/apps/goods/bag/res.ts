@@ -16,8 +16,8 @@ export default OnResponse(
       Goods.mapType[type] ?? Goods.mapType['道具']
     )
     const img = await pictureRender('BagComponent', {
-      props: { data, theme: UserData?.theme ?? 'dark' },
-      name: UID
+      data,
+      theme: UserData?.theme ?? 'dark'
     })
     const Send = useSend(e)
     if (typeof img != 'boolean') {

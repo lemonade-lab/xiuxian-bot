@@ -10,11 +10,8 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
     const data = await Server.ringInformation(UID, e.UserAvatar)
     const img = await pictureRender('BagComponent', {
-      props: {
-        data,
-        theme: UserData?.theme ?? 'dark'
-      },
-      name: UID
+      data,
+      theme: UserData?.theme ?? 'dark'
     })
 
     const Send = useSend(e)

@@ -16,8 +16,7 @@ export default OnResponse(
     }
     const data = josn_base_help
     helpData[name] = await pictureRender('HelpComponent', {
-      name: name,
-      props: { data: [data[n - 1] ?? (data[0] as any)] }
+      data: [data[n - 1] ?? (data[0] as any)]
     }).catch(console.error)
     Send(Image(helpData[name], 'buffer'))
     return

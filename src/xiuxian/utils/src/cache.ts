@@ -20,10 +20,7 @@ export async function urlHelpCache(name: string) {
   }
   // 得数据
   helpData[name] = await pictureRender('HelpComponent', {
-    name: 'help',
-    props: {
-      data: names[name]
-    }
+    data: names[name]
   }).catch((err: any) => {
     // 发生错误
     console.error(err)

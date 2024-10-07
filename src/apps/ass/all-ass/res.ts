@@ -32,11 +32,8 @@ export default OnResponse(
         }
         // 返回物品信息
         const img = await pictureRender('AssList', {
-          name: 'AssList',
-          props: {
-            data: res,
-            theme: UserData.theme
-          }
+          data: res,
+          theme: UserData.theme
         })
         //
         if (Buffer.isBuffer(img)) {

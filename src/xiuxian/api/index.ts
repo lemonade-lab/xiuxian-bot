@@ -218,11 +218,8 @@ export function showUserMsg(e) {
   const Send = useSend(e)
   personalInformation(UID, e.UserAvatar).then(UserData => {
     pictureRender('MessageComponent', {
-      name: UID,
-      props: {
-        data: UserData,
-        theme: UserData?.theme ?? 'dark'
-      }
+      data: UserData,
+      theme: UserData?.theme ?? 'dark'
     }).then(img => {
       if (typeof img != 'boolean') {
         // 图片发送

@@ -30,14 +30,11 @@ export default OnResponse(
 
         // 返回物品信息
         const img = await pictureRender('TransactionMessage', {
-          name: 'TransactionMessage',
-          props: {
-            data: {
-              page: 1,
-              goods: res
-            },
-            theme: UserData.theme
-          }
+          data: {
+            page: 1,
+            goods: res
+          },
+          theme: UserData.theme
         })
 
         //
