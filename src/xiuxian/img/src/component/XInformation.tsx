@@ -4,7 +4,7 @@ import { createUID } from '../core/index.js'
 import img_information from '@src/assets/img/information.jpg'
 import img_left from '@src/assets/img/left.jpg'
 import img_right from '@src/assets/img/right.jpg'
-import css_output from '@src/input.css'
+import css_output from './XInformation.scss'
 import { LinkStyleSheet } from 'jsxp'
 import { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {

@@ -2,7 +2,7 @@ import React from 'react'
 import Footer from './con/footer.js'
 import { ass, AttributesType } from '@xiuxian/db/index'
 import Header from './con/header.js'
-import css_output from '@src/input.css'
+import css_output from './AssList.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {

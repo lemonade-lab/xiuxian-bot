@@ -1,13 +1,12 @@
 import React from 'react'
 import { AttributesType, goods } from '@xiuxian/db/index'
-import css_output from '@src/input.css'
+import css_output from './GoodMessage.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {
   data: AttributesType<typeof goods>
   theme?: ThemesEmun
 }
-
 export default function GoodMessage({ data, theme }: PropsType) {
   return (
     <html>

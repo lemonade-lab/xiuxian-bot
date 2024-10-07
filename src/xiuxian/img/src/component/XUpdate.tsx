@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
-import css_output from '@src/input.css'
+import css_output from './XUpdate.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground from './con/ThemeBackground.js'
 import { ThemesEmun } from './con/ThemeBackground.js'

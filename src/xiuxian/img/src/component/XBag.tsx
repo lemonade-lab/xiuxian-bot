@@ -4,8 +4,7 @@ import Nav from './con/Naved.js'
 import Header from './con/header.js'
 import { BackpackInformationType } from '@xiuxian/statistics/index'
 import Footer from './con/footer.js'
-
-import css_output from '@src/input.css'
+import css_output from './XBag.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 
