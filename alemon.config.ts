@@ -1,4 +1,3 @@
-import './src/postcss.js'
 import { defineConfig } from 'alemonjs'
 import { alias, files } from 'alemonjs/plugins'
 import { fileURLToPath } from 'url'
@@ -16,7 +15,7 @@ export default defineConfig({
           { find: '@src', replacement: join(__dirname, 'src') }
         ]
       }),
-      files({ filter: /\.(png|jpg|css)$/ })
+      files({ filter: /\.(png|jpg)$/ })
     ]
   }
 })

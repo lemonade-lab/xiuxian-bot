@@ -5,7 +5,7 @@ import { SkillInformationType } from '@xiuxian/statistics/index'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
 import img_equipment from '@src/assets/img/equipment.jpg'
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {

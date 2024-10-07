@@ -62,3 +62,5 @@ cache
 
 alemon.config.yaml
 lib
+
+/public

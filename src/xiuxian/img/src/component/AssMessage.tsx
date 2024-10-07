@@ -3,10 +3,10 @@ import Footer from './con/footer.js'
 import { AttributesType, user_ass } from '@xiuxian/db/index'
 import { Config } from '@xiuxian/core/index'
 import Header from './con/header.js'
-
-import css_output from '@public/output.css'
+import css_output from '@src/input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
+
 type PropsType = {
   data: AttributesType<typeof user_ass>[]
   theme?: ThemesEmun

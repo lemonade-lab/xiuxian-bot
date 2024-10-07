@@ -5,7 +5,7 @@ import Header from './con/header.js'
 import { BackpackInformationType } from '@xiuxian/statistics/index'
 import Footer from './con/footer.js'
 
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 

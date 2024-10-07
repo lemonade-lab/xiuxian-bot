@@ -1,7 +1,7 @@
 import React from 'react'
 import { BackgroundImage } from 'jsxp'
 import img_equipment from '@src/assets/img/equipment.jpg'
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {

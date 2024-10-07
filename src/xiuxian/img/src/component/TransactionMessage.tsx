@@ -3,10 +3,10 @@ import { BackgroundImage } from 'jsxp'
 import Header from './con/header.js'
 import { AttributesType, transactions } from '@xiuxian/db/index'
 import img_equipment from '@src/assets/img/equipment.jpg'
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground from './con/ThemeBackground.js'
-import { ThemesEmun } from '../core/color.js'
+import { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {
   data: {
     page: number

@@ -2,7 +2,7 @@ import { getHash as hash } from 'chat-space'
 import React from 'react'
 import ListTable from './con/ListTable.js'
 import { killInformationType } from '@xiuxian/statistics/index'
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {

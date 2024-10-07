@@ -1,6 +1,6 @@
 import React from 'react'
 import { AttributesType, goods } from '@xiuxian/db/index'
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {

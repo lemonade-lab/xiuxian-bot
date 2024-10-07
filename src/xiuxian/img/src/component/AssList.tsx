@@ -2,16 +2,13 @@ import React from 'react'
 import Footer from './con/footer.js'
 import { ass, AttributesType } from '@xiuxian/db/index'
 import Header from './con/header.js'
-
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
-
 type PropsType = {
   data: AttributesType<typeof ass>[]
   theme?: ThemesEmun
 }
-
 export default function AssList({ data, theme }: PropsType) {
   return (
     <html>

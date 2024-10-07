@@ -3,7 +3,7 @@ import { createUID } from '../core/index.js'
 import Header from './con/header.js'
 import Footer from './con/footer.js'
 import { EquipmentInformationType } from '@xiuxian/statistics/index'
-import css_output from '@public/output.css'
+import css_output from '@src/input.css'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {
