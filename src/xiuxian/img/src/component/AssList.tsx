@@ -3,7 +3,7 @@ import Footer from './con/footer.js'
 import { ass, AttributesType } from '@xiuxian/db/index'
 import Header from './con/header.js'
 import css_output from './AssList.scss'
-import { LinkStyleSheet } from 'jsxp'
+import { LinkESM, LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {
   data: AttributesType<typeof ass>[]

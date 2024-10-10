@@ -25,8 +25,8 @@ module.exports = {
       watch: false,
       ...app,
       env: {
-        NODE_ENV: 'production',
-        ...(app?.env ?? {})
+        ...(app?.env ?? {}),
+        NODE_ENV: 'production'
       }
     }
   ]

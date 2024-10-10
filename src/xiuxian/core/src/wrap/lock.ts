@@ -1,6 +1,16 @@
 import { Redis } from '@xiuxian/db/index'
-import { createUID } from '@xiuxian/utils/index'
 import { v4 as uuidv4 } from 'uuid'
+import { getHash as hash } from 'chat-space'
+
+/**
+ * 重新生产UID
+ * @param UID
+ * @returns
+ */
+export const createUID = (UID: string) => {
+  return isNaN(Number(UID)) || UID.length > 11 ? hash(UID) : UID
+}
+
 /**
  *
  * @param UID

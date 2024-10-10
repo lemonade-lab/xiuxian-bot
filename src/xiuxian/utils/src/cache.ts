@@ -1,4 +1,4 @@
-import { getHash as hash, BufferData } from 'chat-space'
+import { BufferData } from 'chat-space'
 import { pictureRender } from '@xiuxian/img/index'
 import json_update from '@src/assets/defset/update.json'
 import json_base_help from '@src/assets/defset/base_help.json'
@@ -44,13 +44,4 @@ export function lcalCacheImage(name: string) {
   }
   // 返回
   return helpData[name]
-}
-
-/**
- * 重新生产UID
- * @param UID
- * @returns
- */
-export const createUID = (UID: string) => {
-  return isNaN(Number(UID)) || UID.length > 11 ? hash(UID) : UID
 }
