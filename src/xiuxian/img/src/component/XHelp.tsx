@@ -27,28 +27,28 @@ export default function App({ data, theme }: PropsType) {
       <body>
         <BackgroundImage id="root" data-theme={theme} url={img_equipment}>
           <div className="min-h-10"></div>
-          <div className="text-xl m-8 px-6 p-4  rounded-md bg-black bg-opacity-20 text-center text-white relative shadow-lg font-semibold">
-            <div className="text-red-500 text-left bg-white py-1 px-3 my-2 rounded-md bg-opacity-30">
+          <div className="text-xl m-8 p-2  rounded-md bg-black bg-opacity-20 text-center text-white relative shadow-lg font-semibold">
+            <div className="text-red-500 text-left  py-1 px-3 my-2 rounded-md  bg-white">
               <div className="flex">
-                <div className="w-32  text-blue-700">反馈邮箱</div>
-                <div className="flex-1 text-2xl text-left  text-yellow-300 inline-block px-3 font-semibold">
+                <div className="w-32  text-green-500">反馈邮箱</div>
+                <div className="flex-1 text-2xl text-left  text-yellow-500 inline-block px-3 font-semibold">
                   {_email}
                 </div>
               </div>
               <div className="flex">
-                <div className="w-32 text-blue-700">攻略</div>
-                <div className="flex-1 text-2xl text-left  text-yellow-300 inline-block px-3 font-semibold">
+                <div className="w-32 text-green-500">攻略</div>
+                <div className="flex-1 text-2xl text-left  text-yellow-500 inline-block px-3 font-semibold">
                   {docs}
                 </div>
               </div>
               <div className="flex">
-                <div className="w-32 text-blue-700">修仙交流群</div>
-                <div className="flex-1 text-2xl text-left  text-yellow-300 inline-block px-3 font-semibold">
+                <div className="w-32 text-green-500">Q群</div>
+                <div className="flex-1 text-2xl text-left  text-yellow-500 inline-block px-3 font-semibold">
                   {_QQ}
                 </div>
               </div>
             </div>
-            <div className="text-red-500 text-left bg-white py-1 px-3 my-2 rounded-md bg-opacity-70">
+            <div className="text-red-500 text-left bg-white py-1 px-3 my-2 rounded-md">
               使用 /修仙帮助1 查看第一页，使用 /修仙帮助2 查看第二页，以此类推
             </div>
           </div>

@@ -10,7 +10,7 @@
     "dev": "alemonjs dev",
     "build": "alemonjs build",
     "review": "alemonjs start --input ./lib/index.js",
-    "server": "npx jsxp dev --node-options alemonjs/loader",
+    "view": "npx jsxp dev --node-options alemonjs/loader",
     "start": "pm2 startOrRestart pm2.config.cjs",
     "stop": "pm2 stop pm2.config.cjs",
     "delete": "pm2 delete pm2.config.cjs",
@@ -19,6 +19,12 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@alemonjs/discord": "^0.0.4",
+    "@alemonjs/kook": "^0.0.3",
+    "@alemonjs/qq": "^0.0.4",
+    "@alemonjs/qq-group-bot": "^0.0.6",
+    "@alemonjs/qq-guild-bot": "^0.0.5",
+    "@alemonjs/telegram": "^0.0.3",
     "alemonjs": "2.0.0-rc.33",
     "bullmq": "^4.12.7",
     "classnames": "^2.5.1",
