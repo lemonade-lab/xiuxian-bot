@@ -21,6 +21,7 @@
   "dependencies": {
     "@alemonjs/discord": "^0.0.4",
     "@alemonjs/kook": "^0.0.3",
+    "@alemonjs/onebot": "^0.0.1",
     "@alemonjs/qq": "^0.0.4",
     "@alemonjs/qq-group-bot": "^0.0.6",
     "@alemonjs/qq-guild-bot": "^0.0.5",

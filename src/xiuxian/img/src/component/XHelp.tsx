@@ -17,8 +17,6 @@ type PropsType = {
 }
 export default function App({ data, theme }: PropsType) {
   const _email = 'ningmengchongshui@gmail.com'
-  const docs = 'https://docs.qq.com/doc/DSGFURU9IZmR4bUxK'
-  const _QQ = '887314350'
   return (
     <html>
       <head>
@@ -33,18 +31,6 @@ export default function App({ data, theme }: PropsType) {
                 <div className="w-32  text-green-500">反馈邮箱</div>
                 <div className="flex-1 text-2xl text-left  text-yellow-500 inline-block px-3 font-semibold">
                   {_email}
-                </div>
-              </div>
-              <div className="flex">
-                <div className="w-32 text-green-500">攻略</div>
-                <div className="flex-1 text-2xl text-left  text-yellow-500 inline-block px-3 font-semibold">
-                  {docs}
-                </div>
-              </div>
-              <div className="flex">
-                <div className="w-32 text-green-500">Q群</div>
-                <div className="flex-1 text-2xl text-left  text-yellow-500 inline-block px-3 font-semibold">
-                  {_QQ}
                 </div>
               </div>
             </div>

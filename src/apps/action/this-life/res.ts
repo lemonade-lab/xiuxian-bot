@@ -71,12 +71,25 @@ export default OnResponse(
     // 精炼等级*1000*物品等级
     const size = 1000 * goodThing.grade
 
+    const be = await Talent.getTalentName(thing['good']['dataValues']['talent'])
+
+    if (thing.grade >= 10) {
+      Send(
+        Text(
+          [`本命物:${thing.name}`, `等级:${thing.grade}`, `属性:${be}`].join(
+            '\n'
+          )
+        )
+      )
+      return
+    }
+
     Send(
       Text(
         [
           `本命物:${thing.name}`,
           `等级:${thing.grade}`,
-          `属性:${await Talent.getTalentName(thing['good']['dataValues']['talent'])}`,
+          `属性:${be}`,
           `精炼所需物品:${thing.name}`,
           `精炼所需灵石:${size}`,
           `精炼所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,
