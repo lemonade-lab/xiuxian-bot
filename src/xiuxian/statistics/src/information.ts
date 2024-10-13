@@ -316,6 +316,8 @@ export async function backpackInformation(
       }
     })
     .then(res => res?.dataValues)
+
+  // 长度
   const length = await DB.user_bag.count({
     where: {
       uid: UID
@@ -336,6 +338,7 @@ export async function backpackInformation(
     })
     .then(res => res.map(item => item?.dataValues))
 
+  // 背包信息
   const bag_message = await DB.user_bag_message
     .findOne({ where: { uid: UID } })
     .then(res => res?.dataValues)

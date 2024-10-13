@@ -128,6 +128,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
  * @returns
  */
 export async function updatePlayer(UID: string, UserAvatar: string) {
+  // sky 排名记录不需要删除
   return Promise.all([
     // 删除用户
     user.destroy({
@@ -135,6 +136,7 @@ export async function updatePlayer(UID: string, UserAvatar: string) {
         uid: UID
       }
     }),
+    // 删除宗门管理关联信息
     user_ass.destroy({
       where: {
         uid: UID
@@ -152,6 +154,7 @@ export async function updatePlayer(UID: string, UserAvatar: string) {
         uid: UID
       }
     }),
+    // 删除购买记录
     user_buy_log.destroy({
       where: {
         uid: UID
@@ -175,14 +178,14 @@ export async function updatePlayer(UID: string, UserAvatar: string) {
         uid: UID
       }
     }),
-    // 删除戒指
-    user_ring.destroy({
+    // 删除记录
+    user_log.destroy({
       where: {
         uid: UID
       }
     }),
-    // 删除记录
-    user_log.destroy({
+    // 删除戒指
+    user_ring.destroy({
       where: {
         uid: UID
       }
@@ -200,5 +203,9 @@ export async function updatePlayer(UID: string, UserAvatar: string) {
       }
     })
     // 成功了就执行并返回该结果
-  ]).then(() => setPlayer(UID, UserAvatar))
+  ])
+    .then(() => setPlayer(UID, UserAvatar))
+    .catch(err => {
+      console.error(err)
+    })
 }

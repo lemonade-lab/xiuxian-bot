@@ -2,6 +2,7 @@ import { Player } from '@xiuxian/core'
 import {
   user,
   user_bag,
+  user_bag_message,
   user_equipment,
   user_fate,
   user_level,
@@ -23,6 +24,8 @@ import {
  * @param uid
  */
 const update = async (uid: string) => {
+  let bag_grade = 1
+
   // 用户数据
   await DCUser.findOne({
     where: {
@@ -30,10 +33,13 @@ const update = async (uid: string) => {
     }
   })
     .then(data => data.dataValues)
-    .then(data => {
+    .then(async data => {
       console.log('DCUser data', data)
+
+      bag_grade = data.bag_grade
+
       // 恢复
-      user.update(
+      await user.update(
         {
           name: data.name,
           // 恢复
@@ -53,9 +59,7 @@ const update = async (uid: string) => {
           //
           talent: data.talent,
           //
-          talent_size: data.talent_size,
-          // 背包等级
-          bag_grade: data.bag_grade
+          talent_size: data.talent_size
         },
         {
           where: {
@@ -63,10 +67,15 @@ const update = async (uid: string) => {
           }
         }
       )
+
+      //
+    })
+    .catch(err => {
+      console.error('err', err)
     })
 
   // 恢复基础数据
-  DCUserBag.findAll({
+  await DCUserBag.findAll({
     where: {
       uid: uid
     }
@@ -88,9 +97,12 @@ const update = async (uid: string) => {
       })
       // 恢复
     })
+    .catch(err => {
+      console.error('err', err)
+    })
 
   // ....
-  DCUserRing.findAll({
+  await DCUserRing.findAll({
     where: {
       uid: uid
     }
@@ -109,9 +121,12 @@ const update = async (uid: string) => {
         //
       })
     })
+    .catch(err => {
+      console.error('err', err)
+    })
 
   // 恢复装备
-  DCUserEquipment.findAll({
+  await DCUserEquipment.findAll({
     where: {
       uid: uid
     }
@@ -127,9 +142,12 @@ const update = async (uid: string) => {
         //
       })
     })
+    .catch(err => {
+      console.error('err', err)
+    })
 
   // 恢复境界
-  DCUserLevel.findAll({
+  await DCUserLevel.findAll({
     where: {
       uid: uid
     }
@@ -138,37 +156,47 @@ const update = async (uid: string) => {
     .then(data => {
       console.log('DCUserLevel data', data)
       data.forEach(item => {
-        user_level.create({
-          uid: uid,
-          type: item.type,
-          career: item.career,
-          addition: item.addition,
-          realm: item.realm,
-          experience: item.experience
-        })
+        user_level.update(
+          {
+            career: item.career,
+            addition: item.addition,
+            realm: item.realm,
+            experience: item.experience
+          },
+          {
+            where: {
+              uid: uid,
+              type: item.type
+            }
+          }
+        )
       })
+    })
+    .catch(err => {
+      console.error('err', err)
     })
 
   // 本命数据
-  DCUserFate.findAll({
+  await DCUserFate.findOne({
     where: {
       uid: uid
     }
   })
-    .then(data => data.map(item => item.dataValues))
+    .then(data => data.dataValues)
     .then(data => {
       console.log('DCUserFate data', data)
-      data.forEach(item => {
-        user_fate.create({
-          uid: item.uid,
-          name: item.name,
-          grade: item.grade
-        })
+      user_fate.create({
+        uid: uid,
+        name: data.name,
+        grade: data.grade
       })
+    })
+    .catch(err => {
+      console.error('err', err)
     })
 
   // 恢复功法
-  DCUserSkills.findAll({
+  await DCUserSkills.findAll({
     where: {
       uid: uid
     }
@@ -183,14 +211,34 @@ const update = async (uid: string) => {
         })
       })
     })
-  //
+    .catch(err => {
+      console.error('err', err)
+    })
+
+  await user_bag_message.update(
+    {
+      grade: bag_grade
+    },
+    {
+      where: {
+        uid: uid
+      }
+    }
+  )
 }
+
+// 1114009920073904198
+// 1068104646180216872
+// 1247844084727681075
+// 1137252589491204107
+// 240130197582512128
 
 /**
  *
  */
 function main() {
-  const UID = '1114009920073904198'
+  const UID = '240130197582512128'
+  console.log('重生', UID)
   Player.updatePlayer(UID, '')
     .then(() => {
       console.log('重生成功')
