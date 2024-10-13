@@ -36,7 +36,7 @@ export default OnResponse(
 
     if (!UIDB) return
     const UserDataB = await isSideUser(e, UIDB)
-    if (typeof UserDataB === 'boolean') return
+    if (!UserDataB || typeof UserDataB === 'boolean') return
     if (!(await dualVerification(e, UserData, UserDataB))) return
 
     if (UserData.special_spiritual < 5) {

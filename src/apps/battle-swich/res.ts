@@ -34,7 +34,7 @@ export default OnResponse(
     }
     if (!UIDB || UIDB == '') return
     const UserDataB = await isSideUser(e, UIDB)
-    if (typeof UserDataB === 'boolean') return
+    if (!UserDataB || typeof UserDataB === 'boolean') return
     if (!(await dualVerification(e, UserData, UserDataB))) return
     if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type)) {
       return
