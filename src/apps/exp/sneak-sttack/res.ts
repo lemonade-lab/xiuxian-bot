@@ -54,7 +54,7 @@ export default OnResponse(
       .catch(_ => false)
 
     //
-    if (typeof UserDataB === 'boolean') {
+    if (!UserDataB || typeof UserDataB === 'boolean') {
       Send(Text('对方消失了'))
       return
     }

@@ -227,17 +227,10 @@ const update = async (uid: string) => {
   )
 }
 
-// 1114009920073904198
-// 1068104646180216872
-// 1247844084727681075
-// 1137252589491204107
-// 240130197582512128
-
 /**
  *
  */
-function main() {
-  const UID = '240130197582512128'
+export function main(UID: string) {
   console.log('重生', UID)
   Player.updatePlayer(UID, '')
     .then(() => {
@@ -250,5 +243,3 @@ function main() {
       console.error('err', err)
     })
 }
-
-main()

@@ -7,4 +7,5 @@ node_modules
 .env.*
 alemon*.env
 alemon*.yaml
+*.logs.ts
 yarn.lock
