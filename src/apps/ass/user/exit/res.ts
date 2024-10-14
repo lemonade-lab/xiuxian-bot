@@ -2,14 +2,15 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-const exiteCooling = {}
 export default OnResponse(
   async e => {
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-
+    //
     const text = useParse(e.Megs, 'Text')
+
+    // 势力名称
     const name = text.replace(/^(#|\/)?退出/, '')
 
     // 存在该昵称的宗门
@@ -20,9 +21,12 @@ export default OnResponse(
         }
       })
       .then(res => res?.dataValues)
+      .catch(err => console.error(err))
 
     //
     const Send = useSend(e)
+
+    //
     if (!aData) {
       Send(Text('该势力不存在'))
       return
@@ -38,6 +42,7 @@ export default OnResponse(
         }
       })
       .then(res => res?.dataValues)
+      .catch(err => console.error(err))
 
     //
     if (UserAss) {
@@ -45,17 +50,7 @@ export default OnResponse(
       return
     }
 
-    // 不存在 或者过期了
-    if (
-      !exiteCooling[UID] ||
-      exiteCooling[UID] + 30000 < new Date().getTime()
-    ) {
-      exiteCooling[UID] = new Date().getTime()
-      Send(Text(['[重要提示]', '\n请30s内再次发送', '\n以确认退出'].join('')))
-      return
-    }
-
-    //
+    // 从个人数据中，删除自己的数据
     await DB.user_ass.destroy({
       where: {
         uid: UID,
@@ -64,6 +59,8 @@ export default OnResponse(
     })
 
     Send(Text(`已退出${name}`))
+
+    //
   },
   'message.create',
   /^(#|\/)?退出[\u4e00-\u9fa5]+$/

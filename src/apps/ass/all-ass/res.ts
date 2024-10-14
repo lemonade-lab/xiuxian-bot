@@ -1,6 +1,6 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
 import { isUser } from '@xiuxian/api/index'
-import * as GameApi from '@xiuxian/core/index'
+import { Cooling } from '@xiuxian/core/index'
 import { ass } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
@@ -11,18 +11,24 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     const p = text.replace(/^(#|\/)?势力/, '')
     const page = p == '' ? 1 : Number(p)
-    const pageSize = GameApi.Cooling.pageSize
+    //
+    const pageSize = Cooling.pageSize
+    // 长度
     const totalCount = await ass.count()
+    //
     const totalPages = Math.ceil(totalCount / pageSize)
     if (page > totalPages) return
 
     const Send = useSend(e)
 
-    //
+    const limit = pageSize
+    const offset = (page - 1) * pageSize
+
+    // 宗门数据
     ass
       .findAll({
-        limit: GameApi.Cooling.pageSize,
-        offset: (page - 1) * GameApi.Cooling.pageSize
+        limit: limit,
+        offset: offset
       })
       .then(res => res.map(item => item?.dataValues))
       .then(async res => {
@@ -30,7 +36,7 @@ export default OnResponse(
           Send(Text('没有找到数据'))
           return
         }
-        // 返回物品信息
+        // 宗门信息
         const img = await pictureRender('AssList', {
           data: res,
           theme: UserData.theme

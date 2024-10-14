@@ -18,12 +18,12 @@ export default OnResponse(
         }
       })
       .then(res => res?.dataValues)
+      .catch(err => console.error(err))
 
     const Send = useSend(e)
 
     if (!UserAss) {
       Send(Text('未创立个人势力'))
-
       return
     }
 
@@ -44,27 +44,26 @@ export default OnResponse(
       return
     }
 
-    const id = UserAss.aid
+    const aid = UserAss.aid
 
-    // 删除所有 aid的记录
+    // 删除所有玩家
     await DB.user_ass.destroy({
       where: {
-        aid: id
+        aid: aid
       }
     })
 
-    // 删除所有aid记录
-
+    // 删除背包
     await DB.ass_bag.destroy({
       where: {
-        aid: id
+        aid: aid
       }
     })
 
-    // 删除id
+    // 删除势力
     await DB.ass.destroy({
       where: {
-        id: id
+        id: aid
       }
     })
 

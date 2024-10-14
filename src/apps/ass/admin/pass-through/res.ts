@@ -8,9 +8,16 @@ export default OnResponse(
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
+    //
     const text = useParse(e.Megs, 'Text')
+
+    //
     const id = Number(text.replace(/^(#|\/)?通过/, ''))
+
+    //
     if (!id) return
+
+    //
     const uData = await DB.user_ass
       .findOne({
         where: {
@@ -25,33 +32,69 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
-    // 不存在该条目
-    if (!uData) return
-
-    const v = await GameApi.Ass.v(UID, uData['ass.name'])
-    if (v === false) return
     const Send = useSend(e)
-    if (v === '权能不足') {
-      Send(Text(v))
+    // 不存在该条目
+    if (!uData) {
+      Send(Text('非待通过编号'))
       return
     }
 
-    const { aData } = v
-
-    const data = await DB.user_ass
-      .findAll({
+    const aData = await DB.ass
+      .findOne({
         where: {
-          aid: aData.id,
-          identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
+          name: uData['ass.name']
+        },
+        include: [
+          {
+            model: DB.ass_typing
+          }
+        ]
+      })
+      .then(res => res?.dataValues)
+      .catch(err => console.error(err))
+
+    // 不存在
+    if (!aData) {
+      console.log('势力不存在', aData)
+      return false
+    }
+
+    //
+    const UserAss = await DB.user_ass
+      .findOne({
+        where: {
+          uid: UID, // uid
+          aid: aData.id
         }
       })
-      .then(res => res.map(item => item?.dataValues))
+      .then(res => res?.dataValues)
 
-    if (data.length >= (aData.grade + 1) * 5) {
+    // 不存在，或者 9
+    if (!UserAss || UserAss?.authentication == 9) {
+      Send(Text('不属于该宗门'))
+      return
+    }
+
+    // 大于4
+    if (UserAss.authentication >= 4) {
+      Send(Text('权能不足'))
+      return
+    }
+
+    const count = await DB.user_ass.count({
+      where: {
+        aid: aData.id,
+        // 排除
+        identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
+      }
+    })
+
+    if (count >= (aData.grade + 1) * 5) {
       Send(Text('人数已达上限'))
       return
     }
 
+    // 修改指定用户的身份
     await DB.user_ass
       .update(
         {

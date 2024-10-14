@@ -28,7 +28,6 @@ const logging = (sql: string) => {
   return false
 }
 const db = getConfig().value?.db
-console.log('db', db)
 export const sequelize = new Sequelize(db.database, db.user, db.password, {
   host: db.host,
   port: db.port,

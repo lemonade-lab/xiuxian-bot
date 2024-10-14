@@ -7,7 +7,10 @@ export default OnResponse(
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
+    // send
     const Send = useSend(e)
+
+    // 查看自己的势力信息
     user_ass
       .findAll({
         where: {
@@ -42,6 +45,7 @@ export default OnResponse(
         }
       })
 
+    //
     return
   },
   'message.create',

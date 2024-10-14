@@ -23,6 +23,10 @@ module.exports = {
       autodump: true,
       // 不监听文件变化
       watch: false,
+      // logs 文件夹下的日志文件
+      out_file: `logs/${app?.name ?? 'xixian'}/output.log`,
+      error_file: `logs/${app?.name ?? 'xixian'}/error.log`,
+      log_date_format: 'YYYY-MM-DD HH:mm Z',
       ...app,
       env: {
         ...(app?.env ?? {}),

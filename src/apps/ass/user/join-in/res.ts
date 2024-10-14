@@ -8,7 +8,7 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
 
-    // 查看是否是主人
+    // 查看自己的势力
     const UserAss = await DB.user_ass
       .findOne({
         where: {
@@ -20,6 +20,8 @@ export default OnResponse(
 
     //
     const Send = useSend(e)
+
+    //
     if (UserAss) {
       Send(Text('已创立个人势力'))
       return
@@ -56,21 +58,24 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
-    //
-    if (joinData) {
+    if (joinData && joinData.identity == GameApi.Config.ASS_IDENTITY_MAP['9']) {
       Send(Text('请勿重复提交'))
       return
     }
 
     // 创建信息条目
     await DB.user_ass.create({
-      create_tiime: new Date().getTime(),
+      create_tiime: Date.now(),
       uid: UID,
       aid: aData.id,
+      // 9级权限
       authentication: 9,
       identity: GameApi.Config.ASS_IDENTITY_MAP['9']
     })
+
+    //
     Send(Text('已提交申请'))
+
     return
   },
   'message.create',
