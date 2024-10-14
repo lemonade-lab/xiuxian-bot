@@ -10,20 +10,28 @@ export default OnResponse(
 
     // 查看自己的势力
     const UserAss = await DB.user_ass
-      .findOne({
+      .findAll({
         where: {
           uid: UID,
           identity: GameApi.Config.ASS_IDENTITY_MAP['0']
         }
       })
-      .then(res => res?.dataValues)
+      .then(res => res.map(res => res?.dataValues))
 
     //
     const Send = useSend(e)
 
+    const myAss = UserAss.find(
+      item => item.identity == GameApi.Config.ASS_IDENTITY_MAP['0']
+    )
     //
-    if (UserAss) {
+    if (myAss) {
       Send(Text('已创立个人势力'))
+      return
+    }
+
+    if (UserAss.length > 3) {
+      Send(Text('最多申请三家势力'))
       return
     }
 

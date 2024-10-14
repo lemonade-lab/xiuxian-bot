@@ -41,18 +41,13 @@ export default function AssList({ data, theme }: PropsType) {
               '/审核',
               '/通过',
               '/踢出',
-              '/扩建',
-              '/扩建宝库',
-              '/提拔',
-              '/贬职',
               '/建立',
               '/解散',
               '/加入',
               '/退出',
-              '/查看',
-              '/势力'
+              '/查看'
             ]}
-            docs={'新手指引:XXX'}
+            docs={'新手指引: 加入数量有限哦，切莫发起过毒申请'}
           />
         </ThemeBackground>
       </body>

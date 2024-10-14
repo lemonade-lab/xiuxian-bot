@@ -23,6 +23,9 @@ export default defineConfig({
           theme={'purple'}
           data={await user_ass
             .findAll({
+              where: {
+                uid: e.UserId
+              },
               include: [
                 {
                   model: ass,
