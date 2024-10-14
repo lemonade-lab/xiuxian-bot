@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 export default defineConfig({
   build: {
     plugins: [

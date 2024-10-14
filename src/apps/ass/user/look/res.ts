@@ -50,23 +50,6 @@ export default OnResponse(
       `名气:${AData['fame']}`
     ]
 
-    // const UADatas = await DB.user_ass
-    //   .findAll({
-    //     where: {
-    //       aid: AData.id
-    //     },
-    //     include:[
-    //       {
-    //         model:
-    //       }
-    //     ]
-    //   })
-    //   .then(res => res.map(item => item.dataValues))
-
-    // const msgs = UADatas.map(
-    //   item => `____\n身份:${assTyping[item.identity]}\n贡献:${item.contribute}`
-    // )
-
     Send(Text(msg.join('\n')))
 
     return

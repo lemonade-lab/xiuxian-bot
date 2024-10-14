@@ -16,12 +16,7 @@ export default OnResponse(
       .findOne({
         where: {
           name: name
-        },
-        include: [
-          {
-            model: DB.ass_typing
-          }
-        ]
+        }
       })
       .then(res => res?.dataValues)
       .catch(err => console.error(err))

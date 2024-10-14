@@ -42,13 +42,8 @@ export default OnResponse(
     const aData = await DB.ass
       .findOne({
         where: {
-          name: uData['ass.name']
-        },
-        include: [
-          {
-            model: DB.ass_typing
-          }
-        ]
+          name: uData['ass']['dataValues']['name']
+        }
       })
       .then(res => res?.dataValues)
       .catch(err => console.error(err))
