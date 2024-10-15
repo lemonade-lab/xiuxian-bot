@@ -20,6 +20,7 @@ export default OnResponse(
         }
       })
       .then(res => res?.dataValues)
+      .catch(err => console.error(err))
 
     const Send = useSend(e)
     if (!AData) {
@@ -29,14 +30,34 @@ export default OnResponse(
 
     // 查看个人信息，确保有权限
 
-    const UAData = await DB.user_ass
-      .findOne({
+    const UADatas = await DB.user_ass
+      .findAll({
         where: {
-          uid: UID,
           aid: AData.id
-        }
+        },
+        include: [
+          {
+            model: DB.user
+          },
+          {
+            model: DB.ass,
+            include: [
+              {
+                model: DB.ass_typing
+              }
+            ]
+          }
+        ]
       })
-      .then(res => res.dataValues)
+      .then(res => res.map(res => res.dataValues))
+      .catch(err => console.error(err))
+
+    if (!UADatas) {
+      Send(Text('势力数据异常'))
+      return
+    }
+
+    const UAData = UADatas.find(item => item.uid == UID)
 
     if (!UAData || UAData.identity == GameApi.Config.ASS_IDENTITY_MAP['9']) {
       Send(Text(`未加入${name}`))
@@ -49,6 +70,15 @@ export default OnResponse(
       `活跃:${AData['activation']}`,
       `名气:${AData['fame']}`
     ]
+
+    UADatas.forEach(item => {
+      const usermsg = item['user']['dataValues']
+      const assmsg = item['ass']['dataValues']
+      const asstypingmsg = assmsg['ass_typing']['dataValues']
+      msg.push(
+        `标记:${item.id},道号:${usermsg.name},身份:${asstypingmsg[item.identity]},权限:${item.authentication},贡献:${item.contribute}`
+      )
+    })
 
     Send(Text(msg.join('\n')))
 

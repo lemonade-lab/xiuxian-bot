@@ -12,6 +12,7 @@ export default OnResponse(
 
     const name = text.replace(/^(#|\/)?升级/, '')
 
+    // tudo 有错误
     const aData = await DB.ass
       .findOne({
         where: {
@@ -93,5 +94,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?升级/
+  /^(#|\/)?升级[\u4e00-\u9fa5]+$/
 )

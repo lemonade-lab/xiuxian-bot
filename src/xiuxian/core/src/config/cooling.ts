@@ -102,6 +102,9 @@ export const MAXpropety = [
   5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000
 ]
 
+// 宗门最高九
+export const AssGrades = []
+
 // 最低价格限制
 export const MIN_PRICE = 1000 * 10
 // 上架数限制
@@ -110,3 +113,5 @@ export const PUSH_SIZE = 3
 export const MAX_PRICE_P = 99
 
 export const MAX_COUNT = 10
+
+//

@@ -3,6 +3,7 @@ import { Op } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
+import { AssGrades } from '@src/xiuxian/core/src/config/cooling'
 export default OnResponse(
   async e => {
     const UID = e.UserId
@@ -83,7 +84,7 @@ export default OnResponse(
         identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
       }
     })
-
+    AssGrades
     if (count >= (aData.grade + 1) * 5) {
       Send(Text('人数已达上限'))
       return
