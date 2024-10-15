@@ -130,19 +130,27 @@ export default OnResponse(
         property: number, // 储蓄
         typing: GameApi.Config.ASS_TYPING_MAP[typing] // 类型
       })
-      .then(() =>
-        DB.user_ass
-          .create({
-            create_tiime: new Date().getTime(),
-            uid: UID,
-            aid: aData.id, // 并不知道id
-            authentication: 0,
-            identity: GameApi.Config.ASS_IDENTITY_MAP['0']
+      .then(async () => {
+        const res = await DB.ass
+          .findOne({
+            where: {
+              name: NAME
+            }
           })
-          .then(() => {
-            Send(Text('成功建立'))
-          })
-      )
+          .then(res => res.dataValues)
+
+        await DB.user_ass.create({
+          create_tiime: new Date().getTime(),
+          uid: UID,
+          aid: res.id,
+          // 0 级权限，最高
+          authentication: 0,
+          identity: GameApi.Config.ASS_IDENTITY_MAP['0']
+        })
+      })
+      .then(() => {
+        Send(Text('成功建立'))
+      })
       .catch(err => {
         console.error(err)
       })

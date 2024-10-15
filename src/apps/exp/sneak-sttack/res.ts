@@ -278,9 +278,7 @@ export default OnResponse(
         create_time,
         message: `[${UserData.name}]攻击了你,你重伤在地`
       })
-
       Send(Text('穷的都吃不起灵石了'))
-
       return
     }
 
@@ -290,44 +288,46 @@ export default OnResponse(
     const BagSize = await GameApi.Bag.backpackFull(user.PartyA)
     if (!BagSize) {
       Send(Text('储物袋空间不足'))
-
       return
     }
 
-    const thine = data[0]
-
-    if (thine) {
-      // 添加物品
-      await GameApi.Bag.addBagThing(user.PartyA, [
-        {
-          name: thine.name,
-          acount: thine.acount
-        }
-      ])
-    }
+    const things = data[0]
 
     // 结算
     if (user.PartyA == UID) {
-      const msg = `[${UserData.name}]夺走了[${UserDataB.name}]的[${thine.name}]*${thine.acount}~`
-      DB.user_log.create({
-        uid: UIDB,
-        type: 1,
-        create_time,
-        message: msg
-      })
+      if (things) {
+        DB.user_log.create({
+          uid: UID,
+          type: 1,
+          create_time,
+          message: `[${UserData.name}]夺走了[${UserDataB.name}]的[${things.name}]*${things.acount}~`
+        })
+      } else {
+        DB.user_log.create({
+          uid: UID,
+          type: 1,
+          create_time,
+          message: `[${UserData.name}]对[${UserDataB.name}]进行了偷袭`
+        })
+      }
 
-      Send(Text(`${msg}\n${BooldMsg}`))
+      //
     } else {
-      const msg = `[${UserDataB.name}]夺走了[${UserData.name}]的[${thine.name}]*${thine.acount}~`
-
-      DB.user_log.create({
-        uid: UIDB,
-        type: 1,
-        create_time,
-        message: msg
-      })
-
-      Send(Text(`${msg}\n${BooldMsg}`))
+      if (things) {
+        DB.user_log.create({
+          uid: UID,
+          type: 1,
+          create_time,
+          message: `[${UserDataB.name}]夺走了[${UserData.name}]的[${things.name}]*${things.acount}~`
+        })
+      } else {
+        DB.user_log.create({
+          uid: UID,
+          type: 1,
+          create_time,
+          message: `[${UserData.name}]被[${UserDataB.name}]击败~`
+        })
+      }
     }
 
     return

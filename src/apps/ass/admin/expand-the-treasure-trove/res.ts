@@ -12,5 +12,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?扩建宝库$/
+  /^(#|\/)?升级宝库$/
 )

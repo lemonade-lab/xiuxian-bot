@@ -2,6 +2,8 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
+import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
+import { Op } from 'sequelize'
 export default OnResponse(
   async e => {
     const UID = e.UserId
@@ -71,12 +73,29 @@ export default OnResponse(
       return
     }
 
+    // 查看人数
+    const count = await DB.user_ass.count({
+      where: {
+        aid: aData.id,
+        // 排除
+        identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
+      }
+    })
+
+    // 限制
+    const size = AssGradesSize[aData.grade]
+
+    if (!size || count >= size) {
+      Send(Text('人数已达上限'))
+      return
+    }
+
     // 创建信息条目
     await DB.user_ass.create({
       create_tiime: Date.now(),
       uid: UID,
       aid: aData.id,
-      // 9级权限
+      // 9级权限（最低）
       authentication: 9,
       identity: GameApi.Config.ASS_IDENTITY_MAP['9']
     })

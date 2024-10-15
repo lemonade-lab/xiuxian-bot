@@ -31,7 +31,7 @@ export default function AssList({ data, theme }: PropsType) {
                 </div>
                 <div className="p-1">
                   <div>{`活跃 ${item.activation}`}</div>
-                  <div>{`名气 ${item.fame}`}</div>
+                  <div>{`名望 ${item.fame}`}</div>
                 </div>
               </div>
             ))}

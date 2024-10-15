@@ -1,6 +1,6 @@
+import { Bag, Cooling } from '@src/xiuxian/core'
 import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
-import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {
@@ -12,7 +12,6 @@ export default OnResponse(
 
     const name = text.replace(/^(#|\/)?升级/, '')
 
-    // tudo 有错误
     const aData = await DB.ass
       .findOne({
         where: {
@@ -59,10 +58,15 @@ export default OnResponse(
     }
 
     //
-    const goods = await GameApi.Bag.searchBagByName(UID, '开天令')
+    const goods = await Bag.searchBagByName(UID, '开天令')
 
     //
-    const num = GameApi.Cooling.upgradeass[aData.grade]
+    const num = Cooling.AssGradesNeed[aData.grade]
+
+    if (!num) {
+      Send(Text('已经是最高级势力'))
+      return
+    }
 
     //
     if (!goods) {
@@ -72,12 +76,12 @@ export default OnResponse(
 
     //
     if (goods.acount < num) {
-      Send(Text('开天令不足'))
+      Send(Text(`开天令不足${num}`))
       return
     }
 
     //
-    GameApi.Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
+    await Bag.reduceBagThing(UID, [{ name: '开天令', acount: num }])
 
     //
     await DB.ass.update(

@@ -76,14 +76,12 @@ export default OnResponse(
       return
     }
 
-    const msg = uData.map(
-      item =>
-        `\n标记:${item.id}_编号:${item['user.uid']}\n昵称:${item['user.name']}`
-    )
-
+    const msg = []
+    for (const item of uData) {
+      const usermsg = item['user']['dataValues']
+      msg.push(`\n标记:${item.id}_编号:${usermsg.uid}\n昵称:${usermsg.name}`)
+    }
     sendReply(e, `[${aData.name}名录]`, msg)
-
-    //
     return
   },
   'message.create',

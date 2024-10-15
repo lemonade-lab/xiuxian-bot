@@ -3,7 +3,7 @@ import { Op } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
-import { AssGrades } from '@src/xiuxian/core/src/config/cooling'
+import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
 export default OnResponse(
   async e => {
     const UID = e.UserId
@@ -18,11 +18,18 @@ export default OnResponse(
     //
     if (!id) return
 
+    const ID = Number(id)
+    const Send = useSend(e)
+    if (isNaN(ID)) {
+      Send(Text('错误标记..'))
+      return
+    }
+
     //
     const uData = await DB.user_ass
       .findOne({
         where: {
-          id: Number(id),
+          id: ID,
           identity: GameApi.Config.ASS_IDENTITY_MAP['9']
         },
         include: [
@@ -33,7 +40,6 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
-    const Send = useSend(e)
     // 不存在该条目
     if (!uData) {
       Send(Text('非待通过编号'))
@@ -84,8 +90,11 @@ export default OnResponse(
         identity: { [Op.ne]: GameApi.Config.ASS_IDENTITY_MAP['9'] }
       }
     })
-    AssGrades
-    if (count >= (aData.grade + 1) * 5) {
+
+    //
+    const size = AssGradesSize[aData.grade]
+
+    if (!size || count >= size) {
       Send(Text('人数已达上限'))
       return
     }
@@ -94,6 +103,7 @@ export default OnResponse(
     await DB.user_ass
       .update(
         {
+          authentication: 8,
           identity: GameApi.Config.ASS_IDENTITY_MAP['8']
         },
         {

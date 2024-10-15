@@ -68,7 +68,7 @@ export default OnResponse(
       `🏹[${AData['name']}]-${AData['grade']}`,
       `灵池:${AData[`property`]}`,
       `活跃:${AData['activation']}`,
-      `名气:${AData['fame']}`
+      `名望:${AData['fame']}`
     ]
 
     UADatas.forEach(item => {
@@ -76,7 +76,7 @@ export default OnResponse(
       const assmsg = item['ass']['dataValues']
       const asstypingmsg = assmsg['ass_typing']['dataValues']
       msg.push(
-        `标记:${item.id},道号:${usermsg.name},身份:${asstypingmsg[item.identity]},权限:${item.authentication},贡献:${item.contribute}`
+        `标记:${item.id},道号:${usermsg.name},\n身份:${asstypingmsg[item.identity]},权限:${item.authentication},贡献:${item.contribute}。`
       )
     })
 

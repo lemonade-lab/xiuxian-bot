@@ -102,8 +102,11 @@ export const MAXpropety = [
   5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000
 ]
 
-// 宗门最高九
-export const AssGrades = []
+// 等级容纳大小
+export const AssGradesSize = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+// 需要的令牌
+export const AssGradesNeed = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 // 最低价格限制
 export const MIN_PRICE = 1000 * 10
@@ -113,5 +116,3 @@ export const PUSH_SIZE = 3
 export const MAX_PRICE_P = 99
 
 export const MAX_COUNT = 10
-
-//

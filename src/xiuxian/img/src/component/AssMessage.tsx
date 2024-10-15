@@ -50,7 +50,7 @@ export default function AssMessage({ data, theme }: PropsType) {
                       <div>{`身份 ${assTyping[item.identity]}`}</div>
                       <div>{`灵池 ${ass['property']}`}</div>
                       <div>{`活跃 ${ass['activation']}`}</div>
-                      <div>{`名气 ${ass['fame']}`}</div>
+                      <div>{`名望 ${ass['fame']}`}</div>
                       <div>{`贡献 ${item.contribute}`}</div>
                     </div>
                   </div>
@@ -63,8 +63,6 @@ export default function AssMessage({ data, theme }: PropsType) {
               '/审核',
               '/通过',
               '/踢出',
-              '/扩建',
-              '/扩建宝库',
               '/提拔',
               '/贬职',
               '/建立',
