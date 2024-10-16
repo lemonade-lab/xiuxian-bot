@@ -7,10 +7,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "alemonjs dev",
-    "build": "alemonjs build",
-    "review": "alemonjs start --input ./lib/index.js",
-    "view": "npx jsxp dev --node-options alemonjs/loader",
+    "dev": "lvy dev --alemonjs --login kook",
+    "view": "lvy dev --view",
+    "build": "lvy build",
     "start": "pm2 startOrRestart pm2.config.cjs",
     "stop": "pm2 stop pm2.config.cjs",
     "delete": "pm2 delete pm2.config.cjs",
@@ -26,7 +25,7 @@
     "@alemonjs/qq-group-bot": "^0.0.6",
     "@alemonjs/qq-guild-bot": "^0.0.5",
     "@alemonjs/telegram": "^0.0.3",
-    "alemonjs": "2.0.0-rc.33",
+    "alemonjs": "2.0.0-rc.41",
     "bullmq": "^4.12.7",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
@@ -40,6 +39,7 @@
     "@types/node": "^20.3.1",
     "@types/uuid": "^10.0.0",
     "husky": "^9.0.11",
+    "lvyjs": "^0.0.3",
     "pm2": "^5.3.0",
     "prettier": "^3.0.3"
   }

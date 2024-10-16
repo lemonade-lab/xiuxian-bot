@@ -6,6 +6,6 @@
       "@xiuxian/*": ["src/xiuxian/*"]
     }
   },
-  "include": ["src/**/*", "alemon.config.ts", "jsxp.config.tsx"],
-  "extends": "alemonjs/tsconfig.json"
+  "include": ["src/**/*", "lvy.config.ts", "jsxp.config.tsx"],
+  "extends": "lvyjs/tsconfig.json"
 }
