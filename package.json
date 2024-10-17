@@ -18,14 +18,14 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@alemonjs/discord": "^0.0.4",
+    "@alemonjs/discord": "^0.0.5",
     "@alemonjs/kook": "^0.0.3",
     "@alemonjs/onebot": "^0.0.1",
     "@alemonjs/qq": "^0.0.4",
     "@alemonjs/qq-group-bot": "^0.0.6",
     "@alemonjs/qq-guild-bot": "^0.0.5",
     "@alemonjs/telegram": "^0.0.3",
-    "alemonjs": "2.0.0-rc.41",
+    "alemonjs": "2.0.0-rc.42",
     "bullmq": "^4.12.7",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
@@ -39,7 +39,7 @@
     "@types/node": "^20.3.1",
     "@types/uuid": "^10.0.0",
     "husky": "^9.0.11",
-    "lvyjs": "^0.0.3",
+    "lvyjs": "^0.1.0",
     "pm2": "^5.3.0",
     "prettier": "^3.0.3"
   }

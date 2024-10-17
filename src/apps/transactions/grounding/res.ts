@@ -51,7 +51,7 @@ export default OnResponse(
       return
     }
 
-    if (Number(price) > gData.price * Cooling.MAX_PRICE_P * count) {
+    if (price > gData.price * Cooling.MAX_PRICE_P * count) {
       Send(Text('你在尝试违规定价,操作已取消'))
       return
     }
@@ -79,12 +79,15 @@ export default OnResponse(
     //
     const createAt = new Date()
 
+    // count 超出了范围。
+    // 也就是 count 不能超过 9999
+
     await transactions
       .create({
         uid: UID,
         name: name,
-        count: Number(count),
-        price: Number(price),
+        count: count > 999999 ? 999999 : count,
+        price: price,
         createAt: createAt
       })
       .then(async () => {
