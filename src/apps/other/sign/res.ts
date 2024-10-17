@@ -86,6 +86,17 @@ export default OnResponse(
     // 增加灵石
     Bag.addBagThing(UID, good)
 
+    user.update(
+      {
+        special_spiritual: UserData.special_spiritual_limit
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
+
     Send(
       Text(
         good
