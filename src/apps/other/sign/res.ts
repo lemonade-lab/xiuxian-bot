@@ -69,17 +69,31 @@ export default OnResponse(
       )
     }
     //
-    const count = MoenySize + Math.floor(size / 3)
+    const count = MoenySize + Math.floor(size / 2)
+    const count2 = 2
 
-    // 增加灵石
-    Bag.addBagThing(UID, [
+    const good = [
       {
         name: '极品灵石',
         acount: count
+      },
+      {
+        name: '开灵铲',
+        acount: count2
       }
-    ])
+    ]
 
-    Send(Text(`极品灵石+${count}`))
+    // 增加灵石
+    Bag.addBagThing(UID, good)
+
+    Send(
+      Text(
+        good
+          .map(item => `${item.name}+${item.acount}`)
+          .concat(['灵力100%'])
+          .join('\n')
+      )
+    )
 
     return
   },
