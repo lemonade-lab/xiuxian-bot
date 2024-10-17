@@ -152,7 +152,7 @@ export default OnResponse(
       }
     )
 
-    const BooldMsg = `\n🩸${BMSG.battle_blood_now.a}`
+    const BooldMsg = `🩸${BMSG.battle_blood_now.a}`
     if (UserData.battle_show) {
       sendReply(e, '[战斗结果]', BMSG.msg)
     }
@@ -193,19 +193,19 @@ export default OnResponse(
 
     if (p > 45) {
       const SIZE = Math.floor(s + 800)
-      msgRight.push(`\n[气血]增加了${SIZE}`)
+      msgRight.push(`[气血]增加了${SIZE}`)
       await GameApi.Levels.addExperience(UID, 2, SIZE)
     }
 
     if (p > 30) {
       const SIZE = Math.floor(s + 400)
-      msgRight.push(`\n[气血]增加了*${SIZE}`)
+      msgRight.push(`[气血]增加了*${SIZE}`)
       await GameApi.Levels.addExperience(UID, 2, SIZE)
     }
 
     if (p > 20) {
       const SIZE = Math.floor(s + 200)
-      msgRight.push(`\n[气血]增加了*${SIZE}`)
+      msgRight.push(`[气血]增加了*${SIZE}`)
       await GameApi.Levels.addExperience(UID, 2, SIZE)
     }
     /**
@@ -297,12 +297,12 @@ export default OnResponse(
     await GameApi.Bag.addBagThing(UID, ThingArr)
 
     // 随机文案
-    msgRight.push(`\n${randomTxt()}`)
+    msgRight.push(`${randomTxt()}`)
 
     // 检查背包是否拥有次物品,拥有则反馈信息
     for await (const item of ThingArr) {
       const T = await GameApi.Bag.searchBagByName(UID, item.name)
-      if (T) msgRight.push(`\n[${item.name}]*${item.acount}`)
+      if (T) msgRight.push(`[${item.name}]*${item.acount}`)
     }
 
     msgRight.push(BooldMsg)
@@ -311,7 +311,7 @@ export default OnResponse(
     // 减少怪物
     await GameApi.Monster.reduce(UserData.point_type, Mname)
 
-    Send(Text(msgRight.join('')))
+    Send(Text(msgRight.join('\n')))
 
     return
   },

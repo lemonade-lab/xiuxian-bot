@@ -7,7 +7,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "lvy dev --alemonjs --login kook",
+    "dev": "lvy dev --alemonjs",
     "view": "lvy dev --view",
     "build": "lvy build",
     "start": "pm2 startOrRestart pm2.config.cjs",

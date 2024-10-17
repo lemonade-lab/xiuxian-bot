@@ -70,9 +70,9 @@ export default OnResponse(
     Send(
       Text(
         [
-          `你的🩸${BMSG.battle_blood_now.a}\n`,
+          `你的🩸${BMSG.battle_blood_now.a}`,
           `对方🩸${BMSG.battle_blood_now.b}`
-        ].join('')
+        ].join('\n')
       )
     )
 
@@ -135,11 +135,10 @@ export default OnResponse(
     Send(
       Text(
         [
-          '🤺🤺',
-          '经过一番畅快的比斗~\n',
-          `你激昂的气血增加了${eA}~\n`,
+          '🤺🤺经过一番畅快的比斗~',
+          `你激昂的气血增加了${eA}~`,
           `对方坚毅的气血增加了${eB}`
-        ].join('')
+        ].join('\n')
       )
     )
 

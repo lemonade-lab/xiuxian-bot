@@ -6,38 +6,38 @@ import { literal } from 'sequelize'
  */
 const map = {
   1: (item, name: string, size: number) => {
-    return `\n[${item.name}]_攻击:${item.attack}%_${name}:${Math.floor(
+    return `[${item.name}]_攻击:${item.attack}%_${name}:${Math.floor(
       item.price * size
     )}`
   },
   2: (item, name: string, size: number) => {
-    return `\n[${item.name}]_防御:${item.defense}%_${name}:${Math.floor(
+    return `[${item.name}]_防御:${item.defense}%_${name}:${Math.floor(
       item.price * size
     )}`
   },
   3: (item, name: string, size: number) => {
-    return `\n[${item.name}]_暴伤:${item.critical_damage}%_${name}:${Math.floor(
+    return `[${item.name}]_暴伤:${item.critical_damage}%_${name}:${Math.floor(
       item.price * size
     )}`
   },
   4: (item, name: string, size: number) => {
     if (item.addition == 'blood') {
-      return `\n[${item.name}]_血量:${item.blood}%_${name}:${Math.floor(
+      return `[${item.name}]_血量:${item.blood}%_${name}:${Math.floor(
         item.price * size
       )}`
     } else {
-      return `\n[${item.name}]_修为:${
+      return `[${item.name}]_修为:${
         item.exp_gaspractice
       }_${name}:${Math.floor(item.price * size)}`
     }
   },
   5: (item, name: string, size: number) => {
-    return `\n[${item.name}]_天赋:${item.size}%_${name}:${Math.floor(
+    return `[${item.name}]_天赋:${item.size}%_${name}:${Math.floor(
       item.price * size
     )}`
   },
   6: (item, name: string, size: number) => {
-    return `\n[${item.name}]_类型:道具_${name}:${Math.floor(item.price * size)}`
+    return `[${item.name}]_类型:道具_${name}:${Math.floor(item.price * size)}`
   }
 }
 
@@ -58,16 +58,8 @@ export const mapType = {
  * @param param1
  * @returns
  */
-export function getListMsg(list, name = '灵石', size = 1) {
-  // 存储转换
-  const msg: string[] = []
-  // 循环转换
-  for (const item of list) {
-    // 执行匹配并推送数据
-    msg.push(map[item?.type](item, name, size))
-  }
-  // 返回
-  return msg
+export function getListMsg(list: any[], name = '灵石', size = 1) {
+  return list.map(item => map[item?.type](item, name, size))
 }
 
 /**

@@ -63,7 +63,7 @@ export default OnResponse(
       battle_speed: Math.floor(41 + addpower),
       battle_power: 0
     })
-    const BooldMsg = `\n🩸${BMSG.battle_blood_now.a}`
+    const BooldMsg = `🩸${BMSG.battle_blood_now.a}`
     if (UserData.battle_show) {
       sendReply(e, '[战斗结果]', BMSG.msg)
     }

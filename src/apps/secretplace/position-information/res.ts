@@ -16,9 +16,7 @@ export default OnResponse(
         item?.attribute == UserData.pont_attribute &&
         item?.type == UserData.point_type
       ) {
-        msg.push(
-          `\n地点名:${item?.name}\n坐标(${item?.x},${item?.y},${item?.z})`
-        )
+        msg.push(`地点名:${item?.name}\n坐标(${item?.x},${item?.y},${item?.z})`)
       }
     }
     sendReply(e, '[位置信息]', msg)

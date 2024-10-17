@@ -1,15 +1,14 @@
-import { controlByName, sendReply, isUser } from '@xiuxian/api/index'
+import { controlByName, isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
-import { useParse } from 'alemonjs'
+import { Text, useParse, useSend } from 'alemonjs'
 export default OnResponse(
   async e => {
     const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     if (!(await controlByName(e, UserData, '万宝楼'))) return
-    const start_msg = []
-    start_msg.push('\n欢迎关顾本店')
+    const start_msg = ['___[万宝楼]___', '欢迎关顾本店']
     const text = useParse(e.Megs, 'Text')
     const type = text.replace(/^(#|\/)?(万宝楼|萬寶樓)/, '')
     const commoditiesList = await DB.goods
@@ -25,7 +24,8 @@ export default OnResponse(
       '灵石',
       GameApi.Cooling.ExchangeStart
     )
-    sendReply(e, '___[万宝楼]___', [...start_msg, ...end_msg])
+    const Send = useSend(e)
+    Send(Text(start_msg.concat(end_msg).join('\n')))
     return
   },
   'message.create',

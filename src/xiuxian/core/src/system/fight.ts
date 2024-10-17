@@ -177,13 +177,13 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
     if (isProbability(UserA.battle_critical_hit)) {
       UserB.battle_blood_now -= HurtA.outbreak
       msg.push(
-        `\n老六[${UserA.name}]偷袭成功,对[${UserB.name}]造成 ${HurtA.outbreak} 暴击伤害`
+        `老六[${UserA.name}]偷袭成功,对[${UserB.name}]造成 ${HurtA.outbreak} 暴击伤害`
       )
     } else {
       // 普通结算
       UserB.battle_blood_now -= HurtA.original
       msg.push(
-        `\n老六[${UserA.name}]偷袭成功,对[${UserB.name}]造成 ${HurtA.original} 普通伤害`
+        `老六[${UserA.name}]偷袭成功,对[${UserB.name}]造成 ${HurtA.original} 普通伤害`
       )
     }
   }
@@ -192,7 +192,7 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
   if (UserA.battle_speed < UserB.battle_speed - 5) {
     // 对方敏捷扣除缺不比对方大
     msg.push(
-      `\n${Sneakattack[Math.floor(Math.random() * 2)]
+      `${Sneakattack[Math.floor(Math.random() * 2)]
         .replace('A', UserA.name)
         .replace('B', UserB.name)}`
     )
@@ -203,7 +203,7 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
      * b血量减少
      */
     if (UserB.battle_blood_now < 1) {
-      msg.push(`\n[${UserA.name}]仅出此招,就击败了[${UserB.name}]!`)
+      msg.push(`[${UserA.name}]仅出此招,就击败了[${UserB.name}]!`)
       UserB.battle_blood_now = 0
       // 返回双方变更值
       return {
@@ -233,13 +233,13 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
     if (isProbability(UserB.battle_critical_hit)) {
       UserA.battle_blood_now -= HurtB.outbreak
       msg.push(
-        `\n第${round}回合,[${UserB.name}]对[${UserA.name}]造成 ${HurtB.outbreak} 暴击伤害`
+        `第${round}回合,[${UserB.name}]对[${UserA.name}]造成 ${HurtB.outbreak} 暴击伤害`
       )
     } else {
       // 普通结算
       UserA.battle_blood_now -= HurtB.original
       msg.push(
-        `\n第${round}回合,[${UserB.name}]对[${UserA.name}]造成 ${HurtB.original} 普通伤害`
+        `第${round}回合,[${UserB.name}]对[${UserA.name}]造成 ${HurtB.original} 普通伤害`
       )
     }
   }
@@ -272,7 +272,7 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
         UserB.battle_blood_now >= 0 ? UserB.battle_blood_now : 0
       UserA.battle_blood_now = 0
       msg.push(
-        `\n${Sneakattack[Math.ceil(Math.random() * 5) + 1].replace(
+        `${Sneakattack[Math.ceil(Math.random() * 5) + 1].replace(
           /A|B/g,
           match => replacements[match]
         )}`
@@ -284,7 +284,7 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
     if (round >= 16) {
       /** 30个回合过去了 */
       msg.push(
-        `\n[${UserA.name}]与[${UserB.name}]势均力敌.经过了${round}回合都奈何不了对方`
+        `${UserA.name}]与[${UserB.name}]势均力敌.经过了${round}回合都奈何不了对方`
       )
       T = false
       break
@@ -306,7 +306,7 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
       //
       UserB.battle_blood_now = 0
       msg.push(
-        `\n${Sneakattack[Math.ceil(Math.random() * 5) + 1].replace(
+        `${Sneakattack[Math.ceil(Math.random() * 5) + 1].replace(
           /A|B/g,
           match => replacements[match]
         )}`
